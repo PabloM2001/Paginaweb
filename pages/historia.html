@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historia - Cooperativa San Pedro</title>
+
+    <!-- =============================================
+         LIBRERÍAS EXTERNAS (CDN)
+    ============================================= -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+    <!-- CSS del proyecto -->
+    <link rel="stylesheet" href="../css/estilos.css">
+
+    <style>
+        * { font-family: 'Outfit', sans-serif; }
+
+        /* ===== HERO ===== */
+        .hero-historia {
+            background: linear-gradient(135deg, #033E81 0%, #1a3a6b 50%, #033E81 100%);
+            padding: 100px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Partícula decorativa animada */
+        .hero-historia::before {
+            content: '';
+            position: absolute;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(79,195,247,0.06) 0%, transparent 70%);
+            top: -200px; right: -200px;
+            animation: flotarCirculo 8s ease-in-out infinite;
+        }
+
+        @keyframes flotarCirculo {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-20px, 20px); }
+        }
+
+        /* ===== LÍNEA DE TIEMPO (TIMELINE) ===== */
+
+        .tl-wrapper {
+            position: relative;
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 10px 0 40px;
+        }
+
+        /* Línea central vertical */
+        .tl-linea {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, #033E81, #4fc3f7 50%, #4EAE33);
+            transform: translateX(-50%);
+            border-radius: 4px;
+        }
+
+        /* Cada fila del timeline */
+        .tl-fila {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        /* Mitad izquierda */
+        .tl-izq {
+            width: calc(50% - 30px);
+            text-align: right;
+            padding-right: 30px;
+        }
+
+        /* Mitad derecha */
+        .tl-der {
+            width: calc(50% - 30px);
+            text-align: left;
+            padding-left: 30px;
+        }
+
+        /* Espacio vacío para el lado que no tiene tarjeta */
+        .tl-vacio {
+            width: calc(50% - 30px);
+        }
+
+        /* Punto central */
+        .tl-punto {
+            width: 22px;
+            height: 22px;
+            min-width: 22px;
+            background: #033E81;
+            border: 4px solid #4EAE33;
+            border-radius: 50%;
+            box-shadow: 0 0 0 5px rgba(3,62,129,0.15);
+            margin-top: 20px;
+            z-index: 2;
+        }
+
+        /* Tarjeta de cada hito */
+        .tl-card {
+            background: white;
+            border-radius: 14px;
+            padding: 22px 26px;
+            box-shadow: 0 6px 30px rgba(3,62,129,0.12);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .tl-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 40px rgba(3,62,129,0.2);
+        }
+
+        .tl-anio {
+            display: inline-block;
+            background: linear-gradient(135deg, #033E81, #4fc3f7);
+            color: white;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            padding: 3px 14px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+        }
+
+        .tl-titulo {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #033E81;
+            margin-bottom: 8px;
+        }
+
+        .tl-desc {
+            font-size: 0.88rem;
+            color: #666;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        .tl-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #4EAE33, #7bd65a);
+            color: white;
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 2px 10px;
+            border-radius: 20px;
+            margin-bottom: 8px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .tl-linea { left: 18px; }
+            .tl-fila { flex-direction: column; padding-left: 50px; }
+            .tl-izq, .tl-der, .tl-vacio { width: 100%; padding: 0; text-align: left; }
+            .tl-punto { position: absolute; left: 7px; top: 0; margin-top: 0; }
+            .tl-vacio { display: none; }
+        }
+
+        /* ===== ESTADÍSTICAS HISTÓRICAS ===== */
+        .stat-historia {
+            background: white;
+            border-radius: 18px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.07);
+            transition: all 0.3s ease;
+        }
+
+        .stat-historia:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+        }
+
+        /* Número grande de la estadística */
+        .stat-historia-num {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #033E81, #033E81);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- =============================================
+         HEADER - BARRA DE NAVEGACIÓN
+    ============================================= -->
+        <header class="main-header" id="mainHeader">
+        <div class="header-inner">
+
+            <a href="../index.html" class="header-logo">
+                <img src="../image/Logo Cooperativa - Blanco.png" alt="Cooperativa San Pedro">
+            </a>
+
+            <button class="nav-toggle" id="navToggle" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+
+            <nav class="main-nav" id="mainNav">
+                <ul class="nav-list">
+
+                    <li class="nav-item"><a href="../index.html" class="nav-link">Inicio</a></li>
+
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link" onclick="return false">
+                            Puntos de Servicio <i class="bi bi-chevron-down nav-arrow"></i>
+                        </a>
+                        <div class="nav-dropdown">
+                            <a href="./agencias.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-building"></i></div>
+                                <div><span class="drop-title">Agencias</span><span class="drop-sub">8 puntos en Huehuetenango</span></div>
+                            </a>
+                            <a href="./agentes.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-person-badge"></i></div>
+                                <div><span class="drop-title">Agentes Micoope</span><span class="drop-sub">Cerca de tu comunidad</span></div>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link" onclick="return false">
+                            Productos y Servicios <i class="bi bi-chevron-down nav-arrow"></i>
+                        </a>
+                        <div class="nav-dropdown">
+                            <a href="./ahorro.html" class="drop-link">
+                                <div class="drop-icon green"><i class="bi bi-piggy-bank"></i></div>
+                                <div><span class="drop-title">Ahorro</span><span class="drop-sub">Cuentas y depositos</span></div>
+                            </a>
+                            <a href="./prestamos.html" class="drop-link">
+                                <div class="drop-icon" style="background:rgba(79,195,247,0.12);color:#033E81;"><i class="bi bi-cash-coin"></i></div>
+                                <div><span class="drop-title">Prestamos</span><span class="drop-sub">Creditos accesibles</span></div>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link" onclick="return false">
+                            Nosotros <i class="bi bi-chevron-down nav-arrow"></i>
+                        </a>
+                        <div class="nav-dropdown">
+                            <a href="./about.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-people-fill"></i></div>
+                                <div><span class="drop-title">Quienes somos</span><span class="drop-sub">Nuestra cooperativa</span></div>
+                            </a>
+                            <a href="./mision-vision.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-eye-fill"></i></div>
+                                <div><span class="drop-title">Mision y Vision</span><span class="drop-sub">Nuestros valores</span></div>
+                            </a>
+                            <a href="./historia.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-clock-history"></i></div>
+                                <div><span class="drop-title">Historia</span><span class="drop-sub">Nuestros inicios</span></div>
+                            </a>
+                            <a href="./memoria-labores.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-file-earmark-text"></i></div>
+                                <div><span class="drop-title">Memoria de Labores</span><span class="drop-sub">Informes anuales</span></div>
+                            </a>
+                            <div class="drop-divider"></div>
+                            <a href="./ver-mas.html" class="drop-link">
+                                <div class="drop-icon green"><i class="bi bi-arrow-right-circle"></i></div>
+                                <div><span class="drop-title">Ver mas</span><span class="drop-sub">Todo sobre nosotros</span></div>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="./contactanos.html" class="nav-link nav-cta">
+                            <i class="bi bi-telephone-fill"></i> Contactanos
+                        </a>
+                    </li>
+
+                </ul>
+            </nav>
+
+            <div class="header-search">
+                <input type="text" class="search-input" id="searchInput" placeholder="Buscar...">
+                <button class="search-btn" onclick="toggleSearch()">
+                    <i class="bi bi-search" id="searchIcon"></i>
+                </button>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- =============================================
+         HERO - ENCABEZADO DE HISTORIA
+    ============================================= -->
+    <section class="hero-historia">
+        <div class="container position-relative" style="z-index:2; text-align:center;">
+            <span style="
+                background: rgba(79,195,247,0.15);
+                color: #4fc3f7;
+                padding: 8px 20px;
+                border-radius: 50px;
+                font-size: 0.9rem;
+                font-weight: 600;
+                letter-spacing: 1px;
+                display: inline-block;
+                margin-bottom: 20px;
+                border: 1px solid rgba(79,195,247,0.3);">
+                <i class="bi bi-clock-history me-2"></i>NOSOTROS
+            </span>
+            <h1 style="font-size: clamp(2rem, 5vw, 3.8rem); font-weight: 900; color: white; line-height: 1.15; margin-bottom: 20px;">
+                Nuestra <span style="color: #4fc3f7;">Historia</span>
+            </h1>
+            <p style="color: rgba(255,255,255,0.75); font-size: 1.1rem; max-width: 600px; margin: 0 auto 40px; line-height: 1.8;">
+                Décadas de trabajo, esfuerzo y compromiso con los socios de
+                San Pedro Soloma y toda la región de Huehuetenango.
+            </p>
+
+            <!-- Años de trayectoria -->
+            <div style="
+                display: inline-flex;
+                align-items: center;
+                gap: 15px;
+                background: rgba(255,255,255,0.08);
+                border: 1px solid rgba(255,255,255,0.15);
+                border-radius: 16px;
+                padding: 18px 35px;">
+                <i class="bi bi-award" style="font-size: 2rem; color: #4EAE33;"></i>
+                <div style="text-align: left;">
+                    <div style="font-size: 2rem; font-weight: 900; color: white; line-height: 1;">70</div>
+                    <div style="color: rgba(255,255,255,0.6); font-size: 0.85rem;">años de trayectoria</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =============================================
+         ESTADÍSTICAS HISTÓRICAS
+         Números clave del recorrido de la cooperativa
+    ============================================= -->
+    <section style="padding: 60px 0; background: #f8f9fa;">
+        <div class="container">
+            <div class="row g-4 justify-content-center">
+
+                <div class="col-6 col-md-3 reveal">
+                    <div class="stat-historia">
+                        <div class="stat-historia-num">1990</div>
+                        <div style="color: #666; font-size: 0.9rem; font-weight: 500;">Año de fundación</div>
+                    </div>
+                </div>
+
+                <div class="col-6 col-md-3 reveal">
+                    <div class="stat-historia">
+                        <div class="stat-historia-num">12k+</div>
+                        <div style="color: #666; font-size: 0.9rem; font-weight: 500;">Socios activos</div>
+                    </div>
+                </div>
+
+                <div class="col-6 col-md-3 reveal">
+                    <div class="stat-historia">
+                        <div class="stat-historia-num">8</div>
+                        <div style="color: #666; font-size: 0.9rem; font-weight: 500;">Agencias</div>
+                    </div>
+                </div>
+
+                <div class="col-6 col-md-3 reveal">
+                    <div class="stat-historia">
+                        <div class="stat-historia-num">120</div>
+                        <div style="color: #666; font-size: 0.9rem; font-weight: 500;">Colaboradores</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- =============================================
+         LÍNEA DE TIEMPO - HITOS HISTÓRICOS
+    ============================================= -->
+    <section style="padding: 80px 0; background: #f0f4fa;">
+        <div class="container">
+
+            <!-- Encabezado -->
+            <div class="text-center mb-5">
+                <p style="color:#033E81; font-weight:600; letter-spacing:4px; text-transform:uppercase; font-size:0.85rem; margin-bottom:8px;">CRONOLOGÍA</p>
+                <h2 style="font-size:2.3rem; font-weight:800; color:#033E81; margin:0;">
+                    Hitos de nuestra trayectoria
+                </h2>
+            </div>
+
+            <!-- Timeline wrapper -->
+            <div class="tl-wrapper">
+
+                <!-- Línea central -->
+                <div class="tl-linea"></div>
+
+                <!-- HITO 1 — izquierda -->
+                <div class="tl-fila">
+                    <div class="tl-izq">
+                        <div class="tl-card">
+                            <span class="tl-badge">Fundación</span>
+                            <div class="tl-anio">1990</div>
+                            <div class="tl-titulo">Nace Cooperativa San Pedro</div>
+                            <p class="tl-desc">Un grupo de 24 familias visionarias de San Pedro Soloma se unen para crear un sistema financiero solidario y accesible para toda la comunidad.</p>
+                        </div>
+                    </div>
+                    <div class="tl-punto"></div>
+                    <div class="tl-vacio"></div>
+                </div>
+
+                <!-- HITO 2 — derecha -->
+                <div class="tl-fila">
+                    <div class="tl-vacio"></div>
+                    <div class="tl-punto"></div>
+                    <div class="tl-der">
+                        <div class="tl-card">
+                            <div class="tl-anio">1993</div>
+                            <div class="tl-titulo">Primera sede propia</div>
+                            <p class="tl-desc">Adquirimos nuestro primer local permanente en el parque central de San Pedro Soloma, consolidando nuestra presencia en la comunidad.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- HITO 3 — izquierda -->
+                <div class="tl-fila">
+                    <div class="tl-izq">
+                        <div class="tl-card">
+                            <div class="tl-anio">1997</div>
+                            <div class="tl-titulo">500 socios</div>
+                            <p class="tl-desc">Alcanzamos 500 socios activos, lo que nos permitió ampliar la cartera de productos e iniciar el programa de préstamos agrícolas.</p>
+                        </div>
+                    </div>
+                    <div class="tl-punto"></div>
+                    <div class="tl-vacio"></div>
+                </div>
+
+                <!-- HITO 4 — derecha -->
+                <div class="tl-fila">
+                    <div class="tl-vacio"></div>
+                    <div class="tl-punto" style="background:#4EAE33; border-color:#033E81;"></div>
+                    <div class="tl-der">
+                        <div class="tl-card">
+                            <span class="tl-badge">Expansión</span>
+                            <div class="tl-anio">2002</div>
+                            <div class="tl-titulo">Primera sucursal: Santa Eulalia</div>
+                            <p class="tl-desc">Inauguramos nuestra primera agencia fuera de San Pedro Soloma, comenzando la expansión regional hacia Huehuetenango.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- HITO 5 — izquierda -->
+                <div class="tl-fila">
+                    <div class="tl-izq">
+                        <div class="tl-card">
+                            <div class="tl-anio">2007</div>
+                            <div class="tl-titulo">Modernización tecnológica</div>
+                            <p class="tl-desc">Implementamos nuestro primer sistema informático de gestión financiera, mejorando el servicio a los socios en todas las agencias.</p>
+                        </div>
+                    </div>
+                    <div class="tl-punto"></div>
+                    <div class="tl-vacio"></div>
+                </div>
+
+                <!-- HITO 6 — derecha -->
+                <div class="tl-fila">
+                    <div class="tl-vacio"></div>
+                    <div class="tl-punto"></div>
+                    <div class="tl-der">
+                        <div class="tl-card">
+                            <div class="tl-anio">2010</div>
+                            <div class="tl-titulo">20 años y 3,000 socios</div>
+                            <p class="tl-desc">Celebramos dos décadas de servicio con 3,000 socios, 5 agencias y el lanzamiento del programa de Educación Financiera comunitaria.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- HITO 7 — izquierda -->
+                <div class="tl-fila">
+                    <div class="tl-izq">
+                        <div class="tl-card">
+                            <span class="tl-badge">Premio</span>
+                            <div class="tl-anio">2015</div>
+                            <div class="tl-titulo">Reconocimiento Nacional MICOOPE</div>
+                            <p class="tl-desc">Recibimos el reconocimiento de Mejor Cooperativa del Año por MICOOPE, destacando nuestro modelo de inclusión financiera.</p>
+                        </div>
+                    </div>
+                    <div class="tl-punto" style="background:#4EAE33; border-color:#033E81;"></div>
+                    <div class="tl-vacio"></div>
+                </div>
+
+                <!-- HITO 8 — derecha -->
+                <div class="tl-fila">
+                    <div class="tl-vacio"></div>
+                    <div class="tl-punto"></div>
+                    <div class="tl-der">
+                        <div class="tl-card">
+                            <div class="tl-anio">2019</div>
+                            <div class="tl-titulo">Agentes y banca digital</div>
+                            <p class="tl-desc">Lanzamos la red de agentes autorizados con más de 80 puntos de servicio y la primera versión de nuestra plataforma de banca en línea.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- HITO 9 — izquierda (HOY) -->
+                <div class="tl-fila">
+                    <div class="tl-izq">
+                        <div class="tl-card" style="border:2px solid #4EAE33;">
+                            <span class="tl-badge">Hoy</span>
+                            <div class="tl-anio">2024</div>
+                            <div class="tl-titulo">Más de 12,000 socios</div>
+                            <p class="tl-desc">Somos la cooperativa más grande de Huehuetenango, con 8 agencias, 150+ agentes y 12,000 socios activos. Nuestra visión: ser líderes en Guatemala para 2030.</p>
+                        </div>
+                    </div>
+                    <div class="tl-punto" style="background:#4EAE33; border-color:white; box-shadow:0 0 0 6px rgba(78,174,51,0.3);"></div>
+                    <div class="tl-vacio"></div>
+                </div>
+
+            </div><!-- fin tl-wrapper -->
+        </div>
+    </section>
+
+    <!-- =============================================
+         CTA - CONOCE MÁS
+         Invita a explorar otras secciones
+    ============================================= -->
+    <section style="padding: 80px 0; background: #f8f9fa;">
+        <div class="container">
+            <div class="reveal" style="
+                background: linear-gradient(135deg, #033E81, #033E81);
+                border-radius: 24px;
+                padding: 60px;
+                text-align: center;">
+                <h2 style="color:white; font-weight:800; font-size:2rem; margin-bottom:15px;">
+                    Sé parte de esta historia
+                </h2>
+                <p style="color:rgba(255,255,255,0.75); max-width:500px; margin:0 auto 30px; line-height:1.8;">
+                    70 años de historia nos respaldan. Únete a la familia de
+                    Cooperativa San Pedro y comienza a construir tu futuro financiero.
+                </p>
+                <div class="d-flex flex-wrap gap-3 justify-content-center">
+                   
+                    <a href="./ver-mas.html" style="background:transparent; color:white; padding:14px 32px; border-radius:50px; text-decoration:none; font-weight:600; border:2px solid rgba(255,255,255,0.4);">
+                        <i class="bi bi-info-circle me-2"></i>Ver más
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =============================================
+         FOOTER - PIE DE PÁGINA
+    ============================================= -->
+    <footer id="contacto">
+        <div style="background: white; line-height: 0;">
+            <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#033E81" d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z"/>
+            </svg>
+        </div>
+        <div style="background: linear-gradient(135deg, #033E81 0%, #033E81 50%, #033E81 100%); padding: 60px 0 30px;">
+            <div class="container">
+                <div class="row g-4 mb-5">
+                    <div class="col-md-4">
+                        <img src="../image/Logo Cooperativa - Blanco.png" height="45" alt="Logo" class="mb-3">
+                        <p style="color:#a8c4e0; line-height:1.8;">Tu cooperativa de confianza, comprometida con tu bienestar financiero.</p>
+                        <div class="d-flex gap-3 mt-3">
+                            <a href="#" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="bi bi-facebook"></i></a>
+                            <a href="#" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="bi bi-instagram"></i></a>
+                            <a href="#" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="bi bi-whatsapp"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-md-2 offset-md-1">
+                        <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Enlaces</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><a href="../index.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Inicio</a></li>
+                            <li class="mb-2"><a href="./agencias.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Agencias</a></li>
+                            <li class="mb-2"><a href="./about.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Nosotros</a></li>
+                            <li class="mb-2"><a href="./contactanos.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Contáctanos</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-2">
+                        <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Servicios</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><a href="./ahorro.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Ahorro</a></li>
+                            <li class="mb-2"><a href="./prestamos.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Préstamos</a></li>
+                            <li class="mb-2"><a href="./agentes.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Agentes</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3">
+                        <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Contacto</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-3 d-flex align-items-center gap-3">
+                                <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i class="bi bi-telephone" style="color:#4fc3f7;"></i></div>
+                                <span style="color:#a8c4e0;">PBX 79632828</span>
+                            </li>
+                            <li class="mb-3 d-flex align-items-center gap-3">
+                                <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i class="bi bi-envelope" style="color:#4fc3f7;"></i></div>
+                                <span style="color:#a8c4e0;">info@sanpedroesmicoope.com.gt</span>
+                            </li>
+                            <li class="d-flex align-items-center gap-3">
+                                <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i class="bi bi-geo-alt" style="color:#4fc3f7;"></i></div>
+                                <span style="color:#a8c4e0;">San Pedro Soloma, Huehuetenango</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <hr style="border-color:rgba(255,255,255,0.1); margin-bottom:25px;">
+                <p style="color:#a8c4e0; margin:0; font-size:14px; text-align:center;">
+                    © 2024 Cooperativa San Pedro. Todos los derechos reservados.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
+    <script src="../js/script.js"></script>
+
+    <script>
+        /* =============================================
+           SCROLL REVEAL - Observador de intersección
+           Detecta .reveal, .reveal-izq, .reveal-der
+           y agrega la clase .visible al entrar al viewport
+        ============================================= */
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        /* Observar todos los elementos animables */
+        document.querySelectorAll('.reveal, .reveal-izq, .reveal-der').forEach(el => observer.observe(el));
+    </script>
+
+</body>
+</html>

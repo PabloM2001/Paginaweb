@@ -1,0 +1,832 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ahorro - Cooperativa San Pedro</title>
+
+    <!-- =============================================
+         LIBRERÍAS EXTERNAS (CDN)
+    ============================================= -->
+    <!-- Bootstrap CSS: estilos y componentes -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <!-- Bootstrap JS: componentes interactivos -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <!-- Google Fonts: Outfit (tipografía del proyecto) -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+    <!-- =============================================
+         ESTILOS PROPIOS DEL PROYECTO
+    ============================================= -->
+    <link rel="stylesheet" href="../css/estilos.css">
+
+    <style>
+        /* Fuente global del proyecto */
+        * { font-family: 'Outfit', sans-serif; }
+
+        /* ===== TARJETAS DE PRODUCTOS ===== */
+        /* Contenedor con perspectiva 3D para el efecto flip */
+        .producto-flip {
+            perspective: 1000px;
+            height: 360px;
+            cursor: pointer;
+        }
+
+        /* Tarjeta que rota en el eje Y */
+        .producto-inner {
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+        }
+
+        /* Activa el flip al hacer hover sobre el contenedor */
+        .producto-flip:hover .producto-inner {
+            transform: rotateY(180deg);
+        }
+
+        /* Estilos comunes para frente y reverso */
+        .producto-frente, .producto-reverso {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        /* Frente: fondo blanco con sombra */
+        .producto-frente {
+            background: white;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            text-align: center;
+        }
+
+        /* Reverso: rotado 180° para que aparezca al girar */
+        .producto-reverso {
+            transform: rotateY(180deg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            text-align: center;
+            color: white;
+        }
+
+        /* Ícono decorativo grande en el frente */
+        .producto-icono {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            animation: flotarIcono 3s infinite ease-in-out;
+        }
+
+        /* Animación de flotado para los íconos */
+        @keyframes flotarIcono {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        /* Nombre del producto en el frente */
+        .producto-nombre {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #033E81;
+            margin-bottom: 10px;
+        }
+
+        /* Descripción corta debajo del nombre */
+        .producto-desc {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        /* Tasa destacada */
+        .producto-tasa {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #033E81;
+        }
+
+        /* Etiqueta de la tasa */
+        .producto-tasa-label {
+            font-size: 0.75rem;
+            color: #aaa;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Lista de beneficios en el reverso */
+        .producto-lista {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 20px;
+            text-align: left;
+            width: 100%;
+        }
+
+        .producto-lista li {
+            padding: 5px 0;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Botón de acción en el reverso */
+        .producto-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 25px;
+            background: rgba(255,255,255,0.2);
+            border: 2px solid rgba(255,255,255,0.5);
+            border-radius: 50px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .producto-btn:hover {
+            background: white;
+            color: #033E81;
+        }
+
+        /* ===== TABLA DE TASAS ===== */
+        /* Tabla de rendimientos por plazo */
+        .tabla-tasas {
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            width: 100%;
+        }
+
+        /* Encabezado de la tabla */
+        .tabla-tasas thead th {
+            background: linear-gradient(135deg, #033E81, #033E81);
+            color: white;
+            padding: 16px 20px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+
+        /* Filas del cuerpo */
+        .tabla-tasas tbody tr {
+            transition: background 0.2s ease;
+        }
+
+        .tabla-tasas tbody tr:hover {
+            background: #f0f4ff;
+        }
+
+        .tabla-tasas tbody td {
+            padding: 14px 20px;
+            border-bottom: 1px solid #eee;
+            font-size: 0.9rem;
+            color: #444;
+        }
+
+        /* Celda de porcentaje de tasa */
+        .tasa-valor {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #4EAE33;
+        }
+
+        /* ===== BENEFICIOS ===== */
+        /* Tarjeta individual de beneficio */
+        .beneficio-card {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 15px;
+            padding: 25px 20px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .beneficio-card:hover {
+            background: rgba(255,255,255,0.18);
+            transform: translateY(-6px);
+        }
+
+        .beneficio-icono {
+            font-size: 2.2rem;
+            margin-bottom: 12px;
+            color: #4fc3f7;
+        }
+
+        .beneficio-titulo {
+            color: white;
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-bottom: 6px;
+        }
+
+        .beneficio-texto {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.8rem;
+            margin: 0;
+        }
+
+        /* ===== SCROLL REVEAL ===== */
+        /* Elementos ocultos que aparecen al hacer scroll */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =============================================
+         HEADER - BARRA DE NAVEGACIÓN PRINCIPAL
+    ============================================= -->
+        <header class="main-header" id="mainHeader">
+        <div class="header-inner">
+
+            <a href="../index.html" class="header-logo">
+                <img src="../image/Logo Cooperativa - Blanco.png" alt="Cooperativa San Pedro">
+            </a>
+
+            <button class="nav-toggle" id="navToggle" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+
+            <nav class="main-nav" id="mainNav">
+                <ul class="nav-list">
+
+                    <li class="nav-item"><a href="../index.html" class="nav-link">Inicio</a></li>
+
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link" onclick="return false">
+                            Puntos de Servicio <i class="bi bi-chevron-down nav-arrow"></i>
+                        </a>
+                        <div class="nav-dropdown">
+                            <a href="./agencias.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-building"></i></div>
+                                <div><span class="drop-title">Agencias</span><span class="drop-sub">8 puntos en Huehuetenango</span></div>
+                            </a>
+                            <a href="./agentes.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-person-badge"></i></div>
+                                <div><span class="drop-title">Agentes Micoope</span><span class="drop-sub">Cerca de tu comunidad</span></div>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link" onclick="return false">
+                            Productos y Servicios <i class="bi bi-chevron-down nav-arrow"></i>
+                        </a>
+                        <div class="nav-dropdown">
+                            <a href="./ahorro.html" class="drop-link">
+                                <div class="drop-icon green"><i class="bi bi-piggy-bank"></i></div>
+                                <div><span class="drop-title">Ahorro</span><span class="drop-sub">Cuentas y depositos</span></div>
+                            </a>
+                            <a href="./prestamos.html" class="drop-link">
+                                <div class="drop-icon" style="background:rgba(79,195,247,0.12);color:#033E81;"><i class="bi bi-cash-coin"></i></div>
+                                <div><span class="drop-title">Prestamos</span><span class="drop-sub">Creditos accesibles</span></div>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link" onclick="return false">
+                            Nosotros <i class="bi bi-chevron-down nav-arrow"></i>
+                        </a>
+                        <div class="nav-dropdown">
+                            <a href="./about.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-people-fill"></i></div>
+                                <div><span class="drop-title">Quienes somos</span><span class="drop-sub">Nuestra cooperativa</span></div>
+                            </a>
+                            <a href="./mision-vision.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-eye-fill"></i></div>
+                                <div><span class="drop-title">Mision y Vision</span><span class="drop-sub">Nuestros valores</span></div>
+                            </a>
+                            <a href="./historia.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-clock-history"></i></div>
+                                <div><span class="drop-title">Historia</span><span class="drop-sub">Nuestros inicios</span></div>
+                            </a>
+                            <a href="./memoria-labores.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-file-earmark-text"></i></div>
+                                <div><span class="drop-title">Memoria de Labores</span><span class="drop-sub">Informes anuales</span></div>
+                            </a>
+                            <div class="drop-divider"></div>
+                            <a href="./ver-mas.html" class="drop-link">
+                                <div class="drop-icon green"><i class="bi bi-arrow-right-circle"></i></div>
+                                <div><span class="drop-title">Ver mas</span><span class="drop-sub">Todo sobre nosotros</span></div>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="./contactanos.html" class="nav-link nav-cta">
+                            <i class="bi bi-telephone-fill"></i> Contactanos
+                        </a>
+                    </li>
+
+                </ul>
+            </nav>
+
+            <div class="header-search">
+                <input type="text" class="search-input" id="searchInput" placeholder="Buscar...">
+                <button class="search-btn" onclick="toggleSearch()">
+                    <i class="bi bi-search" id="searchIcon"></i>
+                </button>
+            </div>
+
+        </div>
+    </header>
+
+
+    <!-- =============================================
+         HERO - SECCIÓN PRINCIPAL
+         Fondo azul oscuro con partículas animadas
+    ============================================= -->
+    <section class="hero">
+        <!-- Partículas decorativas de fondo (definidas en estilos.css) -->
+        <div class="particula p1"></div>
+        <div class="particula p2"></div>
+        <div class="particula p3"></div>
+        <div class="particula p4"></div>
+        <div class="particula p5"></div>
+
+        <div class="hero-content text-center px-3">
+            <!-- Etiqueta de categoría -->
+            <div class="hero-tag">
+                <i class="bi bi-piggy-bank-fill"></i>
+                Productos y Servicios
+            </div>
+            <!-- Título principal con dos líneas de color diferente -->
+            <h1 class="hero-titulo">
+                <span class="linea1">Planes de</span>
+                <span class="linea2">Ahorro</span>
+            </h1>
+            <!-- Subtítulo descriptivo -->
+            <p class="hero-subtitulo">Haz crecer tu dinero con las mejores tasas del mercado. Tu futuro empieza hoy.</p>
+        </div>
+    </section>
+
+
+    <!-- =============================================
+         SECCIÓN: TIPOS DE AHORRO
+         4 tarjetas con efecto flip 3D
+    ============================================= -->
+    <section style="background: white; padding: 80px 0;">
+        <div class="container">
+
+            <!-- Encabezado de la sección -->
+            <p class="text-center" style="color:#4fc3f7;letter-spacing:4px;text-transform:uppercase;font-size:0.85rem;margin-bottom:10px;">Nuestros Productos</p>
+            <h2 class="text-center fw-bold mb-2" style="color:#033E81;font-size:2rem;">Elige tu Plan de Ahorro</h2>
+            <p class="text-center text-muted mb-5">Ofrecemos diferentes opciones adaptadas a tus necesidades financieras.</p>
+
+            <div class="row g-4">
+
+                <!-- ===================================================
+                     PLAN 1: Ahorro a la Vista
+                     Libre disposición, sin monto mínimo
+                     =================================================== -->
+                <div class="col-md-6 col-lg-3 reveal">
+                    <div class="producto-flip">
+                        <div class="producto-inner">
+                            <!-- FRENTE: ícono, nombre, tasa -->
+                            <div class="producto-frente">
+                                <div class="producto-icono" style="color:#033E81;">
+                                    <i class="bi bi-wallet2"></i>
+                                </div>
+                                <div class="producto-nombre">Ahorro a la Vista</div>
+                                <div class="producto-desc">Libre disposición en cualquier momento</div>
+                                <div class="producto-tasa">3.5%</div>
+                                <div class="producto-tasa-label">Tasa anual</div>
+                                <div style="margin-top:15px;padding:6px 16px;background:#f0f4ff;border-radius:20px;font-size:0.75rem;color:#033E81;font-weight:600;">
+                                    Sin monto mínimo
+                                </div>
+                            </div>
+                            <!-- REVERSO: beneficios + botón -->
+                            <div class="producto-reverso" style="background:linear-gradient(135deg,#033E81,#033E81);">
+                                <h4 style="font-weight:800;margin-bottom:15px;">Beneficios</h4>
+                                <ul class="producto-lista">
+                                    <li><i class="bi bi-check-circle-fill" style="color:#4fc3f7;"></i> Retiros ilimitados</li>
+                                    <li><i class="bi bi-check-circle-fill" style="color:#4fc3f7;"></i> Sin comisión de mantenimiento</li>
+                                    <li><i class="bi bi-check-circle-fill" style="color:#4fc3f7;"></i> Tarjeta de débito incluida</li>
+                                    <li><i class="bi bi-check-circle-fill" style="color:#4fc3f7;"></i> Acceso a banca en línea</li>
+                                    <li><i class="bi bi-check-circle-fill" style="color:#4fc3f7;"></i> Alertas por SMS</li>
+                                </ul>
+                                <a href="./contactanos.html" class="producto-btn">
+                                    <i class="bi bi-arrow-right-circle"></i> Abrir cuenta
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===================================================
+                     PLAN 2: Ahorro a Plazo Fijo
+                     Mayor rendimiento a cambio de plazo comprometido
+                     =================================================== -->
+                <div class="col-md-6 col-lg-3 reveal">
+                    <div class="producto-flip">
+                        <div class="producto-inner">
+                            <div class="producto-frente">
+                                <div class="producto-icono" style="color:#4EAE33;">
+                                    <i class="bi bi-calendar-check-fill"></i>
+                                </div>
+                                <div class="producto-nombre">Plazo Fijo</div>
+                                <div class="producto-desc">Compromisos de 30 a 360 días</div>
+                                <div class="producto-tasa">hasta 8%</div>
+                                <div class="producto-tasa-label">Tasa anual</div>
+                                <div style="margin-top:15px;padding:6px 16px;background:#f0fff4;border-radius:20px;font-size:0.75rem;color:#4EAE33;font-weight:600;">
+                                    Desde Q 1,000
+                                </div>
+                            </div>
+                            <div class="producto-reverso" style="background:linear-gradient(135deg,#4EAE33,#7bd65a);">
+                                <h4 style="font-weight:800;margin-bottom:15px;">Beneficios</h4>
+                                <ul class="producto-lista">
+                                    <li><i class="bi bi-check-circle-fill" style="color:#fff;"></i> Tasa garantizada al vencimiento</li>
+                                    <li><i class="bi bi-check-circle-fill" style="color:#fff;"></i> Renovación automática opcional</li>
+                                    <li><i class="bi bi-check-circle-fill" style="color:#fff;"></i> Certificado de depósito</li>
+                                    <li><i class="bi bi-check-circle-fill" style="color:#fff;"></i> Intereses mensuales o al vencer</li>
+                                    <li><i class="bi bi-check-circle-fill" style="color:#fff;"></i> Puede usarse como garantía</li>
+                                </ul>
+                                <a href="./contactanos.html" class="producto-btn">
+                                    <i class="bi bi-arrow-right-circle"></i> Invertir ahora
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===================================================
+                     PLAN 3: Ahorro Juventud
+                     Para jóvenes de 16 a 30 años
+                     =================================================== -->
+                <div class="col-md-6 col-lg-3 reveal">
+                    <div class="producto-flip">
+                        <div class="producto-inner">
+                            <div class="producto-frente">
+                                <div class="producto-icono" style="color:#4fc3f7;">
+                                    <i class="bi bi-mortarboard-fill"></i>
+                                </div>
+                                <div class="producto-nombre">Ahorro Juventud</div>
+                                <div class="producto-desc">Exclusivo para jóvenes de 16 a 30 años</div>
+                                <div class="producto-tasa">5%</div>
+                                <div class="producto-tasa-label">Tasa preferencial</div>
+                                <div style="margin-top:15px;padding:6px 16px;background:#e8f7ff;border-radius:20px;font-size:0.75rem;color:#033E81;font-weight:600;">
+                                    Sin comisiones
+                                </div>
+                            </div>
+                            <div class="producto-reverso" style="background:linear-gradient(135deg,#033E81,#4fc3f7);">
+                                <h4 style="font-weight:800;margin-bottom:15px;">Beneficios</h4>
+                                <ul class="producto-lista">
+                                    <li><i class="bi bi-check-circle-fill" style="color:#4fc3f7;"></i> Tasa preferencial garantizada</li>
+                                    <li><i class="bi bi-check-circle-fill" style="color:#4fc3f7;"></i> Educación financiera gratuita</li>
+                                    <li><i class="bi bi-check-circle-fill" style="color:#4fc3f7;"></i> Tarjeta de débito juvenil</li>
+                                    <li><i class="bi bi-check-circle-fill" style="color:#4fc3f7;"></i> App móvil MiCoope incluida</li>
+                                    <li><i class="bi bi-check-circle-fill" style="color:#4fc3f7;"></i> Premios por metas de ahorro</li>
+                                </ul>
+                                <a href="./contactanos.html" class="producto-btn">
+                                    <i class="bi bi-arrow-right-circle"></i> Abrir cuenta
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===================================================
+                     PLAN 4: Ahorro Empresarial
+                     Para personas jurídicas y negocios
+                     =================================================== -->
+                <div class="col-md-6 col-lg-3 reveal">
+                    <div class="producto-flip">
+                        <div class="producto-inner">
+                            <div class="producto-frente">
+                                <div class="producto-icono" style="color:#033E81;">
+                                    <i class="bi bi-building-fill"></i>
+                                </div>
+                                <div class="producto-nombre">Ahorro Empresarial</div>
+                                <div class="producto-desc">Soluciones financieras para tu negocio</div>
+                                <div class="producto-tasa">4.5%</div>
+                                <div class="producto-tasa-label">Tasa anual</div>
+                                <div style="margin-top:15px;padding:6px 16px;background:#f0f4f8;border-radius:20px;font-size:0.75rem;color:#033E81;font-weight:600;">
+                                    Beneficios corporativos
+                                </div>
+                            </div>
+                            <div class="producto-reverso" style="background:linear-gradient(135deg,#033E81,#033E81);">
+                                <h4 style="font-weight:800;margin-bottom:15px;">Beneficios</h4>
+                                <ul class="producto-lista">
+                                    <li><i class="bi bi-check-circle-fill" style="color:#4fc3f7;"></i> Gestión de nómina incluida</li>
+                                    <li><i class="bi bi-check-circle-fill" style="color:#4fc3f7;"></i> Transferencias masivas</li>
+                                    <li><i class="bi bi-check-circle-fill" style="color:#4fc3f7;"></i> Asesor financiero dedicado</li>
+                                    <li><i class="bi bi-check-circle-fill" style="color:#4fc3f7;"></i> Acceso multiusuario</li>
+                                    <li><i class="bi bi-check-circle-fill" style="color:#4fc3f7;"></i> Informes financieros mensuales</li>
+                                </ul>
+                                <a href="./contactanos.html" class="producto-btn">
+                                    <i class="bi bi-arrow-right-circle"></i> Solicitar info
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- =============================================
+         SECCIÓN: BENEFICIOS DEL AHORRO
+         Iconos en tarjetas sobre fondo azul gradiente
+    ============================================= -->
+    <section style="background:linear-gradient(135deg,#033E81 0%,#033E81 60%,#4EAE33 100%); padding:80px 0;">
+        <div class="container">
+
+            <p class="text-center" style="color:rgba(255,255,255,0.6);letter-spacing:4px;text-transform:uppercase;font-size:0.85rem;margin-bottom:10px;">Por qué elegirnos</p>
+            <h2 class="text-center fw-bold text-white mb-5" style="font-size:2rem;">Beneficios de Ahorrar con Nosotros</h2>
+
+            <div class="row g-4">
+
+                <!-- Beneficio 1: Seguro de depósitos -->
+                <div class="col-md-4 col-lg-2 reveal">
+                    <div class="beneficio-card">
+                        <div class="beneficio-icono"><i class="bi bi-shield-check-fill"></i></div>
+                        <div class="beneficio-titulo">Seguro de Depósitos</div>
+                        <p class="beneficio-texto">Tus ahorros están protegidos por el Fondo de Garantía</p>
+                    </div>
+                </div>
+
+                <!-- Beneficio 2: Sin comisiones -->
+                <div class="col-md-4 col-lg-2 reveal">
+                    <div class="beneficio-card">
+                        <div class="beneficio-icono"><i class="bi bi-slash-circle-fill"></i></div>
+                        <div class="beneficio-titulo">Sin Comisiones</div>
+                        <p class="beneficio-texto">Cero costos de mantenimiento en tu cuenta de ahorro</p>
+                    </div>
+                </div>
+
+                <!-- Beneficio 3: Acceso digital -->
+                <div class="col-md-4 col-lg-2 reveal">
+                    <div class="beneficio-card">
+                        <div class="beneficio-icono"><i class="bi bi-phone-fill"></i></div>
+                        <div class="beneficio-titulo">Acceso Digital</div>
+                        <p class="beneficio-texto">Consulta tu saldo 24/7 desde la app o banca web</p>
+                    </div>
+                </div>
+
+                <!-- Beneficio 4: Retiros fáciles -->
+                <div class="col-md-4 col-lg-2 reveal">
+                    <div class="beneficio-card">
+                        <div class="beneficio-icono"><i class="bi bi-cash-stack"></i></div>
+                        <div class="beneficio-titulo">Retiros Fáciles</div>
+                        <p class="beneficio-texto">Retira en cualquiera de nuestras 8 agencias y agentes</p>
+                    </div>
+                </div>
+
+                <!-- Beneficio 5: Asesoría gratuita -->
+                <div class="col-md-4 col-lg-2 reveal">
+                    <div class="beneficio-card">
+                        <div class="beneficio-icono"><i class="bi bi-person-check-fill"></i></div>
+                        <div class="beneficio-titulo">Asesoría Gratuita</div>
+                        <p class="beneficio-texto">Un asesor personal te ayuda a planificar tu ahorro</p>
+                    </div>
+                </div>
+
+                <!-- Beneficio 6: Rendimientos garantizados -->
+                <div class="col-md-4 col-lg-2 reveal">
+                    <div class="beneficio-card">
+                        <div class="beneficio-icono"><i class="bi bi-graph-up-arrow"></i></div>
+                        <div class="beneficio-titulo">Rendimientos Garantizados</div>
+                        <p class="beneficio-texto">Las mejores tasas del mercado, siempre garantizadas</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- =============================================
+         SECCIÓN: TABLA DE TASAS DE INTERÉS
+         Tasas según el plazo de inversión
+    ============================================= -->
+    <section style="background:white; padding:80px 0;">
+        <div class="container">
+
+            <p class="text-center" style="color:#4fc3f7;letter-spacing:4px;text-transform:uppercase;font-size:0.85rem;margin-bottom:10px;">Tasas Vigentes</p>
+            <h2 class="text-center fw-bold mb-2" style="color:#033E81;font-size:2rem;">Tabla de Tasas de Interés</h2>
+            <p class="text-center text-muted mb-5">Tasas anuales vigentes para depósitos a plazo fijo. Consulta condiciones con un asesor.</p>
+
+            <div class="row justify-content-center">
+                <div class="col-lg-8 reveal">
+                    <!-- Tabla de rendimientos por plazo -->
+                    <table class="tabla-tasas">
+                        <thead>
+                            <tr>
+                                <!-- Columnas de la tabla -->
+                                <th><i class="bi bi-calendar3 me-2"></i>Plazo</th>
+                                <th><i class="bi bi-currency-dollar me-2"></i>Monto Mínimo</th>
+                                <th><i class="bi bi-percent me-2"></i>Tasa Anual</th>
+                                <th><i class="bi bi-cash me-2"></i>Pago de Intereses</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Fila: 30 días -->
+                            <tr>
+                                <td><strong>30 días</strong></td>
+                                <td>Q 1,000</td>
+                                <td><span class="tasa-valor">4.5%</span></td>
+                                <td>Al vencimiento</td>
+                            </tr>
+                            <!-- Fila: 60 días -->
+                            <tr>
+                                <td><strong>60 días</strong></td>
+                                <td>Q 1,000</td>
+                                <td><span class="tasa-valor">5.0%</span></td>
+                                <td>Al vencimiento</td>
+                            </tr>
+                            <!-- Fila: 90 días -->
+                            <tr>
+                                <td><strong>90 días</strong></td>
+                                <td>Q 2,000</td>
+                                <td><span class="tasa-valor">6.0%</span></td>
+                                <td>Mensual o al vencer</td>
+                            </tr>
+                            <!-- Fila: 180 días -->
+                            <tr>
+                                <td><strong>180 días</strong></td>
+                                <td>Q 5,000</td>
+                                <td><span class="tasa-valor">7.0%</span></td>
+                                <td>Mensual o al vencer</td>
+                            </tr>
+                            <!-- Fila: 360 días -->
+                            <tr>
+                                <td><strong>360 días</strong></td>
+                                <td>Q 10,000</td>
+                                <td><span class="tasa-valor">8.0%</span></td>
+                                <td>Mensual o al vencer</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- Nota legal al pie de la tabla -->
+                    <p class="text-muted mt-3" style="font-size:0.8rem;">
+                        <i class="bi bi-info-circle me-1"></i>
+                        Las tasas mostradas son referenciales y pueden variar. Consulta con un asesor para condiciones específicas.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- =============================================
+         SECCIÓN: LLAMADO A LA ACCIÓN (CTA)
+         Invita al usuario a abrir su cuenta
+    ============================================= -->
+    <section style="background:linear-gradient(135deg,#033E81,#033E81); padding:80px 0; text-align:center;">
+        <div class="container">
+            <h2 class="text-white fw-bold mb-3" style="font-size:2.5rem;">¿Listo para Empezar a Ahorrar?</h2>
+            <p style="color:rgba(255,255,255,0.7);font-size:1.1rem;margin-bottom:40px;">
+                Abre tu cuenta hoy y comienza a crecer financieramente con la Cooperativa San Pedro.
+            </p>
+            <div class="d-flex gap-3 justify-content-center flex-wrap">
+                <!-- Botón principal: abrir cuenta -->
+                <a href="./contactanos.html" style="
+                    display:inline-flex;align-items:center;gap:10px;
+                    padding:16px 40px;background:white;color:#033E81;
+                    border-radius:50px;text-decoration:none;font-weight:700;
+                    font-size:1rem;transition:all 0.3s ease;">
+                    <i class="bi bi-piggy-bank-fill"></i> Abrir mi Cuenta
+                </a>
+                <!-- Botón secundario: ir a contacto -->
+                <a href="./contactanos.html" style="
+                    display:inline-flex;align-items:center;gap:10px;
+                    padding:16px 40px;background:transparent;color:white;
+                    border:2px solid rgba(255,255,255,0.5);
+                    border-radius:50px;text-decoration:none;font-weight:600;
+                    font-size:1rem;transition:all 0.3s ease;">
+                    <i class="bi bi-telephone"></i> Contáctanos
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- =============================================
+         FOOTER - PIE DE PÁGINA
+    ============================================= -->
+    <footer id="contacto">
+        <div style="background:white;line-height:0;">
+            <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#033E81" d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z"/>
+            </svg>
+        </div>
+        <div style="background:linear-gradient(135deg,#033E81 0%,#033E81 50%,#033E81 100%);padding:60px 0 30px;">
+            <div class="container">
+                <div class="row g-4 mb-5">
+                    <!-- Columna: Logo y descripción -->
+                    <div class="col-md-4">
+                        <img src="../image/Logo Cooperativa - Blanco.png" height="45" alt="Logo" class="mb-3">
+                        <p style="color:#a8c4e0;line-height:1.8;">Tu cooperativa de confianza, comprometida con tu bienestar financiero y el desarrollo de nuestra comunidad.</p>
+                        <div class="d-flex gap-3 mt-3">
+                            <a href="#" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="bi bi-facebook"></i></a>
+                            <a href="#" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="bi bi-instagram"></i></a>
+                            <a href="#" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="bi bi-whatsapp"></i></a>
+                        </div>
+                    </div>
+                    <!-- Columna: Enlaces -->
+                    <div class="col-md-2 offset-md-1">
+                        <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Enlaces</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><a href="../index.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Inicio</a></li>
+                            <li class="mb-2"><a href="./agencias.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Servicios</a></li>
+                            <li class="mb-2"><a href="./about.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Nosotros</a></li>
+                            <li class="mb-2"><a href="./contactanos.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Contáctanos</a></li>
+                        </ul>
+                    </div>
+                    <!-- Columna: Servicios -->
+                    <div class="col-md-2">
+                        <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Servicios</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><a href="./ahorro.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Ahorro</a></li>
+                            <li class="mb-2"><a href="./prestamos.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Créditos</a></li>
+                            <li class="mb-2"><a href="#" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Inversiones</a></li>
+                        </ul>
+                    </div>
+                    <!-- Columna: Contacto -->
+                    <div class="col-md-3">
+                        <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Contacto</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-3 d-flex align-items-center gap-3">
+                                <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i class="bi bi-telephone" style="color:#4fc3f7;"></i></div>
+                                <span style="color:#a8c4e0;">PBX 79632828</span>
+                            </li>
+                            <li class="mb-3 d-flex align-items-center gap-3">
+                                <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i class="bi bi-envelope" style="color:#4fc3f7;"></i></div>
+                                <span style="color:#a8c4e0;">info@sanpedroesmicoope.com.gt</span>
+                            </li>
+                            <li class="mb-3 d-flex align-items-center gap-3">
+                                <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i class="bi bi-geo-alt" style="color:#4fc3f7;"></i></div>
+                                <span style="color:#a8c4e0;">San Pedro Soloma, Huehuetenango</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <hr style="border-color:rgba(255,255,255,0.1);margin-bottom:25px;">
+                <p style="color:#a8c4e0;margin:0;font-size:14px;">© 2024 Cooperativa San Pedro. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- =============================================
+         SCRIPTS AL FINAL DEL BODY
+    ============================================= -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
+    <!-- Script principal del proyecto: buscador y dropdowns -->
+    <script src="../js/script.js"></script>
+
+    <script>
+        /*
+         * SCROLL REVEAL
+         * Detecta cuando los elementos .reveal entran al viewport
+         * y les agrega la clase .visible para activar la animación CSS
+         */
+        const revealObs = new IntersectionObserver((entries) => {
+            entries.forEach((entry, i) => {
+                if (entry.isIntersecting) {
+                    // Escalonado: cada elemento aparece 80ms después del anterior
+                    setTimeout(() => entry.target.classList.add('visible'), i * 80);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        // Observa todos los elementos con clase .reveal
+        document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+    </script>
+
+</body>
+</html>

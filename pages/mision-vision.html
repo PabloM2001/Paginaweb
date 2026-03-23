@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Misión y Visión - Cooperativa San Pedro</title>
+
+    <!-- =============================================
+         LIBRERÍAS EXTERNAS (CDN)
+    ============================================= -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+    <!-- CSS del proyecto -->
+    <link rel="stylesheet" href="../css/estilos.css">
+
+    <style>
+        * { font-family: 'Outfit', sans-serif; }
+
+        /* ===== HERO ===== */
+        .hero-mv {
+            background: linear-gradient(135deg, #033E81 0%, #033E81 55%, #4EAE33 100%);
+            padding: 100px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Círculo decorativo fondo */
+        .hero-mv::before {
+            content: '';
+            position: absolute;
+            width: 500px; height: 500px;
+            background: rgba(123,214,90,0.07);
+            border-radius: 50%;
+            top: -150px; right: -150px;
+        }
+
+        /* ===== TARJETA MISIÓN/VISIÓN ===== */
+        /* Tarjeta grande con degradado y acento de color */
+        .mv-card {
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+            height: 100%;
+            transition: transform 0.3s ease;
+        }
+
+        .mv-card:hover {
+            transform: translateY(-6px);
+        }
+
+        /* Cabecera de la tarjeta con icono y título */
+        .mv-card-header {
+            padding: 40px 40px 30px;
+        }
+
+        /* Cuerpo con texto de la declaración */
+        .mv-card-body {
+            padding: 0 40px 40px;
+            background: white;
+        }
+
+        /* ===== TARJETAS DE VALORES ===== */
+        /* Cada valor con icono superior y descripción */
+        .valor-card {
+            background: white;
+            border-radius: 18px;
+            padding: 35px 25px;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.07);
+            text-align: center;
+            transition: all 0.3s ease;
+            border-top: 4px solid transparent;
+            height: 100%;
+        }
+
+        .valor-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+        }
+
+        /* Color del borde superior cambia por clase */
+        .valor-card.azul  { border-top-color: #033E81; }
+        .valor-card.verde { border-top-color: #4EAE33; }
+        .valor-card.celeste { border-top-color: #4fc3f7; }
+        .valor-card.naranja { border-top-color: #4EAE33; }
+        .valor-card.rojo  { border-top-color: #033E81; }
+        .valor-card.morado { border-top-color: #4EAE33; }
+
+        /* Círculo del ícono */
+        .valor-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 18px;
+            font-size: 1.8rem;
+        }
+
+        /* ===== PRINCIPIOS COOPERATIVOS ===== */
+        /* Número del principio grande y decorativo */
+        .principio-num {
+            font-size: 4rem;
+            font-weight: 900;
+            color: rgba(13,110,253,0.1);
+            line-height: 1;
+            margin-bottom: 5px;
+        }
+
+        .principio-card {
+            background: white;
+            border-radius: 18px;
+            padding: 30px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+            transition: all 0.3s ease;
+            border-left: 4px solid #033E81;
+        }
+
+        .principio-card:hover {
+            transform: translateX(6px);
+            box-shadow: 0 12px 35px rgba(13,110,253,0.12);
+        }
+
+        /* ===== ANIMACIÓN SCROLL REVEAL ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Retraso escalonado para elementos en fila */
+        .reveal.delay-1 { transition-delay: 0.1s; }
+        .reveal.delay-2 { transition-delay: 0.2s; }
+        .reveal.delay-3 { transition-delay: 0.3s; }
+        .reveal.delay-4 { transition-delay: 0.4s; }
+        .reveal.delay-5 { transition-delay: 0.5s; }
+        .reveal.delay-6 { transition-delay: 0.6s; }
+    </style>
+</head>
+
+<body>
+
+    <!-- =============================================
+         HEADER - BARRA DE NAVEGACIÓN
+    ============================================= -->
+        <header class="main-header" id="mainHeader">
+        <div class="header-inner">
+
+            <a href="../index.html" class="header-logo">
+                <img src="../image/Logo Cooperativa - Blanco.png" alt="Cooperativa San Pedro">
+            </a>
+
+            <button class="nav-toggle" id="navToggle" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+
+            <nav class="main-nav" id="mainNav">
+                <ul class="nav-list">
+
+                    <li class="nav-item"><a href="../index.html" class="nav-link">Inicio</a></li>
+
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link" onclick="return false">
+                            Puntos de Servicio <i class="bi bi-chevron-down nav-arrow"></i>
+                        </a>
+                        <div class="nav-dropdown">
+                            <a href="./agencias.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-building"></i></div>
+                                <div><span class="drop-title">Agencias</span><span class="drop-sub">8 puntos en Huehuetenango</span></div>
+                            </a>
+                            <a href="./agentes.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-person-badge"></i></div>
+                                <div><span class="drop-title">Agentes Micoope</span><span class="drop-sub">Cerca de tu comunidad</span></div>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link" onclick="return false">
+                            Productos y Servicios <i class="bi bi-chevron-down nav-arrow"></i>
+                        </a>
+                        <div class="nav-dropdown">
+                            <a href="./ahorro.html" class="drop-link">
+                                <div class="drop-icon green"><i class="bi bi-piggy-bank"></i></div>
+                                <div><span class="drop-title">Ahorro</span><span class="drop-sub">Cuentas y depositos</span></div>
+                            </a>
+                            <a href="./prestamos.html" class="drop-link">
+                                <div class="drop-icon" style="background:rgba(79,195,247,0.12);color:#033E81;"><i class="bi bi-cash-coin"></i></div>
+                                <div><span class="drop-title">Prestamos</span><span class="drop-sub">Creditos accesibles</span></div>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link" onclick="return false">
+                            Nosotros <i class="bi bi-chevron-down nav-arrow"></i>
+                        </a>
+                        <div class="nav-dropdown">
+                            <a href="./about.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-people-fill"></i></div>
+                                <div><span class="drop-title">Quienes somos</span><span class="drop-sub">Nuestra cooperativa</span></div>
+                            </a>
+                            <a href="./mision-vision.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-eye-fill"></i></div>
+                                <div><span class="drop-title">Mision y Vision</span><span class="drop-sub">Nuestros valores</span></div>
+                            </a>
+                            <a href="./historia.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-clock-history"></i></div>
+                                <div><span class="drop-title">Historia</span><span class="drop-sub">Nuestros inicios</span></div>
+                            </a>
+                            <a href="./memoria-labores.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-file-earmark-text"></i></div>
+                                <div><span class="drop-title">Memoria de Labores</span><span class="drop-sub">Informes anuales</span></div>
+                            </a>
+                            <div class="drop-divider"></div>
+                            <a href="./ver-mas.html" class="drop-link">
+                                <div class="drop-icon green"><i class="bi bi-arrow-right-circle"></i></div>
+                                <div><span class="drop-title">Ver mas</span><span class="drop-sub">Todo sobre nosotros</span></div>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="./contactanos.html" class="nav-link nav-cta">
+                            <i class="bi bi-telephone-fill"></i> Contactanos
+                        </a>
+                    </li>
+
+                </ul>
+            </nav>
+
+            <div class="header-search">
+                <input type="text" class="search-input" id="searchInput" placeholder="Buscar...">
+                <button class="search-btn" onclick="toggleSearch()">
+                    <i class="bi bi-search" id="searchIcon"></i>
+                </button>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- =============================================
+         HERO - ENCABEZADO DE MISIÓN Y VISIÓN
+    ============================================= -->
+    <section class="hero-mv">
+        <div class="container position-relative" style="z-index:2; text-align:center;">
+            <span style="
+                background: rgba(123,214,90,0.15);
+                color: #7bd65a;
+                padding: 8px 20px;
+                border-radius: 50px;
+                font-size: 0.9rem;
+                font-weight: 600;
+                letter-spacing: 1px;
+                display: inline-block;
+                margin-bottom: 20px;
+                border: 1px solid rgba(123,214,90,0.3);">
+                <i class="bi bi-building me-2"></i>NOSOTROS
+            </span>
+            <h1 style="font-size: clamp(2rem, 5vw, 3.8rem); font-weight: 900; color: white; line-height: 1.1; margin-bottom: 20px;">
+                Nuestra <span style="color: #4fc3f7;">Misión</span> y
+                <span style="color: #7bd65a;">Visión</span>
+            </h1>
+            <p style="color: rgba(255,255,255,0.75); font-size: 1.1rem; max-width: 600px; margin: 0 auto; line-height: 1.8;">
+                Los principios y valores que guían cada decisión y acción de
+                Cooperativa San Pedro desde su fundación.
+            </p>
+        </div>
+    </section>
+
+    <!-- =============================================
+         MISIÓN Y VISIÓN - TARJETAS PRINCIPALES
+         Dos tarjetas grandes con degradado diferente
+    ============================================= -->
+    <section style="padding: 80px 0; background: #f8f9fa;">
+        <div class="container">
+            <div class="row g-4">
+
+                <!-- TARJETA MISIÓN -->
+                <div class="col-lg-6 reveal">
+                    <div class="mv-card">
+                        <!-- Cabecera azul -->
+                        <div class="mv-card-header" style="background: linear-gradient(135deg, #033E81, #033E81);">
+                            <div style="
+                                width: 65px; height: 65px;
+                                background: rgba(79,195,247,0.2);
+                                border-radius: 18px;
+                                display: flex; align-items: center; justify-content: center;
+                                font-size: 2rem; color: #4fc3f7;
+                                margin-bottom: 20px;">
+                                <i class="bi bi-bullseye"></i>
+                            </div>
+                            <h2 style="color: white; font-weight: 800; font-size: 2rem; margin-bottom: 10px;">
+                                Misión
+                            </h2>
+                            <p style="color: rgba(255,255,255,0.6); font-size: 0.9rem; margin: 0;">
+                                ¿Por qué existimos?
+                            </p>
+                        </div>
+                        <!-- Cuerpo blanco -->
+                        <div class="mv-card-body">
+                            <p style="font-size: 1.1rem; line-height: 1.9; color: #444; padding-top: 30px;">
+                                Brindar servicios financieros accesibles, seguros y de calidad a nuestros
+                                socios y comunidades, promoviendo el desarrollo económico y social
+                                mediante la solidaridad cooperativa, la responsabilidad financiera y
+                                el compromiso con el bienestar de cada miembro.
+                            </p>
+                            <!-- Cita destacada -->
+                            <blockquote style="
+                                border-left: 4px solid #033E81;
+                                padding-left: 20px;
+                                margin: 20px 0 0;
+                                color: #033E81;
+                                font-style: italic;
+                                font-weight: 600;">
+                                "Juntos construimos el futuro financiero de Guatemala"
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TARJETA VISIÓN -->
+                <div class="col-lg-6 reveal delay-2">
+                    <div class="mv-card">
+                        <!-- Cabecera verde -->
+                        <div class="mv-card-header" style="background: linear-gradient(135deg, #4EAE33, #0a6622);">
+                            <div style="
+                                width: 65px; height: 65px;
+                                background: rgba(123,214,90,0.2);
+                                border-radius: 18px;
+                                display: flex; align-items: center; justify-content: center;
+                                font-size: 2rem; color: #7bd65a;
+                                margin-bottom: 20px;">
+                                <i class="bi bi-eye"></i>
+                            </div>
+                            <h2 style="color: white; font-weight: 800; font-size: 2rem; margin-bottom: 10px;">
+                                Visión
+                            </h2>
+                            <p style="color: rgba(255,255,255,0.6); font-size: 0.9rem; margin: 0;">
+                                ¿Hacia dónde vamos?
+                            </p>
+                        </div>
+                        <!-- Cuerpo blanco -->
+                        <div class="mv-card-body">
+                            <p style="font-size: 1.1rem; line-height: 1.9; color: #444; padding-top: 30px;">
+                                Ser la cooperativa de ahorro y crédito líder de Guatemala para 2030,
+                                reconocida por su innovación tecnológica, cobertura nacional y el
+                                impacto positivo que genera en la calidad de vida de sus socios,
+                                sus familias y las comunidades donde opera.
+                            </p>
+                            <!-- Cita destacada -->
+                            <blockquote style="
+                                border-left: 4px solid #4EAE33;
+                                padding-left: 20px;
+                                margin: 20px 0 0;
+                                color: #4EAE33;
+                                font-style: italic;
+                                font-weight: 600;">
+                                "La cooperativa más confiable de Guatemala para 2030"
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- =============================================
+         NUESTROS VALORES
+         6 tarjetas con los valores institucionales
+    ============================================= -->
+    <section style="padding: 80px 0; background: white;">
+        <div class="container">
+
+            <!-- Encabezado de sección -->
+            <div class="text-center mb-5 reveal">
+                <span style="color: #033E81; font-weight: 600; letter-spacing: 1px; font-size: 0.9rem;">IDENTIDAD</span>
+                <h2 style="font-size: 2.3rem; font-weight: 800; color: #033E81; margin-top: 8px;">
+                    Nuestros Valores
+                </h2>
+                <p style="color: #666; max-width: 500px; margin: 0 auto;">
+                    Los pilares que definen nuestra cultura organizacional y nuestro compromiso contigo
+                </p>
+            </div>
+
+            <!-- Grid 3x2 de valores -->
+            <div class="row g-4">
+
+                <!-- Valor 1: Integridad -->
+                <div class="col-md-6 col-lg-4 reveal delay-1">
+                    <div class="valor-card azul">
+                        <div class="valor-icon" style="background: rgba(13,110,253,0.1);">
+                            <i class="bi bi-shield-check" style="color: #033E81;"></i>
+                        </div>
+                        <h5 style="font-weight: 700; color: #033E81; margin-bottom: 10px;">Integridad</h5>
+                        <p style="color: #666; font-size: 0.92rem; line-height: 1.7; margin: 0;">
+                            Actuamos con honestidad y transparencia en cada operación,
+                            ganándonos la confianza de nuestros socios día a día.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Valor 2: Solidaridad -->
+                <div class="col-md-6 col-lg-4 reveal delay-2">
+                    <div class="valor-card verde">
+                        <div class="valor-icon" style="background: rgba(78,174,51,0.1);">
+                            <i class="bi bi-people" style="color: #4EAE33;"></i>
+                        </div>
+                        <h5 style="font-weight: 700; color: #033E81; margin-bottom: 10px;">Solidaridad</h5>
+                        <p style="color: #666; font-size: 0.92rem; line-height: 1.7; margin: 0;">
+                            El éxito de un socio es el éxito de todos. Trabajamos juntos
+                            para crecer y prosperar como comunidad.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Valor 3: Compromiso -->
+                <div class="col-md-6 col-lg-4 reveal delay-3">
+                    <div class="valor-card celeste">
+                        <div class="valor-icon" style="background: rgba(79,195,247,0.1);">
+                            <i class="bi bi-heart" style="color: #4fc3f7;"></i>
+                        </div>
+                        <h5 style="font-weight: 700; color: #033E81; margin-bottom: 10px;">Compromiso</h5>
+                        <p style="color: #666; font-size: 0.92rem; line-height: 1.7; margin: 0;">
+                            Nos comprometemos con el bienestar financiero de cada socio
+                            y con el desarrollo de las comunidades que servimos.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Valor 4: Innovación -->
+                <div class="col-md-6 col-lg-4 reveal delay-4">
+                    <div class="valor-card naranja">
+                        <div class="valor-icon" style="background: rgba(243,156,18,0.1);">
+                            <i class="bi bi-lightbulb" style="color: #4EAE33;"></i>
+                        </div>
+                        <h5 style="font-weight: 700; color: #033E81; margin-bottom: 10px;">Innovación</h5>
+                        <p style="color: #666; font-size: 0.92rem; line-height: 1.7; margin: 0;">
+                            Adoptamos tecnología y nuevas soluciones para hacer los
+                            servicios financieros más accesibles y eficientes.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Valor 5: Responsabilidad -->
+                <div class="col-md-6 col-lg-4 reveal delay-5">
+                    <div class="valor-card rojo">
+                        <div class="valor-icon" style="background: rgba(231,76,60,0.1);">
+                            <i class="bi bi-trophy" style="color: #033E81;"></i>
+                        </div>
+                        <h5 style="font-weight: 700; color: #033E81; margin-bottom: 10px;">Responsabilidad</h5>
+                        <p style="color: #666; font-size: 0.92rem; line-height: 1.7; margin: 0;">
+                            Tomamos decisiones pensando en el impacto a largo plazo
+                            para nuestros socios, empleados y el medio ambiente.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Valor 6: Equidad -->
+                <div class="col-md-6 col-lg-4 reveal delay-6">
+                    <div class="valor-card morado">
+                        <div class="valor-icon" style="background: rgba(3,62,129,0.10);">
+                            <i class="bi bi-balance-scale" style="color: #4EAE33;"></i>
+                        </div>
+                        <h5 style="font-weight: 700; color: #033E81; margin-bottom: 10px;">Equidad</h5>
+                        <p style="color: #666; font-size: 0.92rem; line-height: 1.7; margin: 0;">
+                            Tratamos a todos nuestros socios con igualdad, justicia
+                            y respeto, sin distinción de ningún tipo.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- =============================================
+         7 PRINCIPIOS COOPERATIVOS
+         Los principios internacionales del cooperativismo
+    ============================================= -->
+    <section style="padding: 80px 0; background: #f8f9fa;">
+        <div class="container">
+
+            <!-- Encabezado -->
+            <div class="text-center mb-5 reveal">
+                <span style="color: #4EAE33; font-weight: 600; letter-spacing: 1px; font-size: 0.9rem;">COOPERATIVISMO</span>
+                <h2 style="font-size: 2.3rem; font-weight: 800; color: #033E81; margin-top: 8px;">
+                    Principios Cooperativos
+                </h2>
+                <p style="color: #666; max-width: 600px; margin: 0 auto;">
+                    Seguimos los 7 principios universales del cooperativismo establecidos
+                    por la Alianza Cooperativa Internacional
+                </p>
+            </div>
+
+            <!-- Lista de 7 principios en 2 columnas -->
+            <div class="row g-4">
+
+                <!-- Principio 1 -->
+                <div class="col-lg-6 reveal">
+                    <div class="principio-card">
+                        <div class="principio-num">01</div>
+                        <h5 style="font-weight: 700; color: #033E81; margin-bottom: 8px;">
+                            Membresía Abierta y Voluntaria
+                        </h5>
+                        <p style="color: #666; margin: 0; font-size: 0.95rem; line-height: 1.7;">
+                            Las cooperativas son organizaciones voluntarias, abiertas para todas
+                            las personas capaces de utilizar sus servicios.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Principio 2 -->
+                <div class="col-lg-6 reveal delay-1">
+                    <div class="principio-card">
+                        <div class="principio-num">02</div>
+                        <h5 style="font-weight: 700; color: #033E81; margin-bottom: 8px;">
+                            Control Democrático de los Socios
+                        </h5>
+                        <p style="color: #666; margin: 0; font-size: 0.95rem; line-height: 1.7;">
+                            Los socios participan activamente en la definición de políticas
+                            y en la toma de decisiones. Un socio = un voto.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Principio 3 -->
+                <div class="col-lg-6 reveal">
+                    <div class="principio-card">
+                        <div class="principio-num">03</div>
+                        <h5 style="font-weight: 700; color: #033E81; margin-bottom: 8px;">
+                            Participación Económica de los Socios
+                        </h5>
+                        <p style="color: #666; margin: 0; font-size: 0.95rem; line-height: 1.7;">
+                            Los socios contribuyen equitativamente y controlan
+                            democráticamente el capital de su cooperativa.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Principio 4 -->
+                <div class="col-lg-6 reveal delay-1">
+                    <div class="principio-card">
+                        <div class="principio-num">04</div>
+                        <h5 style="font-weight: 700; color: #033E81; margin-bottom: 8px;">
+                            Autonomía e Independencia
+                        </h5>
+                        <p style="color: #666; margin: 0; font-size: 0.95rem; line-height: 1.7;">
+                            Las cooperativas son organizaciones autónomas de autoayuda,
+                            controladas por sus socios.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Principio 5 -->
+                <div class="col-lg-6 reveal">
+                    <div class="principio-card">
+                        <div class="principio-num">05</div>
+                        <h5 style="font-weight: 700; color: #033E81; margin-bottom: 8px;">
+                            Educación, Formación e Información
+                        </h5>
+                        <p style="color: #666; margin: 0; font-size: 0.95rem; line-height: 1.7;">
+                            Ofrecemos educación y formación a socios, directivos y empleados
+                            para contribuir al desarrollo de sus comunidades.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Principio 6 -->
+                <div class="col-lg-6 reveal delay-1">
+                    <div class="principio-card">
+                        <div class="principio-num">06</div>
+                        <h5 style="font-weight: 700; color: #033E81; margin-bottom: 8px;">
+                            Cooperación entre Cooperativas
+                        </h5>
+                        <p style="color: #666; margin: 0; font-size: 0.95rem; line-height: 1.7;">
+                            Trabajamos conjuntamente con otras cooperativas a través
+                            de estructuras locales, nacionales e internacionales.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Principio 7 (centrado) -->
+                <div class="col-lg-6 offset-lg-3 reveal">
+                    <div class="principio-card" style="border-left-color: #4EAE33;">
+                        <div class="principio-num" style="color: rgba(78,174,51,0.1);">07</div>
+                        <h5 style="font-weight: 700; color: #033E81; margin-bottom: 8px;">
+                            Compromiso con la Comunidad
+                        </h5>
+                        <p style="color: #666; margin: 0; font-size: 0.95rem; line-height: 1.7;">
+                            Trabajamos para el desarrollo sostenible de nuestras comunidades
+                            por medio de políticas aprobadas por nuestros socios.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- =============================================
+         CTA - LLAMADO A LA ACCIÓN
+         Invita al usuario a conocer más o asociarse
+    ============================================= -->
+    <section style="padding: 80px 0; background: white;">
+        <div class="container">
+            <div class="reveal" style="
+                background: linear-gradient(135deg, #033E81, #033E81);
+                border-radius: 24px;
+                padding: 60px;
+                text-align: center;">
+                <h2 style="color: white; font-weight: 800; font-size: 2rem; margin-bottom: 15px;">
+                    Sé parte de nuestra cooperativa
+                </h2>
+                <p style="color: rgba(255,255,255,0.75); max-width: 500px; margin: 0 auto 30px; line-height: 1.8;">
+                    Juntos compartimos los mismos valores y trabajamos por un mismo objetivo:
+                    tu bienestar financiero y el de tu familia.
+                </p>
+                <div class="d-flex flex-wrap gap-3 justify-content-center">
+                    <a href="./about.html" style="
+                        background: linear-gradient(135deg, #033E81, #4fc3f7);
+                        color: white; padding: 14px 32px;
+                        border-radius: 50px; text-decoration: none;
+                        font-weight: 600; transition: all 0.3s;">
+                        <i class="bi bi-people me-2"></i>Asociarme
+                    </a>
+                    <a href="./historia.html" style="
+                        background: transparent; color: white;
+                        padding: 14px 32px; border-radius: 50px;
+                        text-decoration: none; font-weight: 600;
+                        border: 2px solid rgba(255,255,255,0.4);
+                        transition: all 0.3s;">
+                        <i class="bi bi-clock-history me-2"></i>Nuestra Historia
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =============================================
+         FOOTER - PIE DE PÁGINA
+    ============================================= -->
+    <footer id="contacto">
+        <div style="background: white; line-height: 0;">
+            <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#033E81" d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z"/>
+            </svg>
+        </div>
+        <div style="background: linear-gradient(135deg, #033E81 0%, #033E81 50%, #033E81 100%); padding: 60px 0 30px;">
+            <div class="container">
+                <div class="row g-4 mb-5">
+                    <div class="col-md-4">
+                        <img src="../image/Logo Cooperativa - Blanco.png" height="45" alt="Logo" class="mb-3">
+                        <p style="color:#a8c4e0; line-height:1.8;">Tu cooperativa de confianza, comprometida con tu bienestar financiero.</p>
+                        <div class="d-flex gap-3 mt-3">
+                            <a href="#" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="bi bi-facebook"></i></a>
+                            <a href="#" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="bi bi-instagram"></i></a>
+                            <a href="#" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="bi bi-whatsapp"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-md-2 offset-md-1">
+                        <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Enlaces</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><a href="../index.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Inicio</a></li>
+                            <li class="mb-2"><a href="./agencias.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Agencias</a></li>
+                            <li class="mb-2"><a href="./about.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Nosotros</a></li>
+                            <li class="mb-2"><a href="./contactanos.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Contáctanos</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-2">
+                        <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Servicios</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><a href="./ahorro.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Ahorro</a></li>
+                            <li class="mb-2"><a href="./prestamos.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Préstamos</a></li>
+                            <li class="mb-2"><a href="./agentes.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Agentes</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3">
+                        <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Contacto</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-3 d-flex align-items-center gap-3">
+                                <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i class="bi bi-telephone" style="color:#4fc3f7;"></i></div>
+                                <span style="color:#a8c4e0;">+502 1234-5678</span>
+                            </li>
+                            <li class="mb-3 d-flex align-items-center gap-3">
+                                <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i class="bi bi-envelope" style="color:#4fc3f7;"></i></div>
+                                <span style="color:#a8c4e0;">info@sanpedro.com</span>
+                            </li>
+                            <li class="d-flex align-items-center gap-3">
+                                <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i class="bi bi-geo-alt" style="color:#4fc3f7;"></i></div>
+                                <span style="color:#a8c4e0;">Guatemala</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <hr style="border-color:rgba(255,255,255,0.1); margin-bottom:25px;">
+                <p style="color:#a8c4e0; margin:0; font-size:14px; text-align:center;">
+                    © 2024 Cooperativa San Pedro. Todos los derechos reservados.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
+    <script src="../js/script.js"></script>
+
+    <script>
+        /* =============================================
+           SCROLL REVEAL CON INTERSECTIONOBSERVER
+        ============================================= */
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.12 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+
+</body>
+</html>

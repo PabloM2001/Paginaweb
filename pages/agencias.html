@@ -1,0 +1,902 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agencias - Cooperativa San Pedro</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+    <!-- =============================================
+         ESTILOS PROPIOS — ruta corregida ../css/
+    ============================================= -->
+    <link rel="stylesheet" href="../css/estilos.css">
+
+    <style>
+        /* Fuente global */
+        * { font-family: 'Outfit', sans-serif; }
+
+        /* ===== BARRA DE FILTROS STICKY ===== */
+        /* Se pega arriba del viewport al hacer scroll */
+        .filtros-sticky {
+            background: white;
+            padding: 18px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 68px;
+            z-index: 100;
+            border-bottom: 2px solid #f0f4f8;
+        }
+
+        /* ===== SECCIÓN DE ESTADÍSTICAS RÁPIDAS ===== */
+        /* Números grandes con datos de presencia */
+        .presencia-num {
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: #033E81;
+            line-height: 1;
+        }
+
+        /* ===== CARD DE SERVICIO ===== */
+        /* Tarjeta de ícono con descripción de servicio disponible */
+        .servicio-card {
+            background: white;
+            border-radius: 16px;
+            padding: 25px 20px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .servicio-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(3,62,129,0.12);
+        }
+
+        /* Círculo de ícono dentro de servicio-card */
+        .servicio-icon {
+            width: 60px; height: 60px;
+            border-radius: 18px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.6rem;
+            margin: 0 auto 15px;
+        }
+
+        /* ===== TARJETA DE HORARIO ===== */
+        .horario-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px 25px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+        }
+
+        /* Círculo de ícono del horario */
+        .horario-icon {
+            width: 50px; height: 50px; min-width: 50px;
+            border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.4rem;
+        }
+
+        /* ===== CORRECCIÓN: agencia-item display ===== */
+        /* Cuando JS oculta una card al filtrar */
+        .agencia-item[style*="display: none"] { display: none !important; }
+
+        /* ===== SCROLL REVEAL ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        .reveal.delay-1 { transition-delay: 0.1s; }
+        .reveal.delay-2 { transition-delay: 0.2s; }
+        .reveal.delay-3 { transition-delay: 0.3s; }
+        .reveal.delay-4 { transition-delay: 0.4s; }
+    </style>
+</head>
+
+<body>
+
+    <!-- =============================================
+         HEADER — Logo, menú y buscador
+         Todas las rutas usan ../ (un nivel arriba)
+    ============================================= -->
+        <header class="main-header" id="mainHeader">
+        <div class="header-inner">
+
+            <a href="../index.html" class="header-logo">
+                <img src="../image/Logo Cooperativa - Blanco.png" alt="Cooperativa San Pedro">
+            </a>
+
+            <button class="nav-toggle" id="navToggle" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+
+            <nav class="main-nav" id="mainNav">
+                <ul class="nav-list">
+
+                    <li class="nav-item"><a href="../index.html" class="nav-link">Inicio</a></li>
+
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link" onclick="return false">
+                            Puntos de Servicio <i class="bi bi-chevron-down nav-arrow"></i>
+                        </a>
+                        <div class="nav-dropdown">
+                            <a href="./agencias.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-building"></i></div>
+                                <div><span class="drop-title">Agencias</span><span class="drop-sub">8 puntos en Huehuetenango</span></div>
+                            </a>
+                            <a href="./agentes.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-person-badge"></i></div>
+                                <div><span class="drop-title">Agentes Micoope</span><span class="drop-sub">Cerca de tu comunidad</span></div>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link" onclick="return false">
+                            Productos y Servicios <i class="bi bi-chevron-down nav-arrow"></i>
+                        </a>
+                        <div class="nav-dropdown">
+                            <a href="./ahorro.html" class="drop-link">
+                                <div class="drop-icon green"><i class="bi bi-piggy-bank"></i></div>
+                                <div><span class="drop-title">Ahorro</span><span class="drop-sub">Cuentas y depositos</span></div>
+                            </a>
+                            <a href="./prestamos.html" class="drop-link">
+                                <div class="drop-icon" style="background:rgba(79,195,247,0.12);color:#033E81;"><i class="bi bi-cash-coin"></i></div>
+                                <div><span class="drop-title">Prestamos</span><span class="drop-sub">Creditos accesibles</span></div>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link" onclick="return false">
+                            Nosotros <i class="bi bi-chevron-down nav-arrow"></i>
+                        </a>
+                        <div class="nav-dropdown">
+                            <a href="./about.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-people-fill"></i></div>
+                                <div><span class="drop-title">Quienes somos</span><span class="drop-sub">Nuestra cooperativa</span></div>
+                            </a>
+                            <a href="./mision-vision.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-eye-fill"></i></div>
+                                <div><span class="drop-title">Mision y Vision</span><span class="drop-sub">Nuestros valores</span></div>
+                            </a>
+                            <a href="./historia.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-clock-history"></i></div>
+                                <div><span class="drop-title">Historia</span><span class="drop-sub">Nuestros inicios</span></div>
+                            </a>
+                            <a href="./memoria-labores.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-file-earmark-text"></i></div>
+                                <div><span class="drop-title">Memoria de Labores</span><span class="drop-sub">Informes anuales</span></div>
+                            </a>
+                            <div class="drop-divider"></div>
+                            <a href="./ver-mas.html" class="drop-link">
+                                <div class="drop-icon green"><i class="bi bi-arrow-right-circle"></i></div>
+                                <div><span class="drop-title">Ver mas</span><span class="drop-sub">Todo sobre nosotros</span></div>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="./contactanos.html" class="nav-link nav-cta">
+                            <i class="bi bi-telephone-fill"></i> Contactanos
+                        </a>
+                    </li>
+
+                </ul>
+            </nav>
+
+            <div class="header-search">
+                <input type="text" class="search-input" id="searchInput" placeholder="Buscar...">
+                <button class="search-btn" onclick="toggleSearch()">
+                    <i class="bi bi-search" id="searchIcon"></i>
+                </button>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- =============================================
+         HERO — Encabezado de la sección de Agencias
+         Partículas animadas + título + estadísticas
+    ============================================= -->
+    <section class="hero">
+        <!-- Partículas animadas de fondo -->
+        <div class="particula p1"></div>
+        <div class="particula p2"></div>
+        <div class="particula p3"></div>
+        <div class="particula p4"></div>
+        <div class="particula p5"></div>
+
+        <div class="hero-content">
+            <!-- Tag superior -->
+            <div class="hero-tag">
+                <i class="bi bi-geo-alt-fill"></i>
+                Puntos de Servicio
+            </div>
+            <!-- Título principal -->
+            <h1 class="hero-titulo">
+                <span class="linea1">Nuestras</span>
+                <span class="linea2">Agencias</span>
+            </h1>
+            <p class="hero-subtitulo">
+                8 agencias en Huehuetenango para atenderte donde nos necesitas.
+                Encuentre su agencia más cercana y visítenos.
+            </p>
+            <!-- Estadísticas rápidas animadas -->
+        </div>
+
+        
+    </section>
+
+    <!-- =============================================
+         BARRA STICKY DE FILTROS Y BÚSQUEDA
+         Se pega en la parte superior al hacer scroll.
+         filtrar() y buscar() están en ../js/script.js
+    ============================================= -->
+   
+
+    <!-- =============================================
+         GRID DE AGENCIAS — 8 flip cards con imagen grande
+         Al hacer hover la card gira mostrando el mapa
+    ============================================= -->
+    <section class="agencias-grid">
+        <div class="container">
+            <div class="row g-4" id="gridAgencias">
+
+                <!-- =====================================================
+                     AGENCIA 1 — Central (San Pedro Soloma)
+                     data-tipo="principal" para el filtro JS
+                ===================================================== -->
+                <div class="col-md-6 col-lg-4 agencia-item ag-item reveal delay-1"
+                     data-tipo="principal" data-nombre="agencia central san pedro soloma">
+                    <div class="flip-container">
+                        <div class="flip-card">
+
+                            <!-- FRENTE: imagen grande (80%) + info mínima abajo -->
+                            <div class="flip-front">
+                                <!-- Imagen que ocupa el 80% de la card -->
+                                <div class="ag-img-wrap">
+                                    <img class="ag-img" src="../image/1.jfif" alt="Agencia Central">
+                                    <!-- Badge de tipo en la imagen -->
+                                    <span class="ag-badge" style="background:#033E81;">⭐ Principal</span>
+                                    <span class="ag-tipo-badge">Agencia Central</span>
+                                </div>
+                                <!-- Info: nombre, teléfono y horario (20% restante) -->
+                                <div class="ag-info">
+                                    <h5 class="ag-nombre">Agencia Central</h5>
+                                    <div class="ag-detalle">
+                                        <i class="bi bi-geo-alt-fill" style="color:#033E81;"></i>
+                                        <span>San Pedro Soloma, Huehuetenango.</span>
+                                    </div>
+                                    <div class="ag-detalle">
+                                        <i class="bi bi-clock-fill" style="color:#4EAE33;"></i>
+                                        <span>Lun-Vie 8am-4:30pm · Sáb 9am-12pm</span>
+                                    </div>
+                                    <div class="flip-hint"><i class="bi bi-arrow-repeat"></i> Girar para ver mapa</div>
+                                </div>
+                            </div>
+
+                            <!-- REVERSO: gradiente de marca + imagen circular + botón mapa -->
+                            <div class="flip-back" style="background: linear-gradient(135deg, #033E81, #4EAE33);">
+                                <div class="flip-back-icono">
+                                    <img src="../image/1.jfif" alt="Agencia Central"
+                                        style="width:80px;height:80px;object-fit:cover;border-radius:50%;border:3px solid rgba(255,255,255,0.5);box-shadow:0 4px 12px rgba(0,0,0,0.3);">
+                                </div>
+                                <h4>Agencia Central</h4>
+                                <p style="font-size:0.85rem; opacity:0.85;">San Pedro Soloma, Huehuetenango<br>PBX 7963-2828</p>
+                                <a href="https://www.google.com/maps/place/Cooperativa+San+Pedro/@15.6591349,-91.4320282,21z" target="_blank" class="flip-back-btn">
+                                    <i class="bi bi-map-fill"></i> Ver en mapa
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- =====================================================
+                     AGENCIA 2 — Santa Eulalia
+                ===================================================== -->
+                <div class="col-md-6 col-lg-4 agencia-item ag-item reveal delay-2"
+                     data-tipo="sucursal" data-nombre="agencia santa eulalia">
+                    <div class="flip-container">
+                        <div class="flip-card">
+                            <div class="flip-front">
+                                <div class="ag-img-wrap">
+                                    <img class="ag-img" src="../image/2.jfif" alt="Santa Eulalia">
+                                    <span class="ag-badge" style="background:#4EAE33;">02</span>
+                                    <span class="ag-tipo-badge">Sucursal</span>
+                                </div>
+                                <div class="ag-info">
+                                    <h5 class="ag-nombre">Agencia Santa Eulalia</h5>
+                                    <div class="ag-detalle">
+                                        <i class="bi bi-geo-alt-fill" style="color:#033E81;"></i>
+                                        <span>Santa Eulalia, Huehuetenango.</span>
+                                    </div>
+                                    <div class="ag-detalle">
+                                        <i class="bi bi-clock-fill" style="color:#4EAE33;"></i>
+                                        <span>Lun-Vie 8am-4:30pm · Sáb 9am-12pm</span>
+                                    </div>
+                                    <div class="flip-hint"><i class="bi bi-arrow-repeat"></i> Girar para ver mapa</div>
+                                </div>
+                            </div>
+                            <div class="flip-back" style="background: linear-gradient(135deg, #4EAE33, #033E81);">
+                                <div class="flip-back-icono">
+                                    <img src="../image/2.jfif" alt="Santa Eulalia"
+                                        style="width:80px;height:80px;object-fit:cover;border-radius:50%;border:3px solid rgba(255,255,255,0.5);box-shadow:0 4px 12px rgba(0,0,0,0.3);">
+                                </div>
+                                <h4>Agencia Santa Eulalia</h4>
+                                <p style="font-size:0.85rem; opacity:0.85;">Santa Eulalia, Huehuetenango<br>PBX 7963-2800</p>
+                                <a href="https://maps.app.goo.gl/t4CHzepnHpG5XZ7r7" target="_blank" class="flip-back-btn">
+                                    <i class="bi bi-map-fill"></i> Ver en mapa
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- =====================================================
+                     AGENCIA 3 — Santa Cruz Barillas
+                ===================================================== -->
+                <div class="col-md-6 col-lg-4 agencia-item ag-item reveal delay-3"
+                     data-tipo="sucursal" data-nombre="agencia santa cruz barillas">
+                    <div class="flip-container">
+                        <div class="flip-card">
+                            <div class="flip-front">
+                                <div class="ag-img-wrap">
+                                    <img class="ag-img" src="../image/3.jfif" alt="Santa Cruz Barillas">
+                                    <span class="ag-badge" style="background:#033E81;">03</span>
+                                    <span class="ag-tipo-badge">Sucursal</span>
+                                </div>
+                                <div class="ag-info">
+                                    <h5 class="ag-nombre">Agencia Santa Cruz Barillas</h5>
+                                    <div class="ag-detalle">
+                                        <i class="bi bi-geo-alt-fill" style="color:#033E81;"></i>
+                                        <span>Santa Cruz Barillas, Huehuetenango.</span>
+                                    </div>
+                                    <div class="ag-detalle">
+                                        <i class="bi bi-clock-fill" style="color:#4EAE33;"></i>
+                                        <span>Lun-Vie 8am-4:30pm · Sáb 9am-12pm</span>
+                                    </div>
+                                    <div class="flip-hint"><i class="bi bi-arrow-repeat"></i> Girar para ver mapa</div>
+                                </div>
+                            </div>
+                            <div class="flip-back" style="background: linear-gradient(135deg, #033E81, #033E81);">
+                                <div class="flip-back-icono">
+                                    <img src="../image/3.jfif" alt="Santa Cruz Barillas"
+                                        style="width:80px;height:80px;object-fit:cover;border-radius:50%;border:3px solid rgba(255,255,255,0.5);box-shadow:0 4px 12px rgba(0,0,0,0.3);">
+                                </div>
+                                <h4>Agencia Sta. Cruz Barillas</h4>
+                                <p style="font-size:0.85rem; opacity:0.85;">Santa Cruz Barillas, Huehuetenango<br>PBX 7963-2888</p>
+                                <a href="https://www.google.com/maps/place/Cooperativa+San+Pedro+R.L./@15.8024603,-91.3150502,21z" target="_blank" class="flip-back-btn">
+                                    <i class="bi bi-map-fill"></i> Ver en mapa
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- =====================================================
+                     AGENCIA 4 — Huehuetenango Ciudad
+                ===================================================== -->
+                <div class="col-md-6 col-lg-4 agencia-item ag-item reveal delay-4"
+                     data-tipo="sucursal" data-nombre="agencia huehuetenango ciudad">
+                    <div class="flip-container">
+                        <div class="flip-card">
+                            <div class="flip-front">
+                                <div class="ag-img-wrap">
+                                    <img class="ag-img" src="../image/1.jfif" alt="Huehuetenango">
+                                    <span class="ag-badge" style="background:#4EAE33;">04</span>
+                                    <span class="ag-tipo-badge">Sucursal</span>
+                                </div>
+                                <div class="ag-info">
+                                    <h5 class="ag-nombre">Agencia Huehuetenango</h5>
+                                    <div class="ag-detalle">
+                                        <i class="bi bi-geo-alt-fill" style="color:#033E81;"></i>
+                                        <span>3a Calle 6-47, Z.1, Huehuetenango.</span>
+                                    </div>
+                                    <div class="ag-detalle">
+                                        <i class="bi bi-clock-fill" style="color:#4EAE33;"></i>
+                                        <span>Lun-Vie 8am-4:30pm · Sáb 9am-12pm</span>
+                                    </div>
+                                    <div class="flip-hint"><i class="bi bi-arrow-repeat"></i> Girar para ver mapa</div>
+                                </div>
+                            </div>
+                            <div class="flip-back" style="background: linear-gradient(135deg, #4EAE33, #033E81);">
+                                <div class="flip-back-icono">
+                                    <img src="../image/1.jfif" alt="Huehuetenango"
+                                        style="width:80px;height:80px;object-fit:cover;border-radius:50%;border:3px solid rgba(255,255,255,0.5);box-shadow:0 4px 12px rgba(0,0,0,0.3);">
+                                </div>
+                                <h4>Agencia Huehuetenango</h4>
+                                <p style="font-size:0.85rem; opacity:0.85;">3a Calle 6-47, Zona 1, Huehuetenango<br>PBX 7963-2844</p>
+                                <a href="https://www.google.com/maps/place/3a+Calle+5b,+Huehuetenango/@15.3213583,-91.4685809,21z" target="_blank" class="flip-back-btn">
+                                    <i class="bi bi-map-fill"></i> Ver en mapa
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- =====================================================
+                     AGENCIA 5 — San Miguel Acatán
+                ===================================================== -->
+                <div class="col-md-6 col-lg-4 agencia-item ag-item reveal"
+                     data-tipo="sucursal" data-nombre="agencia san miguel acatan">
+                    <div class="flip-container">
+                        <div class="flip-card">
+                            <div class="flip-front">
+                                <div class="ag-img-wrap">
+                                    <img class="ag-img" src="../image/2.jfif" alt="San Miguel Acatán">
+                                    <span class="ag-badge" style="background:#033E81;">05</span>
+                                    <span class="ag-tipo-badge">Sucursal</span>
+                                </div>
+                                <div class="ag-info">
+                                    <h5 class="ag-nombre">Agencia San Miguel Acatán</h5>
+                                    <div class="ag-detalle">
+                                        <i class="bi bi-geo-alt-fill" style="color:#033E81;"></i>
+                                        <span>San Miguel Acatán, Huehuetenango.</span>
+                                    </div>
+                                    <div class="ag-detalle">
+                                        <i class="bi bi-clock-fill" style="color:#4EAE33;"></i>
+                                        <span>Lun-Vie 8am-4:30pm · Sáb 9am-12pm</span>
+                                    </div>
+                                    <div class="flip-hint"><i class="bi bi-arrow-repeat"></i> Girar para ver mapa</div>
+                                </div>
+                            </div>
+                            <div class="flip-back" style="background: linear-gradient(135deg, #033E81, #4EAE33);">
+                                <div class="flip-back-icono">
+                                    <img src="../image/2.jfif" alt="San Miguel Acatán"
+                                        style="width:80px;height:80px;object-fit:cover;border-radius:50%;border:3px solid rgba(255,255,255,0.5);box-shadow:0 4px 12px rgba(0,0,0,0.3);">
+                                </div>
+                                <h4>Agencia San Miguel Acatán</h4>
+                                <p style="font-size:0.85rem; opacity:0.85;">San Miguel Acatán, Huehuetenango<br>PBX 7963-2850</p>
+                                <a href="https://maps.app.goo.gl/zKAFBcza5i3nJdwBA" target="_blank" class="flip-back-btn">
+                                    <i class="bi bi-map-fill"></i> Ver en mapa
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- =====================================================
+                     AGENCIA 6 — Agencia Mayaland
+                ===================================================== -->
+                <div class="col-md-6 col-lg-4 agencia-item ag-item reveal"
+                     data-tipo="sucursal" data-nombre="agencia mayaland">
+                    <div class="flip-container">
+                        <div class="flip-card">
+                            <div class="flip-front">
+                                <div class="ag-img-wrap">
+                                    <img class="ag-img" src="../image/3.jfif" alt="Agencia Mayaland">
+                                    <span class="ag-badge" style="background:#4EAE33;">06</span>
+                                    <span class="ag-tipo-badge">Sucursal</span>
+                                </div>
+                                <div class="ag-info">
+                                    <h5 class="ag-nombre">Agencia Mayaland</h5>
+                                    <div class="ag-detalle">
+                                        <i class="bi bi-geo-alt-fill" style="color:#033E81;"></i>
+                                        <span>Alde Mayaland, Playa Grande Ixcan, Quiche</span>
+                                    </div>
+                                    <div class="ag-detalle">
+                                        <i class="bi bi-clock-fill" style="color:#4EAE33;"></i>
+                                        <span>Lun-Vie 8am-4:30pm · Sáb 9am-12pm</span>
+                                    </div>
+                                    <div class="flip-hint"><i class="bi bi-arrow-repeat"></i> Girar para ver mapa</div>
+                                </div>
+                            </div>
+                            <div class="flip-back" style="background: linear-gradient(135deg, #4EAE33, #033E81);">
+                                <div class="flip-back-icono">
+                                    <img src="../image/3.jfif" alt="Agencia Mayaland"
+                                        style="width:80px;height:80px;object-fit:cover;border-radius:50%;border:3px solid rgba(255,255,255,0.5);box-shadow:0 4px 12px rgba(0,0,0,0.3);">
+                                </div>
+                                <h4>Agencia Mayaland</h4>
+                                <p style="font-size:0.85rem; opacity:0.85;">Alde Mayaland, Playa Grande Ixcan, Quiche<br>PBX 7963-2890</p>
+                                <a href="https://maps.google.com" target="_blank" class="flip-back-btn">
+                                    <i class="bi bi-map-fill"></i> Ver en mapa
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- =====================================================
+                     AGENCIA 7 — Centro Comercial Tz'uluma
+                ===================================================== -->
+                <div class="col-md-6 col-lg-4 agencia-item ag-item reveal"
+                     data-tipo="sucursal" data-nombre="agencia tz'uluma">
+                    <div class="flip-container">
+                        <div class="flip-card">
+                            <div class="flip-front">
+                                <div class="ag-img-wrap">
+                                    <img class="ag-img" src="../image/1.jfif" alt="CC Tz'uluma">
+                                    <span class="ag-badge" style="background:#033E81;">07</span>
+                                    <span class="ag-tipo-badge">Sucursal</span>
+                                </div>
+                                <div class="ag-info">
+                                    <h5 class="ag-nombre">Agencia Centro Comercial Tz'uluma</h5>
+                                    <div class="ag-detalle">
+                                        <i class="bi bi-geo-alt-fill" style="color:#033E81;"></i>
+                                        <span>Centro Comercial Tz'uluma, San Pedro Soloma</span>
+                                    </div>
+                                    <div class="ag-detalle">
+                                        <i class="bi bi-clock-fill" style="color:#4EAE33;"></i>
+                                        <span>Lun-Vie 8am-4:30pm · Dom 9am-12pm</span>
+                                    </div>
+                                    <div class="flip-hint"><i class="bi bi-arrow-repeat"></i> Girar para ver mapa</div>
+                                </div>
+                            </div>
+                            <div class="flip-back" style="background: linear-gradient(135deg, #033E81, #4EAE33);">
+                                <div class="flip-back-icono">
+                                    <img src="../image/1.jfif" alt="CC Tz'uluma"
+                                        style="width:80px;height:80px;object-fit:cover;border-radius:50%;border:3px solid rgba(255,255,255,0.5);box-shadow:0 4px 12px rgba(0,0,0,0.3);">
+                                </div>
+                                <h4>Agencia Centro Comercial Tz'uluma</h4>
+                                <p style="font-size:0.85rem; opacity:0.85;">Centro Comercial Tz'uluma, San Pedro Soloma<br>PBX 7963-2820</p>
+                                <a href="https://maps.google.com" target="_blank" class="flip-back-btn">
+                                    <i class="bi bi-map-fill"></i> Ver en mapa
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- =====================================================
+                     AGENCIA 8 — Jacaltenango
+                ===================================================== -->
+                <div class="col-md-6 col-lg-4 agencia-item ag-item reveal"
+                     data-tipo="sucursal" data-nombre="agencia jacaltenango">
+                    <div class="flip-container">
+                        <div class="flip-card">
+                            <div class="flip-front">
+                                <div class="ag-img-wrap">
+                                    <img class="ag-img" src="../image/2.jfif" alt="Jacaltenango">
+                                    <span class="ag-badge" style="background:#4EAE33;">08</span>
+                                    <span class="ag-tipo-badge">Sucursal</span>
+                                </div>
+                                <div class="ag-info">
+                                    <h5 class="ag-nombre">Agencia Playa Grande</h5>
+                                    <div class="ag-detalle">
+                                        <i class="bi bi-geo-alt-fill" style="color:#033E81;"></i>
+                                        <span>Playa Grade Ixcan, Quiche</span>
+                                    </div>
+                                    <div class="ag-detalle">
+                                        <i class="bi bi-clock-fill" style="color:#4EAE33;"></i>
+                                        <span>Lun-Vie 8am-4:30pm · Sáb 9am-12pm</span>
+                                    </div>
+                                    <div class="flip-hint"><i class="bi bi-arrow-repeat"></i> Girar para ver mapa</div>
+                                </div>
+                            </div>
+                            <div class="flip-back" style="background: linear-gradient(135deg, #033E81, #4EAE33);">
+                                <div class="flip-back-icono">
+                                    <img src="../image/2.jfif" alt="Jacaltenango"
+                                        style="width:80px;height:80px;object-fit:cover;border-radius:50%;border:3px solid rgba(255,255,255,0.5);box-shadow:0 4px 12px rgba(0,0,0,0.3);">
+                                </div>
+                                <h4>Agencia Playa Grande</h4>
+                                <p style="font-size:0.85rem; opacity:0.85;">Playa Grade Ixcan, Quiche<br>PBX 7963-2870</p>
+                                <a href="https://maps.google.com" target="_blank" class="flip-back-btn">
+                                    <i class="bi bi-map-fill"></i> Ver en mapa
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Mensaje cuando no se encuentran agencias con el buscador -->
+            <div id="sinResultados" style="display:none;" class="text-center py-5">
+                <i class="bi bi-search" style="font-size:3rem; color:#ccc;"></i>
+                <p class="mt-3 text-muted fs-5">No se encontraron agencias con ese criterio.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- =============================================
+         HORARIOS DE ATENCIÓN
+         Tarjetas de horario por día y tipo de agencia
+    ============================================= -->
+    <section style="padding: 70px 0; background: white;">
+        <div class="container">
+
+            <div class="text-center mb-5 reveal">
+                <span style="color: #033E81; font-weight: 600; letter-spacing: 1px; font-size: 0.9rem;">INFORMACIÓN IMPORTANTE</span>
+                <h2 style="font-size: 2.2rem; font-weight: 800; color: #033E81; margin-top: 8px;">
+                    Horarios de Atención
+                
+            </div>
+
+            <div class="row g-4">
+
+            <!-- Nota de días festivos -->
+            <div class="mt-4 reveal" style="
+                background: rgba(78,174,51,0.08);
+                border: 1px solid rgba(78,174,51,0.25);
+                border-radius: 14px;
+                padding: 16px 22px;
+                display: flex; align-items: center; gap: 14px;">
+                <i class="bi bi-info-circle-fill" style="font-size:1.4rem; color:#4EAE33;"></i>
+                <p style="margin:0; color:#333; font-size:0.9rem; line-height:1.6;">
+                    <strong>Días festivos:</strong> Los horarios pueden variar en feriados nacionales.
+                    Te recomendamos verificar en nuestras redes sociales o llamar al <strong>PBX 7963-2828</strong> antes de visitar.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- =============================================
+         SERVICIOS DISPONIBLES EN AGENCIAS
+         Íconos con los servicios que ofrece cada punto
+    ============================================= -->
+    <section style="padding: 70px 0; background: #f0f4f8;">
+        <div class="container">
+
+            <div class="text-center mb-5 reveal">
+                <span style="color: #4EAE33; font-weight: 600; letter-spacing: 1px; font-size: 0.9rem;">¿QUÉ PUEDO HACER?</span>
+                <h2 style="font-size: 2.2rem; font-weight: 800; color: #033E81; margin-top: 8px;">
+                    Servicios en todas las agencias
+                </h2>
+            </div>
+
+            <div class="row g-4">
+
+                <div class="col-6 col-md-3 reveal delay-1">
+                    <div class="servicio-card">
+                        <div class="servicio-icon" style="background:rgba(3,62,129,0.1);">
+                            <i class="bi bi-piggy-bank" style="color:#033E81;"></i>
+                        </div>
+                        <h6 style="font-weight:700; color:#033E81; margin-bottom:5px;">Depósitos</h6>
+                        <p style="color:#888; font-size:0.82rem; margin:0;">Depósitos a cuentas de ahorro y plazo fijo</p>
+                    </div>
+                </div>
+
+                <div class="col-6 col-md-3 reveal delay-2">
+                    <div class="servicio-card">
+                        <div class="servicio-icon" style="background:rgba(78,174,51,0.1);">
+                            <i class="bi bi-cash-coin" style="color:#4EAE33;"></i>
+                        </div>
+                        <h6 style="font-weight:700; color:#033E81; margin-bottom:5px;">Retiros</h6>
+                        <p style="color:#888; font-size:0.82rem; margin:0;">Retiro de fondos de tus cuentas de forma rápida</p>
+                    </div>
+                </div>
+
+                <div class="col-6 col-md-3 reveal delay-3">
+                    <div class="servicio-card">
+                        <div class="servicio-icon" style="background:rgba(3,62,129,0.1);">
+                            <i class="bi bi-file-text" style="color:#033E81;"></i>
+                        </div>
+                        <h6 style="font-weight:700; color:#033E81; margin-bottom:5px;">Préstamos</h6>
+                        <p style="color:#888; font-size:0.82rem; margin:0;">Solicitud y pago de préstamos personales y comerciales</p>
+                    </div>
+                </div>
+
+                <div class="col-6 col-md-3 reveal delay-4">
+                    <div class="servicio-card">
+                        <div class="servicio-icon" style="background:rgba(78,174,51,0.1);">
+                            <i class="bi bi-person-plus" style="color:#4EAE33;"></i>
+                        </div>
+                        <h6 style="font-weight:700; color:#033E81; margin-bottom:5px;">Asociarse</h6>
+                        <p style="color:#888; font-size:0.82rem; margin:0;">Apertura de cuentas y proceso de afiliación</p>
+                    </div>
+                </div>
+
+                <div class="col-6 col-md-3 reveal delay-1">
+                    <div class="servicio-card">
+                        <div class="servicio-icon" style="background:rgba(3,62,129,0.1);">
+                            <i class="bi bi-arrow-left-right" style="color:#033E81;"></i>
+                        </div>
+                        <h6 style="font-weight:700; color:#033E81; margin-bottom:5px;">Transferencias</h6>
+                        <p style="color:#888; font-size:0.82rem; margin:0;">Traslado de fondos entre cuentas dentro de la cooperativa</p>
+                    </div>
+                </div>
+
+                <div class="col-6 col-md-3 reveal delay-2">
+                    <div class="servicio-card">
+                        <div class="servicio-icon" style="background:rgba(78,174,51,0.1);">
+                            <i class="bi bi-receipt" style="color:#4EAE33;"></i>
+                        </div>
+                        <h6 style="font-weight:700; color:#033E81; margin-bottom:5px;">Estados de cuenta</h6>
+                        <p style="color:#888; font-size:0.82rem; margin:0;">Solicitud de extractos y constancias</p>
+                    </div>
+                </div>
+
+                <div class="col-6 col-md-3 reveal delay-3">
+                    <div class="servicio-card">
+                        <div class="servicio-icon" style="background:rgba(3,62,129,0.1);">
+                            <i class="bi bi-shield-check" style="color:#033E81;"></i>
+                        </div>
+                        <h6 style="font-weight:700; color:#033E81; margin-bottom:5px;">Seguros</h6>
+                        <p style="color:#888; font-size:0.82rem; margin:0;">Contratación de seguros de vida y desgravamen</p>
+                    </div>
+                </div>
+
+                <div class="col-6 col-md-3 reveal delay-4">
+                    <div class="servicio-card">
+                        <div class="servicio-icon" style="background:rgba(78,174,51,0.1);">
+                            <i class="bi bi-headset" style="color:#4EAE33;"></i>
+                        </div>
+                        <h6 style="font-weight:700; color:#033E81; margin-bottom:5px;">Asesoría</h6>
+                        <p style="color:#888; font-size:0.82rem; margin:0;">Orientación financiera personalizada por asesores</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- =============================================
+         MAPA / CTA — Sección de contacto final
+    ============================================= -->
+    <section style="padding: 70px 0; background: white;">
+        <div class="container">
+            <div style="
+                background: linear-gradient(135deg, #033E81 0%, #033E81 50%, #033E81 100%);
+                border-radius: 24px;
+                padding: 50px 40px;
+                display: flex; flex-wrap: wrap; gap: 30px; align-items: center; justify-content: space-between;">
+
+                <!-- Texto CTA -->
+                <div class="reveal">
+                    <h3 style="color:white; font-weight:800; font-size:1.9rem; margin-bottom:10px;">
+                        ¿No encuentras tu agencia?
+                    </h3>
+                    <p style="color:rgba(255,255,255,0.75); max-width:420px; line-height:1.8; margin:0;">
+                        Llámanos o escríbenos y te indicamos cuál es el punto de atención
+                        más cercano a tu comunidad.
+                    </p>
+                </div>
+
+                <!-- Botones de acción -->
+                <div class="d-flex flex-wrap gap-3 reveal">
+                    <a href="tel:79632828" style="
+                        background: #4EAE33; color: white;
+                        padding: 14px 28px; border-radius: 50px;
+                        text-decoration: none; font-weight: 700;
+                        display: flex; align-items: center; gap: 8px;">
+                        <i class="bi bi-telephone-fill"></i> PBX 7963-2828
+                    </a>
+                    <a href="./contactanos.html" style="
+                        background: rgba(255,255,255,0.15);
+                        border: 2px solid rgba(255,255,255,0.4);
+                        color: white; padding: 14px 28px;
+                        border-radius: 50px; text-decoration: none;
+                        font-weight: 700;
+                        display: flex; align-items: center; gap: 8px;">
+                        <i class="bi bi-chat-dots-fill"></i> Contáctanos
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- =============================================
+         FOOTER — Datos de contacto reales y rutas correctas
+    ============================================= -->
+    <footer id="contacto">
+
+        <!-- Ola decorativa SVG con nuevo color de marca -->
+        <div style="background: white; line-height: 0;">
+            <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#033E81" d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z"/>
+            </svg>
+        </div>
+
+        <!-- Cuerpo del footer -->
+        <div style="background: linear-gradient(135deg, #033E81 0%, #033E81 50%, #033E81 100%); padding: 60px 0 30px;">
+            <div class="container">
+                <div class="row g-4 mb-5">
+
+                    <!-- Columna 1: Logo y descripción -->
+                    <div class="col-md-4">
+                        <img src="../image/Logo Cooperativa - Blanco.png" height="45" alt="Logo" class="mb-3">
+                        <p style="color:#a8c4e0; line-height:1.8;">
+                            Tu cooperativa de confianza, comprometida con tu bienestar financiero
+                            y el desarrollo de nuestra comunidad.
+                        </p>
+                        <div class="d-flex gap-3 mt-3">
+                            <a href="#" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="bi bi-facebook"></i></a>
+                            <a href="#" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="bi bi-instagram"></i></a>
+                            <a href="#" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="bi bi-whatsapp"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Columna 2: Enlaces -->
+                    <div class="col-md-2 offset-md-1">
+                        <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Enlaces</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><a href="../index.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Inicio</a></li>
+                            <li class="mb-2"><a href="./agencias.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Agencias</a></li>
+                            <li class="mb-2"><a href="./about.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Nosotros</a></li>
+                            <li class="mb-2"><a href="./contactanos.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Contáctanos</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Columna 3: Servicios -->
+                    <div class="col-md-2">
+                        <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Servicios</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><a href="./ahorro.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Ahorro</a></li>
+                            <li class="mb-2"><a href="./prestamos.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Préstamos</a></li>
+                            <li class="mb-2"><a href="./agentes.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Agentes</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Columna 4: Contacto real -->
+                    <div class="col-md-3">
+                        <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Contacto</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-3 d-flex align-items-center gap-3">
+                                <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i class="bi bi-telephone" style="color:#4fc3f7;"></i></div>
+                                <span style="color:#a8c4e0;">PBX 7963-2828</span>
+                            </li>
+                            <li class="mb-3 d-flex align-items-center gap-3">
+                                <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i class="bi bi-envelope" style="color:#4fc3f7;"></i></div>
+                                <span style="color:#a8c4e0;">info@sanpedroesmicoope.com.gt</span>
+                            </li>
+                            <li class="d-flex align-items-center gap-3">
+                                <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i class="bi bi-geo-alt" style="color:#4fc3f7;"></i></div>
+                                <span style="color:#a8c4e0;">San Pedro Soloma, Huehuetenango</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <hr style="border-color:rgba(255,255,255,0.1); margin-bottom:25px;">
+                <p style="color:#a8c4e0; margin:0; font-size:14px; text-align:center;">
+                    © 2024 Cooperativa San Pedro. Todos los derechos reservados.
+                </p>
+
+            </div>
+        </div>
+    </footer>
+
+    <!-- =============================================
+         SCRIPTS — ruta corregida ../js/script.js
+    ============================================= -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
+    <script src="../js/script.js"></script>
+
+    <script>
+        /* =============================================
+           SCROLL REVEAL — activa clase .visible al entrar en viewport
+        ============================================= */
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        /* =============================================
+           TIMELINE REVEAL (compatible con estilos.css)
+        ============================================= */
+        const tlObserver = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) e.target.classList.add('visible');
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.timeline-item').forEach(el => tlObserver.observe(el));
+    </script>
+
+</body>
+</html>

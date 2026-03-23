@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memoria de Labores - Cooperativa San Pedro</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/estilos.css">
+
+    <style>
+        * { font-family: 'Outfit', sans-serif; }
+
+        /* ===== HERO ===== */
+        .hero-memoria {
+            background: linear-gradient(135deg, #033E81 0%, #033E81 60%, #033E81 100%);
+            padding: 100px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-memoria::before {
+            content: '';
+            position: absolute;
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(79,195,247,0.07) 0%, transparent 70%);
+            top: -150px; right: -150px;
+        }
+        .hero-memoria::after {
+            content: '';
+            position: absolute;
+            width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(78,174,51,0.06) 0%, transparent 70%);
+            bottom: -80px; left: -80px;
+        }
+
+        /* ===== TARJETA DE AÑO ===== */
+        .anio-section {
+            background: white;
+            border-radius: 20px;
+            padding: 36px 40px;
+            box-shadow: 0 6px 30px rgba(3,62,129,0.09);
+            margin-bottom: 40px;
+            border-left: 5px solid #033E81;
+        }
+
+        .anio-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 28px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e8eef6;
+        }
+
+        .anio-icono {
+            width: 52px; height: 52px;
+            background: linear-gradient(135deg, #033E81, #4fc3f7);
+            border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 1.4rem;
+            flex-shrink: 0;
+        }
+
+        .anio-titulo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #033E81;
+            margin: 0;
+        }
+
+        .anio-subtitulo {
+            color: #888;
+            font-size: 0.88rem;
+            margin: 2px 0 0;
+        }
+
+        /* ===== TARJETA DE PDF ===== */
+        .pdf-card {
+            background: #f8fafd;
+            border: 1.5px solid #e0e8f4;
+            border-radius: 16px;
+            padding: 22px 24px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            height: 100%;
+        }
+
+        .pdf-card:hover {
+            border-color: #033E81;
+            background: #edf3fb;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(3,62,129,0.12);
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .pdf-icono {
+            width: 54px; height: 54px; min-width: 54px;
+            background: linear-gradient(135deg, #c0392b, #e74c3c);
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 1.6rem;
+        }
+
+        .pdf-nombre {
+            font-weight: 700;
+            color: #033E81;
+            font-size: 0.95rem;
+            margin-bottom: 4px;
+        }
+
+        .pdf-meta {
+            font-size: 0.8rem;
+            color: #888;
+            margin: 0;
+        }
+
+        .pdf-btn {
+            margin-left: auto;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .btn-ver {
+            background: #033E81;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 7px 14px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: flex; align-items: center; gap: 5px;
+            transition: background 0.2s;
+            white-space: nowrap;
+        }
+        .btn-ver:hover { background: #022d5e; color: white; }
+
+        .btn-descargar {
+            background: #4EAE33;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 7px 14px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: flex; align-items: center; gap: 5px;
+            transition: background 0.2s;
+            white-space: nowrap;
+        }
+        .btn-descargar:hover { background: #3a8426; color: white; }
+
+        /* Tarjeta "Próximamente" */
+        .pdf-card.proximamente {
+            opacity: 0.55;
+            cursor: default;
+            pointer-events: none;
+        }
+
+        .pdf-icono.prox {
+            background: linear-gradient(135deg, #aab4c4, #c8d0db);
+        }
+
+        /* Modal visor PDF */
+        .modal-pdf .modal-dialog {
+            max-width: 860px;
+        }
+        .modal-pdf .modal-content {
+            border-radius: 16px;
+            overflow: hidden;
+            border: none;
+        }
+        .modal-pdf .modal-header {
+            background: #033E81;
+            color: white;
+            border: none;
+            padding: 16px 24px;
+        }
+        .modal-pdf .modal-header .btn-close {
+            filter: invert(1);
+        }
+        .modal-pdf iframe {
+            width: 100%;
+            height: 75vh;
+            border: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 576px) {
+            .anio-section { padding: 24px 20px; }
+            .pdf-card { flex-wrap: wrap; }
+            .pdf-btn { margin-left: 0; flex-direction: row; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =============================================
+         HEADER - BARRA DE NAVEGACIÓN
+    ============================================= -->
+    <header class="main-header" id="mainHeader">
+        <div class="header-inner">
+
+            <a href="../index.html" class="header-logo">
+                <img src="../image/Logo Cooperativa - Blanco.png" alt="Cooperativa San Pedro">
+            </a>
+
+            <button class="nav-toggle" id="navToggle" aria-label="Menú">
+                <span></span><span></span><span></span>
+            </button>
+
+            <nav class="main-nav" id="mainNav">
+                <ul class="nav-list">
+
+                    <li class="nav-item"><a href="../index.html" class="nav-link">Inicio</a></li>
+
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link" onclick="return false">
+                            Puntos de Servicio <i class="bi bi-chevron-down nav-arrow"></i>
+                        </a>
+                        <div class="nav-dropdown">
+                            <a href="./agencias.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-building"></i></div>
+                                <div><span class="drop-title">Agencias</span><span class="drop-sub">8 puntos en Huehuetenango</span></div>
+                            </a>
+                            <a href="./agentes.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-person-badge"></i></div>
+                                <div><span class="drop-title">Agentes Micoope</span><span class="drop-sub">Cerca de tu comunidad</span></div>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link" onclick="return false">
+                            Productos y Servicios <i class="bi bi-chevron-down nav-arrow"></i>
+                        </a>
+                        <div class="nav-dropdown">
+                            <a href="./ahorro.html" class="drop-link">
+                                <div class="drop-icon green"><i class="bi bi-piggy-bank"></i></div>
+                                <div><span class="drop-title">Ahorro</span><span class="drop-sub">Cuentas y depósitos</span></div>
+                            </a>
+                            <a href="./prestamos.html" class="drop-link">
+                                <div class="drop-icon" style="background:rgba(79,195,247,0.12);color:#033E81;"><i class="bi bi-cash-coin"></i></div>
+                                <div><span class="drop-title">Préstamos</span><span class="drop-sub">Créditos accesibles</span></div>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link" onclick="return false">
+                            Nosotros <i class="bi bi-chevron-down nav-arrow"></i>
+                        </a>
+                        <div class="nav-dropdown">
+                            <a href="./about.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-people-fill"></i></div>
+                                <div><span class="drop-title">¿Quiénes somos?</span><span class="drop-sub">Nuestra cooperativa</span></div>
+                            </a>
+                            <a href="./mision-vision.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-eye-fill"></i></div>
+                                <div><span class="drop-title">Misión y Visión</span><span class="drop-sub">Nuestros valores</span></div>
+                            </a>
+                            <a href="./historia.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-clock-history"></i></div>
+                                <div><span class="drop-title">Historia</span><span class="drop-sub">Nuestros inicios</span></div>
+                            </a>
+                            <a href="./memoria-labores.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-file-earmark-text"></i></div>
+                                <div><span class="drop-title">Memoria de Labores</span><span class="drop-sub">Informes anuales</span></div>
+                            </a>
+                            <div class="drop-divider"></div>
+                            <a href="./ver-mas.html" class="drop-link">
+                                <div class="drop-icon green"><i class="bi bi-arrow-right-circle"></i></div>
+                                <div><span class="drop-title">Ver más</span><span class="drop-sub">Todo sobre nosotros</span></div>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="./contactanos.html" class="nav-link nav-cta">
+                            <i class="bi bi-telephone-fill"></i> Contáctanos
+                        </a>
+                    </li>
+
+                </ul>
+            </nav>
+
+            <div class="header-search">
+                <input type="text" class="search-input" id="searchInput" placeholder="Buscar...">
+                <button class="search-btn" onclick="toggleSearch()">
+                    <i class="bi bi-search" id="searchIcon"></i>
+                </button>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- =============================================
+         HERO
+    ============================================= -->
+    <section class="hero-memoria">
+        <div class="container position-relative" style="z-index:2; text-align:center;">
+            <span style="
+                background: rgba(79,195,247,0.15);
+                color: #4fc3f7;
+                padding: 8px 20px;
+                border-radius: 50px;
+                font-size: 0.9rem;
+                font-weight: 600;
+                letter-spacing: 1px;
+                display: inline-block;
+                margin-bottom: 20px;
+                border: 1px solid rgba(79,195,247,0.3);">
+                <i class="bi bi-file-earmark-text me-2"></i>NOSOTROS
+            </span>
+            <h1 style="font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; color: white; line-height: 1.15; margin-bottom: 16px;">
+                Memoria de <span style="color: #4fc3f7;">Labores</span>
+            </h1>
+            <p style="color: rgba(255,255,255,0.75); font-size: 1.05rem; max-width: 560px; margin: 0 auto; line-height: 1.8;">
+                Informes anuales con los logros, resultados y proyectos de la Cooperativa San Pedro.
+            </p>
+        </div>
+    </section>
+
+    <!-- =============================================
+         CONTENIDO — MEMORIAS POR AÑO
+    ============================================= -->
+    <section style="padding: 70px 0 90px; background: #f0f4fa;">
+        <div class="container" style="max-width: 900px;">
+
+            <!-- ══════════════════════════════════════
+                 AÑO 2024
+            ══════════════════════════════════════ -->
+            <div class="anio-section">
+                <div class="anio-header">
+                    <div class="anio-icono"><i class="bi bi-calendar-check"></i></div>
+                    <div>
+                        <h2 class="anio-titulo">Memoria de Labores 2024</h2>
+                        <p class="anio-subtitulo">1 documento disponible</p>
+                    </div>
+                </div>
+
+                <div class="row g-3">
+
+                    <!-- PDF 1 — disponible -->
+                    <div class="col-12">
+                        <div class="pdf-card">
+                            <div class="pdf-icono"><i class="bi bi-file-earmark-pdf-fill"></i></div>
+                            <div style="flex:1; min-width:0;">
+                                <div class="pdf-nombre">Memoria de Labores 2024</div>
+                                <p class="pdf-meta"><i class="bi bi-file-earmark me-1"></i>PDF &nbsp;·&nbsp; Cooperativa San Pedro</p>
+                            </div>
+                            <div class="pdf-btn">
+                                <a href="#" class="btn-ver"
+                                   onclick="abrirPDF('../pdf/Memoria de Labores 2024.pdf', 'Memoria de Labores 2024'); return false;">
+                                    <i class="bi bi-eye"></i> Ver
+                                </a>
+                                <a href="../pdf/Memoria de Labores 2024.pdf" download class="btn-descargar">
+                                    <i class="bi bi-download"></i> Descargar
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- fin AÑO 2024 -->
+
+
+            <!-- ══════════════════════════════════════
+                 AÑO 2023
+            ══════════════════════════════════════ -->
+            <div class="anio-section" style="border-left-color: #4EAE33;">
+                <div class="anio-header">
+                    <div class="anio-icono" style="background: linear-gradient(135deg, #4EAE33, #7bd65a);"><i class="bi bi-calendar-check"></i></div>
+                    <div>
+                        <h2 class="anio-titulo">Memoria de Labores 2023</h2>
+                        <p class="anio-subtitulo">Próximamente disponible</p>
+                    </div>
+                </div>
+
+                <div class="row g-3">
+
+                    <!-- PDF 1 — próximamente -->
+                    <div class="col-12">
+                        <div class="pdf-card proximamente">
+                            <div class="pdf-icono prox"><i class="bi bi-file-earmark-pdf-fill"></i></div>
+                            <div style="flex:1; min-width:0;">
+                                <div class="pdf-nombre">Memoria de Labores 2023</div>
+                                <p class="pdf-meta"><i class="bi bi-clock me-1"></i>Próximamente disponible</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- fin AÑO 2023 -->
+
+
+            <!-- ══════════════════════════════════════
+                 AÑO 2022
+            ══════════════════════════════════════ -->
+            <div class="anio-section" style="border-left-color: #4fc3f7;">
+                <div class="anio-header">
+                    <div class="anio-icono" style="background: linear-gradient(135deg, #0277bd, #4fc3f7);"><i class="bi bi-calendar-check"></i></div>
+                    <div>
+                        <h2 class="anio-titulo">Memoria de Labores 2022</h2>
+                        <p class="anio-subtitulo">Próximamente disponible</p>
+                    </div>
+                </div>
+
+                <div class="row g-3">
+
+                    <!-- PDF 1 — próximamente -->
+                    <div class="col-12">
+                        <div class="pdf-card proximamente">
+                            <div class="pdf-icono prox"><i class="bi bi-file-earmark-pdf-fill"></i></div>
+                            <div style="flex:1; min-width:0;">
+                                <div class="pdf-nombre">Memoria de Labores 2022</div>
+                                <p class="pdf-meta"><i class="bi bi-clock me-1"></i>Próximamente disponible</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- fin AÑO 2022 -->
+
+        </div>
+    </section>
+
+
+    <!-- =============================================
+         VISOR PDF — LIBRO DOS PÁGINAS
+    ============================================= -->
+    <div id="pdfOverlay" style="
+        display:none; position:fixed; inset:0;
+        background:#0d1117; z-index:9999; flex-direction:column;">
+
+        <!-- ── Barra superior ── -->
+        <div style="
+            display:flex; align-items:center; justify-content:space-between;
+            height:54px; padding:0 22px; flex-shrink:0;
+            background:rgba(6,10,16,0.98);
+            border-bottom:1px solid rgba(255,255,255,0.07);">
+
+            <div style="display:flex;align-items:center;gap:10px;min-width:0;flex:1;">
+                <i class="bi bi-book-half" style="color:#4fc3f7;font-size:1.1rem;flex-shrink:0;"></i>
+                <span id="pdfTitulo" style="font-weight:700;font-size:0.9rem;color:white;
+                    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"></span>
+            </div>
+
+            <div style="display:flex;align-items:center;gap:14px;flex-shrink:0;">
+                <span id="pdfPaginaInfo" style="color:rgba(255,255,255,0.35);font-size:0.8rem;white-space:nowrap;"></span>
+                <a id="pdfDescarga" href="#" download style="
+                    background:#4EAE33;color:white;border-radius:8px;padding:6px 14px;
+                    font-size:0.78rem;font-weight:700;text-decoration:none;
+                    display:flex;align-items:center;gap:5px;">
+                    <i class="bi bi-download"></i> Descargar
+                </a>
+                <button onclick="cerrarVisor()" style="
+                    background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);
+                    color:white;width:34px;height:34px;border-radius:50%;cursor:pointer;
+                    font-size:1.3rem;display:flex;align-items:center;justify-content:center;">×</button>
+            </div>
+        </div>
+
+        <!-- ── Escenario: botones + libro de 2 páginas ── -->
+        <div style="flex:1;display:flex;align-items:center;justify-content:center;
+            gap:20px;padding:20px 16px;min-height:0;overflow:hidden;">
+
+            <button id="btnPrev" onclick="flipPage(-1)" style="
+                background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);
+                color:rgba(255,255,255,0.7);width:50px;height:50px;border-radius:50%;
+                cursor:pointer;font-size:1.8rem;flex-shrink:0;
+                display:flex;align-items:center;justify-content:center;
+                transition:all 0.2s;opacity:0.25;">‹</button>
+
+            <!-- ── LIBRO (dos páginas) ── -->
+            <div id="bookOuter" style="
+                position:relative;flex-shrink:0;
+                box-shadow:0 50px 120px rgba(0,0,0,0.95),0 0 0 1px rgba(255,255,255,0.04);
+                border-radius:3px 5px 5px 3px;">
+
+                <!-- Página izquierda -->
+                <canvas id="cnvLeft"  style="position:absolute;top:0;left:0;display:block;"></canvas>
+                <!-- Página derecha -->
+                <canvas id="cnvRight" style="position:absolute;top:0;display:block;"></canvas>
+
+                <!-- Sombra interna en los bordes del lomo (profundidad) -->
+                <div style="position:absolute;top:0;left:0;width:50%;height:100%;pointer-events:none;z-index:2;
+                    box-shadow:inset -18px 0 22px rgba(0,0,0,0.22);"></div>
+                <div style="position:absolute;top:0;right:0;width:50%;height:100%;pointer-events:none;z-index:2;
+                    box-shadow:inset 18px 0 22px rgba(0,0,0,0.22);"></div>
+
+                <!-- Lomo del libro -->
+                <div id="bookSpine" style="
+                    position:absolute;top:0;z-index:3;pointer-events:none;
+                    background:linear-gradient(to right,
+                        rgba(0,0,0,0.35) 0%,rgba(0,0,0,0.06) 35%,
+                        rgba(0,0,0,0.06) 65%,rgba(0,0,0,0.35) 100%);"></div>
+
+                <!-- Flipper 3D — se reposiciona según la dirección -->
+                <div id="flipper" style="
+                    position:absolute;top:0;
+                    transform-style:preserve-3d;
+                    visibility:hidden;z-index:5;
+                    will-change:transform;">
+                    <canvas id="cnvFlipFront" style="
+                        position:absolute;inset:0;
+                        backface-visibility:hidden;-webkit-backface-visibility:hidden;"></canvas>
+                    <canvas id="cnvFlipBack" style="
+                        position:absolute;inset:0;
+                        backface-visibility:hidden;-webkit-backface-visibility:hidden;
+                        transform:rotateY(180deg);"></canvas>
+                </div>
+
+                <!-- Sombra proyectada por el flipper -->
+                <div id="flipShadow" style="
+                    position:absolute;top:0;height:100%;z-index:4;
+                    pointer-events:none;opacity:0;"></div>
+
+                <!-- Spinner de carga -->
+                <div id="pdfSpinner" style="
+                    position:absolute;inset:0;z-index:10;
+                    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
+                    background:#0d1117;border-radius:3px 5px 5px 3px;">
+                    <div style="
+                        width:44px;height:44px;border-radius:50%;
+                        border:3px solid rgba(255,255,255,0.07);border-top-color:#4fc3f7;
+                        animation:girar 0.8s linear infinite;"></div>
+                    <span style="color:rgba(255,255,255,0.35);font-size:0.82rem;">Cargando...</span>
+                </div>
+            </div>
+
+            <button id="btnNext" onclick="flipPage(1)" style="
+                background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);
+                color:rgba(255,255,255,0.7);width:50px;height:50px;border-radius:50%;
+                cursor:pointer;font-size:1.8rem;flex-shrink:0;
+                display:flex;align-items:center;justify-content:center;
+                transition:all 0.2s;opacity:0.25;">›</button>
+        </div>
+
+        <!-- ── Barra de miniaturas ── -->
+        <div id="pdfThumbBar" style="
+            display:flex;align-items:center;
+            height:76px;min-height:76px;
+            padding:0 20px;gap:8px;
+            overflow-x:auto;overflow-y:hidden;
+            background:rgba(0,0,0,0.42);
+            border-top:1px solid rgba(255,255,255,0.06);
+            flex-shrink:0;
+            scrollbar-width:thin;
+            scrollbar-color:rgba(255,255,255,0.12) transparent;"></div>
+    </div>
+
+    <style>
+        @keyframes girar { to { transform:rotate(360deg); } }
+        #btnPrev:hover, #btnNext:hover {
+            background:rgba(255,255,255,0.18)!important;
+            color:white!important;
+        }
+        .pdf-thumb {
+            height:52px; width:auto; min-width:34px; max-width:52px;
+            border-radius:3px; cursor:pointer; opacity:0.32;
+            border:2px solid transparent; flex-shrink:0;
+            transition:all 0.2s; background:#182030;
+        }
+        .pdf-thumb:hover { opacity:0.7; transform:translateY(-3px); }
+        .pdf-thumb.activa {
+            opacity:1; border-color:#4fc3f7;
+            transform:translateY(-4px);
+            box-shadow:0 5px 16px rgba(79,195,247,0.38);
+        }
+    </style>
+
+
+    <!-- =============================================
+         FOOTER
+    ============================================= -->
+    <footer id="contacto">
+        <div style="background: white; line-height: 0;">
+            <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#033E81" d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z"/>
+            </svg>
+        </div>
+        <div style="background: linear-gradient(135deg, #033E81, #033E81); padding: 60px 0 30px;">
+            <div class="container">
+                <div class="row g-4 mb-5">
+
+                    <div class="col-md-4">
+                        <img src="../image/Logo Cooperativa - Blanco.png" height="45" alt="Logo" class="mb-3">
+                        <p style="color:#a8c4e0; line-height:1.8;">Tu cooperativa de confianza, comprometida con tu bienestar financiero.</p>
+                        <div class="d-flex gap-3 mt-3">
+                            <a href="#" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="bi bi-facebook"></i></a>
+                            <a href="#" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="bi bi-instagram"></i></a>
+                            <a href="#" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="bi bi-whatsapp"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2 offset-md-1">
+                        <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Enlaces</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><a href="../index.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Inicio</a></li>
+                            <li class="mb-2"><a href="./agencias.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Agencias</a></li>
+                            <li class="mb-2"><a href="./about.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Nosotros</a></li>
+                            <li class="mb-2"><a href="./contactanos.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Contáctanos</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-md-2">
+                        <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Servicios</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><a href="./ahorro.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Ahorro</a></li>
+                            <li class="mb-2"><a href="./prestamos.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Préstamos</a></li>
+                            <li class="mb-2"><a href="./agentes.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Agentes</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-md-3">
+                        <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Contacto</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-3 d-flex align-items-center gap-3">
+                                <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i class="bi bi-telephone" style="color:#4fc3f7;"></i></div>
+                                <span style="color:#a8c4e0;">PBX 79632828</span>
+                            </li>
+                            <li class="mb-3 d-flex align-items-center gap-3">
+                                <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i class="bi bi-envelope" style="color:#4fc3f7;"></i></div>
+                                <span style="color:#a8c4e0;">info@sanpedroesmicoope.com.gt</span>
+                            </li>
+                            <li class="d-flex align-items-center gap-3">
+                                <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i class="bi bi-geo-alt" style="color:#4fc3f7;"></i></div>
+                                <span style="color:#a8c4e0;">San Pedro Soloma, Huehuetenango</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+                <hr style="border-color:rgba(255,255,255,0.1); margin-bottom:25px;">
+                <p style="color:#a8c4e0; margin:0; font-size:14px; text-align:center;">
+                    © 2024 Cooperativa San Pedro. Todos los derechos reservados.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- SCRIPTS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
+    <script src="../js/script.js"></script>
+
+    <!-- PDF.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc =
+            'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+        // ════════════════════════════════════════════════════════
+        //  LIBRO DE DOS PÁGINAS — LÓGICA COMPLETA
+        // ════════════════════════════════════════════════════════
+        //
+        //  Estructura de "aperturas":
+        //    apertura 0 : izq=vacío,  der=pág 1   (portada)
+        //    apertura 1 : izq=pág 2,  der=pág 3
+        //    apertura 2 : izq=pág 4,  der=pág 5  …
+        //
+        //  Al girar hacia adelante: la página DERECHA (flipper) gira
+        //  hacia la izquierda y revela la nueva página derecha.
+        //  La página izquierda SIEMPRE SE QUEDA en su sitio.
+        // ════════════════════════════════════════════════════════
+
+        // ── Estado ──────────────────────────────────────────
+        let pdfDoc      = null;
+        let apertura    = 0;        // apertura actual
+        let maxApertura = 0;
+        let totalPags   = 0;
+        let isAnimating = false;
+        let pageCache   = {};       // num → dataURL
+        let thumbEls    = [];
+        let pageW = 0, pageH = 0;
+        let storedScale = 1;
+        let audioCtx    = null;
+
+        // ── Helpers de apertura ─────────────────────────────
+        // apertura 0: izq=null, der=1
+        // apertura k≥1: izq=2k, der=2k+1
+        function izqDe(k) { return k === 0 ? null : (2*k <= totalPags ? 2*k : null); }
+        function derDe(k) { const n = k === 0 ? 1 : 2*k+1; return n <= totalPags ? n : null; }
+        function aperturaDe(n) { return Math.floor(n / 2); }  // n=1→0, n=2→1, n=3→1…
+
+        // ── Escala para cada página ──────────────────────────
+        function calcScale(vp1) {
+            const aH = window.innerHeight - 54 - 76 - 40;
+            const aW = (window.innerWidth  - 160) / 2;   // mitad por página
+            return Math.min(aH / vp1.height, aW / vp1.width, 2.8);
+        }
+
+        // ── Renderiza página → dataURL (cacheado) ───────────
+        async function getDataUrl(num) {
+            if (!num || num < 1 || num > totalPags) return null;
+            if (pageCache[num]) return pageCache[num];
+            const page = await pdfDoc.getPage(num);
+            const vp   = page.getViewport({ scale: storedScale });
+            const c    = document.createElement('canvas');
+            c.width    = Math.round(vp.width);
+            c.height   = Math.round(vp.height);
+            await page.render({ canvasContext: c.getContext('2d'), viewport: vp }).promise;
+            pageCache[num] = c.toDataURL('image/jpeg', 0.93);
+            return pageCache[num];
+        }
+
+        // ── Dibuja una página en un canvas ──────────────────
+        // num=null → página en blanco (guardas del libro)
+        async function drawPage(canvas, num) {
+            canvas.width = pageW; canvas.height = pageH;
+            const ctx = canvas.getContext('2d');
+            if (!num) {
+                const g = ctx.createLinearGradient(0, 0, pageW, 0);
+                g.addColorStop(0, '#cbbfa8'); g.addColorStop(1, '#e8ddd0');
+                ctx.fillStyle = g; ctx.fillRect(0, 0, pageW, pageH);
+                return;
+            }
+            const url = await getDataUrl(num);
+            if (!url) return;
+            await new Promise(r => {
+                const img = new Image();
+                img.onload = () => { ctx.drawImage(img, 0, 0, pageW, pageH); r(); };
+                img.src = url;
+            });
+        }
+
+        // ── Abre el visor ───────────────────────────────────
+        async function abrirPDF(ruta, titulo) {
+            document.getElementById('pdfOverlay').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+
+            document.getElementById('pdfTitulo').textContent     = titulo;
+            document.getElementById('pdfDescarga').href          = ruta;
+            document.getElementById('pdfPaginaInfo').textContent = '';
+            document.getElementById('pdfThumbBar').innerHTML     = '';
+            document.getElementById('pdfSpinner').style.display  = 'flex';
+            document.getElementById('flipper').style.visibility  = 'hidden';
+            document.getElementById('btnPrev').style.opacity     = '0.25';
+            document.getElementById('btnNext').style.opacity     = '0.25';
+
+            pageCache = {}; thumbEls = []; isAnimating = false;
+            pdfDoc = null; apertura = 0;
+
+            try {
+                pdfDoc      = await pdfjsLib.getDocument(ruta).promise;
+                totalPags   = pdfDoc.numPages;
+                maxApertura = Math.floor(totalPags / 2);
+
+                // Calcular dimensiones a partir de la página 1
+                const p1   = await pdfDoc.getPage(1);
+                const vp1  = p1.getViewport({ scale: 1 });
+                storedScale = calcScale(vp1);
+                pageW = Math.round(vp1.width  * storedScale);
+                pageH = Math.round(vp1.height * storedScale);
+
+                // Configurar bookOuter (ancho = 2 páginas)
+                const bo = document.getElementById('bookOuter');
+                bo.style.width       = (pageW * 2) + 'px';
+                bo.style.height      = pageH + 'px';
+                bo.style.perspective = '2600px';
+
+                // Posicionar cnvRight en la mitad derecha
+                const cnvR = document.getElementById('cnvRight');
+                cnvR.style.left = pageW + 'px';
+
+                // Lomo
+                const spine = document.getElementById('bookSpine');
+                spine.style.left   = (pageW - 8) + 'px';
+                spine.style.width  = '16px';
+                spine.style.height = pageH + 'px';
+
+                // Sombra (ocupa media página)
+                document.getElementById('flipShadow').style.width = pageW + 'px';
+
+                // Mostrar apertura 0 (portada)
+                await mostrarApertura(0);
+                document.getElementById('pdfSpinner').style.display = 'none';
+                actualizarUI();
+                crearMiniaturas();
+                precargarAdyacentes();
+
+            } catch(err) {
+                document.getElementById('pdfSpinner').innerHTML =
+                    '<span style="color:#e74c3c;font-size:0.85rem;">Error al cargar.</span>';
+                console.error(err);
+            }
+        }
+
+        // ── Muestra una apertura (sin animación) ────────────
+        async function mostrarApertura(k) {
+            await Promise.all([
+                drawPage(document.getElementById('cnvLeft'),  izqDe(k)),
+                drawPage(document.getElementById('cnvRight'), derDe(k))
+            ]);
+        }
+
+        // ── FLIP — el alma del libro ─────────────────────────
+        //
+        //  Avanzar (dir=+1):
+        //    • La página DERECHA (der actual) gira hacia la IZQUIERDA
+        //      (hinge en el lomo = borde izquierdo del flipper).
+        //    • La página izquierda SE QUEDA FIJA durante toda la animación.
+        //    • El flipper muestra en su cara frontal la página der actual.
+        //    • Debajo del flipper ya está la nueva página derecha (cnvRight).
+        //    • Al terminar: actualizamos cnvLeft con la nueva izquierda.
+        //
+        //  Retroceder (dir=-1): lo contrario.
+        async function flipPage(dir) {
+            if (isAnimating || !pdfDoc) return;
+            const sigApertura = apertura + dir;
+            if (sigApertura < 0 || sigApertura > maxApertura) return;
+
+            isAnimating = true;
+            sonidoPagina();
+
+            const flipper  = document.getElementById('flipper');
+            const front    = document.getElementById('cnvFlipFront');
+            const back     = document.getElementById('cnvFlipBack');
+            const cnvLeft  = document.getElementById('cnvLeft');
+            const cnvRight = document.getElementById('cnvRight');
+            const shadow   = document.getElementById('flipShadow');
+
+            if (dir > 0) {
+                // ── AVANZAR ──────────────────────────────────────────
+                const pDerActual = derDe(apertura);       // página que gira (frontal)
+                const pIzqSig    = izqDe(sigApertura);   // nueva izquierda (cara trasera)
+                const pDerSig    = derDe(sigApertura);   // nueva página derecha
+
+                // Cara frontal = página derecha actual (la que gira)
+                await drawPage(front, pDerActual);
+                // Cara trasera = nueva izquierda (al voltear 180° el CSS muestra el frente, no imagen espejo)
+                await drawPage(back, pIzqSig);
+                // Actualizar cnvRight con nueva página derecha (cubierta por el flipper)
+                await drawPage(cnvRight, pDerSig);
+
+                // Flipper sobre la mitad DERECHA, bisagra a la IZQUIERDA (el lomo)
+                flipper.style.left            = pageW + 'px';
+                flipper.style.width           = pageW + 'px';
+                flipper.style.height          = pageH + 'px';
+                front.width = back.width      = pageW;
+                front.height = back.height    = pageH;
+                flipper.style.transformOrigin = 'left center';
+
+                // Sombra proyectada sobre la página izquierda
+                shadow.style.left       = '0';
+                shadow.style.background = 'linear-gradient(to left,rgba(0,0,0,0.5),rgba(0,0,0,0.0))';
+
+            } else {
+                // ── RETROCEDER ───────────────────────────────────────
+                const pIzqActual = izqDe(apertura);      // página que gira (frontal)
+                const pDerPrev   = derDe(sigApertura);   // nueva derecha (cara trasera)
+                const pIzqPrev   = izqDe(sigApertura);   // nueva izquierda
+
+                await drawPage(front, pIzqActual);
+                await drawPage(back, pDerPrev);
+                // Actualizar cnvLeft con nueva izquierda (cubierta por flipper)
+                await drawPage(cnvLeft, pIzqPrev);
+
+                // Flipper sobre la mitad IZQUIERDA, bisagra a la DERECHA (el lomo)
+                flipper.style.left            = '0';
+                flipper.style.width           = pageW + 'px';
+                flipper.style.height          = pageH + 'px';
+                front.width = back.width      = pageW;
+                front.height = back.height    = pageH;
+                flipper.style.transformOrigin = 'right center';
+
+                // Sombra sobre la página derecha
+                shadow.style.left       = pageW + 'px';
+                shadow.style.background = 'linear-gradient(to right,rgba(0,0,0,0.5),rgba(0,0,0,0.0))';
+            }
+
+            // Mostrar flipper en 0° (cubriendo la página correspondiente)
+            flipper.style.transition = 'none';
+            flipper.style.transform  = 'rotateY(0deg)';
+            flipper.style.visibility = 'visible';
+            flipper.getBoundingClientRect(); // forzar reflow
+
+            // Sombra: aparece rápido, desaparece durante el volteo
+            shadow.style.transition = 'none';
+            shadow.style.opacity    = '0.75';
+            setTimeout(() => {
+                shadow.style.transition = 'opacity 0.5s ease';
+                shadow.style.opacity    = '0';
+            }, 80);
+
+            // Animar volteo
+            const angFinal = dir > 0 ? -180 : 180;
+            flipper.style.transition = 'transform 0.8s cubic-bezier(0.5,0.0,0.5,1.0)';
+            flipper.style.transform  = `rotateY(${angFinal}deg)`;
+
+            // Al terminar: actualizar el canvas que quedó cubierto por la cara trasera
+            setTimeout(async () => {
+                if (dir > 0) {
+                    // Cara trasera aterrizó en la izquierda → actualizar cnvLeft
+                    await drawPage(cnvLeft, izqDe(sigApertura));
+                } else {
+                    // Cara trasera aterrizó en la derecha → actualizar cnvRight
+                    await drawPage(cnvRight, derDe(sigApertura));
+                }
+                flipper.style.visibility = 'hidden';
+                flipper.style.transition = 'none';
+                shadow.style.transition  = 'none';
+                shadow.style.opacity     = '0';
+                apertura    = sigApertura;
+                isAnimating = false;
+                actualizarUI();
+                precargarAdyacentes();
+            }, 820);
+        }
+
+        // ── Saltar a apertura desde miniatura ───────────────
+        async function irAPagina(n) {
+            if (!pdfDoc || isAnimating || n < 1 || n > totalPags) return;
+            const k = aperturaDe(n);
+            if (k === apertura) return;
+            isAnimating = true;
+            apertura = k;
+            await mostrarApertura(k);
+            actualizarUI();
+            isAnimating = false;
+            precargarAdyacentes();
+        }
+
+        // ── Actualizar UI ───────────────────────────────────
+        function actualizarUI() {
+            const lp = izqDe(apertura), rp = derDe(apertura);
+            const info = lp && rp ? `Págs. ${lp}–${rp} de ${totalPags}`
+                       : rp       ? `Pág. ${rp} de ${totalPags}`
+                       : lp       ? `Pág. ${lp} de ${totalPags}` : '';
+            document.getElementById('pdfPaginaInfo').textContent = info;
+            document.getElementById('btnPrev').style.opacity = apertura > 0          ? '1' : '0.25';
+            document.getElementById('btnNext').style.opacity = apertura < maxApertura? '1' : '0.25';
+            thumbEls.forEach((el, i) => {
+                const n = i + 1;
+                const ok = n === lp || n === rp;
+                el.classList.toggle('activa', ok);
+                el.style.opacity = ok ? '1' : '0.32';
+            });
+            const foco = rp || lp;
+            if (foco && thumbEls[foco-1])
+                thumbEls[foco-1].scrollIntoView({ behavior:'smooth', inline:'center', block:'nearest' });
+        }
+
+        // ── Crear miniaturas (carga en segundo plano) ────────
+        async function crearMiniaturas() {
+            const bar = document.getElementById('pdfThumbBar');
+            for (let i = 1; i <= totalPags; i++) {
+                const c = document.createElement('canvas');
+                c.className = 'pdf-thumb' + (i === 1 ? ' activa' : '');
+                c.title = `Página ${i}`;
+                c.width = 40; c.height = 52;
+                c.getContext('2d').fillStyle = '#182030';
+                c.getContext('2d').fillRect(0,0,40,52);
+                c.addEventListener('click', (n => () => irAPagina(n))(i));
+                bar.appendChild(c);
+                thumbEls.push(c);
+            }
+            for (let i = 1; i <= totalPags; i++) {
+                if (!pdfDoc) break;
+                try {
+                    const page = await pdfDoc.getPage(i);
+                    const vp   = page.getViewport({ scale: 0.09 });
+                    const c    = thumbEls[i-1];
+                    if (!c) continue;
+                    c.width  = Math.round(vp.width);
+                    c.height = Math.round(vp.height);
+                    await page.render({ canvasContext: c.getContext('2d'), viewport: vp }).promise;
+                    c.style.opacity = c.classList.contains('activa') ? '1' : '0.32';
+                } catch(e) {}
+                if (i % 5 === 0) await new Promise(r => setTimeout(r, 0));
+            }
+        }
+
+        // ── Precargar aperturas adyacentes ──────────────────
+        async function precargarAdyacentes() {
+            const ks = [apertura+1, apertura-1, apertura+2, apertura-2];
+            for (const k of ks) {
+                if (k < 0 || k > maxApertura) continue;
+                const pages = [izqDe(k), derDe(k)].filter(Boolean);
+                for (const p of pages) {
+                    if (!pageCache[p]) await getDataUrl(p).catch(() => {});
+                }
+            }
+        }
+
+        // ── Sonido de vuelta de hoja ─────────────────────────
+        // Dos capas: chasquido inicial + aleteo modulado
+        function sonidoPagina() {
+            try {
+                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+                const rate = audioCtx.sampleRate, now = audioCtx.currentTime;
+
+                // Capa 1 — chasquido seco (papel doblándose)
+                const sb = audioCtx.createBuffer(1, Math.floor(rate*0.07), rate);
+                const sd = sb.getChannelData(0);
+                for (let i = 0; i < sd.length; i++) {
+                    const t = i/sd.length;
+                    sd[i] = (Math.random()*2-1) * Math.pow(1-t,3) * (t < 0.1 ? t/0.1 : 1);
+                }
+                const ss = audioCtx.createBufferSource(); ss.buffer = sb;
+                const sf = audioCtx.createBiquadFilter(); sf.type='bandpass'; sf.frequency.value=1700; sf.Q.value=1.1;
+                const sg = audioCtx.createGain(); sg.gain.setValueAtTime(1.2,now); sg.gain.exponentialRampToValueAtTime(0.001,now+0.07);
+                ss.connect(sf); sf.connect(sg); sg.connect(audioCtx.destination); ss.start(now);
+
+                // Capa 2 — aleteo (hoja en el aire)
+                const fb = audioCtx.createBuffer(1, Math.floor(rate*0.32), rate);
+                const fd = fb.getChannelData(0);
+                for (let i = 0; i < fd.length; i++) {
+                    const t = i/fd.length;
+                    fd[i] = (Math.random()*2-1) * (0.5+0.5*Math.sin(t*Math.PI*16)) * Math.pow(1-t,1.0) * 0.6;
+                }
+                const fs = audioCtx.createBufferSource(); fs.buffer = fb;
+                const ff = audioCtx.createBiquadFilter(); ff.type='bandpass'; ff.frequency.value=2600; ff.Q.value=0.65;
+                const fl = audioCtx.createBiquadFilter(); fl.type='lowpass';  fl.frequency.value=5500;
+                const fg = audioCtx.createGain(); fg.gain.setValueAtTime(0.5,now+0.02); fg.gain.exponentialRampToValueAtTime(0.001,now+0.32);
+                fs.connect(ff); ff.connect(fl); fl.connect(fg); fg.connect(audioCtx.destination); fs.start(now+0.02);
+
+            } catch(e) {}
+        }
+
+        // ── Cerrar visor ─────────────────────────────────────
+        function cerrarVisor() {
+            document.getElementById('pdfOverlay').style.display = 'none';
+            document.body.style.overflow = '';
+            pdfDoc = null; pageCache = {}; thumbEls = []; isAnimating = false;
+        }
+
+        // ── Teclado ──────────────────────────────────────────
+        document.addEventListener('keydown', e => {
+            if (document.getElementById('pdfOverlay').style.display === 'none') return;
+            if (e.key === 'Escape')     cerrarVisor();
+            if (e.key === 'ArrowLeft')  flipPage(-1);
+            if (e.key === 'ArrowRight') flipPage(1);
+        });
+    </script>
+
+</body>
+</html>

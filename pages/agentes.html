@@ -1,0 +1,1394 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agentes - Cooperativa San Pedro</title>
+
+    <!-- =============================================
+         LIBRERÍAS EXTERNAS (CDN)
+    ============================================= -->
+    <!-- Bootstrap CSS: estilos y componentes -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <!-- Bootstrap JS: componentes interactivos -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <!-- Google Fonts: Outfit -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+    <!-- =============================================
+         ESTILOS PROPIOS DEL PROYECTO
+    ============================================= -->
+    <link rel="stylesheet" href="../css/estilos.css">
+
+    <style>
+        /* Fuente global */
+        * { font-family: 'Outfit', sans-serif; }
+
+        /* ===== HERO DE AGENTES ===== */
+        /* Sección de encabezado con fondo degradado oscuro */
+        .hero-agentes {
+            background: linear-gradient(135deg, #033E81 0%, #033E81 60%, #033E81 100%);
+            padding: 100px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Círculo decorativo superior derecho */
+        .hero-agentes::before {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: rgba(79,195,247,0.08);
+            border-radius: 50%;
+            top: -100px;
+            right: -100px;
+        }
+
+        /* Círculo decorativo inferior izquierdo */
+        .hero-agentes::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: rgba(123,214,90,0.06);
+            border-radius: 50%;
+            bottom: -80px;
+            left: -80px;
+        }
+
+        /* ===== TARJETA DE TIPO DE AGENTE ===== */
+        /* Tarjeta con hover animado para los tipos de agente */
+        .tipo-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            height: 100%;
+        }
+
+        /* Al hacer hover: eleva la tarjeta y muestra borde azul */
+        .tipo-card:hover {
+            transform: translateY(-8px);
+            border-color: #033E81;
+            box-shadow: 0 20px 50px rgba(13,110,253,0.15);
+        }
+
+        /* Ícono grande con fondo gradiente */
+        .tipo-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #033E81, #033E81);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2rem;
+            color: white;
+        }
+
+        /* ===== SECCIÓN DE BENEFICIOS PARA AGENTES ===== */
+        /* Cada ítem de beneficio con ícono y texto */
+        .beneficio-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            transition: all 0.3s ease;
+        }
+
+        .beneficio-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 8px 25px rgba(13,110,253,0.12);
+        }
+
+        /* Círculo de ícono con fondo semitransparente */
+        .beneficio-icon {
+            width: 48px;
+            height: 48px;
+            min-width: 48px;
+            background: linear-gradient(135deg, rgba(3,62,129,0.1), rgba(13,110,253,0.15));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            color: #033E81;
+        }
+
+        /* ===== FORMULARIO DE SOLICITUD ===== */
+        /* Sección con fondo degradado para el CTA de registro */
+        .cta-agente {
+            background: linear-gradient(135deg, #033E81, #033E81);
+            border-radius: 24px;
+            padding: 60px;
+        }
+
+        /* Campos del formulario con estilo limpio */
+        .form-control-custom {
+            background: rgba(255,255,255,0.1);
+            border: 1.5px solid rgba(255,255,255,0.2);
+            border-radius: 12px;
+            color: white;
+            padding: 14px 18px;
+            transition: all 0.3s ease;
+        }
+
+        /* Al enfocar el campo: aumenta brillo del borde */
+        .form-control-custom:focus {
+            background: rgba(255,255,255,0.15);
+            border-color: #4fc3f7;
+            box-shadow: 0 0 0 3px rgba(79,195,247,0.2);
+            color: white;
+            outline: none;
+        }
+
+        /* Placeholder con color claro */
+        .form-control-custom::placeholder {
+            color: rgba(255,255,255,0.5);
+        }
+
+        /* ===== PASOS DEL PROCESO ===== */
+        /* Número de paso con estilo de círculo */
+        .paso-num {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #033E81, #033E81);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin: 0 auto 15px;
+        }
+
+        /* Línea conectora entre pasos */
+        .paso-linea {
+            position: absolute;
+            top: 25px;
+            left: calc(50% + 25px);
+            width: calc(100% - 50px);
+            height: 2px;
+            background: linear-gradient(90deg, #033E81, #4fc3f7);
+        }
+
+        /* ===== ANIMACIÓN DE ENTRADA ===== */
+        /* Estado inicial: invisible y ligeramente abajo */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        /* Estado visible al hacer scroll */
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =============================================
+         HEADER - BARRA DE NAVEGACIÓN
+    ============================================= -->
+        <header class="main-header" id="mainHeader">
+        <div class="header-inner">
+
+            <a href="../index.html" class="header-logo">
+                <img src="../image/Logo Cooperativa - Blanco.png" alt="Cooperativa San Pedro">
+            </a>
+
+            <button class="nav-toggle" id="navToggle" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+
+            <nav class="main-nav" id="mainNav">
+                <ul class="nav-list">
+
+                    <li class="nav-item"><a href="../index.html" class="nav-link">Inicio</a></li>
+
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link" onclick="return false">
+                            Puntos de Servicio <i class="bi bi-chevron-down nav-arrow"></i>
+                        </a>
+                        <div class="nav-dropdown">
+                            <a href="./agencias.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-building"></i></div>
+                                <div><span class="drop-title">Agencias</span><span class="drop-sub">8 puntos en Huehuetenango</span></div>
+                            </a>
+                            <a href="./agentes.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-person-badge"></i></div>
+                                <div><span class="drop-title">Agentes Micoope</span><span class="drop-sub">Cerca de tu comunidad</span></div>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link" onclick="return false">
+                            Productos y Servicios <i class="bi bi-chevron-down nav-arrow"></i>
+                        </a>
+                        <div class="nav-dropdown">
+                            <a href="./ahorro.html" class="drop-link">
+                                <div class="drop-icon green"><i class="bi bi-piggy-bank"></i></div>
+                                <div><span class="drop-title">Ahorro</span><span class="drop-sub">Cuentas y depositos</span></div>
+                            </a>
+                            <a href="./prestamos.html" class="drop-link">
+                                <div class="drop-icon" style="background:rgba(79,195,247,0.12);color:#033E81;"><i class="bi bi-cash-coin"></i></div>
+                                <div><span class="drop-title">Prestamos</span><span class="drop-sub">Creditos accesibles</span></div>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link" onclick="return false">
+                            Nosotros <i class="bi bi-chevron-down nav-arrow"></i>
+                        </a>
+                        <div class="nav-dropdown">
+                            <a href="./about.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-people-fill"></i></div>
+                                <div><span class="drop-title">Quienes somos</span><span class="drop-sub">Nuestra cooperativa</span></div>
+                            </a>
+                            <a href="./mision-vision.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-eye-fill"></i></div>
+                                <div><span class="drop-title">Mision y Vision</span><span class="drop-sub">Nuestros valores</span></div>
+                            </a>
+                            <a href="./historia.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-clock-history"></i></div>
+                                <div><span class="drop-title">Historia</span><span class="drop-sub">Nuestros inicios</span></div>
+                            </a>
+                            <a href="./memoria-labores.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-file-earmark-text"></i></div>
+                                <div><span class="drop-title">Memoria de Labores</span><span class="drop-sub">Informes anuales</span></div>
+                            </a>
+                            <div class="drop-divider"></div>
+                            <a href="./ver-mas.html" class="drop-link">
+                                <div class="drop-icon green"><i class="bi bi-arrow-right-circle"></i></div>
+                                <div><span class="drop-title">Ver mas</span><span class="drop-sub">Todo sobre nosotros</span></div>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="./contactanos.html" class="nav-link nav-cta">
+                            <i class="bi bi-telephone-fill"></i> Contactanos
+                        </a>
+                    </li>
+
+                </ul>
+            </nav>
+
+            <div class="header-search">
+                <input type="text" class="search-input" id="searchInput" placeholder="Buscar...">
+                <button class="search-btn" onclick="toggleSearch()">
+                    <i class="bi bi-search" id="searchIcon"></i>
+                </button>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- =============================================
+         HERO - ENCABEZADO PRINCIPAL DE LA PÁGINA
+         Presenta la sección de Agentes con animación
+    ============================================= -->
+    <section class="hero-agentes">
+        <div class="container position-relative" style="z-index:2;">
+            <div class="row align-items-center">
+                <div class="col-lg-7">
+                    <!-- Etiqueta de sección -->
+                    <span style="
+                        background: rgba(79,195,247,0.15);
+                        color: #4fc3f7;
+                        padding: 8px 20px;
+                        border-radius: 50px;
+                        font-size: 0.9rem;
+                        font-weight: 600;
+                        letter-spacing: 1px;
+                        display: inline-block;
+                        margin-bottom: 20px;
+                        border: 1px solid rgba(79,195,247,0.3);">
+                        <i class="bi bi-people me-2"></i>PUNTOS DE SERVICIO
+                    </span>
+
+                    <!-- Título principal con dos líneas de color diferente -->
+                    <h1 style="font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; color: white; line-height: 1.1; margin-bottom: 20px;">
+                        Nuestros <span style="color: #4fc3f7;">Agentes</span><br>
+                        <span style="color: #7bd65a;">Autorizados</span>
+                    </h1>
+
+                    <p style="color: rgba(255,255,255,0.75); font-size: 1.1rem; line-height: 1.8; max-width: 550px; margin-bottom: 35px;">
+                        Los agentes de Cooperativa San Pedro son aliado estratégico de la Cooperativa que
+                        cuenta con un negocio formalmente establecido y debidamente documentado, el
+                        cual presta servicios de atención a los asociados mediante un punto de servicio
+                        instalado dentro de su establecimiento.
+                    </p>
+
+                    <!-- Botones de acción -->
+                    <div class="d-flex flex-wrap gap-3">
+                        <a href="#nuestros-agentes" style="
+                            background: linear-gradient(135deg, #033E81, #4fc3f7);
+                            color: white;
+                            padding: 14px 32px;
+                            border-radius: 50px;
+                            text-decoration: none;
+                            font-weight: 600;
+                            transition: all 0.3s ease;
+                            box-shadow: 0 8px 25px rgba(13,110,253,0.4);">
+                            <i class="bi bi-search me-2"></i>Encuentra un Agente
+                        </a>
+                        <a href="#ser-agente" style="
+                            background: transparent;
+                            color: white;
+                            padding: 14px 32px;
+                            border-radius: 50px;
+                            text-decoration: none;
+                            font-weight: 600;
+                            border: 2px solid rgba(255,255,255,0.4);
+                            transition: all 0.3s ease;">
+                            <i class="bi bi-shop me-2"></i>Ser Agente
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Columna imagen hero -->
+                <div class="col-lg-5 d-none d-lg-flex align-items-center justify-content-center">
+                    <div style="position: relative; width: 100%;">
+                        <div style="position: absolute; top: -15px; right: -15px; width: 100%; height: 100%; border: 3px solid #4EAE33; border-radius: 20px; z-index: 0;"></div>
+                        <img src="../image/1.jfif" alt="Agente Bancario" style="width: 100%; height: 420px; object-fit: cover; border-radius: 20px; position: relative; z-index: 1; box-shadow: 0 20px 60px rgba(0,0,0,0.3);">
+                        
+                        <div style="position: absolute; top: 20px; right: 30px; background: #4EAE33; color: white; border-radius: 50px; padding: 8px 16px; font-size: 0.8rem; font-weight: 600; z-index: 2; box-shadow: 0 4px 15px rgba(78,174,51,0.4);"><i class="bi bi-patch-check-fill me-1"></i>Autorizado</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- =============================================
+         QUÉ ES UN AGENTE - EXPLICACIÓN BREVE
+         Descripción del concepto de agente autorizado
+    ============================================= -->
+    <section style="padding: 70px 0; background: #f8f9fa;">
+        <div class="container">
+            <div class="row align-items-center g-5">
+
+                <!-- Imagen ilustrativa -->
+                <div class="col-lg-5 reveal">
+                    <div style="position: relative;">
+                        <!-- Borde decorativo verde -->
+                        <div style="position: absolute; top: -12px; left: -12px; width: 100%; height: 100%; border: 3px solid #4EAE33; border-radius: 24px; z-index: 0;"></div>
+                        <!-- Imagen -->
+                        <img src="../image/1.jfif"
+                             alt="Agente Autorizado"
+                             style="
+                                width: 100%;
+                                height: 380px;
+                                object-fit: cover;
+                                border-radius: 20px;
+                                position: relative;
+                                z-index: 1;
+                                box-shadow: 0 20px 50px rgba(3,62,129,0.2);
+                                display: block;">
+                        <!-- Badge AUTORIZADO -->
+                        <div style="
+                            position: absolute; top: 18px; right: 18px;
+                            background: #4EAE33; color: white;
+                            border-radius: 50px; padding: 8px 18px;
+                            font-weight: 700; font-size: 0.85rem;
+                            z-index: 2;
+                            box-shadow: 0 4px 15px rgba(78,174,51,0.4);">
+                            <i class="bi bi-patch-check-fill me-1"></i>AUTORIZADO
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Descripción textual -->
+                <div class="col-lg-7 reveal">
+                    <span style="color: #033E81; font-weight: 600; font-size: 0.9rem; letter-spacing: 1px;">
+                        ¿QUÉ SON?
+                    </span>
+                    <h2 style="font-size: 2.2rem; font-weight: 800; color: #033E81; margin: 10px 0 20px;">
+                        Servicios financieros <br>a tu alcance
+                    </h2>
+                    <p style="color: #666; line-height: 1.9; font-size: 1.05rem; margin-bottom: 25px;">
+                        Los agentes son establecimientos comerciales (tiendas, farmacias, ferreterías)
+                        o personas naturales que, a través de estos puntos se realizan distintos
+                        tipos de transacciones autorizadas, con la finalidad de ampliar la cobertura y facilitar
+                        el acceso a los servicios financieros que la Cooperativa brinda a sus asociados.
+                    </p>
+
+                    <!-- Lista de servicios disponibles -->
+                    <div class="row g-3">
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center gap-2" style="color: #033E81; font-weight: 500;">
+                                <i class="bi bi-check-circle-fill text-success"></i> Depósitos
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center gap-2" style="color: #033E81; font-weight: 500;">
+                                <i class="bi bi-check-circle-fill text-success"></i> Pago de créditos
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center gap-2" style="color: #033E81; font-weight: 500;">
+                                <i class="bi bi-check-circle-fill text-success"></i> Pago de remesas
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center gap-2" style="color: #033E81; font-weight: 500;">
+                                <i class="bi bi-check-circle-fill text-success"></i> Pago de Tarjeta
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center gap-2" style="color: #033E81; font-weight: 500;">
+                                <i class="bi bi-check-circle-fill text-success"></i> Pago a Terceros (energía eléctrica)
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center gap-2" style="color: #033E81; font-weight: 500;">
+                                <i class="bi bi-check-circle-fill text-success"></i> Retiro en efectivo
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center gap-2" style="color: #033E81; font-weight: 500;">
+                                <i class="bi bi-check-circle-fill text-success"></i> Pago con Tarjeta de Débito y Crédito
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center gap-2" style="color: #033E81; font-weight: 500;">
+                                <i class="bi bi-check-circle-fill text-success"></i> Ahorros
+                            </div>
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+ 
+
+    <!-- =============================================
+         GRID DE 12 AGENTES BANCARIOS
+         Flip cards similares a las agencias
+    ============================================= -->
+    <section id="nuestros-agentes" style="background: #f0f4f8; padding: 80px 0;">
+        <div class="container">
+
+            <!-- Encabezado -->
+            <div class="text-center mb-5 reveal">
+                <span style="color:#4EAE33; font-weight:700; letter-spacing:3px; font-size:0.8rem; text-transform:uppercase;">RED DE COBERTURA</span>
+                <h2 style="font-size:2.4rem; font-weight:900; color:#033E81; margin:10px 0 12px;">
+                    Nuestros Agentes MICOOPE
+                </h2>
+                <p style="color:#666; max-width:560px; margin:0 auto; line-height:1.7;">
+                    Encuentra el punto de servicio más cercano a tu comunidad. Gira cada tarjeta para ver la ubicación.
+                </p>
+            </div>
+
+            <div class="row g-4">
+
+                <!-- AGENTE 01 -->
+                <div class="col-md-6 col-lg-4 reveal">
+                    <div class="flip-container">
+                        <div class="flip-card">
+                            <div class="flip-front">
+                                <div class="ag-img-wrap">
+                                    <img class="ag-img" src="../image/1.jfif" alt="Agente El Progreso">
+                                    <span class="ag-badge" style="background:#033E81;">01</span>
+                                    
+                                </div>
+                                <div class="ag-info">
+                                    <h5 class="ag-nombre">Farmacia La Alternativa</h5>
+                                    <div class="ag-detalle">
+                                        <i class="bi bi-geo-alt-fill" style="color:#033E81;"></i>
+                                        <span>Barrio San Antonio 02 calle y 7ma. Avenida, zona 5, San Pedro Soloma, Huehuetenango</span>
+                                    </div>
+                                    
+                                    <div class="flip-hint"><i class="bi bi-arrow-repeat"></i> Girar para ver más</div>
+                                </div>
+                            </div>
+                            <div class="flip-back" style="background: linear-gradient(135deg, #033E81, #4EAE33);">
+                                <div class="flip-back-icono">
+                                    <img src="../image/1.jfif" alt="Agente 01" style="width:80px;height:80px;object-fit:cover;border-radius:50%;border:3px solid rgba(255,255,255,0.5);box-shadow:0 4px 12px rgba(0,0,0,0.3);">
+                                </div>
+                                <h4>Agente Farmacia La Alternativa</h4>
+                                <p style="font-size:0.85rem;opacity:0.85;">San Pedro Soloma, Huehuetenango<br></p>
+                                <a href="https://maps.app.goo.gl/ChnUrn8Byn2x6bgbA" target="_blank" class="flip-back-btn">
+                                    <i class="bi bi-map-fill"></i> Ver en mapa
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AGENTE 02 -->
+                <div class="col-md-6 col-lg-4 reveal">
+                    <div class="flip-container">
+                        <div class="flip-card">
+                            <div class="flip-front">
+                                <div class="ag-img-wrap">
+                                    <img class="ag-img" src="../image/2.jfif" alt="Agente Farmacia San Juan">
+                                    <span class="ag-badge" style="background:#4EAE33;">02</span>
+                                    
+                                </div>
+                                <div class="ag-info">
+                                    <h5 class="ag-nombre">Variedades Bayit</h5>
+                                    <div class="ag-detalle">
+                                        <i class="bi bi-geo-alt-fill" style="color:#033E81;"></i>
+                                        <span>Barrio La Libertad 3 Avenida. 6-71 zona 1, San Pedro Soloma, Huehuetenango</span>
+                                    </div>
+                                   
+                                    <div class="flip-hint"><i class="bi bi-arrow-repeat"></i> Girar para ver más</div>
+                                </div>
+                            </div>
+                            <div class="flip-back" style="background: linear-gradient(135deg, #4EAE33, #033E81);">
+                                <div class="flip-back-icono">
+                                    <img src="../image/2.jfif" alt="Agente 02" style="width:80px;height:80px;object-fit:cover;border-radius:50%;border:3px solid rgba(255,255,255,0.5);box-shadow:0 4px 12px rgba(0,0,0,0.3);">
+                                </div>
+                                <h4>Agente Variedades Bayit</h4>
+                                <p style="font-size:0.85rem;opacity:0.85;">San Pedro Soloma, Huehuetenango<br></p>
+                                <a href="https://maps.app.goo.gl/Un5V5MGs7D2f4ZX98" target="_blank" class="flip-back-btn">
+                                    <i class="bi bi-map-fill"></i> Ver en mapa
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AGENTE 03 -->
+                <div class="col-md-6 col-lg-4 reveal">
+                    <div class="flip-container">
+                        <div class="flip-card">
+                            <div class="flip-front">
+                                <div class="ag-img-wrap">
+                                    <img class="ag-img" src="../image/3.jfif" alt="Agente Móvil Norte">
+                                    <span class="ag-badge" style="background:#033E81;">03</span>
+                                    
+                                </div>
+                                <div class="ag-info">
+                                    <h5 class="ag-nombre">Foto Wilson</h5>
+                                    <div class="ag-detalle">
+                                        <i class="bi bi-geo-alt-fill" style="color:#033E81;"></i>
+                                        <span>Canton Centro Esquina Parque Central, San Juan Ixcoy, Huehuetenango</span>
+                                    </div>
+                            
+                                    <div class="flip-hint"><i class="bi bi-arrow-repeat"></i> Girar para ver más</div>
+                                </div>
+                            </div>
+                            <div class="flip-back" style="background: linear-gradient(135deg, #033E81, #033E81);">
+                                <div class="flip-back-icono">
+                                    <img src="../image/3.jfif" alt="Agente 03" style="width:80px;height:80px;object-fit:cover;border-radius:50%;border:3px solid rgba(255,255,255,0.5);box-shadow:0 4px 12px rgba(0,0,0,0.3);">
+                                </div>
+                                <h4>Agente Foto Wilson</h4>
+                                <p style="font-size:0.85rem;opacity:0.85;">San Juan Ixcoy Huehuetenango<br></p>
+                                <a href="https://maps.app.goo.gl/h2QLQMkuF5vkxMC36" target="_blank" class="flip-back-btn">
+                                    <i class="bi bi-map-fill"></i> Ver en mapa
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AGENTE 04 -->
+                <div class="col-md-6 col-lg-4 reveal">
+                    <div class="flip-container">
+                        <div class="flip-card">
+                            <div class="flip-front">
+                                <div class="ag-img-wrap">
+                                    <img class="ag-img" src="../image/1.jfif" alt="Agente Plus Central">
+                                    <span class="ag-badge" style="background:#4EAE33;">04</span>
+                                    
+                                </div>
+                                <div class="ag-info">
+                                    <h5 class="ag-nombre">Farmacia San Bartolo</h5>
+                                    <div class="ag-detalle">
+                                        <i class="bi bi-geo-alt-fill" style="color:#033E81;"></i>
+                                        <span>Canton Centro, Santa Eulalia, Huehuetenango.</span>
+                                    </div>
+                
+                                    <div class="flip-hint"><i class="bi bi-arrow-repeat"></i> Girar para ver más</div>
+                                </div>
+                            </div>
+                            <div class="flip-back" style="background: linear-gradient(135deg, #4EAE33, #033E81);">
+                                <div class="flip-back-icono">
+                                    <img src="../image/1.jfif" alt="Agente 04" style="width:80px;height:80px;object-fit:cover;border-radius:50%;border:3px solid rgba(255,255,255,0.5);box-shadow:0 4px 12px rgba(0,0,0,0.3);">
+                                </div>
+                                <h4>Agente Farmacia San Bartolo</h4>
+                                <p style="font-size:0.85rem;opacity:0.85;">Santa Eulalia, Huehuetenango<br></p>
+                                <a href="https://www.google.com/maps" target="_blank" class="flip-back-btn">
+                                    <i class="bi bi-map-fill"></i> Ver en mapa
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AGENTE 05 -->
+                <div class="col-md-6 col-lg-4 reveal">
+                    <div class="flip-container">
+                        <div class="flip-card">
+                            <div class="flip-front">
+                                <div class="ag-img-wrap">
+                                    <img class="ag-img" src="../image/2.jfif" alt="Tienda La Esperanza">
+                                    <span class="ag-badge" style="background:#033E81;">05</span>
+                                    
+                                </div>
+                                <div class="ag-info">
+                                    <h5 class="ag-nombre">Librería y Miscelanea PS</h5>
+                                    <div class="ag-detalle">
+                                        <i class="bi bi-geo-alt-fill" style="color:#033E81;"></i>
+                                        <span>Canton Centro, Sector Iglesia, San Rafael La Indepedencia, Huehuetenango</span>
+                                    </div>
+                                    
+                                    <div class="flip-hint"><i class="bi bi-arrow-repeat"></i> Girar para ver más</div>
+                                </div>
+                            </div>
+                            <div class="flip-back" style="background: linear-gradient(135deg, #033E81, #4EAE33);">
+                                <div class="flip-back-icono">
+                                    <img src="../image/2.jfif" alt="Agente 05" style="width:80px;height:80px;object-fit:cover;border-radius:50%;border:3px solid rgba(255,255,255,0.5);box-shadow:0 4px 12px rgba(0,0,0,0.3);">
+                                </div>
+                                <h4>Agente Librería y Miscelanea PS</h4>
+                                <p style="font-size:0.85rem;opacity:0.85;">San Rafael La Indepedencia<br></p>
+                                <a href="https://maps.app.goo.gl/SuyR5UEXW5GdKYKP6" target="_blank" class="flip-back-btn">
+                                    <i class="bi bi-map-fill"></i> Ver en mapa
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AGENTE 06 -->
+                <div class="col-md-6 col-lg-4 reveal">
+                    <div class="flip-container">
+                        <div class="flip-card">
+                            <div class="flip-front">
+                                <div class="ag-img-wrap">
+                                    <img class="ag-img" src="../image/3.jfif" alt="Farmacia Familiar Nentón">
+                                    <span class="ag-badge" style="background:#4EAE33;">06</span>
+                                    
+                                </div>
+                                <div class="ag-info">
+                                    <h5 class="ag-nombre">Comercial Martínez</h5>
+                                    <div class="ag-detalle">
+                                        <i class="bi bi-geo-alt-fill" style="color:#033E81;"></i>
+                                        <span>San Jose Pueblo Nuevo, San Sebastián Coatán, Huehuetenango</span>
+                                    </div>
+                                 
+                                    <div class="flip-hint"><i class="bi bi-arrow-repeat"></i> Girar para ver más</div>
+                                </div>
+                            </div>
+                            <div class="flip-back" style="background: linear-gradient(135deg, #4EAE33, #033E81);">
+                                <div class="flip-back-icono">
+                                    <img src="../image/3.jfif" alt="Agente 06" style="width:80px;height:80px;object-fit:cover;border-radius:50%;border:3px solid rgba(255,255,255,0.5);box-shadow:0 4px 12px rgba(0,0,0,0.3);">
+                                </div>
+                                <h4>Agente Comercial Martínez</h4>
+                                <p style="font-size:0.85rem;opacity:0.85;">San Jose Pueblo Nuevo, San Sebastián Coatán, Huehuetenango<br></p>
+                                <a href="https://maps.app.goo.gl/cSZaw5b6QGb3z88cA" target="_blank" class="flip-back-btn">
+                                    <i class="bi bi-map-fill"></i> Ver en mapa
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AGENTE 07 -->
+                <div class="col-md-6 col-lg-4 reveal">
+                    <div class="flip-container">
+                        <div class="flip-card">
+                            <div class="flip-front">
+                                <div class="ag-img-wrap">
+                                    <img class="ag-img" src="../image/1.jfif" alt="Agente Móvil Sur">
+                                    <span class="ag-badge" style="background:#033E81;">07</span>
+                             
+                                </div>
+                                <div class="ag-info">
+                                    <h5 class="ag-nombre">G-Conta Servicios y Asesoría Contable</h5>
+                                    <div class="ag-detalle">
+                                        <i class="bi bi-geo-alt-fill" style="color:#033E81;"></i>
+                                        <span>Interior Comercial Coronados, Canton Centro, San Mateo Ixtatán, Huehuetenango</span>
+                                    </div>
+                                   
+                                    <div class="flip-hint"><i class="bi bi-arrow-repeat"></i> Girar para ver más</div>
+                                </div>
+                            </div>
+                            <div class="flip-back" style="background: linear-gradient(135deg, #033E81, #033E81);">
+                                <div class="flip-back-icono">
+                                    <img src="../image/1.jfif" alt="Agente 07" style="width:80px;height:80px;object-fit:cover;border-radius:50%;border:3px solid rgba(255,255,255,0.5);box-shadow:0 4px 12px rgba(0,0,0,0.3);">
+                                </div>
+                                <h4>Agente G-Conta Servicios y Asesoría Contable</h4>
+                                <p style="font-size:0.85rem;opacity:0.85;">San Mateo Ixtatán, Huehuetenango<br></p>
+                                <a href="https://maps.app.goo.gl/Xhipid6eo9F6J2rNA" target="_blank" class="flip-back-btn">
+                                    <i class="bi bi-map-fill"></i> Ver en mapa
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AGENTE 08 -->
+                <div class="col-md-6 col-lg-4 reveal">
+                    <div class="flip-container">
+                        <div class="flip-card">
+                            <div class="flip-front">
+                                <div class="ag-img-wrap">
+                                    <img class="ag-img" src="../image/2.jfif" alt="Agente El Mercado">
+                                    <span class="ag-badge" style="background:#4EAE33;">08</span>
+                                </div>
+                                <div class="ag-info">
+                                    <h5 class="ag-nombre">Aciva Cell</h5>
+                                    <div class="ag-detalle">
+                                        <i class="bi bi-geo-alt-fill" style="color:#033E81;"></i>
+                                        <span>Canton Centro 3 calle, 2-041, Zona 1, Santa Cruz Barillas, Huehuetenango</span>
+                                    </div>
+                                    
+                                    <div class="flip-hint"><i class="bi bi-arrow-repeat"></i> Girar para ver más</div>
+                                </div>
+                            </div>
+                            <div class="flip-back" style="background: linear-gradient(135deg, #4EAE33, #033E81);">
+                                <div class="flip-back-icono">
+                                    <img src="../image/2.jfif" alt="Agente 08" style="width:80px;height:80px;object-fit:cover;border-radius:50%;border:3px solid rgba(255,255,255,0.5);box-shadow:0 4px 12px rgba(0,0,0,0.3);">
+                                </div>
+                                <h4>Agente Activa Cell</h4>
+                                <p style="font-size:0.85rem;opacity:0.85;">Santa Cruz Barillas, Huehuetenango<br></p>
+                                <a href="https://maps.app.goo.gl/Vqj4DsGWgt1ZFPBU9" target="_blank" class="flip-back-btn">
+                                    <i class="bi bi-map-fill"></i> Ver en mapa
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AGENTE 09 -->
+                <div class="col-md-6 col-lg-4 reveal">
+                    <div class="flip-container">
+                        <div class="flip-card">
+                            <div class="flip-front">
+                                <div class="ag-img-wrap">
+                                    <img class="ag-img" src="../image/3.jfif" alt="Agente Plus Premium">
+                                    <span class="ag-badge" style="background:#033E81;">09</span>
+                                
+                                </div>
+                                <div class="ag-info">
+                                    <h5 class="ag-nombre">Rioval, Accesorios y Celulares</h5>
+                                    <div class="ag-detalle">
+                                        <i class="bi bi-geo-alt-fill" style="color:#033E81;"></i>
+                                        <span>Barrio el Centro 4ta. Avenida, calle zona 1, San Pedro Soloma, Huehuetenango</span>
+                                    </div>
+                                    
+                                    <div class="flip-hint"><i class="bi bi-arrow-repeat"></i> Girar para ver más</div>
+                                </div>
+                            </div>
+                            <div class="flip-back" style="background: linear-gradient(135deg, #033E81, #4EAE33);">
+                                <div class="flip-back-icono">
+                                    <img src="../image/3.jfif" alt="Agente 09" style="width:80px;height:80px;object-fit:cover;border-radius:50%;border:3px solid rgba(255,255,255,0.5);box-shadow:0 4px 12px rgba(0,0,0,0.3);">
+                                </div>
+                                <h4>Agente Rioval, Acceso y Celulares</h4>
+                                <p style="font-size:0.85rem;opacity:0.85;">San Pedro Soloma, Huehuetenango<br></p>
+                                <a href="https://maps.app.goo.gl/NimQK4nfrdAm1NxA9" target="_blank" class="flip-back-btn">
+                                    <i class="bi bi-map-fill"></i> Ver en mapa
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AGENTE 10 -->
+                <div class="col-md-6 col-lg-4 reveal">
+                    <div class="flip-container">
+                        <div class="flip-card">
+                            <div class="flip-front">
+                                <div class="ag-img-wrap">
+                                    <img class="ag-img" src="../image/1.jfif" alt="Tienda San José">
+                                    <span class="ag-badge" style="background:#4EAE33;">10</span>
+                            
+                                </div>
+                                <div class="ag-info">
+                                    <h5 class="ag-nombre">Miscelánea Luz 1</h5>
+                                    <div class="ag-detalle">
+                                        <i class="bi bi-geo-alt-fill" style="color:#033E81;"></i>
+                                        <span>Canton Vista Hermosa, Santa Eulalia, Huehuetenango</span>
+                                    </div>
+                                   
+                                    <div class="flip-hint"><i class="bi bi-arrow-repeat"></i> Girar para ver más</div>
+                                </div>
+                            </div>
+                            <div class="flip-back" style="background: linear-gradient(135deg, #4EAE33, #033E81);">
+                                <div class="flip-back-icono">
+                                    <img src="../image/1.jfif" alt="Agente 10" style="width:80px;height:80px;object-fit:cover;border-radius:50%;border:3px solid rgba(255,255,255,0.5);box-shadow:0 4px 12px rgba(0,0,0,0.3);">
+                                </div>
+                                <h4>Agente Miscelánea Luz 1</h4>
+                                <p style="font-size:0.85rem;opacity:0.85;">Santa Eulalia, Huehuetenango<br><i class="bi bi-telephone-fill me-1"></i>5555-1010</p>
+                                <a href="https://maps.app.goo.gl/CjFMFdeUZ6wqbisR7" target="_blank" class="flip-back-btn">
+                                    <i class="bi bi-map-fill"></i> Ver en mapa
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+               
+
+            </div><!-- /row -->
+        </div><!-- /container -->
+    </section>
+
+
+    <!-- =============================================
+         BENEFICIOS PARA EL AGENTE
+         Muestra las ventajas de ser agente autorizado
+    ============================================= -->
+    <section style="padding: 80px 0; background: #f8f9fa;">
+        <div class="container">
+            <div class="row g-5 align-items-center">
+
+                <!-- Columna de texto -->
+                <div class="col-lg-5 reveal">
+                    <span style="color: #033E81; font-weight: 600; letter-spacing: 1px; font-size: 0.9rem;">PARA EL AGENTE</span>
+                    <h2 style="font-size: 2.2rem; font-weight: 800; color: #033E81; margin: 10px 0 15px;">
+                        Beneficios de ser<br>Agente San Pedro
+                    </h2>
+                    <p style="color: #666; line-height: 1.8;">
+                        Únete a nuestra red y aumenta los ingresos de tu negocio mientras
+                        ayudas a tu comunidad a acceder a servicios financieros.
+                    </p>
+                    <a href="#ser-agente" style="
+                        display: inline-block;
+                        margin-top: 20px;
+                        background: linear-gradient(135deg, #033E81, #033E81);
+                        color: white;
+                        padding: 14px 30px;
+                        border-radius: 50px;
+                        text-decoration: none;
+                        font-weight: 600;
+                        transition: all 0.3s ease;">
+                        Solicitar ser agente →
+                    </a>
+                </div>
+
+                <!-- Grid de beneficios -->
+                <div class="col-lg-7">
+                    <div class="row g-3">
+
+                        <!-- Beneficio 1 -->
+                        <div class="col-12 reveal">
+                            <div class="beneficio-item">
+                                <div class="beneficio-icon">
+                                    <i class="bi bi-people"></i>
+                                </div>
+                                <div>
+                                    <h6 style="font-weight: 700; color: #033E81; margin-bottom: 4px;">Incremento de Clientes al negocio</h6>
+                                    <p style="color: #666; margin: 0; font-size: 0.9rem;">
+                                        Al ofrecer servicios financieros, más personas visitan el establecimiento para
+                                        realizar depósitos, retiros, pagos o consultas, lo que aumenta el flujo de
+                                        clientes y las oportunidades de venta del negocio.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Beneficio 2 -->
+                        <div class="col-12 reveal">
+                            <div class="beneficio-item">
+                                <div class="beneficio-icon">
+                                    <i class="bi bi-cash-coin"></i>
+                                </div>
+                                <div>
+                                    <h6 style="font-weight: 700; color: #033E81; margin-bottom: 4px;">Generación de Ingresos por Comisiones</h6>
+                                    <p style="color: #666; margin: 0; font-size: 0.9rem;">
+                                        El agente recibe comisiones por cada transacción realizada, lo cual
+                                        representa un ingreso adicional para el negocio sin necesidad de realizar una
+                                        inversión grande.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Beneficio 3 -->
+                        <div class="col-12 reveal">
+                            <div class="beneficio-item">
+                                <div class="beneficio-icon">
+                                    <i class="bi bi-shield-check"></i>
+                                </div>
+                                <div>
+                                    <h6 style="font-weight: 700; color: #033E81; margin-bottom: 4px;">Posicionamiento y confianza del Negocio</h6>
+                                    <p style="color: #666; margin: 0; font-size: 0.9rem;">
+                                        Ser Agente MICOOPE permite que el negocio sea reconocido como un punto
+                                        autorizado de la cooperativa, lo que genera mayor confianza y prestigio en la
+                                        comunidad.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Beneficio 4 -->
+                        <div class="col-12 reveal">
+                            <div class="beneficio-item">
+                                <div class="beneficio-icon">
+                                    <i class="bi bi-patch-check"></i>
+                                </div>
+                                <div>
+                                    <h6 style="font-weight: 700; color: #033E81; margin-bottom: 4px;">Mayor competividad</h6>
+                                    <p style="color: #666; margin: 0; font-size: 0.9rem;">
+                                        El negocio se vuelve más atractivo frente a otros comercios cercanos, ya que
+                                        ofrece servicios financieros adicionales que otros establecimientos no tienen.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                         <!-- Beneficio 5 -->
+                        <div class="col-12 reveal">
+                            <div class="beneficio-item">
+                                <div class="beneficio-icon">
+                                    <i class="bi bi-person-arms-up"></i>
+                                </div>
+                                <div>
+                                    <h6 style="font-weight: 700; color: #033E81; margin-bottom: 4px;">Apoyo y capacitación de la cooperativa</h6>
+                                    <p style="color: #666; margin: 0; font-size: 0.9rem;">
+                                        La cooperativa brinda capacitación, acompañamiento y supervisión, para
+                                        asegurar que el agente opere correctamente.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                         <!-- Beneficio 6 -->
+                        <div class="col-12 reveal">
+                            <div class="beneficio-item">
+                                <div class="beneficio-icon">
+                                    <i class="bi bi-card-image"></i>
+                                </div>
+                                <div>
+                                    <h6 style="font-weight: 700; color: #033E81; margin-bottom: 4px;">Material e imagen institucional</h6>
+                                    <p style="color: #666; margin: 0; font-size: 0.9rem;">
+                                        El agente recibe material publicitario, rótulos e imagen institucional, lo cual
+                                        mejora la presentación del negocio y lo identifica como punto de servicio
+                                        MICOOPE.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                         <!-- Beneficio 7 -->
+                        <div class="col-12 reveal">
+                            <div class="beneficio-item">
+                                <div class="beneficio-icon">
+                                    <i class="bi bi-headset"></i>
+                                </div>
+                                <div>
+                                    <h6 style="font-weight: 700; color: #033E81; margin-bottom: 4px;">Soporte técnico permanente</h6>
+                                    <p style="color: #666; margin: 0; font-size: 0.9rem;">
+                                        Asistencia técnica y capacitación continua para operar con seguridad.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =============================================
+         PROCESO PARA SER AGENTE
+         4 pasos del proceso de postulación
+    ============================================= -->
+    <section style="padding: 80px 0; background: white;">
+        <div class="container">
+            <div class="text-center mb-5 reveal">
+                <span style="color: #033E81; font-weight: 600; letter-spacing: 1px; font-size: 0.9rem;">PROCESO</span>
+                <h2 style="font-size: 2.3rem; font-weight: 800; color: #033E81; margin-top: 8px;">
+                    ¿Cómo convertirte en Agente?
+                </h2>
+            </div>
+
+            <!-- 4 pasos con línea conectora -->
+            <div class="row g-4 justify-content-center">
+
+                <!-- Paso 1 -->
+                <div class="col-md-6 col-lg-3 reveal">
+                    <div style="text-align:center; position:relative; padding:20px;">
+                        <div class="paso-num">1</div>
+                        <h6 style="font-weight:700; color:#033E81; margin-bottom:8px;">Ser Asociado de la Cooperativa San Pedro</h6>
+                        <p style="color:#666; font-size:0.9rem;">
+                            Completa el formulario de solicitud con los datos de tu negocio.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Paso 2 -->
+                <div class="col-md-6 col-lg-3 reveal">
+                    <div style="text-align:center; position:relative; padding:20px;">
+                        <div class="paso-num">2</div>
+                        <h6 style="font-weight:700; color:#033E81; margin-bottom:8px;">Documento de Identificación DPI</h6>
+                        <p style="color:#666; font-size:0.9rem;">
+                            Nuestro equipo evalúa tu negocio y ubicación en 5 días hábiles.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Paso 3 -->
+                <div class="col-md-6 col-lg-3 reveal">
+                    <div style="text-align:center; position:relative; padding:20px;">
+                        <div class="paso-num">3</div>
+                        <h6 style="font-weight:700; color:#033E81; margin-bottom:8px;">Patente de Comercio</h6>
+                        <p style="color:#666; font-size:0.9rem;">
+                            Recibes entrenamiento en el uso del sistema y protocolos de seguridad.
+                        </p>
+                    </div>
+                </div>
+                  <!-- Paso 4 -->
+                <div class="col-md-6 col-lg-3 reveal">
+                    <div style="text-align:center; position:relative; padding:20px;">
+                        <div class="paso-num">4</div>
+                        <h6 style="font-weight:700; color:#033E81; margin-bottom:8px;">RTU actualizado</h6>
+                        <p style="color:#666; font-size:0.9rem;">
+                            Recibes entrenamiento en el uso del sistema y protocolos de seguridad.
+                        </p>
+                    </div>
+                </div>
+
+                  <!-- Paso 5 -->
+                <div class="col-md-6 col-lg-3 reveal">
+                    <div style="text-align:center; position:relative; padding:20px;">
+                        <div class="paso-num">6</div>
+                        <h6 style="font-weight:700; color:#033E81; margin-bottom:8px;">Carta de solicitud de parte del asociado a la Gerencia de la Cooperativa</h6>
+                        <p style="color:#666; font-size:0.9rem;">
+                            Recibes entrenamiento en el uso del sistema y protocolos de seguridad.
+                        </p>
+                    </div>
+                </div>
+
+                  <!-- Paso 6 -->
+                <div class="col-md-6 col-lg-3 reveal">
+                    <div style="text-align:center; position:relative; padding:20px;">
+                        <div class="paso-num">7</div>
+                        <h6 style="font-weight:700; color:#033E81; margin-bottom:8px;">Facturas electrónicas emitidas por negocio</h6>
+                        <p style="color:#666; font-size:0.9rem;">
+                            Recibes entrenamiento en el uso del sistema y protocolos de seguridad.
+                        </p>
+                    </div>
+                </div>
+
+                  <!-- Paso 7 -->
+                <div class="col-md-6 col-lg-3 reveal">
+                    <div style="text-align:center; position:relative; padding:20px;">
+                        <div class="paso-num">8</div>
+                        <h6 style="font-weight:700; color:#033E81; margin-bottom:8px;">Tener buen historial crediticio</h6>
+                        <p style="color:#666; font-size:0.9rem;">
+                            Recibes entrenamiento en el uso del sistema y protocolos de seguridad.
+                        </p>
+                    </div>
+                </div>
+
+
+                <!-- Paso 8 -->
+                <div class="col-md-6 col-lg-3 reveal">
+                    <div style="text-align:center; position:relative; padding:20px;">
+                        <div class="paso-num" style="background: linear-gradient(135deg, #4EAE33, #7bd65a);">9</div>
+                        <h6 style="font-weight:700; color:#033E81; margin-bottom:8px;">¡Activación!</h6>
+                        <p style="color:#666; font-size:0.9rem;">
+                            Te entregamos el equipo y tu negocio comienza a operar como agente.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- =============================================
+         FORMULARIO DE SOLICITUD - SER AGENTE
+         id="ser-agente" — enlazado desde botones anteriores
+         Formulario de postulación para nuevos agentes
+    ============================================= -->
+    <section id="ser-agente" style="padding: 80px 0; background: #f0f4ff;">
+        <div class="container">
+            <div class="cta-agente reveal">
+                <div class="row g-5 align-items-center">
+
+                    <!-- Texto de la CTA -->
+                    <div class="col-lg-5">
+                        <span style="color: #4fc3f7; font-weight: 600; font-size: 0.9rem; letter-spacing: 1px;">
+                            ÚNETE A NOSOTROS
+                        </span>
+                        <h2 style="font-size: 2.2rem; font-weight: 800; color: white; margin: 12px 0 15px;">
+                            ¿Quieres ser un<br>Agente San Pedro?
+                        </h2>
+                        <p style="color: rgba(255,255,255,0.75); line-height: 1.8;">
+                            Aplica ahora y sé parte de la red de agentes más grande de la región.
+                            Sin costo de afiliación, sin cuotas mensuales.
+                        </p>
+                        <!-- Lista de requisitos básicos -->
+                        <ul style="list-style:none; padding:0; margin-top:20px;">
+                            <li style="color:rgba(255,255,255,0.8); margin-bottom:10px; display:flex; align-items:center; gap:10px;">
+                                <i class="bi bi-check-circle-fill" style="color:#7bd65a;"></i>
+                                Negocio establecido (mínimo 1 año)
+                            </li>
+                            <li style="color:rgba(255,255,255,0.8); margin-bottom:10px; display:flex; align-items:center; gap:10px;">
+                                <i class="bi bi-check-circle-fill" style="color:#7bd65a;"></i>
+                                Acceso a electricidad e internet
+                            </li>
+                            <li style="color:rgba(255,255,255,0.8); margin-bottom:10px; display:flex; align-items:center; gap:10px;">
+                                <i class="bi bi-check-circle-fill" style="color:#7bd65a;"></i>
+                                DPI y patente de comercio vigentes
+                            </li>
+                            <li style="color:rgba(255,255,255,0.8); display:flex; align-items:center; gap:10px;">
+                                <i class="bi bi-check-circle-fill" style="color:#7bd65a;"></i>
+                                Disponibilidad de horario extendido
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Formulario de solicitud -->
+                    <div class="col-lg-7">
+                        <form id="formAgente" action="https://formspree.io/f/xvzwlyrv" method="POST" style="padding:30px; background:rgba(255,255,255,0.05); border-radius:20px; border:1px solid rgba(255,255,255,0.1);">
+                            <h5 style="color:white; font-weight:700; margin-bottom:25px;">
+                                <i class="bi bi-send me-2" style="color:#4fc3f7;"></i>Formulario de Solicitud
+                            </h5>
+                            <div class="row g-3">
+
+                                <!-- Nombre completo -->
+                                <div class="col-md-6">
+                                    <label style="color:rgba(255,255,255,0.7); font-size:0.85rem; margin-bottom:6px; display:block;">
+                                        Nombre completo *
+                                    </label>
+                                    <input type="text" name="nombre" class="form-control-custom" placeholder="Tu nombre" required>
+                                </div>
+
+                                <!-- Nombre del negocio -->
+                                <div class="col-md-6">
+                                    <label style="color:rgba(255,255,255,0.7); font-size:0.85rem; margin-bottom:6px; display:block;">
+                                        Nombre del negocio *
+                                    </label>
+                                    <input type="text" name="negocio" class="form-control-custom" placeholder="Nombre del negocio" required>
+                                </div>
+
+                                <!-- Teléfono -->
+                                <div class="col-md-6">
+                                    <label style="color:rgba(255,255,255,0.7); font-size:0.85rem; margin-bottom:6px; display:block;">
+                                        Teléfono *
+                                    </label>
+                                    <input type="tel" name="telefono" class="form-control-custom" placeholder="+502 ____-____" required>
+                                </div>
+
+                                <!-- Municipio -->
+                                <div class="col-md-6">
+                                    <label style="color:rgba(255,255,255,0.7); font-size:0.85rem; margin-bottom:6px; display:block;">
+                                        Municipio *
+                                    </label>
+                                    <input type="text" name="municipio" class="form-control-custom" placeholder="Tu municipio" required>
+                                </div>
+
+                                <!-- Tipo de negocio -->
+                                <div class="col-12">
+                                    <label style="color:rgba(255,255,255,0.7); font-size:0.85rem; margin-bottom:6px; display:block;">
+                                        Tipo de negocio *
+                                    </label>
+                                    <select name="tipo_negocio" class="form-control-custom" style="width:100%;" required>
+                                        <option value="" style="background:#033E81;">Selecciona...</option>
+                                        <option value="tienda" style="background:#033E81;">Tienda / Abarrotería</option>
+                                        <option value="farmacia" style="background:#033E81;">Farmacia</option>
+                                        <option value="ferreteria" style="background:#033E81;">Ferretería</option>
+                                        <option value="otro" style="background:#033E81;">Otro</option>
+                                    </select>
+                                </div>
+
+                                <!-- Botón de envío -->
+                                <div class="col-12 mt-2">
+                                    <button type="submit" id="btnEnviar" style="
+                                        width:100%;
+                                        background: linear-gradient(135deg, #7bd65a, #4EAE33);
+                                        color: white;
+                                        border: none;
+                                        border-radius: 12px;
+                                        padding: 15px;
+                                        font-weight: 700;
+                                        font-size: 1rem;
+                                        cursor: pointer;
+                                        transition: all 0.3s ease;">
+                                        <i class="bi bi-send me-2"></i>Enviar Solicitud
+                                    </button>
+                                </div>
+
+                            </div>
+                        </form>
+
+                        <!-- Mensaje de exito -->
+                        <div id="mensajeExito" style="display:none; background:rgba(78,174,51,0.15); border:1px solid #4EAE33; border-radius:12px; padding:25px; text-align:center; margin-top:15px;">
+                            <i class="bi bi-check-circle-fill" style="color:#4EAE33; font-size:2.5rem;"></i>
+                            <p style="color:white; font-weight:700; font-size:1.1rem; margin:12px 0 5px;">¡Solicitud enviada con éxito!</p>
+                            <p style="color:rgba(255,255,255,0.75); margin:0;">Nos pondremos en contacto contigo pronto.</p>
+                        </div>
+
+                        <script>
+                        (function(){
+                            var form = document.getElementById("formAgente");
+                            if(!form) return;
+                            form.addEventListener("submit", function(e){
+                                e.preventDefault();
+                                var btn = document.getElementById("btnEnviar");
+                                btn.disabled = true;
+                                btn.innerHTML = "<i class='bi bi-hourglass-split me-2'></i>Enviando...";
+                                fetch(form.action, {
+                                    method: "POST",
+                                    body: new FormData(form),
+                                    headers: { "Accept": "application/json" }
+                                }).then(function(r){
+                                    if(r.ok){
+                                        form.style.display = "none";
+                                        document.getElementById("mensajeExito").style.display = "block";
+                                    } else {
+                                        btn.disabled = false;
+                                        btn.innerHTML = "<i class='bi bi-send me-2'></i>Enviar Solicitud";
+                                        alert("Error al enviar. Intente de nuevo.");
+                                    }
+                                }).catch(function(){
+                                    btn.disabled = false;
+                                    btn.innerHTML = "<i class='bi bi-send me-2'></i>Enviar Solicitud";
+                                    alert("Error de conexión. Intente de nuevo.");
+                                });
+                            });
+                        })();
+                        </script>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =============================================
+         FOOTER - PIE DE PÁGINA
+    ============================================= -->
+    <footer id="contacto">
+
+        <!-- Ola decorativa SVG -->
+        <div style="background: white; line-height: 0;">
+            <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#033E81" d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z"/>
+            </svg>
+        </div>
+
+        <!-- Contenido del footer -->
+        <div style="background: linear-gradient(135deg, #033E81 0%, #033E81 50%, #033E81 100%); padding: 60px 0 30px;">
+            <div class="container">
+                <div class="row g-4 mb-5">
+
+                    <!-- Columna 1: Logo y descripción -->
+                    <div class="col-md-4">
+                        <img src="../image/Logo Cooperativa - Blanco.png" height="45" alt="Logo" class="mb-3">
+                        <p style="color:#a8c4e0; line-height:1.8;">
+                            Tu cooperativa de confianza, comprometida con tu bienestar financiero.
+                        </p>
+                        <div class="d-flex gap-3 mt-3">
+                            <a href="#" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;">
+                                <i class="bi bi-facebook"></i></a>
+                            <a href="#" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;">
+                                <i class="bi bi-instagram"></i></a>
+                            <a href="#" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;">
+                                <i class="bi bi-whatsapp"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Columna 2: Enlces rápidos -->
+                    <div class="col-md-2 offset-md-1">
+                        <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Enlaces</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><a href="../index.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Inicio</a></li>
+                            <li class="mb-2"><a href="./agencias.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Agencias</a></li>
+                            <li class="mb-2"><a href="./about.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Nosotros</a></li>
+                            <li class="mb-2"><a href="./contactanos.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Contáctanos</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Columna 3: Servicios -->
+                    <div class="col-md-2">
+                        <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Servicios</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><a href="./ahorro.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Ahorro</a></li>
+                            <li class="mb-2"><a href="./prestamos.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Préstamos</a></li>
+                            <li class="mb-2"><a href="./agentes.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Agentes</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Columna 4: Contacto -->
+                    <div class="col-md-3">
+                        <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Contacto</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-3 d-flex align-items-center gap-3">
+                                <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+                                    <i class="bi bi-telephone" style="color:#4fc3f7;"></i>
+                                </div>
+                                <span style="color:#a8c4e0;">PBX 79632828 </span>
+                            </li>
+                            <li class="mb-3 d-flex align-items-center gap-3">
+                                <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+                                    <i class="bi bi-envelope" style="color:#4fc3f7;"></i>
+                                </div>
+                                <span style="color:#a8c4e0;">info@sanpedroesmicoope.com.gt</span>
+                            </li>
+                            <li class="d-flex align-items-center gap-3">
+                                <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+                                    <i class="bi bi-geo-alt" style="color:#4fc3f7;"></i>
+                                </div>
+                                <span style="color:#a8c4e0;">San Pedro Soloma, Huehuetenango</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <!-- Separador y copyright -->
+                <hr style="border-color:rgba(255,255,255,0.1); margin-bottom:25px;">
+                <p style="color:#a8c4e0; margin:0; font-size:14px; text-align:center;">
+                    © 2024 Cooperativa San Pedro. Todos los derechos reservados.
+                </p>
+
+            </div>
+        </div>
+    </footer>
+
+    <!-- =============================================
+         SCRIPTS AL FINAL DEL BODY
+    ============================================= -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
+    <!-- Script del proyecto: buscador, dropdowns y carrusel -->
+    <script src="../js/script.js"></script>
+
+    <script>
+        /* =============================================
+           SCROLL REVEAL CON INTERSECTIONOBSERVER
+           Detecta cuando los elementos .reveal son visibles
+           y les agrega la clase .visible para animarlos
+        ============================================= */
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.15 });
+
+        /* Aplica el observer a todos los elementos con clase .reveal */
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+
+</body>
+</html>

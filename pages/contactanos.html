@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contáctanos - Cooperativa San Pedro</title>
+
+    <!-- =============================================
+         LIBRERÍAS EXTERNAS (CDN)
+    ============================================= -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+    <!-- CSS del proyecto -->
+    <link rel="stylesheet" href="../css/estilos.css">
+
+    <style>
+        * { font-family: 'Outfit', sans-serif; }
+
+        /* ===== HERO ===== */
+        .hero-contacto {
+            background: linear-gradient(135deg, #033E81 0%, #033E81 50%, #033E81 100%);
+            padding: 100px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-contacto::before {
+            content: '';
+            position: absolute;
+            width: 400px; height: 400px;
+            background: rgba(79,195,247,0.08);
+            border-radius: 50%;
+            top: -100px; right: -100px;
+        }
+
+        .hero-contacto::after {
+            content: '';
+            position: absolute;
+            width: 300px; height: 300px;
+            background: rgba(123,214,90,0.06);
+            border-radius: 50%;
+            bottom: -80px; left: -80px;
+        }
+
+        /* ===== TARJETAS DE INFORMACIÓN DE CONTACTO ===== */
+        /* Tarjetas superiores con datos de contacto rápido */
+        .info-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .info-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 45px rgba(0,0,0,0.13);
+        }
+
+        /* Ícono grande de cada tarjeta de info */
+        .info-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin: 0 auto 18px;
+        }
+
+        /* ===== FORMULARIO DE CONTACTO ===== */
+        /* Contenedor con fondo blanco y sombra */
+        .form-contacto {
+            background: white;
+            border-radius: 24px;
+            padding: 45px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.1);
+        }
+
+        /* Campos del formulario con estilo limpio */
+        .campo {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 14px 18px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            width: 100%;
+            outline: none;
+        }
+
+        /* Al enfocar el campo: borde azul y fondo blanco */
+        .campo:focus {
+            background: white;
+            border-color: #033E81;
+            box-shadow: 0 0 0 4px rgba(13,110,253,0.1);
+        }
+
+        /* Área de texto con altura fija */
+        textarea.campo {
+            resize: vertical;
+            min-height: 130px;
+        }
+
+        /* Botón de envío */
+        .btn-enviar {
+            background: linear-gradient(135deg, #033E81, #033E81);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 16px 35px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .btn-enviar:hover {
+            background: linear-gradient(135deg, #033E81, #4fc3f7);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(13,110,253,0.35);
+        }
+
+        /* Mensaje de éxito oculto por defecto */
+        .mensaje-exito {
+            display: none;
+            background: #e8f8ed;
+            border: 1px solid #7bd65a;
+            border-radius: 12px;
+            padding: 16px 20px;
+            color: #4EAE33;
+            font-weight: 600;
+            margin-top: 15px;
+        }
+
+        /* ===== MAPA ===== */
+        /* Contenedor del iframe de Google Maps */
+        .mapa-wrap {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.1);
+            height: 450px;
+        }
+
+        .mapa-wrap iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* ===== HORARIOS ===== */
+        /* Fila de horario con día y hora */
+        .horario-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .horario-row:last-child {
+            border-bottom: none;
+        }
+
+        /* Indicador de estado: abierto/cerrado */
+        .estado-badge {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 3px 12px;
+            border-radius: 50px;
+        }
+
+        /* ===== FAQ ACORDEÓN ===== */
+        /* Estilos para las preguntas frecuentes */
+        .faq-item {
+            background: white;
+            border-radius: 14px;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+
+        /* Cabecera del ítem FAQ */
+        .faq-header {
+            padding: 20px 25px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: #033E81;
+            transition: background 0.2s ease;
+        }
+
+        .faq-header:hover {
+            background: #f8f9fa;
+        }
+
+        /* Ícono de flecha que rota al abrir */
+        .faq-icon {
+            transition: transform 0.3s ease;
+            color: #033E81;
+            font-size: 1.1rem;
+        }
+
+        /* Cuando el FAQ está abierto, rota la flecha */
+        .faq-item.abierto .faq-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Cuerpo del FAQ (oculto por defecto, se expande con JS) */
+        .faq-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.3s ease;
+            color: #666;
+            line-height: 1.8;
+            font-size: 0.95rem;
+            padding: 0 25px;
+        }
+
+        /* Estado abierto: expande el cuerpo */
+        .faq-item.abierto .faq-body {
+            max-height: 200px;
+            padding: 0 25px 20px;
+        }
+
+        /* ===== ANIMACIÓN SCROLL REVEAL ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal.delay-1 { transition-delay: 0.1s; }
+        .reveal.delay-2 { transition-delay: 0.2s; }
+        .reveal.delay-3 { transition-delay: 0.3s; }
+        .reveal.delay-4 { transition-delay: 0.4s; }
+    </style>
+</head>
+
+<body>
+
+    <!-- =============================================
+         HEADER - BARRA DE NAVEGACIÓN
+    ============================================= -->
+        <header class="main-header" id="mainHeader">
+        <div class="header-inner">
+
+            <a href="../index.html" class="header-logo">
+                <img src="../image/Logo Cooperativa - Blanco.png" alt="Cooperativa San Pedro">
+            </a>
+
+            <button class="nav-toggle" id="navToggle" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+
+            <nav class="main-nav" id="mainNav">
+                <ul class="nav-list">
+
+                    <li class="nav-item"><a href="../index.html" class="nav-link">Inicio</a></li>
+
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link" onclick="return false">
+                            Puntos de Servicio <i class="bi bi-chevron-down nav-arrow"></i>
+                        </a>
+                        <div class="nav-dropdown">
+                            <a href="./agencias.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-building"></i></div>
+                                <div><span class="drop-title">Agencias</span><span class="drop-sub">8 puntos en Huehuetenango</span></div>
+                            </a>
+                            <a href="./agentes.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-person-badge"></i></div>
+                                <div><span class="drop-title">Agentes Micoope</span><span class="drop-sub">Cerca de tu comunidad</span></div>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link" onclick="return false">
+                            Productos y Servicios <i class="bi bi-chevron-down nav-arrow"></i>
+                        </a>
+                        <div class="nav-dropdown">
+                            <a href="./ahorro.html" class="drop-link">
+                                <div class="drop-icon green"><i class="bi bi-piggy-bank"></i></div>
+                                <div><span class="drop-title">Ahorro</span><span class="drop-sub">Cuentas y depositos</span></div>
+                            </a>
+                            <a href="./prestamos.html" class="drop-link">
+                                <div class="drop-icon" style="background:rgba(79,195,247,0.12);color:#033E81;"><i class="bi bi-cash-coin"></i></div>
+                                <div><span class="drop-title">Prestamos</span><span class="drop-sub">Creditos accesibles</span></div>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link" onclick="return false">
+                            Nosotros <i class="bi bi-chevron-down nav-arrow"></i>
+                        </a>
+                        <div class="nav-dropdown">
+                            <a href="./about.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-people-fill"></i></div>
+                                <div><span class="drop-title">Quienes somos</span><span class="drop-sub">Nuestra cooperativa</span></div>
+                            </a>
+                            <a href="./mision-vision.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-eye-fill"></i></div>
+                                <div><span class="drop-title">Mision y Vision</span><span class="drop-sub">Nuestros valores</span></div>
+                            </a>
+                            <a href="./historia.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-clock-history"></i></div>
+                                <div><span class="drop-title">Historia</span><span class="drop-sub">Nuestros inicios</span></div>
+                            </a>
+                            <a href="./memoria-labores.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-file-earmark-text"></i></div>
+                                <div><span class="drop-title">Memoria de Labores</span><span class="drop-sub">Informes anuales</span></div>
+                            </a>
+                            <div class="drop-divider"></div>
+                            <a href="./ver-mas.html" class="drop-link">
+                                <div class="drop-icon green"><i class="bi bi-arrow-right-circle"></i></div>
+                                <div><span class="drop-title">Ver mas</span><span class="drop-sub">Todo sobre nosotros</span></div>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="./contactanos.html" class="nav-link nav-cta">
+                            <i class="bi bi-telephone-fill"></i> Contactanos
+                        </a>
+                    </li>
+
+                </ul>
+            </nav>
+
+            <div class="header-search">
+                <input type="text" class="search-input" id="searchInput" placeholder="Buscar...">
+                <button class="search-btn" onclick="toggleSearch()">
+                    <i class="bi bi-search" id="searchIcon"></i>
+                </button>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- =============================================
+         HERO - ENCABEZADO DE CONTÁCTANOS
+    ============================================= -->
+    <section class="hero-contacto">
+        <div class="container position-relative" style="z-index:2; text-align:center;">
+            <span style="
+                background: rgba(79,195,247,0.15);
+                color: #4fc3f7;
+                padding: 8px 20px;
+                border-radius: 50px;
+                font-size: 0.9rem;
+                font-weight: 600;
+                letter-spacing: 1px;
+                display: inline-block;
+                margin-bottom: 20px;
+                border: 1px solid rgba(79,195,247,0.3);">
+                <i class="bi bi-chat-dots me-2"></i>ATENCIÓN AL SOCIO
+            </span>
+            <h1 style="font-size: clamp(2rem, 5vw, 3.8rem); font-weight: 900; color: white; line-height: 1.15; margin-bottom: 20px;">
+                Estamos aquí<br>para <span style="color: #4fc3f7;">ayudarte</span>
+            </h1>
+            <p style="color: rgba(255,255,255,0.75); font-size: 1.1rem; max-width: 550px; margin: 0 auto 40px; line-height: 1.8;">
+                Cuéntanos en qué podemos ayudarte. Nuestro equipo de atención
+                está listo para responderte a la brevedad.
+            </p>
+        </div>
+    </section>
+
+    <!-- =============================================
+         TARJETAS DE INFORMACIÓN DE CONTACTO
+         4 tarjetas con los canales disponibles
+    ============================================= -->
+    <section style="padding: 70px 0; background: #f8f9fa;">
+        <div class="container">
+            <div class="row g-4">
+
+                <!-- Tarjeta: Teléfono -->
+                <div class="col-md-6 col-lg-3 reveal">
+                    <div class="info-card">
+                        <div class="info-icon" style="background: rgba(13,110,253,0.1);">
+                            <i class="bi bi-telephone" style="color: #033E81;"></i>
+                        </div>
+                        <h6 style="font-weight: 700; color: #033E81; margin-bottom: 8px;">Teléfono</h6>
+                        <p style="color: #666; font-size: 0.9rem; margin-bottom: 12px; line-height: 1.6;">
+                            Llámanos directamente para atención inmediata
+                        </p>
+                        <a href="tel:79632828" style="color: #033E81; font-weight: 700; text-decoration: none; font-size: 1.05rem;">
+                            PBX 79632828
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Tarjeta: Correo -->
+                <div class="col-md-6 col-lg-3 reveal delay-1">
+                    <div class="info-card">
+                        <div class="info-icon" style="background: rgba(78,174,51,0.1);">
+                            <i class="bi bi-envelope" style="color: #4EAE33;"></i>
+                        </div>
+                        <h6 style="font-weight: 700; color: #033E81; margin-bottom: 8px;">Correo Electrónico</h6>
+                        <p style="color: #666; font-size: 0.9rem; margin-bottom: 12px; line-height: 1.6;">
+                            Escríbenos y te respondemos en 24 horas hábiles
+                        </p>
+                        <a href="mailto:info@sanpedroesmicoope.com.gt" style="color: #4EAE33; font-weight: 600; text-decoration: none; font-size: 0.9rem; word-break: break-word;">
+                            info@sanpedroesmicoope.com.gt
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Tarjeta: Ubicación -->
+                <div class="col-md-6 col-lg-3 reveal delay-2">
+                    <div class="info-card">
+                        <div class="info-icon" style="background: rgba(243,156,18,0.1);">
+                            <i class="bi bi-geo-alt" style="color: #4EAE33;"></i>
+                        </div>
+                        <h6 style="font-weight: 700; color: #033E81; margin-bottom: 8px;">Dirección</h6>
+                        <p style="color: #666; font-size: 0.9rem; margin-bottom: 12px; line-height: 1.6;">
+                            Visítanos en nuestra sede central
+                        </p>
+                        <span style="color: #4EAE33; font-weight: 600; font-size: 0.95rem;">
+                            San Pedro Soloma,<br>Huehuetenango
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Tarjeta: Horario -->
+                <div class="col-md-6 col-lg-3 reveal delay-3">
+                    <div class="info-card">
+                        <div class="info-icon" style="background: rgba(3,62,129,0.10);">
+                            <i class="bi bi-clock" style="color: #4EAE33;"></i>
+                        </div>
+                        <h6 style="font-weight: 700; color: #033E81; margin-bottom: 8px;">Horario</h6>
+                        <p style="color: #666; font-size: 0.9rem; margin-bottom: 12px; line-height: 1.6;">
+                            Lun – Vie: 8:00am – 4:30:00pm<br>
+                            Sáb: 9:00am – 12:00pm
+                        </p>
+                        <span style="background:#e8f8ed; color:#4EAE33; border-radius:50px; padding:4px 14px; font-size:0.8rem; font-weight:700;">
+                            Abierto hoy
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- =============================================
+         FORMULARIO DE CONTACTO + HORARIOS
+         Formulario de mensaje y tabla de horarios
+    ============================================= -->
+    <section style="padding: 80px 0; background: white;">
+        <div class="container">
+            <div class="row g-5">
+
+                <!-- Formulario de contacto -->
+                <div class="col-lg-7 reveal">
+                    <div class="form-contacto">
+                        <h3 style="font-weight: 800; color: #033E81; margin-bottom: 8px;">
+                            Envíanos un mensaje
+                        </h3>
+                        <p style="color: #888; margin-bottom: 30px; font-size: 0.95rem;">
+                            Completa el formulario y nos comunicaremos contigo pronto.
+                        </p>
+
+                        <!-- El formulario no envía realmente (onsubmit muestra mensaje visual) -->
+                        <form onsubmit="enviarFormulario(event)">
+                            <div class="row g-3">
+
+                                <!-- Nombre -->
+                                <div class="col-md-6">
+                                    <label style="font-weight:600; color:#033E81; font-size:0.9rem; margin-bottom:6px; display:block;">
+                                        Nombre completo *
+                                    </label>
+                                    <input type="text" class="campo" placeholder="Tu nombre completo" required>
+                                </div>
+
+                                <!-- Teléfono -->
+                                <div class="col-md-6">
+                                    <label style="font-weight:600; color:#033E81; font-size:0.9rem; margin-bottom:6px; display:block;">
+                                        Teléfono *
+                                    </label>
+                                    <input type="tel" class="campo" placeholder="+502 ____-____" required>
+                                </div>
+
+                                <!-- Correo -->
+                                <div class="col-12">
+                                    <label style="font-weight:600; color:#033E81; font-size:0.9rem; margin-bottom:6px; display:block;">
+                                        Correo electrónico
+                                    </label>
+                                    <input type="email" class="campo" placeholder="tu@correo.com">
+                                </div>
+
+                                <!-- Asunto (select) -->
+                                <div class="col-12">
+                                    <label style="font-weight:600; color:#033E81; font-size:0.9rem; margin-bottom:6px; display:block;">
+                                        Asunto *
+                                    </label>
+                                    <select class="campo" required>
+                                        <option value="">Selecciona un tema...</option>
+                                        <option value="ahorro">Productos de Ahorro</option>
+                                        <option value="prestamos">Préstamos</option>
+                                        <option value="agentes">Ser Agente</option>
+                                        <option value="socio">Hacerme Socio</option>
+                                        <option value="quejas">Quejas / Sugerencias</option>
+                                        <option value="otro">Otro</option>
+                                    </select>
+                                </div>
+
+                                <!-- Mensaje -->
+                                <div class="col-12">
+                                    <label style="font-weight:600; color:#033E81; font-size:0.9rem; margin-bottom:6px; display:block;">
+                                        Mensaje *
+                                    </label>
+                                    <textarea class="campo" placeholder="¿En qué podemos ayudarte?" required></textarea>
+                                </div>
+
+                                <!-- Botón de envío -->
+                                <div class="col-12">
+                                    <button type="submit" class="btn-enviar">
+                                        <i class="bi bi-send me-2"></i>Enviar Mensaje
+                                    </button>
+                                </div>
+
+                                <!-- Mensaje de éxito (oculto, se muestra con JS) -->
+                                <div class="col-12">
+                                    <div class="mensaje-exito" id="msgExito">
+                                        <i class="bi bi-check-circle-fill me-2"></i>
+                                        ¡Mensaje enviado! Te contactaremos pronto.
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Panel de horarios -->
+                <div class="col-lg-5 reveal delay-2">
+                    <h4 style="font-weight: 800; color: #033E81; margin-bottom: 25px;">
+                        <i class="bi bi-clock me-2" style="color: #033E81;"></i>Horarios de Atención
+                    </h4>
+
+                    <!-- Tabla de horarios por día -->
+                    <div style="background: #f8f9fa; border-radius: 18px; padding: 25px;">
+                        <div class="horario-row">
+                            <span style="font-weight: 600; color: #033E81;">Lunes</span>
+                            <div class="d-flex align-items-center gap-2">
+                                <span style="color: #666;">8:00am – 5:00pm</span>
+                                <span class="estado-badge" style="background:#e8f8ed; color:#4EAE33;">Abierto</span>
+                            </div>
+                        </div>
+                        <div class="horario-row">
+                            <span style="font-weight: 600; color: #033E81;">Martes</span>
+                            <span style="color: #666;">8:00am – 5:00pm</span>
+                        </div>
+                        <div class="horario-row">
+                            <span style="font-weight: 600; color: #033E81;">Miércoles</span>
+                            <span style="color: #666;">8:00am – 5:00pm</span>
+                        </div>
+                        <div class="horario-row">
+                            <span style="font-weight: 600; color: #033E81;">Jueves</span>
+                            <span style="color: #666;">8:00am – 5:00pm</span>
+                        </div>
+                        <div class="horario-row">
+                            <span style="font-weight: 600; color: #033E81;">Viernes</span>
+                            <span style="color: #666;">8:00am – 5:00pm</span>
+                        </div>
+                        <div class="horario-row">
+                            <span style="font-weight: 600; color: #033E81;">Sábado</span>
+                            <span style="color: #666;">8:00am – 12:00pm</span>
+                        </div>
+                        <div class="horario-row">
+                            <span style="font-weight: 600; color: #033E81;">Domingo</span>
+                            <div class="d-flex align-items-center gap-2">
+                                <span style="color: #999;">Cerrado</span>
+                                <span class="estado-badge" style="background:#fde8e8; color:#033E81;">Cerrado</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Nota especial -->
+                    <div style="
+                        background: rgba(13,110,253,0.06);
+                        border: 1px solid rgba(13,110,253,0.15);
+                        border-radius: 14px;
+                        padding: 18px 20px;
+                        margin-top: 20px;">
+                        <div style="color:#033E81; font-weight:700; margin-bottom:6px;">
+                            <i class="bi bi-info-circle me-2"></i>Días Festivos
+                        </div>
+                        <p style="color:#666; font-size:0.9rem; margin:0; line-height:1.7;">
+                            Los días feriados oficiales de Guatemala los horarios pueden variar.
+                            Consulta nuestras redes sociales para información actualizada.
+                        </p>
+                    </div>
+
+                    <!-- Canales de WhatsApp -->
+                    <div style="margin-top: 25px;">
+                        <h6 style="font-weight: 700; color: #033E81; margin-bottom: 15px;">
+                            <i class="bi bi-whatsapp me-2" style="color: #25d366;"></i>WhatsApp
+                        </h6>
+                        <a href="https://wa.me/50279632828" target="_blank" rel="noopener" style="
+                            display: flex;
+                            align-items: center;
+                            gap: 12px;
+                            background: #f0fdf4;
+                            border: 1px solid #bbf7d0;
+                            border-radius: 12px;
+                            padding: 14px 18px;
+                            text-decoration: none;
+                            transition: all 0.3s ease;">
+                            <i class="bi bi-whatsapp" style="font-size:1.5rem; color:#25d366;"></i>
+                            <div>
+                                <div style="font-weight:700; color:#033E81; font-size:0.95rem;">Escríbenos por WhatsApp</div>
+                                <div style="color:#666; font-size:0.82rem;">Respuesta rápida en horario laboral</div>
+                            </div>
+                            <i class="bi bi-arrow-right ms-auto" style="color:#25d366;"></i>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =============================================
+         MAPA DE UBICACIÓN
+         Iframe de Google Maps centrado en San Pedro Soloma
+    ============================================= -->
+    <section style="padding: 80px 0; background: #f8f9fa;">
+        <div class="container">
+
+            <div class="text-center mb-5 reveal">
+                <span style="color: #033E81; font-weight: 600; letter-spacing: 1px; font-size: 0.9rem;">UBICACIÓN</span>
+                <h2 style="font-size: 2.3rem; font-weight: 800; color: #033E81; margin-top: 8px;">
+                    Encuéntranos aquí
+                </h2>
+                <p style="color: #666;">San Pedro Soloma, Huehuetenango, Guatemala</p>
+            </div>
+
+            <!-- Mapa incrustado de Google Maps -->
+            <!-- src apunta a San Pedro Soloma, Huehuetenango -->
+            <div class="mapa-wrap reveal">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15421.634!2d-91.4735!3d15.8697!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85895fae8daad6d3%3A0x3f2a4f5c6d7e8a9b!2sSan%20Pedro%20Soloma%2C%20Huehuetenango!5e0!3m2!1ses!2sgt!4v1700000000000"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    title="Ubicación Cooperativa San Pedro Soloma">
+                </iframe>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- =============================================
+         PREGUNTAS FRECUENTES (FAQ)
+         Acordeón interactivo con preguntas comunes
+    ============================================= -->
+    <section style="padding: 80px 0; background: white;">
+        <div class="container">
+
+            <div class="text-center mb-5 reveal">
+                <span style="color: #033E81; font-weight: 600; letter-spacing: 1px; font-size: 0.9rem;">SOPORTE</span>
+                <h2 style="font-size: 2.3rem; font-weight: 800; color: #033E81; margin-top: 8px;">
+                    Preguntas Frecuentes
+                </h2>
+                <p style="color: #666; max-width: 500px; margin: 0 auto;">
+                    Respuestas rápidas a las consultas más comunes de nuestros socios
+                </p>
+            </div>
+
+            <!-- Acordeón de FAQ -->
+            <!-- El JS al final maneja la apertura/cierre de cada ítem -->
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+
+                    <!-- Pregunta 1 -->
+                    <div class="faq-item reveal" onclick="toggleFaq(this)">
+                        <div class="faq-header">
+                            ¿Cómo me puedo asociar a Cooperativa San Pedro?
+                            <i class="bi bi-chevron-down faq-icon"></i>
+                        </div>
+                        <div class="faq-body">
+                            Para asociarte debes presentarte a cualquiera de nuestras agencias con tu DPI
+                            y una fotografía reciente. El trámite de membresía es sencillo y nuestros
+                            asesores te guiarán en todo el proceso.
+                        </div>
+                    </div>
+
+                    <!-- Pregunta 2 -->
+                    <div class="faq-item reveal delay-1" onclick="toggleFaq(this)">
+                        <div class="faq-header">
+                            ¿Cuáles son los requisitos para solicitar un préstamo?
+                            <i class="bi bi-chevron-down faq-icon"></i>
+                        </div>
+                        <div class="faq-body">
+                            Los requisitos generales son: ser socio activo, tener historial de ahorro,
+                            presentar DPI y comprobante de ingresos. Los requisitos específicos varían
+                            según el tipo de préstamo. Consulta nuestra página de Préstamos para más detalles.
+                        </div>
+                    </div>
+
+                    <!-- Pregunta 3 -->
+                    <div class="faq-item reveal delay-2" onclick="toggleFaq(this)">
+                        <div class="faq-header">
+                            ¿Cómo consulto mi saldo?
+                            <i class="bi bi-chevron-down faq-icon"></i>
+                        </div>
+                        <div class="faq-body">
+                            Puedes consultar tu saldo llamando al PBX 79632828, visitando cualquier agencia
+                            o acercándote a uno de nuestros agentes autorizados. También puedes usar
+                            nuestra plataforma de banca en línea.
+                        </div>
+                    </div>
+
+                    <!-- Pregunta 4 -->
+                    <div class="faq-item reveal delay-3" onclick="toggleFaq(this)">
+                        <div class="faq-header">
+                            ¿Mis ahorros están protegidos?
+                            <i class="bi bi-chevron-down faq-icon"></i>
+                        </div>
+                        <div class="faq-body">
+                            Sí. Cooperativa San Pedro está regulada por la Superintendencia de Bancos
+                            de Guatemala (SBS) y afiliada a MICOOPE. Todos los depósitos están respaldados
+                            por el Fondo para la Protección del Ahorro Cooperativo (FOPAC).
+                        </div>
+                    </div>
+
+                    <!-- Pregunta 5 -->
+                    <div class="faq-item reveal delay-4" onclick="toggleFaq(this)">
+                        <div class="faq-header">
+                            ¿Puedo hacer depósitos en cualquier agente?
+                            <i class="bi bi-chevron-down faq-icon"></i>
+                        </div>
+                        <div class="faq-body">
+                            Sí, cualquier agente autorizado de nuestra red puede recibir depósitos
+                            a tu cuenta. Solo necesitas presentar tu número de socio y la cantidad
+                            a depositar. El agente te entregará un comprobante de la operación.
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =============================================
+         FOOTER - PIE DE PÁGINA
+    ============================================= -->
+    <footer id="pie-pagina">
+        <div style="background: white; line-height: 0;">
+            <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#033E81" d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z"/>
+            </svg>
+        </div>
+        <div style="background: linear-gradient(135deg, #033E81 0%, #033E81 50%, #033E81 100%); padding: 60px 0 30px;">
+            <div class="container">
+                <div class="row g-4 mb-5">
+                    <div class="col-md-4">
+                        <img src="../image/Logo Cooperativa - Blanco.png" height="45" alt="Logo" class="mb-3">
+                        <p style="color:#a8c4e0; line-height:1.8;">Tu cooperativa de confianza, comprometida con tu bienestar financiero.</p>
+                        <div class="d-flex gap-3 mt-3">
+                            <a href="#" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="bi bi-facebook"></i></a>
+                            <a href="#" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="bi bi-instagram"></i></a>
+                            <a href="#" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="bi bi-whatsapp"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-md-2 offset-md-1">
+                        <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Enlaces</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><a href="../index.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Inicio</a></li>
+                            <li class="mb-2"><a href="./agencias.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Agencias</a></li>
+                            <li class="mb-2"><a href="./about.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Nosotros</a></li>
+                            <li class="mb-2"><a href="./contactanos.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Contáctanos</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-2">
+                        <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Servicios</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><a href="./ahorro.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Ahorro</a></li>
+                            <li class="mb-2"><a href="./prestamos.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Préstamos</a></li>
+                            <li class="mb-2"><a href="./agentes.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Agentes</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3">
+                        <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Contacto</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-3 d-flex align-items-center gap-3">
+                                <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i class="bi bi-telephone" style="color:#4fc3f7;"></i></div>
+                                <span style="color:#a8c4e0;">PBX 79632828</span>
+                            </li>
+                            <li class="mb-3 d-flex align-items-center gap-3">
+                                <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i class="bi bi-envelope" style="color:#4fc3f7;"></i></div>
+                                <span style="color:#a8c4e0;">info@sanpedroesmicoope.com.gt</span>
+                            </li>
+                            <li class="d-flex align-items-center gap-3">
+                                <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i class="bi bi-geo-alt" style="color:#4fc3f7;"></i></div>
+                                <span style="color:#a8c4e0;">San Pedro Soloma, Huehuetenango</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <hr style="border-color:rgba(255,255,255,0.1); margin-bottom:25px;">
+                <p style="color:#a8c4e0; margin:0; font-size:14px; text-align:center;">
+                    © 2024 Cooperativa San Pedro. Todos los derechos reservados.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
+    <script src="../js/script.js"></script>
+
+    <script>
+        /* =============================================
+           FORMULARIO DE CONTACTO
+           Al hacer submit muestra mensaje de éxito visual
+           (en un proyecto real se enviaría con fetch/AJAX)
+        ============================================= */
+        function enviarFormulario(e) {
+            e.preventDefault(); // Previene el reload de la página
+            const msg = document.getElementById('msgExito');
+            msg.style.display = 'block'; // Muestra el mensaje verde
+            e.target.reset();  // Limpia el formulario
+            /* Oculta el mensaje de nuevo después de 5 segundos */
+            setTimeout(() => msg.style.display = 'none', 5000);
+        }
+
+        /* =============================================
+           ACORDEÓN DE FAQ
+           Alterna la clase .abierto en el ítem clickeado
+           y cierra los demás ítems abiertos
+        ============================================= */
+        function toggleFaq(item) {
+            const estaAbierto = item.classList.contains('abierto');
+            /* Cierra todos los ítems */
+            document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('abierto'));
+            /* Si no estaba abierto, lo abre */
+            if (!estaAbierto) item.classList.add('abierto');
+        }
+
+        /* =============================================
+           SCROLL REVEAL CON INTERSECTIONOBSERVER
+        ============================================= */
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.12 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+
+</body>
+</html>
