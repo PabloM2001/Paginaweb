@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarjeta de Crédito - Cooperativa San Pedro</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <!-- Google Fonts: Outfit -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <!-- CSS personalizado del proyecto -->
+    <link rel="stylesheet" href="../css/estilos.css">
+
+    <style>
+        * { font-family: 'Outfit', sans-serif; }
+
+        /* ===== TARJETA VISUAL ===== */
+        .card-visual {
+            width: 340px;
+            height: 210px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #033E81 0%, #4EAE33 100%);
+            padding: 28px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(3,62,129,0.4);
+            margin: 0 auto;
+        }
+
+        .card-visual::before {
+            content: '';
+            position: absolute;
+            top: -40px;
+            right: -40px;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.08);
+        }
+
+        .card-visual::after {
+            content: '';
+            position: absolute;
+            bottom: -60px;
+            left: -30px;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .card-chip {
+            width: 42px;
+            height: 32px;
+            background: linear-gradient(135deg, #d4af37, #f5e27a);
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        .card-number {
+            font-size: 1.1rem;
+            letter-spacing: 3px;
+            font-weight: 600;
+            margin-bottom: 18px;
+            opacity: 0.9;
+        }
+
+        .card-footer-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .card-label {
+            font-size: 0.6rem;
+            opacity: 0.6;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .card-value {
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .card-logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            opacity: 0.9;
+        }
+
+        /* ===== BENEFICIO CARDS ===== */
+        .beneficio-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            padding: 25px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+        }
+
+        .beneficio-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(3,62,129,0.13);
+        }
+
+        .beneficio-icon-box {
+            width: 52px;
+            height: 52px;
+            min-width: 52px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+        }
+
+        /* ===== REQUISITOS STEPS ===== */
+        .req-step {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding: 18px 24px;
+            background: white;
+            border-radius: 14px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            margin-bottom: 14px;
+        }
+
+        .req-num {
+            width: 40px;
+            height: 40px;
+            min-width: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #033E81, #4EAE33);
+            color: white;
+            font-weight: 900;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ===== SCROLL REVEAL ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =============================================
+         HEADER - BARRA DE NAVEGACIÓN
+    ============================================= -->
+    <header class="main-header" id="mainHeader">
+        <div class="header-inner">
+
+            <a href="../index.html" class="header-logo">
+                <img src="../image/Logo Cooperativa - Blanco.png" alt="Cooperativa San Pedro">
+            </a>
+
+            <button class="nav-toggle" id="navToggle" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+
+            <nav class="main-nav" id="mainNav">
+                <ul class="nav-list">
+
+                    <li class="nav-item"><a href="../index.html" class="nav-link">Inicio</a></li>
+
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link" onclick="return false">
+                            Puntos de Servicio <i class="bi bi-chevron-down nav-arrow"></i>
+                        </a>
+                        <div class="nav-dropdown">
+                            <a href="./agencias.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-building"></i></div>
+                                <div><span class="drop-title">Agencias</span><span class="drop-sub">8 puntos en Huehuetenango</span></div>
+                            </a>
+                            <a href="./agentes.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-person-badge"></i></div>
+                                <div><span class="drop-title">Agentes Micoope</span><span class="drop-sub">Cerca de tu comunidad</span></div>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link" onclick="return false">
+                            Productos y Servicios <i class="bi bi-chevron-down nav-arrow"></i>
+                        </a>
+                        <div class="nav-dropdown">
+                            <a href="./ahorro.html" class="drop-link">
+                                <div class="drop-icon green"><i class="bi bi-piggy-bank"></i></div>
+                                <div><span class="drop-title">Ahorro</span><span class="drop-sub">Cuentas y depositos</span></div>
+                            </a>
+                            <a href="./prestamos.html" class="drop-link">
+                                <div class="drop-icon" style="background:rgba(79,195,247,0.12);color:#033E81;"><i class="bi bi-cash-coin"></i></div>
+                                <div><span class="drop-title">Prestamos</span><span class="drop-sub">Creditos accesibles</span></div>
+                            </a>
+                            <a href="./tarjeta-credito.html" class="drop-link">
+                                <div class="drop-icon" style="background:rgba(3,62,129,0.1);color:#033E81;"><i class="bi bi-credit-card-fill"></i></div>
+                                <div><span class="drop-title">Tarjeta de Crédito</span><span class="drop-sub">Paga con facilidad</span></div>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link" onclick="return false">
+                            Nosotros <i class="bi bi-chevron-down nav-arrow"></i>
+                        </a>
+                        <div class="nav-dropdown">
+                            <a href="./about.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-people-fill"></i></div>
+                                <div><span class="drop-title">Quienes somos</span><span class="drop-sub">Nuestra cooperativa</span></div>
+                            </a>
+                            <a href="./mision-vision.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-eye-fill"></i></div>
+                                <div><span class="drop-title">Mision y Vision</span><span class="drop-sub">Nuestros valores</span></div>
+                            </a>
+                            <a href="./historia.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-clock-history"></i></div>
+                                <div><span class="drop-title">Historia</span><span class="drop-sub">Nuestros inicios</span></div>
+                            </a>
+                            <a href="./memoria-labores.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-file-earmark-text"></i></div>
+                                <div><span class="drop-title">Memoria de Labores</span><span class="drop-sub">Informes anuales</span></div>
+                            </a>
+                            <div class="drop-divider"></div>
+                            <a href="./ver-mas.html" class="drop-link">
+                                <div class="drop-icon green"><i class="bi bi-arrow-right-circle"></i></div>
+                                <div><span class="drop-title">Ver mas</span><span class="drop-sub">Todo sobre nosotros</span></div>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="./contactanos.html" class="nav-link nav-cta">
+                            <i class="bi bi-telephone-fill"></i> Contactanos
+                        </a>
+                    </li>
+
+                </ul>
+            </nav>
+
+            <div class="header-search">
+                <input type="text" class="search-input" id="searchInput" placeholder="Buscar...">
+                <button class="search-btn" onclick="toggleSearch()">
+                    <i class="bi bi-search" id="searchIcon"></i>
+                </button>
+            </div>
+
+        </div>
+    </header>
+
+
+    <!-- =============================================
+         HERO
+    ============================================= -->
+    <section class="hero">
+        <div class="particula p1"></div>
+        <div class="particula p2"></div>
+        <div class="particula p3"></div>
+        <div class="particula p4"></div>
+        <div class="particula p5"></div>
+        <div class="hero-content text-center px-3">
+            <div class="hero-tag">
+                <i class="bi bi-credit-card-fill"></i>
+                Productos y Servicios
+            </div>
+            <h1 class="hero-titulo">
+                <span class="linea1">Tarjeta de</span>
+                <span class="linea2">Crédito</span>
+            </h1>
+            <p class="hero-subtitulo">Compra hoy, paga con comodidad. Tu tarjeta respaldada por la cooperativa de confianza.</p>
+        </div>
+    </section>
+
+
+    <!-- =============================================
+         SECCIÓN: PRESENTACIÓN CON TARJETA VISUAL
+    ============================================= -->
+    <section style="background:white; padding:90px 0;">
+        <div class="container">
+            <div class="row align-items-center g-5">
+
+                <!-- Tarjeta visual animada -->
+                <div class="col-lg-5 text-center reveal">
+                    <div class="card-visual">
+                        <div class="card-chip"></div>
+                        <div class="card-number">**** **** **** 2024</div>
+                        <div class="card-footer-row">
+                            <div>
+                                <div class="card-label">Titular</div>
+                                <div class="card-value">ASOCIADO COOP.</div>
+                            </div>
+                            <div>
+                                <div class="card-label">Vence</div>
+                                <div class="card-value">12/28</div>
+                            </div>
+                            <div class="card-logo">SP</div>
+                        </div>
+                    </div>
+                    <p class="text-muted mt-4" style="font-size:0.85rem;">Diseño referencial · Tarjeta Cooperativa San Pedro</p>
+                </div>
+
+                <!-- Descripción -->
+                <div class="col-lg-7 reveal">
+                    <p style="color:#4EAE33;letter-spacing:4px;text-transform:uppercase;font-size:0.85rem;margin-bottom:10px;">Tu nueva tarjeta</p>
+                    <h2 class="fw-bold mb-3" style="color:#033E81;font-size:2rem;">Más libertad para tus compras</h2>
+                    <p style="color:#555;font-size:1rem;line-height:1.8;margin-bottom:25px;">
+                        La Tarjeta de Crédito Cooperativa San Pedro te permite realizar compras en cualquier establecimiento afiliado, con cuotas cómodas y tasas preferenciales exclusivas para nuestros asociados.
+                    </p>
+                    <div class="d-flex flex-wrap gap-3">
+                        <div style="display:flex;align-items:center;gap:8px;padding:10px 20px;background:#f0f4ff;border-radius:50px;">
+                            <i class="bi bi-shield-fill-check" style="color:#033E81;"></i>
+                            <span style="font-size:0.85rem;font-weight:600;color:#033E81;">Compras seguras</span>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:8px;padding:10px 20px;background:#f0fff4;border-radius:50px;">
+                            <i class="bi bi-percent" style="color:#4EAE33;"></i>
+                            <span style="font-size:0.85rem;font-weight:600;color:#4EAE33;">Tasas preferenciales</span>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:8px;padding:10px 20px;background:#f0f4ff;border-radius:50px;">
+                            <i class="bi bi-globe" style="color:#033E81;"></i>
+                            <span style="font-size:0.85rem;font-weight:600;color:#033E81;">Uso nacional</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- =============================================
+         SECCIÓN: BENEFICIOS
+    ============================================= -->
+    <section style="background:#f0f4f8; padding:90px 0;">
+        <div class="container">
+            <p class="text-center" style="color:#4EAE33;letter-spacing:4px;text-transform:uppercase;font-size:0.85rem;margin-bottom:10px;">¿Por qué elegirla?</p>
+            <h2 class="text-center fw-bold mb-2" style="color:#033E81;font-size:2rem;">Beneficios de tu Tarjeta</h2>
+            <p class="text-center text-muted mb-5">Ventajas diseñadas pensando en ti y tu familia.</p>
+
+            <div class="row g-4">
+
+                <div class="col-md-6 col-lg-4 reveal">
+                    <div class="beneficio-item">
+                        <div class="beneficio-icon-box" style="background:#f0f4ff;">
+                            <i class="bi bi-percent" style="color:#033E81;"></i>
+                        </div>
+                        <div>
+                            <h6 style="font-weight:800;color:#033E81;margin-bottom:5px;">Tasas Preferenciales</h6>
+                            <p style="font-size:0.85rem;color:#666;margin:0;">Tasas de interés más bajas que las tarjetas del mercado tradicional.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4 reveal">
+                    <div class="beneficio-item">
+                        <div class="beneficio-icon-box" style="background:#f0fff4;">
+                            <i class="bi bi-calendar2-check" style="color:#4EAE33;"></i>
+                        </div>
+                        <div>
+                            <h6 style="font-weight:800;color:#033E81;margin-bottom:5px;">Cuotas Flexibles</h6>
+                            <p style="font-size:0.85rem;color:#666;margin:0;">Paga en cuotas que se adapten a tu presupuesto mensual.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4 reveal">
+                    <div class="beneficio-item">
+                        <div class="beneficio-icon-box" style="background:#f0f4ff;">
+                            <i class="bi bi-shield-lock-fill" style="color:#033E81;"></i>
+                        </div>
+                        <div>
+                            <h6 style="font-weight:800;color:#033E81;margin-bottom:5px;">Compras Seguras</h6>
+                            <p style="font-size:0.85rem;color:#666;margin:0;">Tecnología de seguridad para proteger cada transacción.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4 reveal">
+                    <div class="beneficio-item">
+                        <div class="beneficio-icon-box" style="background:#f0fff4;">
+                            <i class="bi bi-phone-fill" style="color:#4EAE33;"></i>
+                        </div>
+                        <div>
+                            <h6 style="font-weight:800;color:#033E81;margin-bottom:5px;">Control desde tu celular</h6>
+                            <p style="font-size:0.85rem;color:#666;margin:0;">Consulta tu saldo y movimientos en cualquier momento.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4 reveal">
+                    <div class="beneficio-item">
+                        <div class="beneficio-icon-box" style="background:#f0f4ff;">
+                            <i class="bi bi-bag-fill" style="color:#033E81;"></i>
+                        </div>
+                        <div>
+                            <h6 style="font-weight:800;color:#033E81;margin-bottom:5px;">Compras en comercios afiliados</h6>
+                            <p style="font-size:0.85rem;color:#666;margin:0;">Úsala en miles de establecimientos a nivel nacional.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4 reveal">
+                    <div class="beneficio-item">
+                        <div class="beneficio-icon-box" style="background:#f0fff4;">
+                            <i class="bi bi-headset" style="color:#4EAE33;"></i>
+                        </div>
+                        <div>
+                            <h6 style="font-weight:800;color:#033E81;margin-bottom:5px;">Atención personalizada</h6>
+                            <p style="font-size:0.85rem;color:#666;margin:0;">Un asesor disponible para resolver cualquier consulta.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- =============================================
+         SECCIÓN: REQUISITOS
+    ============================================= -->
+    <section style="background:white; padding:90px 0;">
+        <div class="container">
+            <div class="row align-items-center g-5">
+
+                <div class="col-lg-6 reveal">
+                    <p style="color:#4EAE33;letter-spacing:4px;text-transform:uppercase;font-size:0.85rem;margin-bottom:10px;">¿Cómo obtenerla?</p>
+                    <h2 class="fw-bold mb-4" style="color:#033E81;font-size:2rem;">Requisitos para Solicitarla</h2>
+
+                    <div class="req-step">
+                        <div class="req-num">1</div>
+                        <div>
+                            <div style="font-weight:700;color:#033E81;">DPI vigente</div>
+                            <div style="font-size:0.85rem;color:#666;">Original y fotocopia del Documento Personal de Identificación.</div>
+                        </div>
+                    </div>
+
+                    <div class="req-step">
+                        <div class="req-num">2</div>
+                        <div>
+                            <div style="font-weight:700;color:#033E81;">Ser asociado activo</div>
+                            <div style="font-size:0.85rem;color:#666;">Contar con cuenta de ahorro o aportaciones vigente en la cooperativa.</div>
+                        </div>
+                    </div>
+
+                    <div class="req-step">
+                        <div class="req-num">3</div>
+                        <div>
+                            <div style="font-weight:700;color:#033E81;">Constancia de ingresos</div>
+                            <div style="font-size:0.85rem;color:#666;">Carta laboral, estado de cuenta o declaración de ingresos.</div>
+                        </div>
+                    </div>
+
+                    <div class="req-step">
+                        <div class="req-num">4</div>
+                        <div>
+                            <div style="font-weight:700;color:#033E81;">Recibo de servicios públicos</div>
+                            <div style="font-size:0.85rem;color:#666;">No mayor a 3 meses de antigüedad.</div>
+                        </div>
+                    </div>
+
+                    <div class="req-step">
+                        <div class="req-num">5</div>
+                        <div>
+                            <div style="font-weight:700;color:#033E81;">Sin mora en historial crediticio</div>
+                            <div style="font-size:0.85rem;color:#666;">Historial crediticio limpio dentro de la cooperativa.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 reveal">
+                    <div style="background:linear-gradient(135deg,#033E81,#022d5c);border-radius:24px;padding:45px 40px;color:white;">
+                        <i class="bi bi-info-circle-fill" style="font-size:2rem;color:#4EAE33;margin-bottom:20px;display:block;"></i>
+                        <h4 style="font-weight:800;margin-bottom:15px;">¿Listo para solicitarla?</h4>
+                        <p style="color:rgba(255,255,255,0.75);font-size:0.95rem;line-height:1.8;margin-bottom:30px;">
+                            Visítanos en cualquiera de nuestras 8 agencias en Huehuetenango o contáctanos en línea. Nuestros asesores te guiarán en todo el proceso.
+                        </p>
+                        <a href="./contactanos.html" style="display:inline-flex;align-items:center;gap:10px;padding:14px 32px;background:#4EAE33;color:white;border-radius:50px;text-decoration:none;font-weight:700;font-size:0.95rem;">
+                            <i class="bi bi-send-fill"></i> Solicitar ahora
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- =============================================
+         FOOTER
+    ============================================= -->
+    <footer id="contacto">
+        <div style="background:white;line-height:0;">
+            <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#033E81" d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z"/>
+            </svg>
+        </div>
+        <div style="background:linear-gradient(135deg,#033E81 0%,#033E81 100%);padding:60px 0 30px;">
+            <div class="container">
+                <div class="row g-4 mb-5">
+                    <div class="col-md-4">
+                        <img src="../image/Logo Cooperativa - Blanco.png" height="45" alt="Logo" class="mb-3">
+                        <p style="color:#a8c4e0;line-height:1.8;">Tu cooperativa de confianza, comprometida con tu bienestar financiero y el desarrollo de nuestra comunidad.</p>
+                        <div class="d-flex gap-3 mt-3">
+                            <a href="#" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="bi bi-facebook"></i></a>
+                            <a href="#" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="bi bi-instagram"></i></a>
+                            <a href="#" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="bi bi-whatsapp"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-md-2 offset-md-1">
+                        <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Enlaces</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><a href="../index.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Inicio</a></li>
+                            <li class="mb-2"><a href="./agencias.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Servicios</a></li>
+                            <li class="mb-2"><a href="./about.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Nosotros</a></li>
+                            <li class="mb-2"><a href="./contactanos.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Contáctanos</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 offset-md-1">
+                        <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Contacto</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-3 d-flex align-items-center gap-3">
+                                <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i class="bi bi-telephone" style="color:#4fc3f7;"></i></div>
+                                <span style="color:#a8c4e0;">+502 7764-0000</span>
+                            </li>
+                            <li class="mb-3 d-flex align-items-center gap-3">
+                                <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i class="bi bi-envelope" style="color:#4fc3f7;"></i></div>
+                                <span style="color:#a8c4e0;">info@sanpedroesmicoope.com.gt</span>
+                            </li>
+                            <li class="mb-3 d-flex align-items-center gap-3">
+                                <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i class="bi bi-geo-alt" style="color:#4fc3f7;"></i></div>
+                                <span style="color:#a8c4e0;">San Pedro Soloma, Huehuetenango</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <hr style="border-color:rgba(255,255,255,0.1);margin-bottom:25px;">
+                <p style="color:#a8c4e0;margin:0;font-size:14px;">© 2024 Cooperativa San Pedro. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <script src="../js/script.js"></script>
+    <script>
+        const revealObs = new IntersectionObserver((entries) => {
+            entries.forEach((entry, i) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => entry.target.classList.add('visible'), i * 80);
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+    </script>
+
+</body>
+</html>

@@ -245,6 +245,85 @@
             margin: 0;
         }
 
+        /* ===== EXPAND CARDS ===== */
+        .expand-card {
+            border-radius: 20px;
+            overflow: hidden;
+            background: white;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: box-shadow 0.4s ease, transform 0.4s ease;
+        }
+
+        .expand-card:hover {
+            box-shadow: 0 20px 60px rgba(3,62,129,0.18);
+            transform: translateY(-4px);
+        }
+
+        .expand-header {
+            padding: 35px 30px 30px;
+            text-align: center;
+        }
+
+        .expand-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        padding 0.4s ease;
+            padding: 0 30px;
+        }
+
+        .expand-card:hover .expand-body {
+            max-height: 320px;
+            padding: 0 30px 28px;
+        }
+
+        .expand-divider {
+            height: 2px;
+            margin: 0 30px;
+            border-radius: 2px;
+            transform: scaleX(0);
+            transition: transform 0.4s ease 0.1s;
+        }
+
+        .expand-card:hover .expand-divider {
+            transform: scaleX(1);
+        }
+
+        .expand-lista {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 18px;
+            width: 100%;
+        }
+
+        .expand-lista li {
+            padding: 5px 0;
+            font-size: 0.85rem;
+            color: #444;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .expand-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 24px;
+            border-radius: 50px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: opacity 0.3s ease;
+        }
+
+        .expand-btn:hover {
+            opacity: 0.85;
+            color: white;
+        }
+
         /* ===== SCROLL REVEAL ===== */
         /* Elementos ocultos que aparecen al hacer scroll */
         .reveal {
@@ -309,6 +388,10 @@
                             <a href="./prestamos.html" class="drop-link">
                                 <div class="drop-icon" style="background:rgba(79,195,247,0.12);color:#033E81;"><i class="bi bi-cash-coin"></i></div>
                                 <div><span class="drop-title">Prestamos</span><span class="drop-sub">Creditos accesibles</span></div>
+                            </a>
+                            <a href="./tarjeta-credito.html" class="drop-link">
+                                <div class="drop-icon" style="background:rgba(3,62,129,0.1);color:#033E81;"><i class="bi bi-credit-card-fill"></i></div>
+                                <div><span class="drop-title">Tarjeta de Crédito</span><span class="drop-sub">Paga con facilidad</span></div>
                             </a>
                         </div>
                     </li>
@@ -391,162 +474,167 @@
     </section>
 
 
-    <!-- =============================================
-         SECCIÓN: TIPOS DE AHORRO
-         4 tarjetas con efecto flip 3D
-    ============================================= -->
-    <section style="background: white; padding: 80px 0;">
-        <div class="container">
+  
 
-            <!-- Encabezado de la sección -->
-            <p class="text-center" style="color:#4fc3f7;letter-spacing:4px;text-transform:uppercase;font-size:0.85rem;margin-bottom:10px;">Nuestros Productos</p>
-            <h2 class="text-center fw-bold mb-2" style="color:#033E81;font-size:2rem;">Elige tu Plan de Ahorro</h2>
+
+    <!-- =============================================
+         SECCIÓN: PRODUCTOS DE AHORRO (INFORMACIÓN REAL)
+    ============================================= -->
+    <section style="background:#f0f4f8; padding:90px 0;">
+        <div class="container">
+            <p class="text-center" style="color:#4EAE33;letter-spacing:4px;text-transform:uppercase;font-size:0.85rem;margin-bottom:10px;">Información Detallada</p>
+            <h2 class="text-center fw-bold mb-2" style="color:#033E81;font-size:2rem;">Nuestros Productos de Ahorro</h2>
             <p class="text-center text-muted mb-5">Ofrecemos diferentes opciones adaptadas a tus necesidades financieras.</p>
 
             <div class="row g-4">
 
-                <!-- ===================================================
-                     PLAN 1: Ahorro a la Vista
-                     Libre disposición, sin monto mínimo
-                     =================================================== -->
-                <div class="col-md-6 col-lg-3 reveal">
-                    <div class="producto-flip">
-                        <div class="producto-inner">
-                            <!-- FRENTE: ícono, nombre, tasa -->
-                            <div class="producto-frente">
-                                <div class="producto-icono" style="color:#033E81;">
-                                    <i class="bi bi-wallet2"></i>
-                                </div>
-                                <div class="producto-nombre">Ahorro a la Vista</div>
-                                <div class="producto-desc">Libre disposición en cualquier momento</div>
-                                <div class="producto-tasa">3.5%</div>
-                                <div class="producto-tasa-label">Tasa anual</div>
-                                <div style="margin-top:15px;padding:6px 16px;background:#f0f4ff;border-radius:20px;font-size:0.75rem;color:#033E81;font-weight:600;">
-                                    Sin monto mínimo
-                                </div>
-                            </div>
-                            <!-- REVERSO: beneficios + botón -->
-                            <div class="producto-reverso" style="background:linear-gradient(135deg,#033E81,#033E81);">
-                                <h4 style="font-weight:800;margin-bottom:15px;">Beneficios</h4>
-                                <ul class="producto-lista">
-                                    <li><i class="bi bi-check-circle-fill" style="color:#4fc3f7;"></i> Retiros ilimitados</li>
-                                    <li><i class="bi bi-check-circle-fill" style="color:#4fc3f7;"></i> Sin comisión de mantenimiento</li>
-                                    <li><i class="bi bi-check-circle-fill" style="color:#4fc3f7;"></i> Tarjeta de débito incluida</li>
-                                    <li><i class="bi bi-check-circle-fill" style="color:#4fc3f7;"></i> Acceso a banca en línea</li>
-                                    <li><i class="bi bi-check-circle-fill" style="color:#4fc3f7;"></i> Alertas por SMS</li>
-                                </ul>
-                                <a href="./contactanos.html" class="producto-btn">
-                                    <i class="bi bi-arrow-right-circle"></i> Abrir cuenta
-                                </a>
-                            </div>
+                <!-- CUENTA DE AHORRO -->
+                <div class="col-md-6 col-lg-4 reveal">
+                    <div class="expand-card">
+                        <div class="expand-header">
+                            <div class="producto-icono" style="color:#033E81;"><i class="bi bi-piggy-bank-fill"></i></div>
+                            <div class="producto-nombre">Cuenta de Ahorro</div>
+                            <div class="producto-desc">Apertura accesible para todos los asociados</div>
+                            <div class="producto-tasa">3%</div>
+                            <div class="producto-tasa-label">Tasa anual</div>
+                            <div style="margin-top:15px;padding:6px 16px;background:#f0f4ff;border-radius:20px;font-size:0.75rem;color:#033E81;font-weight:600;">Apertura desde Q 100.00</div>
+                        </div>
+                        <div class="expand-divider" style="background:#033E81;"></div>
+                        <div class="expand-body">
+                            <ul class="expand-lista" style="margin-top:16px;">
+                                <li><i class="bi bi-check-circle-fill" style="color:#033E81;"></i> Apertura con Q 100.00</li>
+                                <li><i class="bi bi-check-circle-fill" style="color:#033E81;"></i> Q 50.00 quedan en cuenta de ahorro</li>
+                                <li><i class="bi bi-check-circle-fill" style="color:#033E81;"></i> Q 50.00 van a cuenta de aportaciones</li>
+                                <li><i class="bi bi-check-circle-fill" style="color:#033E81;"></i> Recibo de luz y DPI</li>
+                                <li><i class="bi bi-check-circle-fill" style="color:#033E81;"></i> Tasa del 3% anual</li>
+                            </ul>
+                            <a href="./contactanos.html" class="expand-btn" style="background:#033E81;"><i class="bi bi-arrow-right-circle"></i> Abrir cuenta</a>
                         </div>
                     </div>
                 </div>
 
-                <!-- ===================================================
-                     PLAN 2: Ahorro a Plazo Fijo
-                     Mayor rendimiento a cambio de plazo comprometido
-                     =================================================== -->
-                <div class="col-md-6 col-lg-3 reveal">
-                    <div class="producto-flip">
-                        <div class="producto-inner">
-                            <div class="producto-frente">
-                                <div class="producto-icono" style="color:#4EAE33;">
-                                    <i class="bi bi-calendar-check-fill"></i>
-                                </div>
-                                <div class="producto-nombre">Plazo Fijo</div>
-                                <div class="producto-desc">Compromisos de 30 a 360 días</div>
-                                <div class="producto-tasa">hasta 8%</div>
-                                <div class="producto-tasa-label">Tasa anual</div>
-                                <div style="margin-top:15px;padding:6px 16px;background:#f0fff4;border-radius:20px;font-size:0.75rem;color:#4EAE33;font-weight:600;">
-                                    Desde Q 1,000
-                                </div>
-                            </div>
-                            <div class="producto-reverso" style="background:linear-gradient(135deg,#4EAE33,#7bd65a);">
-                                <h4 style="font-weight:800;margin-bottom:15px;">Beneficios</h4>
-                                <ul class="producto-lista">
-                                    <li><i class="bi bi-check-circle-fill" style="color:#fff;"></i> Tasa garantizada al vencimiento</li>
-                                    <li><i class="bi bi-check-circle-fill" style="color:#fff;"></i> Renovación automática opcional</li>
-                                    <li><i class="bi bi-check-circle-fill" style="color:#fff;"></i> Certificado de depósito</li>
-                                    <li><i class="bi bi-check-circle-fill" style="color:#fff;"></i> Intereses mensuales o al vencer</li>
-                                    <li><i class="bi bi-check-circle-fill" style="color:#fff;"></i> Puede usarse como garantía</li>
-                                </ul>
-                                <a href="./contactanos.html" class="producto-btn">
-                                    <i class="bi bi-arrow-right-circle"></i> Invertir ahora
-                                </a>
-                            </div>
+                <!-- CUENTA DE APORTACIONES -->
+                <div class="col-md-6 col-lg-4 reveal">
+                    <div class="expand-card">
+                        <div class="expand-header">
+                            <div class="producto-icono" style="color:#4EAE33;"><i class="bi bi-person-badge-fill"></i></div>
+                            <div class="producto-nombre">Cuenta de Aportaciones</div>
+                            <div class="producto-desc">Conviértete en socio de la cooperativa</div>
+                            <div class="producto-tasa">3%</div>
+                            <div class="producto-tasa-label">Tasa anual</div>
+                            <div style="margin-top:15px;padding:6px 16px;background:#f0fff4;border-radius:20px;font-size:0.75rem;color:#4EAE33;font-weight:600;">Exclusiva para asociados</div>
+                        </div>
+                        <div class="expand-divider" style="background:#4EAE33;"></div>
+                        <div class="expand-body">
+                            <ul class="expand-lista" style="margin-top:16px;">
+                                <li><i class="bi bi-check-circle-fill" style="color:#4EAE33;"></i> Hace a los asociados socios de la cooperativa</li>
+                                <li><i class="bi bi-check-circle-fill" style="color:#4EAE33;"></i> Tasa de interés del 3% anual</li>
+                                <li><i class="bi bi-check-circle-fill" style="color:#4EAE33;"></i> Participación en excedentes</li>
+                                <li><i class="bi bi-check-circle-fill" style="color:#4EAE33;"></i> Derecho a voz y voto en asambleas</li>
+                                <li><i class="bi bi-check-circle-fill" style="color:#4EAE33;"></i> Acceso a todos los productos</li>
+                            </ul>
+                            <a href="./contactanos.html" class="expand-btn" style="background:#4EAE33;"><i class="bi bi-arrow-right-circle"></i> Ser socio</a>
                         </div>
                     </div>
                 </div>
 
-                <!-- ===================================================
-                     PLAN 3: Ahorro Juventud
-                     Para jóvenes de 16 a 30 años
-                     =================================================== -->
-                <div class="col-md-6 col-lg-3 reveal">
-                    <div class="producto-flip">
-                        <div class="producto-inner">
-                            <div class="producto-frente">
-                                <div class="producto-icono" style="color:#4fc3f7;">
-                                    <i class="bi bi-mortarboard-fill"></i>
-                                </div>
-                                <div class="producto-nombre">Ahorro Juventud</div>
-                                <div class="producto-desc">Exclusivo para jóvenes de 16 a 30 años</div>
-                                <div class="producto-tasa">5%</div>
-                                <div class="producto-tasa-label">Tasa preferencial</div>
-                                <div style="margin-top:15px;padding:6px 16px;background:#e8f7ff;border-radius:20px;font-size:0.75rem;color:#033E81;font-weight:600;">
-                                    Sin comisiones
-                                </div>
-                            </div>
-                            <div class="producto-reverso" style="background:linear-gradient(135deg,#033E81,#4fc3f7);">
-                                <h4 style="font-weight:800;margin-bottom:15px;">Beneficios</h4>
-                                <ul class="producto-lista">
-                                    <li><i class="bi bi-check-circle-fill" style="color:#4fc3f7;"></i> Tasa preferencial garantizada</li>
-                                    <li><i class="bi bi-check-circle-fill" style="color:#4fc3f7;"></i> Educación financiera gratuita</li>
-                                    <li><i class="bi bi-check-circle-fill" style="color:#4fc3f7;"></i> Tarjeta de débito juvenil</li>
-                                    <li><i class="bi bi-check-circle-fill" style="color:#4fc3f7;"></i> App móvil MiCoope incluida</li>
-                                    <li><i class="bi bi-check-circle-fill" style="color:#4fc3f7;"></i> Premios por metas de ahorro</li>
-                                </ul>
-                                <a href="./contactanos.html" class="producto-btn">
-                                    <i class="bi bi-arrow-right-circle"></i> Abrir cuenta
-                                </a>
-                            </div>
+                <!-- CUENTA DE AHORRO MOVIBLE -->
+                <div class="col-md-6 col-lg-4 reveal">
+                    <div class="expand-card">
+                        <div class="expand-header">
+                            <div class="producto-icono" style="color:#033E81;"><i class="bi bi-cash-stack"></i></div>
+                            <div class="producto-nombre">Ahorro Movible</div>
+                            <div class="producto-desc">Depósitos y retiros en cualquier momento</div>
+                            <div class="producto-tasa">3%</div>
+                            <div class="producto-tasa-label">Tasa anual</div>
+                            <div style="margin-top:15px;padding:6px 16px;background:#f0f4ff;border-radius:20px;font-size:0.75rem;color:#033E81;font-weight:600;">Total flexibilidad</div>
+                        </div>
+                        <div class="expand-divider" style="background:#033E81;"></div>
+                        <div class="expand-body">
+                            <ul class="expand-lista" style="margin-top:16px;">
+                                <li><i class="bi bi-check-circle-fill" style="color:#033E81;"></i> Depósitos y retiros libres</li>
+                                <li><i class="bi bi-check-circle-fill" style="color:#033E81;"></i> Tasa del 3% anual</li>
+                                <li><i class="bi bi-check-circle-fill" style="color:#033E81;"></i> 1.50% acreditado en junio</li>
+                                <li><i class="bi bi-check-circle-fill" style="color:#033E81;"></i> 1.50% acreditado en diciembre</li>
+                                <li><i class="bi bi-check-circle-fill" style="color:#033E81;"></i> Sin restricciones de movimiento</li>
+                            </ul>
+                            <a href="./contactanos.html" class="expand-btn" style="background:#033E81;"><i class="bi bi-arrow-right-circle"></i> Abrir cuenta</a>
                         </div>
                     </div>
                 </div>
 
-                <!-- ===================================================
-                     PLAN 4: Ahorro Empresarial
-                     Para personas jurídicas y negocios
-                     =================================================== -->
-                <div class="col-md-6 col-lg-3 reveal">
-                    <div class="producto-flip">
-                        <div class="producto-inner">
-                            <div class="producto-frente">
-                                <div class="producto-icono" style="color:#033E81;">
-                                    <i class="bi bi-building-fill"></i>
-                                </div>
-                                <div class="producto-nombre">Ahorro Empresarial</div>
-                                <div class="producto-desc">Soluciones financieras para tu negocio</div>
-                                <div class="producto-tasa">4.5%</div>
-                                <div class="producto-tasa-label">Tasa anual</div>
-                                <div style="margin-top:15px;padding:6px 16px;background:#f0f4f8;border-radius:20px;font-size:0.75rem;color:#033E81;font-weight:600;">
-                                    Beneficios corporativos
-                                </div>
-                            </div>
-                            <div class="producto-reverso" style="background:linear-gradient(135deg,#033E81,#033E81);">
-                                <h4 style="font-weight:800;margin-bottom:15px;">Beneficios</h4>
-                                <ul class="producto-lista">
-                                    <li><i class="bi bi-check-circle-fill" style="color:#4fc3f7;"></i> Gestión de nómina incluida</li>
-                                    <li><i class="bi bi-check-circle-fill" style="color:#4fc3f7;"></i> Transferencias masivas</li>
-                                    <li><i class="bi bi-check-circle-fill" style="color:#4fc3f7;"></i> Asesor financiero dedicado</li>
-                                    <li><i class="bi bi-check-circle-fill" style="color:#4fc3f7;"></i> Acceso multiusuario</li>
-                                    <li><i class="bi bi-check-circle-fill" style="color:#4fc3f7;"></i> Informes financieros mensuales</li>
-                                </ul>
-                                <a href="./contactanos.html" class="producto-btn">
-                                    <i class="bi bi-arrow-right-circle"></i> Solicitar info
-                                </a>
-                            </div>
+                <!-- CUENTA INFANTO JUVENIL -->
+                <div class="col-md-6 col-lg-4 reveal">
+                    <div class="expand-card">
+                        <div class="expand-header">
+                            <div class="producto-icono" style="color:#4EAE33;"><i class="bi bi-stars"></i></div>
+                            <div class="producto-nombre">Cuenta Infanto Juvenil</div>
+                            <div class="producto-desc">Fomentando el ahorro desde la infancia</div>
+                            <div class="producto-tasa">2%</div>
+                            <div class="producto-tasa-label">Tasa anual</div>
+                            <div style="margin-top:15px;padding:6px 16px;background:#f0fff4;border-radius:20px;font-size:0.75rem;color:#4EAE33;font-weight:600;">Apertura desde Q 20.00</div>
+                        </div>
+                        <div class="expand-divider" style="background:#4EAE33;"></div>
+                        <div class="expand-body">
+                            <ul class="expand-lista" style="margin-top:16px;">
+                                <li><i class="bi bi-check-circle-fill" style="color:#4EAE33;"></i> Apertura con Q 20.00</li>
+                                <li><i class="bi bi-check-circle-fill" style="color:#4EAE33;"></i> Cert. de nacimiento (mín. 6 meses vigencia)</li>
+                                <li><i class="bi bi-check-circle-fill" style="color:#4EAE33;"></i> Recibo de luz del tutor</li>
+                                <li><i class="bi bi-check-circle-fill" style="color:#4EAE33;"></i> DPI del tutor</li>
+                                <li><i class="bi bi-check-circle-fill" style="color:#4EAE33;"></i> Tasa del 2% anual</li>
+                            </ul>
+                            <a href="./contactanos.html" class="expand-btn" style="background:#4EAE33;"><i class="bi bi-arrow-right-circle"></i> Abrir cuenta</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AHORRO PROGRAMADO -->
+                <div class="col-md-6 col-lg-4 reveal">
+                    <div class="expand-card">
+                        <div class="expand-header">
+                            <div class="producto-icono" style="color:#033E81;"><i class="bi bi-alarm-fill"></i></div>
+                            <div class="producto-nombre">Ahorro Programado</div>
+                            <div class="producto-desc">Débitos automáticos mensuales para metas a largo plazo</div>
+                            <div class="producto-tasa">4.75% – 7%</div>
+                            <div class="producto-tasa-label">Tasa según plazo</div>
+                            <div style="margin-top:15px;padding:6px 16px;background:#f0f4ff;border-radius:20px;font-size:0.75rem;color:#033E81;font-weight:600;">Apertura desde Q 50.00</div>
+                        </div>
+                        <div class="expand-divider" style="background:#033E81;"></div>
+                        <div class="expand-body">
+                            <ul class="expand-lista" style="margin-top:16px;">
+                                <li><i class="bi bi-check-circle-fill" style="color:#033E81;"></i> Apertura con Q 50.00</li>
+                                <li><i class="bi bi-check-circle-fill" style="color:#033E81;"></i> Débito mensual: Q 1,000 – Q 2,000</li>
+                                <li><i class="bi bi-check-circle-fill" style="color:#033E81;"></i> Plazo de 1 hasta 10 años</li>
+                                <li><i class="bi bi-check-circle-fill" style="color:#033E81;"></i> Mayor plazo = mayor tasa</li>
+                                <li><i class="bi bi-check-circle-fill" style="color:#033E81;"></i> Tasa del 4.75% al 7% anual</li>
+                            </ul>
+                            <a href="./contactanos.html" class="expand-btn" style="background:#033E81;"><i class="bi bi-arrow-right-circle"></i> Abrir cuenta</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DEPÓSITO A PLAZO FIJO -->
+                <div class="col-md-6 col-lg-4 reveal">
+                    <div class="expand-card">
+                        <div class="expand-header">
+                            <div class="producto-icono" style="color:#4EAE33;"><i class="bi bi-lock-fill"></i></div>
+                            <div class="producto-nombre">Depósito a Plazo Fijo</div>
+                            <div class="producto-desc">Mayor rendimiento según monto y tiempo</div>
+                            <div class="producto-tasa">5% – 9%</div>
+                            <div class="producto-tasa-label">Tasa según monto y plazo</div>
+                            <div style="margin-top:15px;padding:6px 16px;background:#f0fff4;border-radius:20px;font-size:0.75rem;color:#4EAE33;font-weight:600;">Desde Q 1,000.00</div>
+                        </div>
+                        <div class="expand-divider" style="background:#4EAE33;"></div>
+                        <div class="expand-body">
+                            <ul class="expand-lista" style="margin-top:16px;">
+                                <li><i class="bi bi-check-circle-fill" style="color:#4EAE33;"></i> Apertura desde Q 1,000.00</li>
+                                <li><i class="bi bi-clock-fill" style="color:#4EAE33;"></i> 3 meses</li>
+                                <li><i class="bi bi-clock-fill" style="color:#4EAE33;"></i> 6 meses</li>
+                                <li><i class="bi bi-clock-fill" style="color:#4EAE33;"></i> 12 meses</li>
+                                <li><i class="bi bi-clock-fill" style="color:#4EAE33;"></i> 24 meses</li>
+                                <li><i class="bi bi-check-circle-fill" style="color:#4EAE33;"></i> Tasa 5% al 9% según monto y plazo</li>
+                            </ul>
+                            <a href="./contactanos.html" class="expand-btn" style="background:#4EAE33;"><i class="bi bi-arrow-right-circle"></i> Invertir ahora</a>
                         </div>
                     </div>
                 </div>

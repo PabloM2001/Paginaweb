@@ -37,29 +37,178 @@
             top: -150px; right: -150px;
         }
 
-        /* ===== TARJETA MISIÓN/VISIÓN ===== */
-        /* Tarjeta grande con degradado y acento de color */
+        /* =============================================
+           PLACA ÚNICA ACRÍLICA — Misión & Visión
+           Simula una placa física montada en pared
+           con tornillos metálicos en las esquinas,
+           fondo translúcido tipo vidrio y cinta
+           decorativa institucional al pie.
+        ============================================= */
+
+        /* Contenedor externo que da espacio a los tornillos */
+        .mv-placa-wrap {
+            position: relative;
+            padding: 18px; /* espacio para que los tornillos no queden recortados */
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        /* ---- Tornillos de montaje ---- */
+        /* Círculo metálico con gradiente radial para simular acero */
+        .mv-tornillo {
+            position: absolute;
+            width: 24px; height: 24px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #f0f0f0, #b0b0b0 50%, #787878);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.45), inset 0 1px 2px rgba(255,255,255,0.7);
+            z-index: 10;
+        }
+        /* Ranura del tornillo (cruz girada 45°) */
+        .mv-tornillo::after {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%,-50%) rotate(45deg);
+            width: 11px; height: 2px;
+            background: rgba(0,0,0,0.22);
+            border-radius: 1px;
+            box-shadow: 0 3px 0 rgba(0,0,0,0.22);
+        }
+        /* Posición de cada tornillo en su esquina */
+        .mv-tornillo.tl { top: 4px;  left: 4px;  }
+        .mv-tornillo.tr { top: 4px;  right: 4px; }
+        .mv-tornillo.bl { bottom: 4px; left: 4px; }
+        .mv-tornillo.br { bottom: 4px; right: 4px;}
+
+        /* ---- Placa principal ---- */
         .mv-card {
-            border-radius: 24px;
+            border-radius: 6px;
             overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.12);
-            height: 100%;
-            transition: transform 0.3s ease;
-        }
-
-        .mv-card:hover {
-            transform: translateY(-6px);
-        }
-
-        /* Cabecera de la tarjeta con icono y título */
-        .mv-card-header {
-            padding: 40px 40px 30px;
-        }
-
-        /* Cuerpo con texto de la declaración */
-        .mv-card-body {
-            padding: 0 40px 40px;
             background: white;
+            border: 1px solid rgba(0,0,0,0.06);
+            /* Sombras en capas para simular profundidad de placa flotante */
+            box-shadow:
+                0 4px 6px rgba(0,0,0,0.05),
+                0 10px 30px rgba(0,0,0,0.12),
+                0 30px 60px rgba(0,0,0,0.12),
+                inset 0 1px 0 rgba(255,255,255,0.9); /* borde superior brillante */
+            transition: transform 0.35s ease, box-shadow 0.35s ease;
+        }
+        /* Efecto hover: sube ligeramente como si se despegara de la pared */
+        .mv-card:hover {
+            transform: translateY(-5px);
+            box-shadow:
+                0 6px 10px rgba(0,0,0,0.07),
+                0 16px 40px rgba(0,0,0,0.16),
+                0 40px 80px rgba(0,0,0,0.14),
+                inset 0 1px 0 rgba(255,255,255,0.9);
+        }
+
+        /* ---- Logo (reservado, actualmente no en uso) ---- */
+        .mv-card-logo {
+            height: 38px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        /* ---- Cabecera: Propósito Visionario ---- */
+        /* Banda superior con fondo azul translúcido y texto centrado */
+        .mv-card-header {
+            padding: 36px 80px 30px;
+            background: white;
+            border-bottom: 1px solid rgba(3,62,129,0.12);
+            text-align: center;
+        }
+        /* Badge verde superior */
+        .mv-card-header .proposito-label {
+            display: inline-block;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #4EAE33;
+            margin-bottom: 10px;
+        }
+        /* Título principal del propósito */
+        .mv-card-header .proposito-titulo {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #033E81;
+            margin-bottom: 12px;
+        }
+        /* Descripción del propósito */
+        .mv-card-header .proposito-texto {
+            font-size: 1.7rem;
+            color: #555;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* ---- Divisor vertical entre Misión y Visión ---- */
+        .mv-divisor {
+            width: 1px;
+            background: rgba(3,62,129,0.15);
+            align-self: stretch;
+            margin: 0 8px;
+            flex-shrink: 0;
+        }
+
+        /* ---- Bloque de Misión / Visión ---- */
+        /* Cada bloque ocupa la mitad del cuerpo de la placa */
+        .mv-bloque {
+            flex: 1;
+            padding: 42px 50px;
+        }
+        /* Título grande (Misión / Visión) */
+        .mv-bloque-titulo {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: #033E81;
+            margin-bottom: 6px;
+        }
+        /* Subtítulo en verde con espaciado de letras */
+        .mv-bloque-sub {
+            font-size: 0.82rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #4EAE33;
+            font-weight: 700;
+            margin-bottom: 22px;
+            display: block;
+        }
+        /* Párrafo de declaración */
+        .mv-bloque p {
+            font-size: 1.05rem;
+            line-height: 1.9;
+            color: #444;
+            margin-bottom: 20px;
+        }
+        /* Cita institucional destacada */
+        .mv-bloque blockquote {
+            border-left: 4px solid #033E81;
+            padding: 14px 20px;
+            background: rgba(3,62,129,0.05);
+            border-radius: 0 10px 10px 0;
+            font-style: italic;
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: #033E81;
+            margin: 0;
+        }
+
+        /* ---- Cuerpo de la placa ---- */
+        /* Flex en fila para poner Misión y Visión lado a lado */
+        .mv-card-body {
+            display: flex;
+        }
+
+        /* ---- Franja decorativa inferior ---- */
+        /* Imagen institucional "cinta logo coope.png" repetida horizontalmente */
+        .mv-card-cinta {
+            height: 62px;
+            background: url('../image/cinta logo coope.png') center/auto 100% repeat-x;
+            overflow: hidden;
         }
 
         /* ===== TARJETAS DE VALORES ===== */
@@ -143,7 +292,169 @@
         .reveal.delay-4 { transition-delay: 0.4s; }
         .reveal.delay-5 { transition-delay: 0.5s; }
         .reveal.delay-6 { transition-delay: 0.6s; }
+
+
+
+                /* ----------------------------------------------------------
+            CONTENEDOR PRINCIPAL DE LA SECCIÓN
+            - Fondo gris claro
+            - Padding superior/inferior para espaciado
+        ---------------------------------------------------------- */
+        .valores-section {
+            background: #ffffff;
+            padding: 40px 24px 48px;
+            font-family: sans-serif;
+        }
+
+        /* ----------------------------------------------------------
+            ENCABEZADO
+            - Centra el badge "Nuestros" y el título "VALORES"
+        ---------------------------------------------------------- */
+        .valores-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        /* ----------------------------------------------------------
+            BADGE VERDE: texto "NUESTROS" sobre el título
+            - Pastilla redondeada de color verde
+            - Texto en mayúsculas con espaciado entre letras
+        ---------------------------------------------------------- */
+        .valores-badge {
+            display: inline-block;
+            background: #5cb85c;        /* Verde del badge */
+            color: #fff;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            padding: 5px 20px;
+            border-radius: 30px;        /* Forma de pastilla */
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        /* ----------------------------------------------------------
+            TÍTULO PRINCIPAL: "VALORES"
+            - Texto grande, negrita, azul oscuro
+        ---------------------------------------------------------- */
+        .valores-title {
+            font-size: 42px;
+            font-weight: 900;
+            color: #1a2a4a;             /* Azul oscuro */
+            line-height: 1;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ----------------------------------------------------------
+            LISTA DE VALORES
+            - Columna vertical centrada
+            - Gap de 10px entre cada fila
+            - Ancho máximo de 640px centrado en pantalla
+        ---------------------------------------------------------- */
+        .valores-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 860px;
+            margin: 0 auto;
+        }
+
+        /* ----------------------------------------------------------
+            FILA DE CADA VALOR
+            - Contiene: ícono + flecha con texto
+            - Alineados horizontalmente
+        ---------------------------------------------------------- */
+        .valor-row {
+            display: flex;
+            align-items: center;
+        }
+
+        /* ----------------------------------------------------------
+            CAJA DEL ÍCONO
+            - Cuadrado redondeado de 54x54px
+            - Fondo azul claro por defecto
+            - Se puede sobreescribir con style="background:#dff0dc;"
+            para el color verde claro en filas pares
+        ---------------------------------------------------------- */
+        .valor-icon-wrap {
+            width: 70px;
+            height: 70px;
+            border-radius: 10px;
+            background: #d9e4f5;        /* Azul claro (filas impares) */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;             /* Evita que se encoja */
+            z-index: 2;                 /* Se superpone sobre la flecha */
+        }
+
+        /* Tamaño del SVG dentro del ícono */
+        .valor-icon-wrap svg {
+            width: 34px;
+            height: 34px;
+        }
+
+        /* ----------------------------------------------------------
+            FLECHA TIPO BANNER
+            - Ocupa el ancho restante después del ícono
+            - clip-path crea la forma de flecha apuntando a la derecha
+            - Altura fija de 48px
+        ---------------------------------------------------------- */
+        .valor-arrow {
+            flex: 1;                    /* Ocupa todo el espacio disponible */
+            height: 64px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            /* Forma de flecha: corte diagonal en el extremo derecho */
+            clip-path: polygon(
+            0 0,
+            calc(100% - 18px) 0,      /* Esquina superior derecha antes del corte */
+            100% 50%,                 /* Punta de la flecha (centro derecho) */
+            calc(100% - 18px) 100%,   /* Esquina inferior derecha antes del corte */
+            0 100%
+            );
+            padding-left: 18px;         /* Espacio interno izquierdo */
+            padding-right: 28px;        /* Espacio interno derecho (antes de la punta) */
+        }
+
+        /* Variante azul oscuro (filas impares: 1, 3, 5...) */
+        .valor-arrow.dark  { background: #1a2a4a; }
+
+        /* Variante verde (filas pares: 2, 4, 6...) */
+        .valor-arrow.green { background: #6ab04c; }
+
+        /* ----------------------------------------------------------
+            TEXTO DENTRO DE LA FLECHA
+            - Blanco, tamaño 15px
+            - nowrap evita que el texto salte de línea
+        ---------------------------------------------------------- */
+        .valor-label {
+            color: #fff;
+            font-size: 19px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            white-space: nowrap;
+        }
+
+        .valor-row {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+        }
+
+        .valor-row:hover {
+            transform: translateY(-4px);        /* Se levanta 4px hacia arriba */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);  /* Sombra suave */
+        }
+
+
     </style>
+
+    
+
+
 </head>
 
 <body>
@@ -196,6 +507,10 @@
                                 <div class="drop-icon" style="background:rgba(79,195,247,0.12);color:#033E81;"><i class="bi bi-cash-coin"></i></div>
                                 <div><span class="drop-title">Prestamos</span><span class="drop-sub">Creditos accesibles</span></div>
                             </a>
+                            <a href="./tarjeta-credito.html" class="drop-link">
+                                <div class="drop-icon" style="background:rgba(3,62,129,0.1);color:#033E81;"><i class="bi bi-credit-card-fill"></i></div>
+                                <div><span class="drop-title">Tarjeta de Crédito</span><span class="drop-sub">Paga con facilidad</span></div>
+                            </a>
                         </div>
                     </li>
 
@@ -247,132 +562,211 @@
         </div>
     </header>
 
-    <!-- =============================================
-         HERO - ENCABEZADO DE MISIÓN Y VISIÓN
-    ============================================= -->
-    <section class="hero-mv">
-        <div class="container position-relative" style="z-index:2; text-align:center;">
-            <span style="
-                background: rgba(123,214,90,0.15);
-                color: #7bd65a;
-                padding: 8px 20px;
-                border-radius: 50px;
-                font-size: 0.9rem;
-                font-weight: 600;
-                letter-spacing: 1px;
-                display: inline-block;
-                margin-bottom: 20px;
-                border: 1px solid rgba(123,214,90,0.3);">
-                <i class="bi bi-building me-2"></i>NOSOTROS
-            </span>
-            <h1 style="font-size: clamp(2rem, 5vw, 3.8rem); font-weight: 900; color: white; line-height: 1.1; margin-bottom: 20px;">
-                Nuestra <span style="color: #4fc3f7;">Misión</span> y
-                <span style="color: #7bd65a;">Visión</span>
-            </h1>
-            <p style="color: rgba(255,255,255,0.75); font-size: 1.1rem; max-width: 600px; margin: 0 auto; line-height: 1.8;">
-                Los principios y valores que guían cada decisión y acción de
-                Cooperativa San Pedro desde su fundación.
-            </p>
+
+    <!-- SEPARADOR DECORATIVO -->
+    <div style="background:#f8f9fa; padding:30px 0 0;">
+        <div style="display:flex; align-items:center; justify-content:center; gap:18px; padding: 0 40px;">
+            <div style="flex:1; height:1px; background:linear-gradient(90deg,transparent,#033E81);"></div>
+            <img src="../image/Imagotipo Horizontal Original.png" alt="" style="height:38px; opacity:0.75;">
+            <div style="flex:1; height:1px; background:linear-gradient(90deg,#4EAE33,transparent);"></div>
         </div>
-    </section>
+    </div>
 
     <!-- =============================================
-         MISIÓN Y VISIÓN - TARJETAS PRINCIPALES
-         Dos tarjetas grandes con degradado diferente
+         MISIÓN Y VISIÓN
     ============================================= -->
-    <section style="padding: 80px 0; background: #f8f9fa;">
+    <section style="padding: 20px 0 80px; background: #f8f9fa;">
         <div class="container">
-            <div class="row g-4">
 
-                <!-- TARJETA MISIÓN -->
-                <div class="col-lg-6 reveal">
-                    <div class="mv-card">
-                        <!-- Cabecera azul -->
-                        <div class="mv-card-header" style="background: linear-gradient(135deg, #033E81, #033E81);">
-                            <div style="
-                                width: 65px; height: 65px;
-                                background: rgba(79,195,247,0.2);
-                                border-radius: 18px;
-                                display: flex; align-items: center; justify-content: center;
-                                font-size: 2rem; color: #4fc3f7;
-                                margin-bottom: 20px;">
-                                <i class="bi bi-bullseye"></i>
-                            </div>
-                            <h2 style="color: white; font-weight: 800; font-size: 2rem; margin-bottom: 10px;">
-                                Misión
-                            </h2>
-                            <p style="color: rgba(255,255,255,0.6); font-size: 0.9rem; margin: 0;">
-                                ¿Por qué existimos?
-                            </p>
-                        </div>
-                        <!-- Cuerpo blanco -->
-                        <div class="mv-card-body">
-                            <p style="font-size: 1.1rem; line-height: 1.9; color: #444; padding-top: 30px;">
-                                Brindar servicios financieros accesibles, seguros y de calidad a nuestros
-                                socios y comunidades, promoviendo el desarrollo económico y social
-                                mediante la solidaridad cooperativa, la responsabilidad financiera y
-                                el compromiso con el bienestar de cada miembro.
-                            </p>
-                            <!-- Cita destacada -->
-                            <blockquote style="
-                                border-left: 4px solid #033E81;
-                                padding-left: 20px;
-                                margin: 20px 0 0;
-                                color: #033E81;
-                                font-style: italic;
-                                font-weight: 600;">
-                                "Juntos construimos el futuro financiero de Guatemala"
-                            </blockquote>
-                        </div>
-                    </div>
+        <!-- PLACA COMBINADA VERTICAL: Visión arriba, Misión abajo -->
+        <div class="mv-placa-wrap reveal" style="max-width:900px;">
+            <div class="mv-tornillo tl"></div>
+            <div class="mv-tornillo tr"></div>
+            <div class="mv-tornillo bl"></div>
+            <div class="mv-tornillo br"></div>
+
+            <div class="mv-card">
+                <!-- Header: Propósito Visionario -->
+                <div class="mv-card-header">
+                   
+                    <div class="proposito-titulo">Propósito Visionario</div>
+                    <p class="proposito-texto">
+                        Ser la cooperativa que mojora la calidad de vida de los asociados y sus comunidades
+                    </p>
                 </div>
 
-                <!-- TARJETA VISIÓN -->
-                <div class="col-lg-6 reveal delay-2">
-                    <div class="mv-card">
-                        <!-- Cabecera verde -->
-                        <div class="mv-card-header" style="background: linear-gradient(135deg, #4EAE33, #0a6622);">
-                            <div style="
-                                width: 65px; height: 65px;
-                                background: rgba(123,214,90,0.2);
-                                border-radius: 18px;
-                                display: flex; align-items: center; justify-content: center;
-                                font-size: 2rem; color: #7bd65a;
-                                margin-bottom: 20px;">
-                                <i class="bi bi-eye"></i>
-                            </div>
-                            <h2 style="color: white; font-weight: 800; font-size: 2rem; margin-bottom: 10px;">
-                                Visión
-                            </h2>
-                            <p style="color: rgba(255,255,255,0.6); font-size: 0.9rem; margin: 0;">
-                                ¿Hacia dónde vamos?
-                            </p>
-                        </div>
-                        <!-- Cuerpo blanco -->
-                        <div class="mv-card-body">
-                            <p style="font-size: 1.1rem; line-height: 1.9; color: #444; padding-top: 30px;">
-                                Ser la cooperativa de ahorro y crédito líder de Guatemala para 2030,
-                                reconocida por su innovación tecnológica, cobertura nacional y el
-                                impacto positivo que genera en la calidad de vida de sus socios,
-                                sus familias y las comunidades donde opera.
-                            </p>
-                            <!-- Cita destacada -->
-                            <blockquote style="
-                                border-left: 4px solid #4EAE33;
-                                padding-left: 20px;
-                                margin: 20px 0 0;
-                                color: #4EAE33;
-                                font-style: italic;
-                                font-weight: 600;">
-                                "La cooperativa más confiable de Guatemala para 2030"
-                            </blockquote>
-                        </div>
-                    </div>
+                <!-- Misión (arriba) -->
+                <div style="padding:36px 60px 28px; border-bottom:1px solid rgba(3,62,129,0.1); text-align:center;">
+                   
+                    <div style="font-size:1.9rem;font-weight:900;color:#033E81;margin-bottom:14px;">Misión</div>
+                    <p style="font-size:1.7rem;color:#555;line-height:1.85;margin-bottom:16px;max-width:700px;margin-left:auto;margin-right:auto;">
+                        Brindar soluciones de ahorro y crédito innovadoras y de alta calidad con beneficios 
+                        socioeconómicos para el progreso de nuestros asociados.
+                    </p>
+                    
                 </div>
 
+                <!-- Visión (abajo) -->
+                <div style="padding:90px 80px 100px; text-align:center;">
+                    
+                    <div style="font-size:1.9rem;font-weight:900;color:#033E81;margin-bottom:14px;">Visión</div>
+                    <p style="font-size:1.7rem;color:#555;line-height:1.85;margin-bottom:16px;max-width:700px;margin-left:auto;margin-right:auto;">
+                        Ser la cooperativa líder en innovación, mejora y desarrollo de nuestros asociados, 
+                        familias y comunidades.
+                    </p>
+                    
+                </div>
+
+                <!-- Cinta -->
+                <div class="mv-card-cinta"></div>
             </div>
         </div>
+
     </section>
+
+     <section class="valores-section">
+
+        <!-- ENCABEZADO DE LA SECCIÓN -->
+        <div class="valores-header">
+            <div class="valores-badge">Nuestros</div>  <!-- Badge verde superior -->
+            <p class="valores-title">Valores</p>        <!-- Título grande -->
+        </div>
+
+        <!-- LISTA DE VALORES
+            Cada bloque .valor-row representa un valor.
+            Patrón de colores:
+                - Fila impar → ícono fondo azul claro  + flecha .dark  (azul oscuro)
+                - Fila par   → ícono fondo verde claro + flecha .green (verde)
+        -->
+        <div class="valores-list">
+
+            <!-- ========================
+                VALOR 1 — Fila impar
+                Ícono: cuadrícula (integridad)
+                Flecha: azul oscuro (.dark)
+            ======================== -->
+            <div class="valor-row">
+            <!-- Ícono: fondo azul claro (default) -->
+            <div class="valor-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#3a6abf" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="3" width="8" height="8" rx="1"/>
+                <rect x="14" y="3" width="8" height="8" rx="1"/>
+                <rect x="2" y="13" width="8" height="8" rx="1"/>
+                <rect x="14" y="13" width="8" height="8" rx="1"/>
+                </svg>
+            </div>
+            <!-- Flecha azul oscuro -->
+            <div class="valor-arrow dark">
+                <span class="valor-label">Integridad</span>  <!-- ✏️ Cambia el texto aquí -->
+            </div>
+            </div>
+
+            <!-- ========================
+                VALOR 2 — Fila par
+                Ícono: sobre/correo (transparencia)
+                Flecha: verde (.green)
+            ======================== -->
+            <div class="valor-row">
+            <!-- Ícono: fondo verde claro (sobreescrito con style) -->
+            <div class="valor-icon-wrap" style="background:#dff0dc;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#4a9a3e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="5" width="20" height="14" rx="2"/>
+                <polyline points="2,9 12,15 22,9"/>
+                </svg>
+            </div>
+            <!-- Flecha verde -->
+            <div class="valor-arrow green">
+                <span class="valor-label">Transparencia</span>  <!-- ✏️ Cambia el texto aquí -->
+            </div>
+            </div>
+
+            <!-- ========================
+                VALOR 3 — Fila impar
+                Ícono: símbolo de moneda (responsabilidad)
+                Flecha: azul oscuro (.dark)
+            ======================== -->
+            <div class="valor-row">
+            <div class="valor-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#3a6abf" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="2" x2="12" y2="22"/>
+                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                </svg>
+            </div>
+            <div class="valor-arrow dark">
+                <span class="valor-label">Responsabilidad</span>  <!-- ✏️ Cambia el texto aquí -->
+            </div>
+            </div>
+
+            <!-- ========================
+                VALOR 4 — Fila par
+                Ícono: grupo de personas (compromiso social)
+                Flecha: verde (.green)
+            ======================== -->
+            <div class="valor-row">
+            <div class="valor-icon-wrap" style="background:#dff0dc;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#4a9a3e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+            </div>
+            <div class="valor-arrow green">
+                <span class="valor-label">Compromiso social</span>  <!-- ✏️ Cambia el texto aquí -->
+            </div>
+            </div>
+
+            <!-- ========================
+                VALOR 5 — Fila impar
+                Ícono: check en caja (calidad)
+                Flecha: azul oscuro (.dark)
+            ======================== -->
+            <div class="valor-row">
+            <div class="valor-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#3a6abf" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 11 12 14 22 4"/>
+                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+                </svg>
+            </div>
+            <div class="valor-arrow dark">
+                <span class="valor-label">Calidad</span>  <!-- ✏️ Cambia el texto aquí -->
+            </div>
+            </div>
+
+            <!-- ========================
+                VALOR 6 — Fila par
+                Ícono: persona con destellos (innovación)
+                Flecha: verde (.green)
+            ======================== -->
+            <div class="valor-row">
+            <div class="valor-icon-wrap" style="background:#dff0dc;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#4a9a3e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="8" r="4"/>
+                <path d="M12 14c-5 0-8 2-8 3v1h16v-1c0-1-3-3-8-3z"/>
+                <line x1="12" y1="2" x2="12" y2="4"/>
+                <line x1="12" y1="20" x2="12" y2="22"/>
+                </svg>
+            </div>
+            <div class="valor-arrow green">
+                <span class="valor-label">Innovación</span>  <!-- ✏️ Cambia el texto aquí -->
+            </div>
+            </div>
+
+            <!-- ========================
+                PARA AGREGAR MÁS VALORES:
+                Copia el bloque de fila impar o par según corresponda
+                y cambia el texto del .valor-label y el SVG del ícono.
+            ======================== -->
+
+        </div>
+    </section>
+
+
+
+
+
+
+
 
     <!-- =============================================
          NUESTROS VALORES
