@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <link rel="icon" type="image/png" href="../image/Imagotipo Vertical Original.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Historia - Cooperativa San Pedro</title>
@@ -85,9 +86,38 @@
             padding-left: 30px;
         }
 
-        /* Espacio vacío para el lado que no tiene tarjeta */
+        /* Espacio con imagen circular */
         .tl-vacio {
             width: calc(50% - 30px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tl-img-circle {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px dashed rgba(3,62,129,0.25);
+            background: rgba(3,62,129,0.04);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: border-color 0.2s, background 0.2s;
+        }
+
+        .tl-img-circle:hover {
+            border-color: #4EAE33;
+            background: rgba(78,174,51,0.05);
+        }
+
+        .tl-img-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
         }
 
         /* Punto central */
@@ -320,7 +350,7 @@
                 Nuestra Historia
             </h1>
             <p style="color: rgba(255,255,255,0.75); font-size: 1.1rem; max-width: 600px; margin: 0 auto 40px; line-height: 1.8;">
-                Décadas de trabajo, esfuerzo y compromiso con los socios de
+                Décadas de trabajo, esfuerzo y compromiso con los asociados de
                 San Pedro Soloma y toda la región de Huehuetenango.
             </p>
 
@@ -375,12 +405,20 @@
                         </div>
                     </div>
                     <div class="tl-punto"></div>
-                    <div class="tl-vacio"></div>
+                    <div class="tl-vacio">
+                        <div class="tl-img-circle">
+                            <img src="../image/1.jfif" alt="">
+                        </div>
+                    </div>
                 </div>
 
                 <!-- HITO 2 — derecha -->
                 <div class="tl-fila">
-                    <div class="tl-vacio"></div>
+                    <div class="tl-vacio">
+                        <div class="tl-img-circle">
+                            <img src="../image/" alt="">
+                        </div>
+                    </div>
                     <div class="tl-punto"></div>
                     <div class="tl-der">
                         <div class="tl-card">
@@ -396,17 +434,25 @@
                     <div class="tl-izq">
                         <div class="tl-card">
                             <div class="tl-anio">1997</div>
-                            <div class="tl-titulo">500 socios</div>
-                            <p class="tl-desc">Alcanzamos 500 socios activos, lo que nos permitió ampliar la cartera de productos e iniciar el programa de préstamos agrícolas.</p>
+                            <div class="tl-titulo">500 asociados</div>
+                            <p class="tl-desc">Alcanzamos 500 asociados activos, lo que nos permitió ampliar la cartera de productos e iniciar el programa de préstamos agrícolas.</p>
                         </div>
                     </div>
                     <div class="tl-punto"></div>
-                    <div class="tl-vacio"></div>
+                    <div class="tl-vacio">
+                        <div class="tl-img-circle">
+                            <img src="../image/" alt="">
+                        </div>
+                    </div>
                 </div>
 
                 <!-- HITO 4 — derecha -->
                 <div class="tl-fila">
-                    <div class="tl-vacio"></div>
+                    <div class="tl-vacio">
+                        <div class="tl-img-circle">
+                            <img src="../image/" alt="">
+                        </div>
+                    </div>
                     <div class="tl-punto" style="background:#4EAE33; border-color:#033E81;"></div>
                     <div class="tl-der">
                         <div class="tl-card">
@@ -424,22 +470,30 @@
                         <div class="tl-card">
                             <div class="tl-anio">2007</div>
                             <div class="tl-titulo">Modernización tecnológica</div>
-                            <p class="tl-desc">Implementamos nuestro primer sistema informático de gestión financiera, mejorando el servicio a los socios en todas las agencias.</p>
+                            <p class="tl-desc">Implementamos nuestro primer sistema informático de gestión financiera, mejorando el servicio a los asociados en todas las agencias.</p>
                         </div>
                     </div>
                     <div class="tl-punto"></div>
-                    <div class="tl-vacio"></div>
+                    <div class="tl-vacio">
+                        <div class="tl-img-circle">
+                            <img src="../image/" alt="">
+                        </div>
+                    </div>
                 </div>
 
                 <!-- HITO 6 — derecha -->
                 <div class="tl-fila">
-                    <div class="tl-vacio"></div>
+                    <div class="tl-vacio">
+                        <div class="tl-img-circle">
+                            <img src="../image/" alt="">
+                        </div>
+                    </div>
                     <div class="tl-punto"></div>
                     <div class="tl-der">
                         <div class="tl-card">
                             <div class="tl-anio">2010</div>
-                            <div class="tl-titulo">20 años y 3,000 socios</div>
-                            <p class="tl-desc">Celebramos dos décadas de servicio con 3,000 socios, 5 agencias y el lanzamiento del programa de Educación Financiera comunitaria.</p>
+                            <div class="tl-titulo">20 años y 3,000 asociados</div>
+                            <p class="tl-desc">Celebramos dos décadas de servicio con 3,000 asociados, 5 agencias y el lanzamiento del programa de Educación Financiera comunitaria.</p>
                         </div>
                     </div>
                 </div>
@@ -455,12 +509,20 @@
                         </div>
                     </div>
                     <div class="tl-punto" style="background:#4EAE33; border-color:#033E81;"></div>
-                    <div class="tl-vacio"></div>
+                    <div class="tl-vacio">
+                        <div class="tl-img-circle">
+                            <img src="../image/" alt="">
+                        </div>
+                    </div>
                 </div>
 
                 <!-- HITO 8 — derecha -->
                 <div class="tl-fila">
-                    <div class="tl-vacio"></div>
+                    <div class="tl-vacio">
+                        <div class="tl-img-circle">
+                            <img src="../image/" alt="">
+                        </div>
+                    </div>
                     <div class="tl-punto"></div>
                     <div class="tl-der">
                         <div class="tl-card">
@@ -474,15 +536,19 @@
                 <!-- HITO 9 — izquierda (HOY) -->
                 <div class="tl-fila">
                     <div class="tl-izq">
-                        <div class="tl-card" style="border:2px solid #4EAE33;">
+                        <div class="tl-card">
                             <span class="tl-badge">Hoy</span>
                             <div class="tl-anio">2024</div>
-                            <div class="tl-titulo">Más de 12,000 socios</div>
-                            <p class="tl-desc">Somos la cooperativa más grande de Huehuetenango, con 8 agencias, 150+ agentes y 12,000 socios activos. Nuestra visión: ser líderes en Guatemala para 2030.</p>
+                            <div class="tl-titulo">Más de 12,000 asociados</div>
+                            <p class="tl-desc">Somos la cooperativa más grande de Huehuetenango, con 8 agencias, 150+ agentes y 12,000 asociados activos. Nuestra visión: ser líderes en Guatemala para 2030.</p>
                         </div>
                     </div>
                     <div class="tl-punto" style="background:#4EAE33; border-color:white; box-shadow:0 0 0 6px rgba(78,174,51,0.3);"></div>
-                    <div class="tl-vacio"></div>
+                    <div class="tl-vacio">
+                        <div class="tl-img-circle">
+                            <img src="../image/" alt="">
+                        </div>
+                    </div>
                 </div>
 
             </div><!-- fin tl-wrapper -->

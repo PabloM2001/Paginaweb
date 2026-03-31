@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <link rel="icon" type="image/png" href="../image/Imagotipo Vertical Original.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Misión y Visión - Cooperativa San Pedro</title>
@@ -131,14 +132,14 @@
         }
         /* Título principal del propósito */
         .mv-card-header .proposito-titulo {
-            font-size: 2rem;
+            font-size: 1.95rem;
             font-weight: 900;
             color: #033E81;
             margin-bottom: 12px;
         }
         /* Descripción del propósito */
         .mv-card-header .proposito-texto {
-            font-size: 1.7rem;
+            font-size: 1.95rem;
             color: #555;
             line-height: 1.8;
             max-width: 800px;
@@ -357,7 +358,7 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
-            max-width: 860px;
+            max-width: 640px;
             margin: 0 auto;
         }
 
@@ -379,8 +380,8 @@
             para el color verde claro en filas pares
         ---------------------------------------------------------- */
         .valor-icon-wrap {
-            width: 70px;
-            height: 70px;
+            width: 86px;
+            height: 86px;
             border-radius: 10px;
             background: #d9e4f5;        /* Azul claro (filas impares) */
             display: flex;
@@ -392,8 +393,8 @@
 
         /* Tamaño del SVG dentro del ícono */
         .valor-icon-wrap svg {
-            width: 34px;
-            height: 34px;
+            width: 40px;
+            height: 40px;
         }
 
         /* ----------------------------------------------------------
@@ -404,7 +405,7 @@
         ---------------------------------------------------------- */
         .valor-arrow {
             flex: 1;                    /* Ocupa todo el espacio disponible */
-            height: 64px;
+            height: 86px;
             position: relative;
             display: flex;
             align-items: center;
@@ -440,15 +441,67 @@
         }
 
         .valor-row {
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
             cursor: pointer;
         }
 
         .valor-row:hover {
-            transform: translateY(-4px);        /* Se levanta 4px hacia arriba */
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);  /* Sombra suave */
+            transform: translateY(-5px);
+            box-shadow: 0 10px 28px rgba(0,0,0,0.15);
         }
 
+        /* === ANIMACIÓN DINÁMICA DE ENTRADA === */
+        @keyframes valorSlideIn {
+            from { opacity: 0; transform: translateX(-60px); }
+            to   { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Oculto por defecto hasta que .animated se añada al contenedor */
+        .valores-list:not(.animated) .valor-row {
+            opacity: 0;
+            transform: translateX(-60px);
+        }
+
+        /* Cuando el contenedor recibe .animated, cada fila se anima escalonada */
+        .valores-list.animated .valor-row {
+            animation: valorSlideIn 0.55s cubic-bezier(0.22,1,0.36,1) both;
+        }
+        .valores-list.animated .valor-row:nth-child(1) { animation-delay: 0.00s; }
+        .valores-list.animated .valor-row:nth-child(2) { animation-delay: 0.10s; }
+        .valores-list.animated .valor-row:nth-child(3) { animation-delay: 0.20s; }
+        .valores-list.animated .valor-row:nth-child(4) { animation-delay: 0.30s; }
+        .valores-list.animated .valor-row:nth-child(5) { animation-delay: 0.40s; }
+        .valores-list.animated .valor-row:nth-child(6) { animation-delay: 0.50s; }
+
+        /* Hover mejorado: ícono se escala y rota levemente */
+        .valor-icon-wrap {
+            transition: transform 0.28s ease, box-shadow 0.28s ease;
+        }
+        .valor-row:hover .valor-icon-wrap {
+            transform: scale(1.12) rotate(-6deg);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+        }
+
+        /* Hover mejorado: flecha se ilumina */
+        .valor-arrow {
+            transition: filter 0.28s ease;
+        }
+        .valor-row:hover .valor-arrow {
+            filter: brightness(1.18);
+        }
+
+        /* Número decorativo dentro de la flecha */
+        .valor-num {
+            font-size: 28px;
+            font-weight: 900;
+            color: rgba(255,255,255,0.18);
+            margin-right: 14px;
+            flex-shrink: 0;
+            line-height: 1;
+            font-family: 'Outfit', sans-serif;
+            letter-spacing: -1px;
+            user-select: none;
+        }
 
     </style>
 
@@ -563,14 +616,6 @@
     </header>
 
 
-    <!-- SEPARADOR DECORATIVO -->
-    <div style="background:#f8f9fa; padding:30px 0 0;">
-        <div style="display:flex; align-items:center; justify-content:center; gap:18px; padding: 0 40px;">
-            <div style="flex:1; height:1px; background:linear-gradient(90deg,transparent,#033E81);"></div>
-            <img src="../image/Imagotipo Horizontal Original.png" alt="" style="height:38px; opacity:0.75;">
-            <div style="flex:1; height:1px; background:linear-gradient(90deg,#4EAE33,transparent);"></div>
-        </div>
-    </div>
 
     <!-- =============================================
          MISIÓN Y VISIÓN
@@ -586,6 +631,13 @@
             <div class="mv-tornillo br"></div>
 
             <div class="mv-card">
+                <!-- Logo separador dentro de la placa -->
+                <div style="display:flex; align-items:center; gap:18px; padding:18px 40px 0;">
+                    <div style="flex:1; height:1px; background:linear-gradient(90deg,transparent,#033E81);"></div>
+                    <img src="../image/Imagotipo Horizontal Original.png" alt="" style="height:38px; opacity:0.75;">
+                    <div style="flex:1; height:1px; background:linear-gradient(90deg,#4EAE33,transparent);"></div>
+                </div>
+
                 <!-- Header: Propósito Visionario -->
                 <div class="mv-card-header">
                    
@@ -596,22 +648,22 @@
                 </div>
 
                 <!-- Misión (arriba) -->
-                <div style="padding:36px 60px 28px; border-bottom:1px solid rgba(3,62,129,0.1); text-align:center;">
+                <div style="padding:0 60px; border-bottom:1px solid rgba(3,62,129,0.1); text-align:center;">
                    
-                    <div style="font-size:1.9rem;font-weight:900;color:#033E81;margin-bottom:14px;">Misión</div>
-                    <p style="font-size:1.7rem;color:#555;line-height:1.85;margin-bottom:16px;max-width:700px;margin-left:auto;margin-right:auto;">
-                        Brindar soluciones de ahorro y crédito innovadoras y de alta calidad con beneficios 
-                        socioeconómicos para el progreso de nuestros asociados.
+                    <div style="font-size:1.95rem;font-weight:900;color:#033E81;margin-bottom:14px;">Misión</div>
+                    <p style="font-size:1.95rem;color:#555;line-height:1.85;margin-bottom:16px;max-width:700px;margin-left:auto;margin-right:auto;">
+                        Brindar soluciones de ahorro y crédito innovadoras y de alta calidad con beneficios
+                        asociadoeconómicos para el progreso de nuestros asociados.
                     </p>
                     
                 </div>
 
                 <!-- Visión (abajo) -->
-                <div style="padding:90px 80px 100px; text-align:center;">
+                <div style="padding:20px 80px 20px; text-align:center;">
                     
-                    <div style="font-size:1.9rem;font-weight:900;color:#033E81;margin-bottom:14px;">Visión</div>
-                    <p style="font-size:1.7rem;color:#555;line-height:1.85;margin-bottom:16px;max-width:700px;margin-left:auto;margin-right:auto;">
-                        Ser la cooperativa líder en innovación, mejora y desarrollo de nuestros asociados, 
+                    <div style="font-size:1.95rem;font-weight:900;color:#033E81;margin-bottom:14px;">Visión</div>
+                    <p style="font-size:1.95rem;color:#555;line-height:1.85;margin-bottom:16px;max-width:700px;margin-left:auto;margin-right:auto;">
+                        Ser la cooperativa líder en innovación, mejora y desarrollo de nuestros asociados,
                         familias y comunidades.
                     </p>
                     
@@ -649,15 +701,17 @@
             <!-- Ícono: fondo azul claro (default) -->
             <div class="valor-icon-wrap">
                 <svg viewBox="0 0 24 24" fill="none" stroke="#3a6abf" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="2" y="3" width="8" height="8" rx="1"/>
-                <rect x="14" y="3" width="8" height="8" rx="1"/>
-                <rect x="2" y="13" width="8" height="8" rx="1"/>
-                <rect x="14" y="13" width="8" height="8" rx="1"/>
+                <circle cx="18" cy="5" r="3"/>
+                <circle cx="6" cy="12" r="3"/>
+                <circle cx="18" cy="19" r="3"/>
+                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
                 </svg>
             </div>
             <!-- Flecha azul oscuro -->
             <div class="valor-arrow dark">
-                <span class="valor-label">Integridad</span>  <!-- ✏️ Cambia el texto aquí -->
+                <span class="valor-num">01</span>
+                <span class="valor-label">Cooperación</span>  <!-- ✏️ Cambia el texto aquí -->
             </div>
             </div>
 
@@ -670,13 +724,16 @@
             <!-- Ícono: fondo verde claro (sobreescrito con style) -->
             <div class="valor-icon-wrap" style="background:#dff0dc;">
                 <svg viewBox="0 0 24 24" fill="none" stroke="#4a9a3e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="2" y="5" width="20" height="14" rx="2"/>
-                <polyline points="2,9 12,15 22,9"/>
+                <path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"/>
+                <path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"/>
+                <path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"/>
+                <path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/>
                 </svg>
             </div>
             <!-- Flecha verde -->
             <div class="valor-arrow green">
-                <span class="valor-label">Transparencia</span>  <!-- ✏️ Cambia el texto aquí -->
+                <span class="valor-num">02</span>
+                <span class="valor-label">Democracia</span>  <!-- ✏️ Cambia el texto aquí -->
             </div>
             </div>
 
@@ -688,12 +745,15 @@
             <div class="valor-row">
             <div class="valor-icon-wrap">
                 <svg viewBox="0 0 24 24" fill="none" stroke="#3a6abf" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="12" y1="2" x2="12" y2="22"/>
-                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                <line x1="12" y1="3" x2="12" y2="21"/>
+                <path d="M5 8l-3 6h6L5 8z"/>
+                <path d="M19 8l-3 6h6L19 8z"/>
+                <line x1="2" y1="20" x2="22" y2="20"/>
                 </svg>
             </div>
             <div class="valor-arrow dark">
-                <span class="valor-label">Responsabilidad</span>  <!-- ✏️ Cambia el texto aquí -->
+                <span class="valor-num">03</span>
+                <span class="valor-label">Igualdad</span>  <!-- ✏️ Cambia el texto aquí -->
             </div>
             </div>
 
@@ -709,10 +769,12 @@
                 <circle cx="9" cy="7" r="4"/>
                 <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
                 <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                <line x1="19" y1="10" x2="23" y2="10"/>
                 </svg>
             </div>
             <div class="valor-arrow green">
-                <span class="valor-label">Compromiso social</span>  <!-- ✏️ Cambia el texto aquí -->
+                <span class="valor-num">04</span>
+                <span class="valor-label">Equidad</span>  <!-- ✏️ Cambia el texto aquí -->
             </div>
             </div>
 
@@ -724,12 +786,13 @@
             <div class="valor-row">
             <div class="valor-icon-wrap">
                 <svg viewBox="0 0 24 24" fill="none" stroke="#3a6abf" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="9 11 12 14 22 4"/>
-                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                <polyline points="9 12 11 14 15 10"/>
                 </svg>
             </div>
             <div class="valor-arrow dark">
-                <span class="valor-label">Calidad</span>  <!-- ✏️ Cambia el texto aquí -->
+                <span class="valor-num">05</span>
+                <span class="valor-label">Responsabilidad</span>  <!-- ✏️ Cambia el texto aquí -->
             </div>
             </div>
 
@@ -741,14 +804,15 @@
             <div class="valor-row">
             <div class="valor-icon-wrap" style="background:#dff0dc;">
                 <svg viewBox="0 0 24 24" fill="none" stroke="#4a9a3e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="8" r="4"/>
-                <path d="M12 14c-5 0-8 2-8 3v1h16v-1c0-1-3-3-8-3z"/>
-                <line x1="12" y1="2" x2="12" y2="4"/>
-                <line x1="12" y1="20" x2="12" y2="22"/>
+                <circle cx="10" cy="10" r="7"/>
+                <line x1="21" y1="21" x2="15.65" y2="15.65"/>
+                <circle cx="10" cy="8" r="2"/>
+                <path d="M6.5 14.5c0-1.5 1.5-2.5 3.5-2.5s3.5 1 3.5 2.5"/>
                 </svg>
             </div>
             <div class="valor-arrow green">
-                <span class="valor-label">Innovación</span>  <!-- ✏️ Cambia el texto aquí -->
+                <span class="valor-num">06</span>
+                <span class="valor-label">Enfoque al Asociado</span>  <!-- ✏️ Cambia el texto aquí -->
             </div>
             </div>
 
@@ -763,243 +827,6 @@
 
 
 
-
-
-
-
-
-    <!-- =============================================
-         NUESTROS VALORES
-         6 tarjetas con los valores institucionales
-    ============================================= -->
-    <section style="padding: 80px 0; background: white;">
-        <div class="container">
-
-            <!-- Encabezado de sección -->
-            <div class="text-center mb-5 reveal">
-                <span style="color: #033E81; font-weight: 600; letter-spacing: 1px; font-size: 0.9rem;">IDENTIDAD</span>
-                <h2 style="font-size: 2.3rem; font-weight: 800; color: #033E81; margin-top: 8px;">
-                    Nuestros Valores
-                </h2>
-                <p style="color: #666; max-width: 500px; margin: 0 auto;">
-                    Los pilares que definen nuestra cultura organizacional y nuestro compromiso contigo
-                </p>
-            </div>
-
-            <!-- Grid 3x2 de valores -->
-            <div class="row g-4">
-
-                <!-- Valor 1: Integridad -->
-                <div class="col-md-6 col-lg-4 reveal delay-1">
-                    <div class="valor-card azul">
-                        <div class="valor-icon" style="background: rgba(13,110,253,0.1);">
-                            <i class="bi bi-shield-check" style="color: #033E81;"></i>
-                        </div>
-                        <h5 style="font-weight: 700; color: #033E81; margin-bottom: 10px;">Integridad</h5>
-                        <p style="color: #666; font-size: 0.92rem; line-height: 1.7; margin: 0;">
-                            Actuamos con honestidad y transparencia en cada operación,
-                            ganándonos la confianza de nuestros socios día a día.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Valor 2: Solidaridad -->
-                <div class="col-md-6 col-lg-4 reveal delay-2">
-                    <div class="valor-card verde">
-                        <div class="valor-icon" style="background: rgba(78,174,51,0.1);">
-                            <i class="bi bi-people" style="color: #4EAE33;"></i>
-                        </div>
-                        <h5 style="font-weight: 700; color: #033E81; margin-bottom: 10px;">Solidaridad</h5>
-                        <p style="color: #666; font-size: 0.92rem; line-height: 1.7; margin: 0;">
-                            El éxito de un socio es el éxito de todos. Trabajamos juntos
-                            para crecer y prosperar como comunidad.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Valor 3: Compromiso -->
-                <div class="col-md-6 col-lg-4 reveal delay-3">
-                    <div class="valor-card celeste">
-                        <div class="valor-icon" style="background: rgba(79,195,247,0.1);">
-                            <i class="bi bi-heart" style="color: #4fc3f7;"></i>
-                        </div>
-                        <h5 style="font-weight: 700; color: #033E81; margin-bottom: 10px;">Compromiso</h5>
-                        <p style="color: #666; font-size: 0.92rem; line-height: 1.7; margin: 0;">
-                            Nos comprometemos con el bienestar financiero de cada socio
-                            y con el desarrollo de las comunidades que servimos.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Valor 4: Innovación -->
-                <div class="col-md-6 col-lg-4 reveal delay-4">
-                    <div class="valor-card naranja">
-                        <div class="valor-icon" style="background: rgba(243,156,18,0.1);">
-                            <i class="bi bi-lightbulb" style="color: #4EAE33;"></i>
-                        </div>
-                        <h5 style="font-weight: 700; color: #033E81; margin-bottom: 10px;">Innovación</h5>
-                        <p style="color: #666; font-size: 0.92rem; line-height: 1.7; margin: 0;">
-                            Adoptamos tecnología y nuevas soluciones para hacer los
-                            servicios financieros más accesibles y eficientes.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Valor 5: Responsabilidad -->
-                <div class="col-md-6 col-lg-4 reveal delay-5">
-                    <div class="valor-card rojo">
-                        <div class="valor-icon" style="background: rgba(231,76,60,0.1);">
-                            <i class="bi bi-trophy" style="color: #033E81;"></i>
-                        </div>
-                        <h5 style="font-weight: 700; color: #033E81; margin-bottom: 10px;">Responsabilidad</h5>
-                        <p style="color: #666; font-size: 0.92rem; line-height: 1.7; margin: 0;">
-                            Tomamos decisiones pensando en el impacto a largo plazo
-                            para nuestros socios, empleados y el medio ambiente.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Valor 6: Equidad -->
-                <div class="col-md-6 col-lg-4 reveal delay-6">
-                    <div class="valor-card morado">
-                        <div class="valor-icon" style="background: rgba(3,62,129,0.10);">
-                            <i class="bi bi-balance-scale" style="color: #4EAE33;"></i>
-                        </div>
-                        <h5 style="font-weight: 700; color: #033E81; margin-bottom: 10px;">Equidad</h5>
-                        <p style="color: #666; font-size: 0.92rem; line-height: 1.7; margin: 0;">
-                            Tratamos a todos nuestros socios con igualdad, justicia
-                            y respeto, sin distinción de ningún tipo.
-                        </p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- =============================================
-         7 PRINCIPIOS COOPERATIVOS
-         Los principios internacionales del cooperativismo
-    ============================================= -->
-    <section style="padding: 80px 0; background: #f8f9fa;">
-        <div class="container">
-
-            <!-- Encabezado -->
-            <div class="text-center mb-5 reveal">
-                <span style="color: #4EAE33; font-weight: 600; letter-spacing: 1px; font-size: 0.9rem;">COOPERATIVISMO</span>
-                <h2 style="font-size: 2.3rem; font-weight: 800; color: #033E81; margin-top: 8px;">
-                    Principios Cooperativos
-                </h2>
-                <p style="color: #666; max-width: 600px; margin: 0 auto;">
-                    Seguimos los 7 principios universales del cooperativismo establecidos
-                    por la Alianza Cooperativa Internacional
-                </p>
-            </div>
-
-            <!-- Lista de 7 principios en 2 columnas -->
-            <div class="row g-4">
-
-                <!-- Principio 1 -->
-                <div class="col-lg-6 reveal">
-                    <div class="principio-card">
-                        <div class="principio-num">01</div>
-                        <h5 style="font-weight: 700; color: #033E81; margin-bottom: 8px;">
-                            Membresía Abierta y Voluntaria
-                        </h5>
-                        <p style="color: #666; margin: 0; font-size: 0.95rem; line-height: 1.7;">
-                            Las cooperativas son organizaciones voluntarias, abiertas para todas
-                            las personas capaces de utilizar sus servicios.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Principio 2 -->
-                <div class="col-lg-6 reveal delay-1">
-                    <div class="principio-card">
-                        <div class="principio-num">02</div>
-                        <h5 style="font-weight: 700; color: #033E81; margin-bottom: 8px;">
-                            Control Democrático de los Socios
-                        </h5>
-                        <p style="color: #666; margin: 0; font-size: 0.95rem; line-height: 1.7;">
-                            Los socios participan activamente en la definición de políticas
-                            y en la toma de decisiones. Un socio = un voto.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Principio 3 -->
-                <div class="col-lg-6 reveal">
-                    <div class="principio-card">
-                        <div class="principio-num">03</div>
-                        <h5 style="font-weight: 700; color: #033E81; margin-bottom: 8px;">
-                            Participación Económica de los Socios
-                        </h5>
-                        <p style="color: #666; margin: 0; font-size: 0.95rem; line-height: 1.7;">
-                            Los socios contribuyen equitativamente y controlan
-                            democráticamente el capital de su cooperativa.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Principio 4 -->
-                <div class="col-lg-6 reveal delay-1">
-                    <div class="principio-card">
-                        <div class="principio-num">04</div>
-                        <h5 style="font-weight: 700; color: #033E81; margin-bottom: 8px;">
-                            Autonomía e Independencia
-                        </h5>
-                        <p style="color: #666; margin: 0; font-size: 0.95rem; line-height: 1.7;">
-                            Las cooperativas son organizaciones autónomas de autoayuda,
-                            controladas por sus socios.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Principio 5 -->
-                <div class="col-lg-6 reveal">
-                    <div class="principio-card">
-                        <div class="principio-num">05</div>
-                        <h5 style="font-weight: 700; color: #033E81; margin-bottom: 8px;">
-                            Educación, Formación e Información
-                        </h5>
-                        <p style="color: #666; margin: 0; font-size: 0.95rem; line-height: 1.7;">
-                            Ofrecemos educación y formación a socios, directivos y empleados
-                            para contribuir al desarrollo de sus comunidades.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Principio 6 -->
-                <div class="col-lg-6 reveal delay-1">
-                    <div class="principio-card">
-                        <div class="principio-num">06</div>
-                        <h5 style="font-weight: 700; color: #033E81; margin-bottom: 8px;">
-                            Cooperación entre Cooperativas
-                        </h5>
-                        <p style="color: #666; margin: 0; font-size: 0.95rem; line-height: 1.7;">
-                            Trabajamos conjuntamente con otras cooperativas a través
-                            de estructuras locales, nacionales e internacionales.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Principio 7 (centrado) -->
-                <div class="col-lg-6 offset-lg-3 reveal">
-                    <div class="principio-card" style="border-left-color: #4EAE33;">
-                        <div class="principio-num" style="color: rgba(78,174,51,0.1);">07</div>
-                        <h5 style="font-weight: 700; color: #033E81; margin-bottom: 8px;">
-                            Compromiso con la Comunidad
-                        </h5>
-                        <p style="color: #666; margin: 0; font-size: 0.95rem; line-height: 1.7;">
-                            Trabajamos para el desarrollo sostenible de nuestras comunidades
-                            por medio de políticas aprobadas por nuestros socios.
-                        </p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
 
     <!-- =============================================
          CTA - LLAMADO A LA ACCIÓN
@@ -1120,6 +947,20 @@
         }, { threshold: 0.12 });
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        /* === ANIMACIÓN ESCALONADA DE VALORES === */
+        const valoresList = document.querySelector('.valores-list');
+        if (valoresList) {
+            const valoresObs = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animated');
+                        valoresObs.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15 });
+            valoresObs.observe(valoresList);
+        }
     </script>
 
 </body>

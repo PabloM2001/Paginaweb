@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <link rel="icon" type="image/png" href="../image/Imagotipo Vertical Original.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Memoria de Labores - Cooperativa San Pedro</title>
@@ -171,35 +172,207 @@
             background: linear-gradient(135deg, #aab4c4, #c8d0db);
         }
 
-        /* Modal visor PDF */
-        .modal-pdf .modal-dialog {
-            max-width: 860px;
-        }
-        .modal-pdf .modal-content {
-            border-radius: 16px;
-            overflow: hidden;
-            border: none;
-        }
-        .modal-pdf .modal-header {
-            background: #033E81;
-            color: white;
-            border: none;
-            padding: 16px 24px;
-        }
-        .modal-pdf .modal-header .btn-close {
-            filter: invert(1);
-        }
-        .modal-pdf iframe {
-            width: 100%;
-            height: 75vh;
-            border: none;
-        }
-
-        /* Responsive */
+        /* Responsive tarjetas */
         @media (max-width: 576px) {
             .anio-section { padding: 24px 20px; }
             .pdf-card { flex-wrap: wrap; }
             .pdf-btn { margin-left: 0; flex-direction: row; }
+        }
+
+        /* ══════════════════════════════════════
+           VISOR LIBRO PAGE-FLIP
+        ══════════════════════════════════════ */
+        @keyframes spin { to { transform:rotate(360deg); } }
+        .book-spinner {
+            width:42px; height:42px;
+            border:3px solid rgba(255,255,255,0.15);
+            border-top-color:#4fc3f7;
+            border-radius:50%;
+            animation:spin 0.8s linear infinite;
+        }
+        .book-nav-btn {
+            width:48px; height:48px; flex-shrink:0;
+            background:rgba(255,255,255,0.1); color:white;
+            border:1px solid rgba(255,255,255,0.2);
+            border-radius:50%; cursor:pointer; font-size:1.2rem;
+            display:flex; align-items:center; justify-content:center;
+            transition:background 0.2s, transform 0.15s;
+        }
+        .book-nav-btn:hover { background:rgba(255,255,255,0.22); transform:scale(1.08); }
+        .book-nav-btn:disabled { opacity:0.3; cursor:default; transform:none; }
+        .btn-lib-dl {
+            background:#4EAE33; color:white; padding:8px 18px; border-radius:8px;
+            font-size:0.82rem; font-weight:700; text-decoration:none;
+            display:flex; align-items:center; gap:6px; transition:background 0.2s;
+        }
+        .btn-lib-dl:hover { background:#3a8426; color:white; }
+        .btn-lib-cerrar {
+            background:rgba(255,255,255,0.12); color:white;
+            border:1px solid rgba(255,255,255,0.2);
+            padding:8px 18px; border-radius:8px; font-size:0.82rem; font-weight:700;
+            cursor:pointer; display:flex; align-items:center; gap:6px; transition:background 0.2s;
+        }
+        .btn-lib-cerrar:hover { background:rgba(255,255,255,0.22); }
+
+        /* StPageFlip estilos internos */
+        #bookContainer .page {
+            background: white;
+            overflow: hidden;
+        }
+        #bookContainer .page img {
+            width:100%; height:100%; display:block; object-fit:fill;
+        }
+
+        /* ── ESTILOS HEREDADOS (no usados, solo para limpiar) ── */
+        .lib-stack-izq, .lib-stack-der {
+            width: 14px; flex-shrink: 0;
+            background: repeating-linear-gradient(90deg,
+                #b89060 0px, #b89060 1px, #d4aa78 1px, #d4aa78 3px);
+            align-self: stretch; margin: 5px 0;
+        }
+        .lib-stack-izq { border-radius: 2px 0 0 2px; box-shadow: -3px 2px 8px rgba(0,0,0,0.4); }
+        .lib-stack-der { border-radius: 0 2px 2px 0; box-shadow:  3px 2px 8px rgba(0,0,0,0.4); }
+
+        /* El libro abierto */
+        .libro-abierto {
+            display: flex;
+            height: 80vh; max-height: 760px;
+            max-width: 960px; width: calc(90vw - 28px);
+            position: relative;
+            border-radius: 3px 14px 14px 3px;
+            box-shadow: 0 50px 130px rgba(0,0,0,0.9), 0 10px 40px rgba(0,0,0,0.5);
+            animation: libEntrar 0.4s ease both;
+        }
+        @keyframes libEntrar {
+            from { opacity:0; transform:scale(0.96); }
+            to   { opacity:1; transform:scale(1); }
+        }
+
+        /* Página izquierda — portada/info */
+        .lib-pag-izq {
+            width: 33%; min-width: 210px; max-width: 320px; flex-shrink: 0;
+            background: linear-gradient(158deg, #0448a0 0%, #033E81 42%, #011e46 100%);
+            display: flex; flex-direction: column; align-items: center;
+            justify-content: center; padding: 36px 24px;
+            position: relative; overflow: hidden;
+            border-radius: 3px 0 0 3px;
+        }
+        .lib-pag-izq::before {
+            content:''; position:absolute; top:-80px; right:-80px;
+            width:220px; height:220px; border-radius:50%;
+            background:radial-gradient(circle, rgba(79,195,247,0.14) 0%, transparent 70%);
+        }
+        .lib-pag-izq::after {
+            content:''; position:absolute; bottom:-60px; left:-60px;
+            width:180px; height:180px; border-radius:50%;
+            background:radial-gradient(circle, rgba(78,174,51,0.12) 0%, transparent 70%);
+        }
+        .lib-lomo-sombra {
+            position:absolute; right:0; top:0; bottom:0; width:26px;
+            background:linear-gradient(90deg, transparent, rgba(0,0,0,0.42));
+            pointer-events:none; z-index:2;
+        }
+        .lib-corner {
+            position:absolute; width:26px; height:26px;
+            border-color:rgba(255,255,255,0.2); border-style:solid;
+        }
+        .lib-corner.tl { top:16px; left:16px; border-width:1.5px 0 0 1.5px; }
+        .lib-corner.tr { top:16px; right:16px; border-width:1.5px 1.5px 0 0; }
+        .lib-corner.bl { bottom:16px; left:16px; border-width:0 0 1.5px 1.5px; }
+        .lib-corner.br { bottom:16px; right:16px; border-width:0 1.5px 1.5px 0; }
+        .lib-linea {
+            width:62%; height:1px;
+            background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);
+            margin:18px 0; position:relative; z-index:1;
+        }
+
+        /* Página derecha — PDF */
+        .lib-pag-der {
+            flex:1; min-width:0; background:white; position:relative;
+            display:flex; flex-direction:column; overflow:hidden;
+            border-radius: 0 14px 14px 0;
+        }
+        .lib-pag-der::before {
+            content:''; position:absolute; left:0; top:0; bottom:0; width:26px;
+            background:linear-gradient(90deg, rgba(0,0,0,0.16), transparent);
+            z-index:1; pointer-events:none;
+        }
+
+        /* ══ TAPA QUE SE ABRE (cubre todo el libro al inicio) ══ */
+        .lib-tapa {
+            position: absolute; inset: 0;
+            transform-origin: left center;
+            transform-style: preserve-3d;
+            z-index: 10;
+            transition: transform 1.25s cubic-bezier(0.77, 0, 0.175, 1);
+            border-radius: 3px 14px 14px 3px;
+        }
+        .lib-tapa.abierta { transform: rotateY(-180deg); }
+
+        .lib-tapa-frente, .lib-tapa-reverso {
+            position:absolute; inset:0;
+            backface-visibility:hidden;
+            border-radius: 3px 14px 14px 3px;
+        }
+        /* Cara delantera — tapa dura */
+        .lib-tapa-frente {
+            background: linear-gradient(158deg, #0448a0 0%, #033E81 40%, #011630 100%);
+            overflow:hidden; position:relative;
+            display:flex; flex-direction:column; align-items:center; justify-content:center;
+        }
+        .lib-tapa-frente::before {
+            content:''; position:absolute; top:-120px; right:-120px;
+            width:360px; height:360px; border-radius:50%;
+            background:radial-gradient(circle, rgba(79,195,247,0.13) 0%, transparent 70%);
+        }
+        .lib-tapa-frente::after {
+            content:''; position:absolute; bottom:-100px; left:-100px;
+            width:280px; height:280px; border-radius:50%;
+            background:radial-gradient(circle, rgba(78,174,51,0.10) 0%, transparent 70%);
+        }
+        /* Lomo de la tapa */
+        .lib-tapa-lomo {
+            position:absolute; left:0; top:0; bottom:0; width:13px;
+            background:linear-gradient(90deg, #010d1f, #02204a, #010d1f);
+        }
+        /* Textura horizontal sutil */
+        .lib-tapa-lineas {
+            position:absolute; inset:0;
+            background: repeating-linear-gradient(0deg,
+                transparent, transparent 50px,
+                rgba(255,255,255,0.022) 50px, rgba(255,255,255,0.022) 51px);
+        }
+        /* Cara trasera — transparente (deja ver la portada izquierda) */
+        .lib-tapa-reverso {
+            background: transparent;
+            transform: rotateY(180deg);
+        }
+
+        /* ── TOOLBAR ── */
+        .lib-toolbar {
+            display:flex; align-items:center; gap:14px;
+            background:rgba(0,0,0,0.38); backdrop-filter:blur(12px);
+            padding:10px 22px; border-radius:50px;
+            border:1px solid rgba(255,255,255,0.1);
+        }
+        .btn-lib-dl {
+            background:#4EAE33; color:white; padding:8px 18px; border-radius:8px;
+            font-size:0.82rem; font-weight:700; text-decoration:none;
+            display:flex; align-items:center; gap:6px; transition:background 0.2s;
+        }
+        .btn-lib-dl:hover { background:#3a8426; color:white; }
+        .btn-lib-cerrar {
+            background:rgba(255,255,255,0.12); color:white;
+            border:1px solid rgba(255,255,255,0.2);
+            padding:8px 18px; border-radius:8px; font-size:0.82rem; font-weight:700;
+            cursor:pointer; display:flex; align-items:center; gap:6px;
+            transition:background 0.2s;
+        }
+        .btn-lib-cerrar:hover { background:rgba(255,255,255,0.22); }
+
+        @media (max-width:700px) {
+            .lib-pag-izq, .lib-stack-izq { display:none; }
+            .libro-abierto { width:96vw; border-radius:4px 14px 14px 4px; }
         }
     </style>
 </head>
@@ -445,148 +618,65 @@
 
 
     <!-- =============================================
-         VISOR PDF — LIBRO DOS PÁGINAS
+         VISOR PDF — LIBRO PAGE FLIP
     ============================================= -->
     <div id="pdfOverlay" style="
-        display:none; position:fixed; inset:0;
-        background:#0d1117; z-index:9999; flex-direction:column;">
+        display:none; position:fixed; inset:0; z-index:9999;
+        background:radial-gradient(ellipse at 50% 30%, #2c1608 0%, #120802 100%);
+        flex-direction:column; align-items:center; justify-content:center;
+        gap:14px; padding:16px; height:100vh; box-sizing:border-box;">
 
-        <!-- ── Barra superior ── -->
-        <div style="
-            display:flex; align-items:center; justify-content:space-between;
-            height:54px; padding:0 22px; flex-shrink:0;
-            background:rgba(6,10,16,0.98);
-            border-bottom:1px solid rgba(255,255,255,0.07);">
-
-            <div style="display:flex;align-items:center;gap:10px;min-width:0;flex:1;">
-                <i class="bi bi-book-half" style="color:#4fc3f7;font-size:1.1rem;flex-shrink:0;"></i>
-                <span id="pdfTitulo" style="font-weight:700;font-size:0.9rem;color:white;
-                    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"></span>
+        <!-- Barra superior -->
+        <div style="display:flex;align-items:center;justify-content:space-between;width:100%;max-width:980px;">
+            <div style="display:flex;align-items:center;gap:10px;">
+                <i class="bi bi-book" style="color:#4fc3f7;font-size:1.2rem;"></i>
+                <span id="pdfTitulo" style="color:rgba(255,255,255,0.78);font-weight:600;font-size:0.95rem;"></span>
             </div>
-
-            <div style="display:flex;align-items:center;gap:14px;flex-shrink:0;">
-                <span id="pdfPaginaInfo" style="color:rgba(255,255,255,0.35);font-size:0.8rem;white-space:nowrap;"></span>
-                <a id="pdfDescarga" href="#" download style="
-                    background:#4EAE33;color:white;border-radius:8px;padding:6px 14px;
-                    font-size:0.78rem;font-weight:700;text-decoration:none;
-                    display:flex;align-items:center;gap:5px;">
+            <div style="display:flex;align-items:center;gap:10px;">
+                <a id="pdfDescarga" href="#" download class="btn-lib-dl">
                     <i class="bi bi-download"></i> Descargar
                 </a>
-                <button onclick="cerrarVisor()" style="
-                    background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);
-                    color:white;width:34px;height:34px;border-radius:50%;cursor:pointer;
-                    font-size:1.3rem;display:flex;align-items:center;justify-content:center;">×</button>
+                <button onclick="cerrarVisor()" class="btn-lib-cerrar" style="padding:8px 12px;">
+                    <i class="bi bi-x-lg"></i>
+                </button>
             </div>
         </div>
 
-        <!-- ── Escenario: botones + libro de 2 páginas ── -->
-        <div style="flex:1;display:flex;align-items:center;justify-content:center;
-            gap:20px;padding:20px 16px;min-height:0;overflow:hidden;">
+        <!-- Navegación + Libro -->
+        <div style="display:flex;align-items:center;gap:14px;height:76vh;width:100%;max-width:1300px;">
+            <button class="book-nav-btn" id="btnPrev" onclick="prevPage()">
+                <i class="bi bi-chevron-left"></i>
+            </button>
 
-            <button id="btnPrev" onclick="flipPage(-1)" style="
-                background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);
-                color:rgba(255,255,255,0.7);width:50px;height:50px;border-radius:50%;
-                cursor:pointer;font-size:1.8rem;flex-shrink:0;
-                display:flex;align-items:center;justify-content:center;
-                transition:all 0.2s;opacity:0.25;">‹</button>
-
-            <!-- ── LIBRO (dos páginas) ── -->
-            <div id="bookOuter" style="
-                position:relative;flex-shrink:0;
-                box-shadow:0 50px 120px rgba(0,0,0,0.95),0 0 0 1px rgba(255,255,255,0.04);
-                border-radius:3px 5px 5px 3px;">
-
-                <!-- Página izquierda -->
-                <canvas id="cnvLeft"  style="position:absolute;top:0;left:0;display:block;"></canvas>
-                <!-- Página derecha -->
-                <canvas id="cnvRight" style="position:absolute;top:0;display:block;"></canvas>
-
-                <!-- Sombra interna en los bordes del lomo (profundidad) -->
-                <div style="position:absolute;top:0;left:0;width:50%;height:100%;pointer-events:none;z-index:2;
-                    box-shadow:inset -18px 0 22px rgba(0,0,0,0.22);"></div>
-                <div style="position:absolute;top:0;right:0;width:50%;height:100%;pointer-events:none;z-index:2;
-                    box-shadow:inset 18px 0 22px rgba(0,0,0,0.22);"></div>
-
-                <!-- Lomo del libro -->
-                <div id="bookSpine" style="
-                    position:absolute;top:0;z-index:3;pointer-events:none;
-                    background:linear-gradient(to right,
-                        rgba(0,0,0,0.35) 0%,rgba(0,0,0,0.06) 35%,
-                        rgba(0,0,0,0.06) 65%,rgba(0,0,0,0.35) 100%);"></div>
-
-                <!-- Flipper 3D — se reposiciona según la dirección -->
-                <div id="flipper" style="
-                    position:absolute;top:0;
-                    transform-style:preserve-3d;
-                    visibility:hidden;z-index:5;
-                    will-change:transform;">
-                    <canvas id="cnvFlipFront" style="
-                        position:absolute;inset:0;
-                        backface-visibility:hidden;-webkit-backface-visibility:hidden;"></canvas>
-                    <canvas id="cnvFlipBack" style="
-                        position:absolute;inset:0;
-                        backface-visibility:hidden;-webkit-backface-visibility:hidden;
-                        transform:rotateY(180deg);"></canvas>
+            <!-- Contenedor del libro -->
+            <div style="flex:1;height:76vh;max-height:740px;position:relative;">
+                <!-- Loading -->
+                <div id="bookLoading" style="
+                    position:absolute;inset:0;z-index:20;
+                    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;
+                    background:rgba(18,8,2,0.85);border-radius:8px;">
+                    <div class="book-spinner"></div>
+                    <span id="loadingText" style="color:rgba(255,255,255,0.65);font-size:0.9rem;">Cargando PDF...</span>
                 </div>
-
-                <!-- Sombra proyectada por el flipper -->
-                <div id="flipShadow" style="
-                    position:absolute;top:0;height:100%;z-index:4;
-                    pointer-events:none;opacity:0;"></div>
-
-                <!-- Spinner de carga -->
-                <div id="pdfSpinner" style="
-                    position:absolute;inset:0;z-index:10;
-                    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
-                    background:#0d1117;border-radius:3px 5px 5px 3px;">
-                    <div style="
-                        width:44px;height:44px;border-radius:50%;
-                        border:3px solid rgba(255,255,255,0.07);border-top-color:#4fc3f7;
-                        animation:girar 0.8s linear infinite;"></div>
-                    <span style="color:rgba(255,255,255,0.35);font-size:0.82rem;">Cargando...</span>
-                </div>
+                <!-- StPageFlip se monta aquí -->
+                <div id="bookContainer" style="width:100%;height:100%;"></div>
             </div>
 
-            <button id="btnNext" onclick="flipPage(1)" style="
-                background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);
-                color:rgba(255,255,255,0.7);width:50px;height:50px;border-radius:50%;
-                cursor:pointer;font-size:1.8rem;flex-shrink:0;
-                display:flex;align-items:center;justify-content:center;
-                transition:all 0.2s;opacity:0.25;">›</button>
+            <button class="book-nav-btn" id="btnNext" onclick="nextPage()">
+                <i class="bi bi-chevron-right"></i>
+            </button>
         </div>
 
-        <!-- ── Barra de miniaturas ── -->
-        <div id="pdfThumbBar" style="
-            display:flex;align-items:center;
-            height:76px;min-height:76px;
-            padding:0 20px;gap:8px;
-            overflow-x:auto;overflow-y:hidden;
-            background:rgba(0,0,0,0.42);
-            border-top:1px solid rgba(255,255,255,0.06);
-            flex-shrink:0;
-            scrollbar-width:thin;
-            scrollbar-color:rgba(255,255,255,0.12) transparent;"></div>
+        <!-- Barra de páginas -->
+        <div style="display:flex;align-items:center;gap:14px;
+            background:rgba(0,0,0,0.4);backdrop-filter:blur(12px);
+            padding:8px 22px;border-radius:50px;border:1px solid rgba(255,255,255,0.1);">
+            <span id="pageInfo" style="color:rgba(255,255,255,0.6);font-size:0.85rem;min-width:90px;text-align:center;">
+                —
+            </span>
+        </div>
+
     </div>
-
-    <style>
-        @keyframes girar { to { transform:rotate(360deg); } }
-        #btnPrev:hover, #btnNext:hover {
-            background:rgba(255,255,255,0.18)!important;
-            color:white!important;
-        }
-        .pdf-thumb {
-            height:52px; width:auto; min-width:34px; max-width:52px;
-            border-radius:3px; cursor:pointer; opacity:0.32;
-            border:2px solid transparent; flex-shrink:0;
-            transition:all 0.2s; background:#182030;
-        }
-        .pdf-thumb:hover { opacity:0.7; transform:translateY(-3px); }
-        .pdf-thumb.activa {
-            opacity:1; border-color:#4fc3f7;
-            transform:translateY(-4px);
-            box-shadow:0 5px 16px rgba(79,195,247,0.38);
-        }
-    </style>
 
 
     <!-- =============================================
@@ -662,397 +752,170 @@
     <!-- SCRIPTS -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
+    <!-- PDF.js (versión estable de cdnjs) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+    <!-- StPageFlip -->
+    <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
     <script src="../js/script.js"></script>
 
-    <!-- PDF.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-
     <script>
-        pdfjsLib.GlobalWorkerOptions.workerSrc =
-            'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-
-        // ════════════════════════════════════════════════════════
-        //  LIBRO DE DOS PÁGINAS — LÓGICA COMPLETA
-        // ════════════════════════════════════════════════════════
-        //
-        //  Estructura de "aperturas":
-        //    apertura 0 : izq=vacío,  der=pág 1   (portada)
-        //    apertura 1 : izq=pág 2,  der=pág 3
-        //    apertura 2 : izq=pág 4,  der=pág 5  …
-        //
-        //  Al girar hacia adelante: la página DERECHA (flipper) gira
-        //  hacia la izquierda y revela la nueva página derecha.
-        //  La página izquierda SIEMPRE SE QUEDA en su sitio.
-        // ════════════════════════════════════════════════════════
-
-        // ── Estado ──────────────────────────────────────────
-        let pdfDoc      = null;
-        let apertura    = 0;        // apertura actual
-        let maxApertura = 0;
-        let totalPags   = 0;
-        let isAnimating = false;
-        let pageCache   = {};       // num → dataURL
-        let thumbEls    = [];
-        let pageW = 0, pageH = 0;
-        let storedScale = 1;
-        let audioCtx    = null;
-
-        // ── Helpers de apertura ─────────────────────────────
-        // apertura 0: izq=null, der=1
-        // apertura k≥1: izq=2k, der=2k+1
-        function izqDe(k) { return k === 0 ? null : (2*k <= totalPags ? 2*k : null); }
-        function derDe(k) { const n = k === 0 ? 1 : 2*k+1; return n <= totalPags ? n : null; }
-        function aperturaDe(n) { return Math.floor(n / 2); }  // n=1→0, n=2→1, n=3→1…
-
-        // ── Escala para cada página ──────────────────────────
-        function calcScale(vp1) {
-            const aH = window.innerHeight - 54 - 76 - 40;
-            const aW = (window.innerWidth  - 160) / 2;   // mitad por página
-            return Math.min(aH / vp1.height, aW / vp1.width, 2.8);
+        // ── Configurar worker de PDF.js ──
+        if (typeof pdfjsLib !== 'undefined') {
+            pdfjsLib.GlobalWorkerOptions.workerSrc =
+                'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
         }
 
-        // ── Renderiza página → dataURL (cacheado) ───────────
-        async function getDataUrl(num) {
-            if (!num || num < 1 || num > totalPags) return null;
-            if (pageCache[num]) return pageCache[num];
-            const page = await pdfDoc.getPage(num);
-            const vp   = page.getViewport({ scale: storedScale });
-            const c    = document.createElement('canvas');
-            c.width    = Math.round(vp.width);
-            c.height   = Math.round(vp.height);
-            await page.render({ canvasContext: c.getContext('2d'), viewport: vp }).promise;
-            pageCache[num] = c.toDataURL('image/jpeg', 0.93);
-            return pageCache[num];
-        }
+        let pageFlip = null;
 
-        // ── Dibuja una página en un canvas ──────────────────
-        // num=null → página en blanco (guardas del libro)
-        async function drawPage(canvas, num) {
-            canvas.width = pageW; canvas.height = pageH;
-            const ctx = canvas.getContext('2d');
-            if (!num) {
-                const g = ctx.createLinearGradient(0, 0, pageW, 0);
-                g.addColorStop(0, '#cbbfa8'); g.addColorStop(1, '#e8ddd0');
-                ctx.fillStyle = g; ctx.fillRect(0, 0, pageW, pageH);
-                return;
-            }
-            const url = await getDataUrl(num);
-            if (!url) return;
-            await new Promise(r => {
-                const img = new Image();
-                img.onload = () => { ctx.drawImage(img, 0, 0, pageW, pageH); r(); };
-                img.src = url;
-            });
-        }
-
-        // ── Abre el visor ───────────────────────────────────
         async function abrirPDF(ruta, titulo) {
+            document.getElementById('pdfTitulo').textContent = titulo;
+            document.getElementById('pdfDescarga').href = ruta;
             document.getElementById('pdfOverlay').style.display = 'flex';
             document.body.style.overflow = 'hidden';
 
-            document.getElementById('pdfTitulo').textContent     = titulo;
-            document.getElementById('pdfDescarga').href          = ruta;
-            document.getElementById('pdfPaginaInfo').textContent = '';
-            document.getElementById('pdfThumbBar').innerHTML     = '';
-            document.getElementById('pdfSpinner').style.display  = 'flex';
-            document.getElementById('flipper').style.visibility  = 'hidden';
-            document.getElementById('btnPrev').style.opacity     = '0.25';
-            document.getElementById('btnNext').style.opacity     = '0.25';
+            const loading   = document.getElementById('bookLoading');
+            const container = document.getElementById('bookContainer');
+            loading.style.display  = 'flex';
+            loading.innerHTML = `
+                <div class="book-spinner"></div>
+                <span id="loadingText" style="color:rgba(255,255,255,0.7);font-size:0.9rem;">Cargando PDF…</span>`;
+            document.getElementById('pageInfo').textContent = '—';
+            document.getElementById('btnPrev').disabled = true;
+            document.getElementById('btnNext').disabled = true;
 
-            pageCache = {}; thumbEls = []; isAnimating = false;
-            pdfDoc = null; apertura = 0;
+            // Limpiar visor anterior
+            if (pageFlip) { try { pageFlip.destroy(); } catch(e){} pageFlip = null; }
+            container.innerHTML = '';
+            container.removeAttribute('style');
+
+            // Verificar librerías
+            if (typeof pdfjsLib === 'undefined') {
+                document.getElementById('loadingText').textContent =
+                    '⚠ PDF.js no disponible (requiere conexión a internet).';
+                return;
+            }
+            if (typeof St === 'undefined') {
+                document.getElementById('loadingText').textContent =
+                    '⚠ StPageFlip no disponible (requiere conexión a internet).';
+                return;
+            }
 
             try {
-                pdfDoc      = await pdfjsLib.getDocument(ruta).promise;
-                totalPags   = pdfDoc.numPages;
-                maxApertura = Math.floor(totalPags / 2);
+                // Codificar espacios en la ruta
+                const rutaOk = ruta.replace(/ /g, '%20');
 
-                // Calcular dimensiones a partir de la página 1
-                const p1   = await pdfDoc.getPage(1);
-                const vp1  = p1.getViewport({ scale: 1 });
-                storedScale = calcScale(vp1);
-                pageW = Math.round(vp1.width  * storedScale);
-                pageH = Math.round(vp1.height * storedScale);
+                const pdfDoc = await pdfjsLib.getDocument({
+                    url: rutaOk,
+                    cMapUrl: 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/cmaps/',
+                    cMapPacked: true,
+                }).promise;
 
-                // Configurar bookOuter (ancho = 2 páginas)
-                const bo = document.getElementById('bookOuter');
-                bo.style.width       = (pageW * 2) + 'px';
-                bo.style.height      = pageH + 'px';
-                bo.style.perspective = '2600px';
+                const total = pdfDoc.numPages;
 
-                // Posicionar cnvRight en la mitad derecha
-                const cnvR = document.getElementById('cnvRight');
-                cnvR.style.left = pageW + 'px';
+                // ── Dimensiones fijas basadas en la ventana ──
+                const pageW = Math.min(Math.floor((window.innerWidth  - 160) / 2), 650);
+                const pageH = Math.min(Math.floor( window.innerHeight * 0.73),      730);
 
-                // Lomo
-                const spine = document.getElementById('bookSpine');
-                spine.style.left   = (pageW - 8) + 'px';
-                spine.style.width  = '16px';
-                spine.style.height = pageH + 'px';
+                // Escala de render: 2.5× el tamaño de display para texto nítido
+                const fp     = await pdfDoc.getPage(1);
+                const baseVp = fp.getViewport({ scale: 1 });
+                const sc     = Math.max((pageW / baseVp.width) * 2.5, 2.0);
 
-                // Sombra (ocupa media página)
-                document.getElementById('flipShadow').style.width = pageW + 'px';
-
-                // Mostrar apertura 0 (portada)
-                await mostrarApertura(0);
-                document.getElementById('pdfSpinner').style.display = 'none';
-                actualizarUI();
-                crearMiniaturas();
-                precargarAdyacentes();
-
-            } catch(err) {
-                document.getElementById('pdfSpinner').innerHTML =
-                    '<span style="color:#e74c3c;font-size:0.85rem;">Error al cargar.</span>';
-                console.error(err);
-            }
-        }
-
-        // ── Muestra una apertura (sin animación) ────────────
-        async function mostrarApertura(k) {
-            await Promise.all([
-                drawPage(document.getElementById('cnvLeft'),  izqDe(k)),
-                drawPage(document.getElementById('cnvRight'), derDe(k))
-            ]);
-        }
-
-        // ── FLIP — el alma del libro ─────────────────────────
-        //
-        //  Avanzar (dir=+1):
-        //    • La página DERECHA (der actual) gira hacia la IZQUIERDA
-        //      (hinge en el lomo = borde izquierdo del flipper).
-        //    • La página izquierda SE QUEDA FIJA durante toda la animación.
-        //    • El flipper muestra en su cara frontal la página der actual.
-        //    • Debajo del flipper ya está la nueva página derecha (cnvRight).
-        //    • Al terminar: actualizamos cnvLeft con la nueva izquierda.
-        //
-        //  Retroceder (dir=-1): lo contrario.
-        async function flipPage(dir) {
-            if (isAnimating || !pdfDoc) return;
-            const sigApertura = apertura + dir;
-            if (sigApertura < 0 || sigApertura > maxApertura) return;
-
-            isAnimating = true;
-            sonidoPagina();
-
-            const flipper  = document.getElementById('flipper');
-            const front    = document.getElementById('cnvFlipFront');
-            const back     = document.getElementById('cnvFlipBack');
-            const cnvLeft  = document.getElementById('cnvLeft');
-            const cnvRight = document.getElementById('cnvRight');
-            const shadow   = document.getElementById('flipShadow');
-
-            if (dir > 0) {
-                // ── AVANZAR ──────────────────────────────────────────
-                const pDerActual = derDe(apertura);       // página que gira (frontal)
-                const pIzqSig    = izqDe(sigApertura);   // nueva izquierda (cara trasera)
-                const pDerSig    = derDe(sigApertura);   // nueva página derecha
-
-                // Cara frontal = página derecha actual (la que gira)
-                await drawPage(front, pDerActual);
-                // Cara trasera = nueva izquierda (al voltear 180° el CSS muestra el frente, no imagen espejo)
-                await drawPage(back, pIzqSig);
-                // Actualizar cnvRight con nueva página derecha (cubierta por el flipper)
-                await drawPage(cnvRight, pDerSig);
-
-                // Flipper sobre la mitad DERECHA, bisagra a la IZQUIERDA (el lomo)
-                flipper.style.left            = pageW + 'px';
-                flipper.style.width           = pageW + 'px';
-                flipper.style.height          = pageH + 'px';
-                front.width = back.width      = pageW;
-                front.height = back.height    = pageH;
-                flipper.style.transformOrigin = 'left center';
-
-                // Sombra proyectada sobre la página izquierda
-                shadow.style.left       = '0';
-                shadow.style.background = 'linear-gradient(to left,rgba(0,0,0,0.5),rgba(0,0,0,0.0))';
-
-            } else {
-                // ── RETROCEDER ───────────────────────────────────────
-                const pIzqActual = izqDe(apertura);      // página que gira (frontal)
-                const pDerPrev   = derDe(sigApertura);   // nueva derecha (cara trasera)
-                const pIzqPrev   = izqDe(sigApertura);   // nueva izquierda
-
-                await drawPage(front, pIzqActual);
-                await drawPage(back, pDerPrev);
-                // Actualizar cnvLeft con nueva izquierda (cubierta por flipper)
-                await drawPage(cnvLeft, pIzqPrev);
-
-                // Flipper sobre la mitad IZQUIERDA, bisagra a la DERECHA (el lomo)
-                flipper.style.left            = '0';
-                flipper.style.width           = pageW + 'px';
-                flipper.style.height          = pageH + 'px';
-                front.width = back.width      = pageW;
-                front.height = back.height    = pageH;
-                flipper.style.transformOrigin = 'right center';
-
-                // Sombra sobre la página derecha
-                shadow.style.left       = pageW + 'px';
-                shadow.style.background = 'linear-gradient(to right,rgba(0,0,0,0.5),rgba(0,0,0,0.0))';
-            }
-
-            // Mostrar flipper en 0° (cubriendo la página correspondiente)
-            flipper.style.transition = 'none';
-            flipper.style.transform  = 'rotateY(0deg)';
-            flipper.style.visibility = 'visible';
-            flipper.getBoundingClientRect(); // forzar reflow
-
-            // Sombra: aparece rápido, desaparece durante el volteo
-            shadow.style.transition = 'none';
-            shadow.style.opacity    = '0.75';
-            setTimeout(() => {
-                shadow.style.transition = 'opacity 0.5s ease';
-                shadow.style.opacity    = '0';
-            }, 80);
-
-            // Animar volteo
-            const angFinal = dir > 0 ? -180 : 180;
-            flipper.style.transition = 'transform 0.8s cubic-bezier(0.5,0.0,0.5,1.0)';
-            flipper.style.transform  = `rotateY(${angFinal}deg)`;
-
-            // Al terminar: actualizar el canvas que quedó cubierto por la cara trasera
-            setTimeout(async () => {
-                if (dir > 0) {
-                    // Cara trasera aterrizó en la izquierda → actualizar cnvLeft
-                    await drawPage(cnvLeft, izqDe(sigApertura));
-                } else {
-                    // Cara trasera aterrizó en la derecha → actualizar cnvRight
-                    await drawPage(cnvRight, derDe(sigApertura));
+                // ── Renderizar TODAS las páginas con barra de progreso ──
+                const srcs = [];
+                for (let i = 1; i <= total; i++) {
+                    document.getElementById('loadingText').textContent =
+                        `Procesando página ${i} de ${total}…`;
+                    const pg     = await pdfDoc.getPage(i);
+                    const vp     = pg.getViewport({ scale: sc });
+                    const cv     = document.createElement('canvas');
+                    cv.width     = vp.width;
+                    cv.height    = vp.height;
+                    const ctx    = cv.getContext('2d');
+                    ctx.imageSmoothingEnabled = true;
+                    ctx.imageSmoothingQuality = 'high';
+                    await pg.render({ canvasContext: ctx, viewport: vp }).promise;
+                    srcs.push(cv.toDataURL('image/jpeg', 0.94));
                 }
-                flipper.style.visibility = 'hidden';
-                flipper.style.transition = 'none';
-                shadow.style.transition  = 'none';
-                shadow.style.opacity     = '0';
-                apertura    = sigApertura;
-                isAnimating = false;
-                actualizarUI();
-                precargarAdyacentes();
-            }, 820);
-        }
 
-        // ── Saltar a apertura desde miniatura ───────────────
-        async function irAPagina(n) {
-            if (!pdfDoc || isAnimating || n < 1 || n > totalPags) return;
-            const k = aperturaDe(n);
-            if (k === apertura) return;
-            isAnimating = true;
-            apertura = k;
-            await mostrarApertura(k);
-            actualizarUI();
-            isAnimating = false;
-            precargarAdyacentes();
-        }
+                // ── Forzar tamaño del contenedor antes de crear el libro ──
+                container.style.cssText =
+                    `width:${pageW * 2}px; height:${pageH}px; margin:0 auto; display:block; overflow:hidden;`;
 
-        // ── Actualizar UI ───────────────────────────────────
-        function actualizarUI() {
-            const lp = izqDe(apertura), rp = derDe(apertura);
-            const info = lp && rp ? `Págs. ${lp}–${rp} de ${totalPags}`
-                       : rp       ? `Pág. ${rp} de ${totalPags}`
-                       : lp       ? `Pág. ${lp} de ${totalPags}` : '';
-            document.getElementById('pdfPaginaInfo').textContent = info;
-            document.getElementById('btnPrev').style.opacity = apertura > 0          ? '1' : '0.25';
-            document.getElementById('btnNext').style.opacity = apertura < maxApertura? '1' : '0.25';
-            thumbEls.forEach((el, i) => {
-                const n = i + 1;
-                const ok = n === lp || n === rp;
-                el.classList.toggle('activa', ok);
-                el.style.opacity = ok ? '1' : '0.32';
-            });
-            const foco = rp || lp;
-            if (foco && thumbEls[foco-1])
-                thumbEls[foco-1].scrollIntoView({ behavior:'smooth', inline:'center', block:'nearest' });
-        }
+                // ── Crear elementos de página con <img> ──
+                srcs.forEach(src => {
+                    const div = document.createElement('div');
+                    div.className = 'page';
+                    div.style.cssText = 'background:white; overflow:hidden;';
+                    const img = document.createElement('img');
+                    img.src = src;
+                    img.style.cssText = 'width:100%; height:100%; display:block; object-fit:fill;';
+                    div.appendChild(img);
+                    container.appendChild(div);
+                });
 
-        // ── Crear miniaturas (carga en segundo plano) ────────
-        async function crearMiniaturas() {
-            const bar = document.getElementById('pdfThumbBar');
-            for (let i = 1; i <= totalPags; i++) {
-                const c = document.createElement('canvas');
-                c.className = 'pdf-thumb' + (i === 1 ? ' activa' : '');
-                c.title = `Página ${i}`;
-                c.width = 40; c.height = 52;
-                c.getContext('2d').fillStyle = '#182030';
-                c.getContext('2d').fillRect(0,0,40,52);
-                c.addEventListener('click', (n => () => irAPagina(n))(i));
-                bar.appendChild(c);
-                thumbEls.push(c);
-            }
-            for (let i = 1; i <= totalPags; i++) {
-                if (!pdfDoc) break;
-                try {
-                    const page = await pdfDoc.getPage(i);
-                    const vp   = page.getViewport({ scale: 0.09 });
-                    const c    = thumbEls[i-1];
-                    if (!c) continue;
-                    c.width  = Math.round(vp.width);
-                    c.height = Math.round(vp.height);
-                    await page.render({ canvasContext: c.getContext('2d'), viewport: vp }).promise;
-                    c.style.opacity = c.classList.contains('activa') ? '1' : '0.32';
-                } catch(e) {}
-                if (i % 5 === 0) await new Promise(r => setTimeout(r, 0));
+                // ── Inicializar StPageFlip ──
+                pageFlip = new St.PageFlip(container, {
+                    width:               pageW,
+                    height:              pageH,
+                    size:                'fixed',
+                    autoSize:            false,
+                    drawShadow:          true,
+                    flippingTime:        650,
+                    maxShadowOpacity:    0.5,
+                    showCover:           true,
+                    mobileScrollSupport: false,
+                    useMouseEvents:      true,
+                    startPage:           0,
+                });
+
+                pageFlip.loadFromHTML(container.querySelectorAll('.page'));
+                pageFlip.on('flip', e => actualizarPagina(e.data));
+                actualizarPagina(0);
+
+                loading.style.display = 'none';
+                document.getElementById('btnPrev').disabled = false;
+                document.getElementById('btnNext').disabled = false;
+
+            } catch (err) {
+                console.error('Error al cargar PDF:', err);
+                loading.innerHTML = `
+                    <div style="text-align:center;padding:28px;">
+                        <i class="bi bi-exclamation-circle" style="font-size:2.5rem;color:#e74c3c;display:block;margin-bottom:14px;"></i>
+                        <p style="color:rgba(255,255,255,0.8);margin-bottom:18px;">
+                            No se pudo cargar el visor.<br>
+                            <small style="opacity:0.6;">${err.message || ''}</small>
+                        </p>
+                        <a href="${ruta}" download class="btn-lib-dl" style="display:inline-flex;margin:0 auto 10px;">
+                            <i class="bi bi-download"></i> Descargar PDF
+                        </a><br>
+                        <button onclick="cerrarVisor()" class="btn-lib-cerrar" style="display:inline-flex;margin:0 auto;">
+                            Cerrar
+                        </button>
+                    </div>`;
             }
         }
 
-        // ── Precargar aperturas adyacentes ──────────────────
-        async function precargarAdyacentes() {
-            const ks = [apertura+1, apertura-1, apertura+2, apertura-2];
-            for (const k of ks) {
-                if (k < 0 || k > maxApertura) continue;
-                const pages = [izqDe(k), derDe(k)].filter(Boolean);
-                for (const p of pages) {
-                    if (!pageCache[p]) await getDataUrl(p).catch(() => {});
-                }
-            }
+        function actualizarPagina(idx) {
+            if (!pageFlip) return;
+            const total = pageFlip.getPageCount();
+            document.getElementById('pageInfo').textContent =
+                `Página ${idx + 1} de ${total}`;
         }
 
-        // ── Sonido de vuelta de hoja ─────────────────────────
-        // Dos capas: chasquido inicial + aleteo modulado
-        function sonidoPagina() {
-            try {
-                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                if (audioCtx.state === 'suspended') audioCtx.resume();
-                const rate = audioCtx.sampleRate, now = audioCtx.currentTime;
+        function prevPage() { if (pageFlip) pageFlip.flipPrev('top'); }
+        function nextPage() { if (pageFlip) pageFlip.flipNext('top'); }
 
-                // Capa 1 — chasquido seco (papel doblándose)
-                const sb = audioCtx.createBuffer(1, Math.floor(rate*0.07), rate);
-                const sd = sb.getChannelData(0);
-                for (let i = 0; i < sd.length; i++) {
-                    const t = i/sd.length;
-                    sd[i] = (Math.random()*2-1) * Math.pow(1-t,3) * (t < 0.1 ? t/0.1 : 1);
-                }
-                const ss = audioCtx.createBufferSource(); ss.buffer = sb;
-                const sf = audioCtx.createBiquadFilter(); sf.type='bandpass'; sf.frequency.value=1700; sf.Q.value=1.1;
-                const sg = audioCtx.createGain(); sg.gain.setValueAtTime(1.2,now); sg.gain.exponentialRampToValueAtTime(0.001,now+0.07);
-                ss.connect(sf); sf.connect(sg); sg.connect(audioCtx.destination); ss.start(now);
-
-                // Capa 2 — aleteo (hoja en el aire)
-                const fb = audioCtx.createBuffer(1, Math.floor(rate*0.32), rate);
-                const fd = fb.getChannelData(0);
-                for (let i = 0; i < fd.length; i++) {
-                    const t = i/fd.length;
-                    fd[i] = (Math.random()*2-1) * (0.5+0.5*Math.sin(t*Math.PI*16)) * Math.pow(1-t,1.0) * 0.6;
-                }
-                const fs = audioCtx.createBufferSource(); fs.buffer = fb;
-                const ff = audioCtx.createBiquadFilter(); ff.type='bandpass'; ff.frequency.value=2600; ff.Q.value=0.65;
-                const fl = audioCtx.createBiquadFilter(); fl.type='lowpass';  fl.frequency.value=5500;
-                const fg = audioCtx.createGain(); fg.gain.setValueAtTime(0.5,now+0.02); fg.gain.exponentialRampToValueAtTime(0.001,now+0.32);
-                fs.connect(ff); ff.connect(fl); fl.connect(fg); fg.connect(audioCtx.destination); fs.start(now+0.02);
-
-            } catch(e) {}
-        }
-
-        // ── Cerrar visor ─────────────────────────────────────
         function cerrarVisor() {
             document.getElementById('pdfOverlay').style.display = 'none';
+            if (pageFlip) { try { pageFlip.destroy(); } catch(e){} pageFlip = null; }
+            document.getElementById('bookContainer').innerHTML = '';
             document.body.style.overflow = '';
-            pdfDoc = null; pageCache = {}; thumbEls = []; isAnimating = false;
         }
 
-        // ── Teclado ──────────────────────────────────────────
-        document.addEventListener('keydown', e => {
-            if (document.getElementById('pdfOverlay').style.display === 'none') return;
-            if (e.key === 'Escape')     cerrarVisor();
-            if (e.key === 'ArrowLeft')  flipPage(-1);
-            if (e.key === 'ArrowRight') flipPage(1);
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrarVisor(); });
+        document.getElementById('pdfOverlay').addEventListener('click', function(e) {
+            if (e.target === this) cerrarVisor();
         });
     </script>
 

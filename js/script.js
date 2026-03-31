@@ -9,18 +9,105 @@
    1. BUSCADOR DEL HEADER
    ============================================== */
 
+// Detecta si estamos en /pages/ o en la raíz
+const _base = window.location.pathname.includes('/pages/') ? '../' : '';
+
+// Índice de búsqueda: keywords → url + etiqueta
+const SEARCH_INDEX = [
+    { label: 'Inicio',              url: _base + 'index.html',                   keywords: ['inicio', 'home', 'principal', 'bienvenido'] },
+    { label: 'Quiénes Somos',       url: _base + 'pages/about.html',              keywords: ['quienes somos', 'quiénes somos', 'nosotros', 'cooperativa', 'sobre'] },
+    { label: 'Historia',            url: _base + 'pages/historia.html',           keywords: ['historia', 'fundacion', 'fundación', 'origen', 'años'] },
+    { label: 'Misión y Visión',     url: _base + 'pages/mision-vision.html',      keywords: ['mision', 'misión', 'vision', 'visión', 'valores', 'objetivos'] },
+    { label: 'Ahorro',              url: _base + 'pages/ahorro.html',             keywords: ['ahorro', 'ahorros', 'cuenta', 'deposito', 'depósito', 'ahorrar'] },
+    { label: 'Préstamos',           url: _base + 'pages/prestamos.html',          keywords: ['prestamo', 'préstamo', 'prestamos', 'préstamos', 'credito', 'crédito', 'financiamiento', 'fianza'] },
+    { label: 'Tarjeta de Crédito',  url: _base + 'pages/tarjeta-credito.html',    keywords: ['tarjeta', 'credito', 'crédito', 'visa', 'tarjeta de credito', 'tarjeta de crédito'] },
+    { label: 'Agencias',            url: _base + 'pages/agencias.html',           keywords: ['agencia', 'agencias', 'sucursal', 'sucursales', 'oficina', 'ubicacion', 'ubicación'] },
+    { label: 'Agentes',             url: _base + 'pages/agentes.html',            keywords: ['agente', 'agentes', 'corresponsal', 'corresponsales', 'punto de servicio'] },
+    { label: 'Contáctanos',         url: _base + 'pages/contactanos.html',        keywords: ['contacto', 'contactanos', 'contáctanos', 'telefono', 'teléfono', 'correo', 'escribir', 'comunicar'] },
+    { label: 'Memoria de Labores',  url: _base + 'pages/memoria-labores.html',    keywords: ['memoria', 'labores', 'memoria de labores', 'informe', 'reporte', 'anual'] },
+];
+
+function buscarEnIndice(query) {
+    const q = query.trim().toLowerCase();
+    if (!q) return null;
+    return SEARCH_INDEX.find(item =>
+        item.keywords.some(kw => kw.includes(q) || q.includes(kw))
+    ) || null;
+}
+
+function mostrarToast(msg, tipo) {
+    let toast = document.getElementById('searchToast');
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'searchToast';
+        toast.style.cssText = `
+            position:fixed; bottom:30px; left:50%; transform:translateX(-50%) translateY(20px);
+            background:#033E81; color:white; padding:14px 28px; border-radius:50px;
+            font-size:0.9rem; font-weight:600; z-index:99999; opacity:0;
+            transition:opacity 0.3s ease, transform 0.3s ease;
+            box-shadow:0 8px 30px rgba(0,0,0,0.2); white-space:nowrap;
+        `;
+        document.body.appendChild(toast);
+    }
+    if (tipo === 'error') toast.style.background = '#c0392b';
+    else toast.style.background = '#033E81';
+
+    toast.textContent = msg;
+    toast.style.opacity = '1';
+    toast.style.transform = 'translateX(-50%) translateY(0)';
+
+    clearTimeout(toast._timer);
+    toast._timer = setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateX(-50%) translateY(20px)';
+    }, 3000);
+}
+
+function realizarBusqueda() {
+    const input = document.getElementById('searchInput');
+    if (!input) return;
+    const query = input.value.trim();
+    if (!query) return;
+
+    const resultado = buscarEnIndice(query);
+    if (resultado) {
+        mostrarToast('Ir a: ' + resultado.label, 'ok');
+        setTimeout(() => { window.location.href = resultado.url; }, 500);
+    } else {
+        mostrarToast('No se encontró "' + query + '" en la página', 'error');
+    }
+}
+
 function toggleSearch() {
     const input = document.getElementById('searchInput');
     if (!input) return;
 
-    input.classList.toggle('active');
+    const estaActivo = input.classList.contains('active');
 
-    if (input.classList.contains('active')) {
+    if (!estaActivo) {
+        input.classList.add('active');
         input.focus();
+    } else if (input.value.trim() !== '') {
+        realizarBusqueda();
     } else {
+        input.classList.remove('active');
         input.value = '';
     }
 }
+
+// Buscar al presionar Enter
+document.addEventListener('DOMContentLoaded', function () {
+    const input = document.getElementById('searchInput');
+    if (input) {
+        input.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') realizarBusqueda();
+            if (e.key === 'Escape') {
+                input.classList.remove('active');
+                input.value = '';
+            }
+        });
+    }
+});
 
 
 /* ==============================================

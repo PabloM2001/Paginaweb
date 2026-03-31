@@ -437,8 +437,12 @@
 .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 @media (max-width: 992px) {
-    .main-header { padding: 0 20px; }
+    .main-header { padding: 0 16px; }
     .nav-toggle  { display: flex; }
+
+    /* Logo más pequeño en tablet/móvil */
+    .header-logo img { height: 32px; }
+    .main-header.scrolled .header-logo img { height: 28px; }
 
     .main-nav {
         position: absolute;
@@ -486,6 +490,10 @@
     .drop-divider                         { background: rgba(255,255,255,0.12); }
 
     .nav-link.nav-cta { margin: 6px 0 0; justify-content: center; border-radius: 10px; }
+
+    /* Buscador en móvil */
+    .header-search { margin-left: auto; margin-right: 10px; }
+    .search-input.active { width: 150px; }
 }
 
 /* ==============================================
@@ -613,7 +621,7 @@
    ============================================== */
 .carousel-3d-wrapper {
     position: relative;
-    height: 750px;
+    height: 560px;
     perspective: 1200px;
     display: flex;
     align-items: center;
@@ -1083,7 +1091,7 @@ footer .bi-whatsapp:hover { background: rgba(255,255,255,0.25) !important; trans
    RESPONSIVE — Tablet grande (max 1200px)
    ============================================== */
 @media (max-width: 1200px) {
-    .carousel-3d-wrapper { height: 620px; }
+    .carousel-3d-wrapper { height: 480px; }
     .card-3d             { width: 65%; }
 }
 
@@ -1096,7 +1104,7 @@ footer .bi-whatsapp:hover { background: rgba(255,255,255,0.25) !important; trans
     .frase-subtitulo    { letter-spacing: 3px; }
 
     /* Carrusel 3D */
-    .carousel-3d-wrapper { height: 460px; }
+    .carousel-3d-wrapper { height: 360px; }
     .card-3d             { width: 75%; }
 
     /* Stats */
@@ -1113,16 +1121,16 @@ footer .bi-whatsapp:hover { background: rgba(255,255,255,0.25) !important; trans
    RESPONSIVE — Mobile (max 768px)
    ============================================== */
 @media (max-width: 768px) {
+    /* ---- Header ---- */
+    .main-header { padding: 0 12px; }
+    .header-inner { height: 60px; }
+    .header-logo img { height: 28px; }
+    .main-header.scrolled .header-logo img { height: 24px; }
+    .search-input.active { width: 140px; font-size: 13px; }
+
     /* ---- Frase impacto ---- */
-    .frase-subtitulo {
-        letter-spacing: 2px;
-        font-size: 0.75rem;
-    }
-    .frase-principal {
-        font-size: 1.4rem;
-        min-height: 70px;
-        line-height: 1.5;
-    }
+    .frase-subtitulo { letter-spacing: 2px; font-size: 0.75rem; }
+    .frase-principal { font-size: 1.4rem; min-height: 70px; line-height: 1.5; }
     .frase-boton { padding: 12px 28px; font-size: 0.85rem; }
 
     /* ---- Carrusel 3D: solo 1 card visible ---- */
@@ -1170,21 +1178,32 @@ footer .bi-whatsapp:hover { background: rgba(255,255,255,0.25) !important; trans
     /* ---- Filtros sticky ---- */
     .filtros-sticky { top: 56px; }
 
-    /* ---- Buscador header ---- */
-    .search-input.active { width: 160px; }
-
     /* ---- Mapa ---- */
     .mapa-iframe  { height: 300px; }
     .mapa-titulo  { font-size: 1.8rem; }
 
     /* ---- Sección frase: padding ---- */
     #frase-impacto { padding: 70px 16px !important; }
+
+    /* ---- Títulos de sección ---- */
+    h2 { font-size: 1.6rem !important; }
+    h3 { font-size: 1.3rem !important; }
+
+    /* ---- Secciones: padding reducido ---- */
+    section { padding-top: 60px !important; padding-bottom: 60px !important; }
 }
 
 /* ==============================================
    RESPONSIVE — Teléfonos pequeños (max 480px)
    ============================================== */
 @media (max-width: 480px) {
+    /* Header */
+    .main-header { padding: 0 10px; }
+    .header-inner { height: 56px; }
+    .header-logo img { height: 24px; }
+    .main-header.scrolled .header-logo img { height: 22px; }
+    .search-input.active { width: 120px; font-size: 12px; padding: 6px 10px; }
+
     /* Frase */
     .frase-principal { font-size: 1.15rem; min-height: 60px; }
     .frase-subtitulo { letter-spacing: 1.5px; font-size: 0.7rem; }
@@ -1211,9 +1230,6 @@ footer .bi-whatsapp:hover { background: rgba(255,255,255,0.25) !important; trans
     .filtros-sticky  { top: 56px; padding: 12px 0; }
     .filtro-btn      { padding: 6px 14px; font-size: 0.78rem; }
 
-    /* Buscador header */
-    .search-input.active { width: 130px; font-size: 13px; }
-
     /* Flip cards */
     .flip-container { height: 380px; }
     .ag-img-wrap    { height: 220px; }
@@ -1225,6 +1241,13 @@ footer .bi-whatsapp:hover { background: rgba(255,255,255,0.25) !important; trans
     /* Mapa */
     .mapa-iframe  { height: 250px; }
     .mapa-titulo  { font-size: 1.5rem; }
+
+    /* Títulos */
+    h2 { font-size: 1.4rem !important; }
+    h3 { font-size: 1.2rem !important; }
+
+    /* Secciones */
+    section { padding-top: 50px !important; padding-bottom: 50px !important; }
 }
 
 /* ==============================================
