@@ -6,21 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Misión y Visión - Cooperativa San Pedro</title>
 
-    <!-- =============================================
-         LIBRERÍAS EXTERNAS (CDN)
-    ============================================= -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
-
-    <!-- CSS del proyecto -->
     <link rel="stylesheet" href="../css/estilos.css">
 
     <style>
         * { font-family: 'Outfit', sans-serif; }
 
-        /* ===== HERO ===== */
         .hero-mv {
             background: linear-gradient(135deg, #033E81 0%, #033E81 55%, #4EAE33 100%);
             padding: 100px 0 80px;
@@ -28,7 +22,6 @@
             overflow: hidden;
         }
 
-        /* Círculo decorativo fondo */
         .hero-mv::before {
             content: '';
             position: absolute;
@@ -38,24 +31,13 @@
             top: -150px; right: -150px;
         }
 
-        /* =============================================
-           PLACA ÚNICA ACRÍLICA — Misión & Visión
-           Simula una placa física montada en pared
-           con tornillos metálicos en las esquinas,
-           fondo translúcido tipo vidrio y cinta
-           decorativa institucional al pie.
-        ============================================= */
-
-        /* Contenedor externo que da espacio a los tornillos */
         .mv-placa-wrap {
             position: relative;
-            padding: 18px; /* espacio para que los tornillos no queden recortados */
+            padding: 18px;
             max-width: 100%;
             margin: 0 auto;
         }
 
-        /* ---- Tornillos de montaje ---- */
-        /* Círculo metálico con gradiente radial para simular acero */
         .mv-tornillo {
             position: absolute;
             width: 24px; height: 24px;
@@ -64,7 +46,6 @@
             box-shadow: 0 3px 8px rgba(0,0,0,0.45), inset 0 1px 2px rgba(255,255,255,0.7);
             z-index: 10;
         }
-        /* Ranura del tornillo (cruz girada 45°) */
         .mv-tornillo::after {
             content: '';
             position: absolute;
@@ -75,27 +56,23 @@
             border-radius: 1px;
             box-shadow: 0 3px 0 rgba(0,0,0,0.22);
         }
-        /* Posición de cada tornillo en su esquina */
         .mv-tornillo.tl { top: 4px;  left: 4px;  }
         .mv-tornillo.tr { top: 4px;  right: 4px; }
         .mv-tornillo.bl { bottom: 4px; left: 4px; }
         .mv-tornillo.br { bottom: 4px; right: 4px;}
 
-        /* ---- Placa principal ---- */
         .mv-card {
             border-radius: 6px;
             overflow: hidden;
             background: white;
             border: 1px solid rgba(0,0,0,0.06);
-            /* Sombras en capas para simular profundidad de placa flotante */
             box-shadow:
                 0 4px 6px rgba(0,0,0,0.05),
                 0 10px 30px rgba(0,0,0,0.12),
                 0 30px 60px rgba(0,0,0,0.12),
-                inset 0 1px 0 rgba(255,255,255,0.9); /* borde superior brillante */
+                inset 0 1px 0 rgba(255,255,255,0.9);
             transition: transform 0.35s ease, box-shadow 0.35s ease;
         }
-        /* Efecto hover: sube ligeramente como si se despegara de la pared */
         .mv-card:hover {
             transform: translateY(-5px);
             box-shadow:
@@ -105,22 +82,18 @@
                 inset 0 1px 0 rgba(255,255,255,0.9);
         }
 
-        /* ---- Logo (reservado, actualmente no en uso) ---- */
         .mv-card-logo {
             height: 38px;
             margin-bottom: 20px;
             display: block;
         }
 
-        /* ---- Cabecera: Propósito Visionario ---- */
-        /* Banda superior con fondo azul translúcido y texto centrado */
         .mv-card-header {
             padding: 36px 80px 30px;
             background: white;
             border-bottom: 1px solid rgba(3,62,129,0.12);
             text-align: center;
         }
-        /* Badge verde superior */
         .mv-card-header .proposito-label {
             display: inline-block;
             font-size: 0.72rem;
@@ -130,14 +103,12 @@
             color: #4EAE33;
             margin-bottom: 10px;
         }
-        /* Título principal del propósito */
         .mv-card-header .proposito-titulo {
             font-size: 1.95rem;
             font-weight: 900;
             color: #033E81;
             margin-bottom: 12px;
         }
-        /* Descripción del propósito */
         .mv-card-header .proposito-texto {
             font-size: 1.95rem;
             color: #555;
@@ -146,7 +117,6 @@
             margin: 0 auto;
         }
 
-        /* ---- Divisor vertical entre Misión y Visión ---- */
         .mv-divisor {
             width: 1px;
             background: rgba(3,62,129,0.15);
@@ -155,20 +125,16 @@
             flex-shrink: 0;
         }
 
-        /* ---- Bloque de Misión / Visión ---- */
-        /* Cada bloque ocupa la mitad del cuerpo de la placa */
         .mv-bloque {
             flex: 1;
             padding: 42px 50px;
         }
-        /* Título grande (Misión / Visión) */
         .mv-bloque-titulo {
             font-size: 2.2rem;
             font-weight: 900;
             color: #033E81;
             margin-bottom: 6px;
         }
-        /* Subtítulo en verde con espaciado de letras */
         .mv-bloque-sub {
             font-size: 0.82rem;
             letter-spacing: 2px;
@@ -178,14 +144,12 @@
             margin-bottom: 22px;
             display: block;
         }
-        /* Párrafo de declaración */
         .mv-bloque p {
             font-size: 1.05rem;
             line-height: 1.9;
             color: #444;
             margin-bottom: 20px;
         }
-        /* Cita institucional destacada */
         .mv-bloque blockquote {
             border-left: 4px solid #033E81;
             padding: 14px 20px;
@@ -198,22 +162,16 @@
             margin: 0;
         }
 
-        /* ---- Cuerpo de la placa ---- */
-        /* Flex en fila para poner Misión y Visión lado a lado */
         .mv-card-body {
             display: flex;
         }
 
-        /* ---- Franja decorativa inferior ---- */
-        /* Imagen institucional "cinta logo coope.png" repetida horizontalmente */
         .mv-card-cinta {
             height: 62px;
             background: url('../image/cinta logo coope.png') center/auto 100% repeat-x;
             overflow: hidden;
         }
 
-        /* ===== TARJETAS DE VALORES ===== */
-        /* Cada valor con icono superior y descripción */
         .valor-card {
             background: white;
             border-radius: 18px;
@@ -230,7 +188,6 @@
             box-shadow: 0 15px 40px rgba(0,0,0,0.12);
         }
 
-        /* Color del borde superior cambia por clase */
         .valor-card.azul  { border-top-color: #033E81; }
         .valor-card.verde { border-top-color: #4EAE33; }
         .valor-card.celeste { border-top-color: #4fc3f7; }
@@ -238,7 +195,6 @@
         .valor-card.rojo  { border-top-color: #033E81; }
         .valor-card.morado { border-top-color: #4EAE33; }
 
-        /* Círculo del ícono */
         .valor-icon {
             width: 70px;
             height: 70px;
@@ -250,8 +206,6 @@
             font-size: 1.8rem;
         }
 
-        /* ===== PRINCIPIOS COOPERATIVOS ===== */
-        /* Número del principio grande y decorativo */
         .principio-num {
             font-size: 4rem;
             font-weight: 900;
@@ -274,7 +228,6 @@
             box-shadow: 0 12px 35px rgba(13,110,253,0.12);
         }
 
-        /* ===== ANIMACIÓN SCROLL REVEAL ===== */
         .reveal {
             opacity: 0;
             transform: translateY(30px);
@@ -286,7 +239,6 @@
             transform: translateY(0);
         }
 
-        /* Retraso escalonado para elementos en fila */
         .reveal.delay-1 { transition-delay: 0.1s; }
         .reveal.delay-2 { transition-delay: 0.2s; }
         .reveal.delay-3 { transition-delay: 0.3s; }
@@ -296,64 +248,40 @@
 
 
 
-                /* ----------------------------------------------------------
-            CONTENEDOR PRINCIPAL DE LA SECCIÓN
-            - Fondo gris claro
-            - Padding superior/inferior para espaciado
-        ---------------------------------------------------------- */
         .valores-section {
             background: #ffffff;
             padding: 40px 24px 48px;
             font-family: sans-serif;
         }
 
-        /* ----------------------------------------------------------
-            ENCABEZADO
-            - Centra el badge "Nuestros" y el título "VALORES"
-        ---------------------------------------------------------- */
         .valores-header {
             text-align: center;
             margin-bottom: 32px;
         }
 
-        /* ----------------------------------------------------------
-            BADGE VERDE: texto "NUESTROS" sobre el título
-            - Pastilla redondeada de color verde
-            - Texto en mayúsculas con espaciado entre letras
-        ---------------------------------------------------------- */
         .valores-badge {
             display: inline-block;
-            background: #5cb85c;        /* Verde del badge */
+            background: #5cb85c;
             color: #fff;
             font-size: 13px;
             font-weight: 500;
             letter-spacing: 1.5px;
             padding: 5px 20px;
-            border-radius: 30px;        /* Forma de pastilla */
+            border-radius: 30px;
             margin-bottom: 8px;
             text-transform: uppercase;
         }
 
-        /* ----------------------------------------------------------
-            TÍTULO PRINCIPAL: "VALORES"
-            - Texto grande, negrita, azul oscuro
-        ---------------------------------------------------------- */
         .valores-title {
             font-size: 42px;
             font-weight: 900;
-            color: #1a2a4a;             /* Azul oscuro */
+            color: #1a2a4a;
             line-height: 1;
             margin: 0;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
-        /* ----------------------------------------------------------
-            LISTA DE VALORES
-            - Columna vertical centrada
-            - Gap de 10px entre cada fila
-            - Ancho máximo de 640px centrado en pantalla
-        ---------------------------------------------------------- */
         .valores-list {
             display: flex;
             flex-direction: column;
@@ -362,76 +290,48 @@
             margin: 0 auto;
         }
 
-        /* ----------------------------------------------------------
-            FILA DE CADA VALOR
-            - Contiene: ícono + flecha con texto
-            - Alineados horizontalmente
-        ---------------------------------------------------------- */
         .valor-row {
             display: flex;
             align-items: center;
         }
 
-        /* ----------------------------------------------------------
-            CAJA DEL ÍCONO
-            - Cuadrado redondeado de 54x54px
-            - Fondo azul claro por defecto
-            - Se puede sobreescribir con style="background:#dff0dc;"
-            para el color verde claro en filas pares
-        ---------------------------------------------------------- */
         .valor-icon-wrap {
             width: 86px;
             height: 86px;
             border-radius: 10px;
-            background: #d9e4f5;        /* Azul claro (filas impares) */
+            background: #d9e4f5;
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-shrink: 0;             /* Evita que se encoja */
-            z-index: 2;                 /* Se superpone sobre la flecha */
+            flex-shrink: 0;
+            z-index: 2;
         }
 
-        /* Tamaño del SVG dentro del ícono */
         .valor-icon-wrap svg {
             width: 40px;
             height: 40px;
         }
 
-        /* ----------------------------------------------------------
-            FLECHA TIPO BANNER
-            - Ocupa el ancho restante después del ícono
-            - clip-path crea la forma de flecha apuntando a la derecha
-            - Altura fija de 48px
-        ---------------------------------------------------------- */
         .valor-arrow {
-            flex: 1;                    /* Ocupa todo el espacio disponible */
+            flex: 1;
             height: 86px;
             position: relative;
             display: flex;
             align-items: center;
-            /* Forma de flecha: corte diagonal en el extremo derecho */
             clip-path: polygon(
             0 0,
-            calc(100% - 18px) 0,      /* Esquina superior derecha antes del corte */
-            100% 50%,                 /* Punta de la flecha (centro derecho) */
-            calc(100% - 18px) 100%,   /* Esquina inferior derecha antes del corte */
+            calc(100% - 18px) 0,
+            100% 50%,
+            calc(100% - 18px) 100%,
             0 100%
             );
-            padding-left: 18px;         /* Espacio interno izquierdo */
-            padding-right: 28px;        /* Espacio interno derecho (antes de la punta) */
+            padding-left: 18px;
+            padding-right: 28px;
         }
 
-        /* Variante azul oscuro (filas impares: 1, 3, 5...) */
         .valor-arrow.dark  { background: #1a2a4a; }
-
-        /* Variante verde (filas pares: 2, 4, 6...) */
         .valor-arrow.green { background: #6ab04c; }
 
-        /* ----------------------------------------------------------
-            TEXTO DENTRO DE LA FLECHA
-            - Blanco, tamaño 15px
-            - nowrap evita que el texto salte de línea
-        ---------------------------------------------------------- */
         .valor-label {
             color: #fff;
             font-size: 19px;
@@ -450,19 +350,16 @@
             box-shadow: 0 10px 28px rgba(0,0,0,0.15);
         }
 
-        /* === ANIMACIÓN DINÁMICA DE ENTRADA === */
         @keyframes valorSlideIn {
             from { opacity: 0; transform: translateX(-60px); }
             to   { opacity: 1; transform: translateX(0); }
         }
 
-        /* Oculto por defecto hasta que .animated se añada al contenedor */
         .valores-list:not(.animated) .valor-row {
             opacity: 0;
             transform: translateX(-60px);
         }
 
-        /* Cuando el contenedor recibe .animated, cada fila se anima escalonada */
         .valores-list.animated .valor-row {
             animation: valorSlideIn 0.55s cubic-bezier(0.22,1,0.36,1) both;
         }
@@ -473,7 +370,6 @@
         .valores-list.animated .valor-row:nth-child(5) { animation-delay: 0.40s; }
         .valores-list.animated .valor-row:nth-child(6) { animation-delay: 0.50s; }
 
-        /* Hover mejorado: ícono se escala y rota levemente */
         .valor-icon-wrap {
             transition: transform 0.28s ease, box-shadow 0.28s ease;
         }
@@ -482,7 +378,6 @@
             box-shadow: 0 6px 18px rgba(0,0,0,0.18);
         }
 
-        /* Hover mejorado: flecha se ilumina */
         .valor-arrow {
             transition: filter 0.28s ease;
         }
@@ -490,7 +385,6 @@
             filter: brightness(1.18);
         }
 
-        /* Número decorativo dentro de la flecha */
         .valor-num {
             font-size: 28px;
             font-weight: 900;
@@ -512,9 +406,7 @@
 
 <body>
 
-    <!-- =============================================
-         HEADER - BARRA DE NAVEGACIÓN
-    ============================================= -->
+    <!-- HEADER -->
         <header class="main-header" id="mainHeader">
         <div class="header-inner">
 
@@ -617,13 +509,10 @@
 
 
 
-    <!-- =============================================
-         MISIÓN Y VISIÓN
-    ============================================= -->
+    <!-- MISIÓN Y VISIÓN -->
     <section style="padding: 20px 0 80px; background: #f8f9fa;">
         <div class="container">
 
-        <!-- PLACA COMBINADA VERTICAL: Visión arriba, Misión abajo -->
         <div class="mv-placa-wrap reveal" style="max-width:900px;">
             <div class="mv-tornillo tl"></div>
             <div class="mv-tornillo tr"></div>
@@ -631,14 +520,12 @@
             <div class="mv-tornillo br"></div>
 
             <div class="mv-card">
-                <!-- Logo separador dentro de la placa -->
                 <div style="display:flex; align-items:center; gap:18px; padding:18px 40px 0;">
                     <div style="flex:1; height:1px; background:linear-gradient(90deg,transparent,#033E81);"></div>
                     <img src="../image/Imagotipo Horizontal Original.png" alt="" style="height:38px; opacity:0.75;">
                     <div style="flex:1; height:1px; background:linear-gradient(90deg,#4EAE33,transparent);"></div>
                 </div>
 
-                <!-- Header: Propósito Visionario -->
                 <div class="mv-card-header">
                    
                     <div class="proposito-titulo">Propósito Visionario</div>
@@ -647,7 +534,6 @@
                     </p>
                 </div>
 
-                <!-- Misión (arriba) -->
                 <div style="padding:0 60px; border-bottom:1px solid rgba(3,62,129,0.1); text-align:center;">
                    
                     <div style="font-size:1.95rem;font-weight:900;color:#033E81;margin-bottom:14px;">Misión</div>
@@ -658,7 +544,6 @@
                     
                 </div>
 
-                <!-- Visión (abajo) -->
                 <div style="padding:20px 80px 20px; text-align:center;">
                     
                     <div style="font-size:1.95rem;font-weight:900;color:#033E81;margin-bottom:14px;">Visión</div>
@@ -669,36 +554,23 @@
                     
                 </div>
 
-                <!-- Cinta -->
                 <div class="mv-card-cinta"></div>
             </div>
         </div>
 
     </section>
 
+    <!-- VALORES -->
      <section class="valores-section">
 
-        <!-- ENCABEZADO DE LA SECCIÓN -->
         <div class="valores-header">
-            <div class="valores-badge">Nuestros</div>  <!-- Badge verde superior -->
-            <p class="valores-title">Valores</p>        <!-- Título grande -->
+            <div class="valores-badge">Nuestros</div>
+            <p class="valores-title">Valores</p>
         </div>
 
-        <!-- LISTA DE VALORES
-            Cada bloque .valor-row representa un valor.
-            Patrón de colores:
-                - Fila impar → ícono fondo azul claro  + flecha .dark  (azul oscuro)
-                - Fila par   → ícono fondo verde claro + flecha .green (verde)
-        -->
         <div class="valores-list">
 
-            <!-- ========================
-                VALOR 1 — Fila impar
-                Ícono: cuadrícula (integridad)
-                Flecha: azul oscuro (.dark)
-            ======================== -->
             <div class="valor-row">
-            <!-- Ícono: fondo azul claro (default) -->
             <div class="valor-icon-wrap">
                 <svg viewBox="0 0 24 24" fill="none" stroke="#3a6abf" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="18" cy="5" r="3"/>
@@ -708,20 +580,13 @@
                 <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
                 </svg>
             </div>
-            <!-- Flecha azul oscuro -->
             <div class="valor-arrow dark">
                 <span class="valor-num">01</span>
-                <span class="valor-label">Cooperación</span>  <!-- ✏️ Cambia el texto aquí -->
+                <span class="valor-label">Cooperación</span>
             </div>
             </div>
 
-            <!-- ========================
-                VALOR 2 — Fila par
-                Ícono: sobre/correo (transparencia)
-                Flecha: verde (.green)
-            ======================== -->
             <div class="valor-row">
-            <!-- Ícono: fondo verde claro (sobreescrito con style) -->
             <div class="valor-icon-wrap" style="background:#dff0dc;">
                 <svg viewBox="0 0 24 24" fill="none" stroke="#4a9a3e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"/>
@@ -730,18 +595,12 @@
                 <path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/>
                 </svg>
             </div>
-            <!-- Flecha verde -->
             <div class="valor-arrow green">
                 <span class="valor-num">02</span>
-                <span class="valor-label">Democracia</span>  <!-- ✏️ Cambia el texto aquí -->
+                <span class="valor-label">Democracia</span>
             </div>
             </div>
 
-            <!-- ========================
-                VALOR 3 — Fila impar
-                Ícono: símbolo de moneda (responsabilidad)
-                Flecha: azul oscuro (.dark)
-            ======================== -->
             <div class="valor-row">
             <div class="valor-icon-wrap">
                 <svg viewBox="0 0 24 24" fill="none" stroke="#3a6abf" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -753,15 +612,10 @@
             </div>
             <div class="valor-arrow dark">
                 <span class="valor-num">03</span>
-                <span class="valor-label">Igualdad</span>  <!-- ✏️ Cambia el texto aquí -->
+                <span class="valor-label">Igualdad</span>
             </div>
             </div>
 
-            <!-- ========================
-                VALOR 4 — Fila par
-                Ícono: grupo de personas (compromiso social)
-                Flecha: verde (.green)
-            ======================== -->
             <div class="valor-row">
             <div class="valor-icon-wrap" style="background:#dff0dc;">
                 <svg viewBox="0 0 24 24" fill="none" stroke="#4a9a3e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -774,15 +628,10 @@
             </div>
             <div class="valor-arrow green">
                 <span class="valor-num">04</span>
-                <span class="valor-label">Equidad</span>  <!-- ✏️ Cambia el texto aquí -->
+                <span class="valor-label">Equidad</span>
             </div>
             </div>
 
-            <!-- ========================
-                VALOR 5 — Fila impar
-                Ícono: check en caja (calidad)
-                Flecha: azul oscuro (.dark)
-            ======================== -->
             <div class="valor-row">
             <div class="valor-icon-wrap">
                 <svg viewBox="0 0 24 24" fill="none" stroke="#3a6abf" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -792,15 +641,10 @@
             </div>
             <div class="valor-arrow dark">
                 <span class="valor-num">05</span>
-                <span class="valor-label">Responsabilidad</span>  <!-- ✏️ Cambia el texto aquí -->
+                <span class="valor-label">Responsabilidad</span>
             </div>
             </div>
 
-            <!-- ========================
-                VALOR 6 — Fila par
-                Ícono: persona con destellos (innovación)
-                Flecha: verde (.green)
-            ======================== -->
             <div class="valor-row">
             <div class="valor-icon-wrap" style="background:#dff0dc;">
                 <svg viewBox="0 0 24 24" fill="none" stroke="#4a9a3e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -812,15 +656,10 @@
             </div>
             <div class="valor-arrow green">
                 <span class="valor-num">06</span>
-                <span class="valor-label">Enfoque al Asociado</span>  <!-- ✏️ Cambia el texto aquí -->
+                <span class="valor-label">Enfoque al Asociado</span>
             </div>
             </div>
 
-            <!-- ========================
-                PARA AGREGAR MÁS VALORES:
-                Copia el bloque de fila impar o par según corresponda
-                y cambia el texto del .valor-label y el SVG del ícono.
-            ======================== -->
 
         </div>
     </section>
@@ -828,10 +667,6 @@
 
 
 
-    <!-- =============================================
-         CTA - LLAMADO A LA ACCIÓN
-         Invita al usuario a conocer más o asociarse
-    ============================================= -->
     <section style="padding: 80px 0; background: white;">
         <div class="container">
             <div class="reveal" style="
@@ -867,9 +702,7 @@
         </div>
     </section>
 
-    <!-- =============================================
-         FOOTER - PIE DE PÁGINA
-    ============================================= -->
+    <!-- FOOTER -->
     <footer id="contacto">
         <div style="background: white; line-height: 0;">
             <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg">
@@ -931,15 +764,11 @@
         </div>
     </footer>
 
-    <!-- SCRIPTS -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
     <script src="../js/script.js"></script>
 
     <script>
-        /* =============================================
-           SCROLL REVEAL CON INTERSECTIONOBSERVER
-        ============================================= */
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) entry.target.classList.add('visible');
@@ -948,7 +777,6 @@
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        /* === ANIMACIÓN ESCALONADA DE VALORES === */
         const valoresList = document.querySelector('.valores-list');
         if (valoresList) {
             const valoresObs = new IntersectionObserver((entries) => {

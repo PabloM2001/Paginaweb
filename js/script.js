@@ -1,18 +1,6 @@
-/* ==============================================
-   ARCHIVO: script.js
-   PROYECTO: Cooperativa San Pedro
-   DESCRIPCIÓN: Funciones interactivas de la página
-   ============================================== */
-
-
-/* ==============================================
-   1. BUSCADOR DEL HEADER
-   ============================================== */
-
-// Detecta si estamos en /pages/ o en la raíz
+/* 1. BUSCADOR */
 const _base = window.location.pathname.includes('/pages/') ? '../' : '';
 
-// Índice de búsqueda: keywords → url + etiqueta
 const SEARCH_INDEX = [
     { label: 'Inicio',              url: _base + 'index.html',                   keywords: ['inicio', 'home', 'principal', 'bienvenido'] },
     { label: 'Quiénes Somos',       url: _base + 'pages/about.html',              keywords: ['quienes somos', 'quiénes somos', 'nosotros', 'cooperativa', 'sobre'] },
@@ -95,7 +83,6 @@ function toggleSearch() {
     }
 }
 
-// Buscar al presionar Enter
 document.addEventListener('DOMContentLoaded', function () {
     const input = document.getElementById('searchInput');
     if (input) {
@@ -110,20 +97,12 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-/* ==============================================
-   2. NAVEGACIÓN
-   - Clase .scrolled al hacer scroll
-   - Hamburger mobile
-   - Acordeón mobile para dropdowns
-   ============================================== */
-
-// Scroll → añade clase .scrolled al header
+/* 2. NAVEGACIÓN */
 window.addEventListener('scroll', function () {
     const header = document.getElementById('mainHeader');
     if (header) header.classList.toggle('scrolled', window.scrollY > 30);
 });
 
-// Hamburger toggle
 const navToggle = document.getElementById('navToggle');
 const mainNav   = document.getElementById('mainNav');
 
@@ -134,7 +113,6 @@ if (navToggle && mainNav) {
         mainNav.classList.toggle('open');
     });
 
-    // Acordeón: tap en link de dropdown en mobile
     mainNav.querySelectorAll('.has-dropdown > .nav-link').forEach(link => {
         link.addEventListener('click', function (e) {
             if (window.innerWidth <= 992) {
@@ -144,7 +122,6 @@ if (navToggle && mainNav) {
         });
     });
 
-    // Cierra el nav al tocar un enlace hoja en mobile
     mainNav.querySelectorAll('.drop-link, .nav-item:not(.has-dropdown) .nav-link').forEach(link => {
         link.addEventListener('click', function () {
             if (window.innerWidth <= 992) {
@@ -156,10 +133,7 @@ if (navToggle && mainNav) {
 }
 
 
-/* ==============================================
-   3. CARRUSEL 3D
-   Solo se activa si la página tiene los elementos
-   ============================================== */
+/* 3. CARRUSEL 3D */
 
 let actual = 0;
 let cards  = [];
@@ -193,7 +167,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const prevBtn = document.querySelector('.btn-3d-prev');
     const nextBtn = document.querySelector('.btn-3d-next');
 
-    if (!prevBtn || !nextBtn) return; // No es la página del carrusel
+    if (!prevBtn || !nextBtn) return;
 
     cards = Array.from(document.querySelectorAll('.card-3d'));
     dots  = Array.from(document.querySelectorAll('.dot-3d'));
@@ -203,15 +177,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     dots.forEach((dot, i) => dot.addEventListener('click', () => irA(i)));
 
-    // Autoplay cada 4 segundos
     setInterval(() => moverCarrusel(1), 4000);
 });
 
 
-/* ==============================================
-   4. EFECTO DE ESCRITURA
-   Solo se activa si existe #fraseTexto
-   ============================================== */
+/* 4. EFECTO DE ESCRITURA */
 
 const fraseEl = document.getElementById('fraseTexto');
 
@@ -231,10 +201,7 @@ if (fraseEl) {
 }
 
 
-/* ==============================================
-   5. CONTADORES ANIMADOS
-   Solo se activa si existe .stats-section
-   ============================================== */
+/* 5. CONTADORES ANIMADOS */
 
 function animarContador(el, target, duracion) {
     let inicio = 0;
@@ -270,10 +237,7 @@ if (statsSection) {
 }
 
 
-/* ==============================================
-   6. SCROLL REVEAL
-   Añade clase .visible a elementos .reveal al entrar en viewport
-   ============================================== */
+/* 6. SCROLL REVEAL */
 
 const revealObs = new IntersectionObserver((entries) => {
     entries.forEach((e, i) => {
@@ -284,10 +248,7 @@ const revealObs = new IntersectionObserver((entries) => {
 document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
 
 
-/* ==============================================
-   7. FLIP CARDS — Soporte táctil (móvil / tablet)
-   En dispositivos sin hover, el flip se activa al tocar
-   ============================================== */
+/* 7. FLIP CARDS — soporte táctil */
 
 if (window.matchMedia('(hover: none)').matches) {
     document.querySelectorAll('.flip-container').forEach(container => {
@@ -298,10 +259,7 @@ if (window.matchMedia('(hover: none)').matches) {
 }
 
 
-/* ==============================================
-   8. FILTROS Y BUSCADOR DE AGENCIAS
-   Solo se activa si existe #sinResultados
-   ============================================== */
+/* 8. FILTROS DE AGENCIAS */
 
 const sinResultados = document.getElementById('sinResultados');
 if (sinResultados) {

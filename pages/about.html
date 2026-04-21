@@ -6,28 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>¿Quiénes somos? - Cooperativa San Pedro</title>
 
-    <!-- =============================================
-         LIBRERÍAS EXTERNAS (CDN)
-    ============================================= -->
-    <!-- Bootstrap CSS: Framework de diseño -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <!-- Bootstrap JS: componentes interactivos -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-    <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    <!-- Google Fonts: Outfit -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
-
-    <!-- =============================================
-         ESTILOS PROPIOS DEL PROYECTO
-         Ruta corregida: una sola carpeta atrás (../)
-    ============================================= -->
     <link rel="stylesheet" href="../css/estilos.css">
 
     <style>
         * { font-family: 'Outfit', sans-serif; }
 
-        /* ===== HERO DE QUIÉNES SOMOS ===== */
         .hero-about {
             background: linear-gradient(135deg, #033E81 0%, #033E81 55%, #033E81 100%);
             padding: 100px 0 80px;
@@ -35,7 +22,6 @@
             overflow: hidden;
         }
 
-        /* Círculo decorativo fondo derecho */
         .hero-about::before {
             content: '';
             position: absolute;
@@ -45,7 +31,6 @@
             top: -150px; right: -150px;
         }
 
-        /* Círculo decorativo fondo izquierdo */
         .hero-about::after {
             content: '';
             position: absolute;
@@ -55,8 +40,6 @@
             bottom: -80px; left: -80px;
         }
 
-        /* ===== TARJETA ESTADÍSTICA ===== */
-        /* Pequeñas tarjetas con número grande y etiqueta */
         .stat-about {
             background: rgba(255,255,255,0.08);
             border: 1px solid rgba(255,255,255,0.12);
@@ -65,8 +48,6 @@
             text-align: center;
         }
 
-        /* ===== TARJETA DE CARACTERÍSTICA ===== */
-        /* Tarjetas con ícono, título y descripción */
         .feature-card {
             background: white;
             border-radius: 20px;
@@ -87,7 +68,6 @@
         .feature-card.celeste { border-top-color: #4fc3f7; }
         .feature-card.naranja { border-top-color: #4EAE33; }
 
-        /* Ícono de la tarjeta */
         .feature-icon {
             width: 65px;
             height: 65px;
@@ -99,8 +79,6 @@
             margin-bottom: 18px;
         }
 
-        /* ===== SECCIÓN DE ASOCIARSE ===== */
-        /* Tarjeta de beneficio de ser asociado */
         .beneficio-asociado {
             display: flex;
             align-items: flex-start;
@@ -117,7 +95,6 @@
             box-shadow: 0 8px 25px rgba(13,110,253,0.1);
         }
 
-        /* Círculo del ícono del beneficio */
         .bene-icon {
             width: 44px;
             height: 44px;
@@ -131,7 +108,6 @@
             color: #033E81;
         }
 
-        /* ===== ANIMACIÓN SCROLL REVEAL ===== */
         .reveal {
             opacity: 0;
             transform: translateY(30px);
@@ -152,11 +128,8 @@
 
 <body>
 
-    <!-- =============================================
-         HEADER - BARRA DE NAVEGACIÓN PRINCIPAL
-         Logo, menú de navegación y buscador
-    ============================================= -->
-        <header class="main-header" id="mainHeader">
+    <!-- HEADER -->
+    <header class="main-header" id="mainHeader">
         <div class="header-inner">
 
             <a href="../index.html" class="header-logo">
@@ -256,15 +229,11 @@
         </div>
     </header>
 
-    <!-- =============================================
-         HERO - ENCABEZADO DE ¿QUIÉNES SOMOS?
-         Presentación principal con estadísticas
-    ============================================= -->
+    <!-- HERO -->
     <section class="hero-about">
         <div class="container position-relative" style="z-index:2;">
             <div class="row align-items-center g-5">
 
-                <!-- Texto del hero -->
                 <div class="col-lg-6">
                     <span style="
                         background: rgba(79,195,247,0.15);
@@ -308,7 +277,6 @@
                     </div>
                 </div>
 
-                <!-- Estadísticas rápidas -->
                 <div class="col-lg-6">
                     <div class="row g-3">
                         <div class="col-6">
@@ -342,10 +310,6 @@
         </div>
     </section>
 
-    <!-- =============================================
-         ¿QUÉ NOS HACE DIFERENTES?
-         4 pilares que diferencian a la cooperativa
-    ============================================= -->
     <section style="padding: 80px 0; background: #f8f9fa;">
         <div class="container">
 
@@ -362,7 +326,6 @@
 
             <div class="row g-4">
 
-                <!-- Pilar 1: Cooperativismo -->
                 <div class="col-md-6 col-lg-3 reveal delay-1">
                     <div class="feature-card azul">
                         <div class="feature-icon" style="background: rgba(13,110,253,0.1);">
@@ -376,7 +339,6 @@
                     </div>
                 </div>
 
-                <!-- Pilar 2: Inclusión -->
                 <div class="col-md-6 col-lg-3 reveal delay-2">
                     <div class="feature-card verde">
                         <div class="feature-icon" style="background: rgba(78,174,51,0.1);">
@@ -390,7 +352,6 @@
                     </div>
                 </div>
 
-                <!-- Pilar 3: Proximidad -->
                 <div class="col-md-6 col-lg-3 reveal delay-3">
                     <div class="feature-card celeste">
                         <div class="feature-icon" style="background: rgba(79,195,247,0.1);">
@@ -404,7 +365,6 @@
                     </div>
                 </div>
 
-                <!-- Pilar 4: Seguridad -->
                 <div class="col-md-6 col-lg-3 reveal delay-4">
                     <div class="feature-card naranja">
                         <div class="feature-icon" style="background: rgba(243,156,18,0.1);">
@@ -422,15 +382,10 @@
         </div>
     </section>
 
-    <!-- =============================================
-         QUIÉNES SOMOS - TEXTO DETALLADO
-         Historia breve y descripción institucional
-    ============================================= -->
     <section style="padding: 80px 0; background: white;">
         <div class="container">
             <div class="row g-5 align-items-center">
 
-                <!-- Imagen ilustrativa -->
                 <div class="col-lg-5 reveal">
                     <div style="
                         background: linear-gradient(135deg, #033E81, #033E81);
@@ -438,9 +393,7 @@
                         padding: 50px 40px;
                         position: relative;
                         overflow: hidden;">
-                        <!-- Ícono central -->
                         <i class="bi bi-bank" style="font-size: 7rem; color: rgba(79,195,247,0.2); display:block; text-align:center;"></i>
-                        <!-- Badge de fundación -->
                         <div style="
                             position: absolute; top: 20px; left: 20px;
                             background: rgba(255,255,255,0.1);
@@ -450,7 +403,6 @@
                             <div style="font-size:1.8rem; color:#4fc3f7;">1990</div>
                             <div style="font-size:0.8rem; color:rgba(255,255,255,0.6);">Fundación</div>
                         </div>
-                        <!-- Badge de afiliación -->
                         <div style="
                             position: absolute; bottom: 20px; right: 20px;
                             background: #7bd65a; color: white;
@@ -461,7 +413,6 @@
                     </div>
                 </div>
 
-                <!-- Descripción institucional -->
                 <div class="col-lg-7 reveal">
                     <span style="color: #033E81; font-weight: 600; letter-spacing: 1px; font-size: 0.9rem;">NUESTRA HISTORIA</span>
                     <h2 style="font-size: 2.2rem; font-weight: 800; color: #033E81; margin: 10px 0 20px;">
@@ -479,7 +430,6 @@
                         más de 150 agentes autorizados que llevan servicios financieros hasta las
                         comunidades más remotas.
                     </p>
-                    <!-- Lista de logros -->
                     <div class="row g-2">
                         <div class="col-sm-6">
                             <div class="d-flex align-items-center gap-2" style="color:#033E81; font-weight:500;">
@@ -512,10 +462,7 @@
         </div>
     </section>
 
-    <!-- =============================================
-         BENEFICIOS DE SER ASOCIADO + CÓMO ASOCIARSE
-         id="asociarme" — enlazado desde botón del hero
-    ============================================= -->
+    <!-- ASOCIARSE -->
     <section id="asociarme" style="padding: 80px 0; background: #f0f4ff;">
         <div class="container">
             <div style="
@@ -525,7 +472,6 @@
                 overflow: hidden;">
                 <div class="row g-5 align-items-center">
 
-                    <!-- Beneficios de ser asociado -->
                     <div class="col-lg-6 reveal">
                         <span style="color: #4fc3f7; font-weight: 600; font-size: 0.9rem; letter-spacing: 1px;">
                             ¿POR QUÉ ASOCIARTE?
@@ -570,7 +516,6 @@
                         </div>
                     </div>
 
-                    <!-- Pasos para asociarse -->
                     <div class="col-lg-6 reveal">
                         <h4 style="color: white; font-weight: 700; margin-bottom: 25px;">
                             <i class="bi bi-list-check me-2" style="color:#7bd65a;"></i>
@@ -578,7 +523,6 @@
                         </h4>
                         <div style="display:flex; flex-direction:column; gap:16px;">
 
-                            <!-- Paso 1 -->
                             <div style="display:flex; align-items:flex-start; gap:16px;">
                                 <div style="width:36px; height:36px; min-width:36px; background:linear-gradient(135deg,#033E81,#4fc3f7); border-radius:50%; display:flex; align-items:center; justify-content:center; color:white; font-weight:700;">1</div>
                                 <div>
@@ -587,7 +531,6 @@
                                 </div>
                             </div>
 
-                            <!-- Paso 2 -->
                             <div style="display:flex; align-items:flex-start; gap:16px;">
                                 <div style="width:36px; height:36px; min-width:36px; background:linear-gradient(135deg,#033E81,#4fc3f7); border-radius:50%; display:flex; align-items:center; justify-content:center; color:white; font-weight:700;">2</div>
                                 <div>
@@ -596,7 +539,6 @@
                                 </div>
                             </div>
 
-                            <!-- Paso 3 -->
                             <div style="display:flex; align-items:flex-start; gap:16px;">
                                 <div style="width:36px; height:36px; min-width:36px; background:linear-gradient(135deg,#033E81,#4fc3f7); border-radius:50%; display:flex; align-items:center; justify-content:center; color:white; font-weight:700;">3</div>
                                 <div>
@@ -605,7 +547,6 @@
                                 </div>
                             </div>
 
-                            <!-- Paso 4 -->
                             <div style="display:flex; align-items:flex-start; gap:16px;">
                                 <div style="width:36px; height:36px; min-width:36px; background:linear-gradient(135deg,#7bd65a,#4EAE33); border-radius:50%; display:flex; align-items:center; justify-content:center; color:white; font-weight:700;">✓</div>
                                 <div>
@@ -632,10 +573,6 @@
         </div>
     </section>
 
-    <!-- =============================================
-         ENLACES A OTRAS SECCIONES DE NOSOTROS
-         Guía al usuario a explorar más sobre la cooperativa
-    ============================================= -->
     <section style="padding: 80px 0; background: white;">
         <div class="container">
 
@@ -648,7 +585,6 @@
 
             <div class="row g-4 justify-content-center">
 
-                <!-- Misión y Visión -->
                 <div class="col-md-4 reveal delay-1">
                     <a href="./mision-vision.html" style="text-decoration:none;">
                         <div style="background:#f8f9fa; border-radius:18px; padding:30px; text-align:center; transition:all 0.3s ease;"
@@ -661,7 +597,6 @@
                     </a>
                 </div>
 
-                <!-- Historia -->
                 <div class="col-md-4 reveal delay-2">
                     <a href="./historia.html" style="text-decoration:none;">
                         <div style="background:#f8f9fa; border-radius:18px; padding:30px; text-align:center; transition:all 0.3s ease;"
@@ -674,7 +609,6 @@
                     </a>
                 </div>
 
-                <!-- Ver más -->
                 <div class="col-md-4 reveal delay-3">
                     <a href="./ver-mas.html" style="text-decoration:none;">
                         <div style="background:#f8f9fa; border-radius:18px; padding:30px; text-align:center; transition:all 0.3s ease;"
@@ -691,27 +625,19 @@
         </div>
     </section>
 
-    <!-- =============================================
-         FOOTER - PIE DE PÁGINA
-         Rutas y datos de contacto reales y correctos
-    ============================================= -->
+    <!-- FOOTER -->
     <footer id="contacto">
-
-        <!-- Ola decorativa SVG -->
         <div style="background: white; line-height: 0;">
             <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg">
                 <path fill="#033E81" d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z"/>
             </svg>
         </div>
 
-        <!-- Contenido del footer -->
         <div style="background: linear-gradient(135deg, #033E81 0%, #033E81 50%, #033E81 100%); padding: 60px 0 30px;">
             <div class="container">
                 <div class="row g-4 mb-5">
 
-                    <!-- Columna 1: Logo y descripción -->
                     <div class="col-md-4">
-                        <!-- Logo con ruta corregida: ../image/ -->
                         <img src="../image/Logo Cooperativa - Blanco.png" height="45" alt="Logo" class="mb-3">
                         <p style="color:#a8c4e0; line-height:1.8;">
                             Tu cooperativa de confianza, comprometida con tu bienestar financiero
@@ -724,7 +650,6 @@
                         </div>
                     </div>
 
-                    <!-- Columna 2: Enlaces rápidos -->
                     <div class="col-md-2 offset-md-1">
                         <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Enlaces</h6>
                         <ul class="list-unstyled">
@@ -735,7 +660,6 @@
                         </ul>
                     </div>
 
-                    <!-- Columna 3: Servicios -->
                     <div class="col-md-2">
                         <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Servicios</h6>
                         <ul class="list-unstyled">
@@ -745,7 +669,6 @@
                         </ul>
                     </div>
 
-                    <!-- Columna 4: Contacto con datos reales -->
                     <div class="col-md-3">
                         <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Contacto</h6>
                         <ul class="list-unstyled">
@@ -766,7 +689,6 @@
 
                 </div>
 
-                <!-- Separador y copyright -->
                 <hr style="border-color:rgba(255,255,255,0.1); margin-bottom:25px;">
                 <p style="color:#a8c4e0; margin:0; font-size:14px; text-align:center;">
                     © 2024 Cooperativa San Pedro. Todos los derechos reservados.
@@ -776,19 +698,11 @@
         </div>
     </footer>
 
-    <!-- =============================================
-         SCRIPTS AL FINAL DEL BODY
-         Rutas corregidas: ../js/ (un nivel atrás)
-    ============================================= -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
-    <!-- Script corregido: ../js/script.js -->
     <script src="../js/script.js"></script>
 
     <script>
-        /* =============================================
-           SCROLL REVEAL CON INTERSECTIONOBSERVER
-        ============================================= */
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) entry.target.classList.add('visible');

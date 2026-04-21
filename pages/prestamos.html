@@ -6,22 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Préstamos - Cooperativa San Pedro</title>
 
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-    <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    <!-- Google Fonts: Outfit -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
-    <!-- CSS personalizado del proyecto -->
     <link rel="stylesheet" href="../css/estilos.css">
 
     <style>
         * { font-family: 'Outfit', sans-serif; }
 
-        /* ===== TARJETAS DE PRÉSTAMOS ===== */
-        /* Contenedor con perspectiva para el efecto flip */
         .prestamo-flip {
             perspective: 1000px;
             height: 380px;
@@ -49,7 +42,6 @@
             overflow: hidden;
         }
 
-        /* Frente: ícono, nombre, monto, plazo */
         .prestamo-frente {
             box-shadow: 0 10px 40px rgba(0,0,0,0.12);
             display: flex;
@@ -61,7 +53,6 @@
             color: white;
         }
 
-        /* Reverso: requisitos + botón */
         .prestamo-reverso {
             transform: rotateY(180deg);
             background: white;
@@ -73,34 +64,29 @@
             box-shadow: 0 10px 40px rgba(0,0,0,0.12);
         }
 
-        /* Ícono grande en el frente */
         .prestamo-icono {
             font-size: 3.5rem;
             margin-bottom: 20px;
             filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3));
         }
 
-        /* Nombre del tipo de préstamo */
         .prestamo-nombre {
             font-size: 1.5rem;
             font-weight: 900;
             margin-bottom: 8px;
         }
 
-        /* Descripción breve */
         .prestamo-desc {
             font-size: 0.85rem;
             opacity: 0.85;
             margin-bottom: 20px;
         }
 
-        /* Monto máximo destacado */
         .prestamo-monto {
             font-size: 1.8rem;
             font-weight: 900;
         }
 
-        /* Etiqueta del monto */
         .prestamo-monto-label {
             font-size: 0.75rem;
             opacity: 0.7;
@@ -108,7 +94,6 @@
             letter-spacing: 1px;
         }
 
-        /* Título en el reverso */
         .prestamo-reverso-titulo {
             font-size: 1.1rem;
             font-weight: 800;
@@ -116,7 +101,6 @@
             margin-bottom: 15px;
         }
 
-        /* Lista de requisitos */
         .prestamo-req {
             list-style: none;
             padding: 0;
@@ -133,7 +117,6 @@
             gap: 8px;
         }
 
-        /* Botón de solicitud en el reverso */
         .prestamo-btn {
             display: inline-flex;
             align-items: center;
@@ -148,15 +131,12 @@
             border: none;
         }
 
-        /* ===== PROCESO DE SOLICITUD ===== */
-        /* Paso del proceso con número y descripción */
         .paso {
             text-align: center;
             padding: 30px 20px;
             position: relative;
         }
 
-        /* Número de paso en círculo */
         .paso-numero {
             width: 60px;
             height: 60px;
@@ -172,7 +152,6 @@
             box-shadow: 0 8px 25px rgba(79,195,247,0.4);
         }
 
-        /* Título del paso */
         .paso-titulo {
             font-weight: 700;
             color: white;
@@ -180,13 +159,11 @@
             margin-bottom: 8px;
         }
 
-        /* Descripción del paso */
         .paso-desc {
             font-size: 0.85rem;
             color: rgba(255,255,255,0.7);
         }
 
-        /* Línea conectora entre pasos (solo en desktop) */
         .paso-conector {
             position: absolute;
             top: 60px;
@@ -197,7 +174,6 @@
             opacity: 0.5;
         }
 
-        /* Scroll reveal */
         .reveal {
             opacity: 0;
             transform: translateY(40px);
@@ -213,9 +189,7 @@
 
 <body>
 
-    <!-- =============================================
-         HEADER - BARRA DE NAVEGACIÓN
-    ============================================= -->
+    <!-- HEADER -->
         <header class="main-header" id="mainHeader">
         <div class="header-inner">
 
@@ -317,9 +291,7 @@
     </header>
 
 
-    <!-- =============================================
-         HERO - SECCIÓN PRINCIPAL
-    ============================================= -->
+    <!-- HERO -->
     <section class="hero">
         <div class="particula p1"></div>
         <div class="particula p2"></div>
@@ -339,10 +311,7 @@
 
     
 
-    <!-- =============================================
-         SECCIÓN: NUESTROS PRODUCTOS
-         Líneas de crédito disponibles
-    ============================================= -->
+    <!-- PRÉSTAMOS -->
     <section style="background:#f0f4f8; padding:80px 0;">
         <div class="container">
             
@@ -351,7 +320,6 @@
 
             <div class="row g-4">
 
-                <!-- CONSUMO -->
                 <div class="col-md-6 col-lg-4 reveal">
                     <div class="prestamo-flip" style="height:360px;">
                         <div class="prestamo-inner">
@@ -384,7 +352,6 @@
                     </div>
                 </div>
 
-                <!-- COMERCIO -->
                 <div class="col-md-6 col-lg-4 reveal">
                     <div class="prestamo-flip" style="height:360px;">
                         <div class="prestamo-inner">
@@ -417,7 +384,6 @@
                     </div>
                 </div>
 
-                <!-- VIVIENDA MEJORADA -->
                 <div class="col-md-6 col-lg-4 reveal">
                     <div class="prestamo-flip" style="height:360px;">
                         <div class="prestamo-inner">
@@ -450,7 +416,6 @@
                     </div>
                 </div>
 
-                <!-- AGRÍCOLA -->
                 <div class="col-md-6 col-lg-4 reveal">
                     <div class="prestamo-flip" style="height:360px;">
                         <div class="prestamo-inner">
@@ -483,7 +448,6 @@
                     </div>
                 </div>
 
-                <!-- CREDIFAST -->
                 <div class="col-md-6 col-lg-4 reveal">
                     <div class="prestamo-flip" style="height:360px;">
                         <div class="prestamo-inner">
@@ -524,9 +488,7 @@
     
 
 
-    <!-- =============================================
-         SECCIÓN: BENEFICIOS
-    ============================================= -->
+    <!-- BENEFICIOS -->
     <section style="background: linear-gradient(135deg,#033E81 0%,#022d5c 100%); padding:90px 0; position:relative; overflow:hidden;">
 
         <!-- Círculos decorativos de fondo -->

@@ -1,11 +1,4 @@
-/* ==============================================
-   ARCHIVO: estilos.css
-   PROYECTO: Cooperativa San Pedro
-   ============================================== */
-
-/* ==============================================
-   SECCIÓN CRONOLOGÍA / LÍNEA DE TIEMPO (index.html)
-   ============================================== */
+/* CRONOLOGÍA */
 .cronologia-section {
     padding: 80px 20px 100px;
     background: #f0f4fa;
@@ -35,7 +28,6 @@
     padding: 20px 0;
 }
 
-/* Línea central */
 .timeline-line {
     position: absolute;
     left: 50%;
@@ -47,7 +39,6 @@
     border-radius: 4px;
 }
 
-/* Punto central del hito */
 .timeline-dot {
     width: 20px;
     height: 20px;
@@ -68,7 +59,6 @@
     box-shadow: 0 0 0 8px rgba(78,174,51,0.2);
 }
 
-/* Tarjeta de contenido */
 .timeline-content {
     background: white;
     border-radius: 14px;
@@ -85,7 +75,6 @@
     box-shadow: 0 12px 40px rgba(3,62,129,0.18);
 }
 
-/* Flecha de la tarjeta */
 .timeline-content::after {
     content: '';
     position: absolute;
@@ -95,7 +84,6 @@
     border-style: solid;
 }
 
-/* Hito izquierda: tarjeta a la izquierda, punto en el centro */
 .timeline-item.left {
     display: flex;
     align-items: center;
@@ -118,7 +106,6 @@
     filter: drop-shadow(2px 0 2px rgba(3,62,129,0.1));
 }
 
-/* Hito derecha: tarjeta a la derecha, punto en el centro */
 .timeline-item.right {
     display: flex;
     align-items: center;
@@ -166,7 +153,6 @@
     margin: 0;
 }
 
-/* Responsive: en móvil todo a la derecha */
 @media (max-width: 768px) {
     .timeline-line {
         left: 24px;
@@ -200,9 +186,7 @@
     }
 }
 
-/* ==============================================
-   VARIABLES GLOBALES
-   ============================================== */
+/* VARIABLES GLOBALES */
 :root {
     --azul:       #033E81;
     --verde:      #4EAE33;
@@ -212,9 +196,7 @@
 
 * { font-family: 'Outfit', sans-serif; }
 
-/* ==============================================
-   NAVIGATION 2.0 — Sticky mega-menu
-   ============================================== */
+/* NAV */
 @keyframes pulso {
     0%   { filter: drop-shadow(0 0 2px rgba(255,255,255,0.2)); }
     50%  { filter: drop-shadow(0 0 12px rgba(79,195,247,0.8)); }
@@ -228,6 +210,14 @@
     background: #033E81;
     padding: 0 32px;
     transition: box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.header-cinta {
+    width: 100%;
+    display: block;
+    height: 6px;
+    object-fit: cover;
+    object-position: center;
 }
 
 .main-header.scrolled {
@@ -301,7 +291,6 @@
 .nav-arrow { font-size: 0.6rem; transition: transform 0.3s ease; opacity: 0.7; }
 .nav-item.has-dropdown:hover .nav-arrow { transform: rotate(180deg); opacity: 1; }
 
-/* Botón CTA Contáctanos */
 .nav-link.nav-cta {
     background: #4EAE33;
     color: white !important;
@@ -317,7 +306,6 @@
     box-shadow: 0 6px 18px rgba(78,174,51,0.45);
 }
 
-/* Panel dropdown */
 .nav-dropdown {
     position: absolute;
     top: calc(100% + 12px);
@@ -335,7 +323,6 @@
     border: 1px solid rgba(0,0,0,0.06);
 }
 
-/* Puente invisible para no perder hover al cruzar el gap */
 .nav-item.has-dropdown::after {
     content: '';
     position: absolute;
@@ -346,7 +333,6 @@
     z-index: 1;
 }
 
-/* Triángulo apuntador */
 .nav-dropdown::before {
     content: '';
     position: absolute;
@@ -404,7 +390,6 @@
 
 .header-search { display: flex; align-items: center; }
 
-/* Hamburger móvil */
 .nav-toggle {
     display: none;
     flex-direction: column;
@@ -440,7 +425,6 @@
     .main-header { padding: 0 16px; }
     .nav-toggle  { display: flex; }
 
-    /* Logo más pequeño en tablet/móvil */
     .header-logo img { height: 32px; }
     .main-header.scrolled .header-logo img { height: 28px; }
 
@@ -491,14 +475,11 @@
 
     .nav-link.nav-cta { margin: 6px 0 0; justify-content: center; border-radius: 10px; }
 
-    /* Buscador en móvil */
     .header-search { margin-left: auto; margin-right: 10px; }
     .search-input.active { width: 150px; }
 }
 
-/* ==============================================
-   BUSCADOR DINÁMICO
-   ============================================== */
+/* BUSCADOR */
 .search-container { display: flex; align-items: center; }
 
 .search-input {
@@ -537,9 +518,7 @@
 .search-btn:hover  { transform: scale(1.1); }
 .search-btn i      { color: white; font-size: 16px; }
 
-/* ==============================================
-   SECCIÓN FRASE DE IMPACTO — index.html
-   ============================================== */
+/* FRASE IMPACTO */
 .circulo-fondo { position: absolute; border-radius: 50%; opacity: 0.15; animation: flotarCirculo 6s infinite ease-in-out; }
 
 .c1 { width:400px; height:400px; background: radial-gradient(circle, #4fc3f7, transparent); top:-150px; left:-100px; animation-delay:0s; }
@@ -616,9 +595,7 @@
     to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ==============================================
-   CARRUSEL 3D — index.html
-   ============================================== */
+/* CARRUSEL 3D */
 .carousel-3d-wrapper {
     position: relative;
     height: 560px;
@@ -689,9 +666,7 @@
 .dot-3d { width: 10px; height: 10px; border-radius: 50%; background: #ccc; cursor: pointer; transition: all 0.3s ease; }
 .dot-3d.active { background: #033E81; width: 25px; border-radius: 5px; }
 
-/* ==============================================
-   ESTADÍSTICAS
-   ============================================== */
+/* ESTADÍSTICAS */
 .stat-card {
     padding: 30px 20px;
     border-radius: 20px;
@@ -706,9 +681,7 @@
 .stat-numero { font-size: 3.5rem; font-weight: 900; color: white; margin: 0; line-height: 1; }
 .stat-label  { color: rgba(255,255,255,0.7); font-size: 0.9rem; margin-top: 8px; letter-spacing: 1px; }
 
-/* ==============================================
-   FOOTER
-   ============================================== */
+/* FOOTER */
 footer { background: #1a1a2e; color: #adb5bd; }
 footer a { color: #adb5bd; text-decoration: none; transition: all 0.3s ease; }
 footer a:hover { color: white; padding-left: 5px; }
@@ -719,9 +692,7 @@ footer .bi-whatsapp:hover { background: rgba(255,255,255,0.25) !important; trans
 
 .footer-ola { background: white; line-height: 0; }
 
-/* ==============================================
-   HERO — Secciones de subpáginas
-   ============================================== */
+/* HERO */
 .hero {
     min-height: 70vh;
     background: var(--azul);
@@ -842,15 +813,11 @@ footer .bi-whatsapp:hover { background: rgba(255,255,255,0.25) !important; trans
     to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ==============================================
-   SCROLL REVEAL
-   ============================================== */
+/* SCROLL REVEAL */
 .reveal         { opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 
-/* ==============================================
-   FILTROS — Página Agencias
-   ============================================== */
+/* FILTROS */
 .filtros-sticky {
     background: white;
     padding: 18px 0;
@@ -890,9 +857,7 @@ footer .bi-whatsapp:hover { background: rgba(255,255,255,0.25) !important; trans
 
 .buscador-agencias:focus { border-color: var(--azul); box-shadow: 0 0 0 4px rgba(3,62,129,0.1); }
 
-/* ==============================================
-   FLIP CARDS — Agencias
-   ============================================== */
+/* FLIP CARDS */
 .agencias-grid { background: #f0f4f8; padding: 80px 0; }
 
 .flip-container { perspective: 1000px; height: 600px; }
@@ -962,13 +927,22 @@ footer .bi-whatsapp:hover { background: rgba(255,255,255,0.25) !important; trans
 
 .flip-back-btn:hover { background: white; color: var(--azul); }
 
-.flip-hint { align-self: flex-end; margin-top: auto; font-size: 0.7rem; color: #bbb; display: flex; align-items: center; gap: 4px; padding-bottom: 2px; }
+.flip-hint { align-self: flex-end; font-size: 0.7rem; color: #bbb; display: flex; align-items: center; gap: 4px; padding-bottom: 2px; }
 
-/* Imagen */
+.ag-cinta {
+    width: 100%;
+    display: block;
+    height: 18px;
+    object-fit: cover;
+    object-position: center;
+    margin-top: auto;
+    border-radius: 0 0 20px 20px;
+}
+
 .ag-img-wrap {
     position: relative;
     width: 100%;
-    height: 420px;
+    height: 430px;
     flex-shrink: 0;
     overflow: hidden;
     border-radius: 12px 12px 0 0;
@@ -1006,9 +980,7 @@ footer .bi-whatsapp:hover { background: rgba(255,255,255,0.25) !important; trans
 .ag-detalle { display: flex; align-items: flex-start; gap: 8px; font-size: 0.92rem; color: #444; line-height: 1.5; }
 .ag-detalle i { margin-top: 2px; flex-shrink: 0; font-size: 0.8rem; }
 
-/* ==============================================
-   TIMELINE — Historia
-   ============================================== */
+/* TIMELINE */
 .timeline-section {
     background: var(--azul);
     padding: 80px 0;
@@ -1074,9 +1046,7 @@ footer .bi-whatsapp:hover { background: rgba(255,255,255,0.25) !important; trans
 .timeline-nombre { color: white; font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
 .timeline-info { color: rgba(255,255,255,0.6); font-size: 0.85rem; display: flex; align-items: center; gap: 6px; margin-bottom: 5px; }
 
-/* ==============================================
-   MAPA
-   ============================================== */
+/* MAPA */
 .mapa-section  { background: white; padding: 80px 0; }
 .mapa-titulo   { text-align: center; font-size: 2.5rem; font-weight: 900; color: var(--azul); margin-bottom: 10px; }
 .mapa-titulo span { background: linear-gradient(135deg, var(--azul), var(--verde)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
@@ -1087,53 +1057,31 @@ footer .bi-whatsapp:hover { background: rgba(255,255,255,0.25) !important; trans
 .pin-nombre { font-weight: 700; font-size: 0.85rem; color: var(--azul); }
 .pin-dir    { font-size: 0.75rem; color: #888; }
 
-/* ==============================================
-   RESPONSIVE — Tablet grande (max 1200px)
-   ============================================== */
+/* RESPONSIVE */
 @media (max-width: 1200px) {
     .carousel-3d-wrapper { height: 480px; }
     .card-3d             { width: 65%; }
 }
 
-/* ==============================================
-   RESPONSIVE — Tablet (max 992px)
-   ============================================== */
 @media (max-width: 992px) {
-    /* Frase impacto */
     .frase-principal    { font-size: 1.8rem; min-height: 90px; }
     .frase-subtitulo    { letter-spacing: 3px; }
-
-    /* Carrusel 3D */
     .carousel-3d-wrapper { height: 360px; }
     .card-3d             { width: 75%; }
-
-    /* Stats */
     .stat-numero { font-size: 2.8rem; }
-
-    /* Hero subpáginas */
     .hero { min-height: 55vh; }
-
-    /* Mapa */
     .mapa-iframe { height: 380px; }
 }
 
-/* ==============================================
-   RESPONSIVE — Mobile (max 768px)
-   ============================================== */
 @media (max-width: 768px) {
-    /* ---- Header ---- */
     .main-header { padding: 0 12px; }
     .header-inner { height: 60px; }
     .header-logo img { height: 28px; }
     .main-header.scrolled .header-logo img { height: 24px; }
     .search-input.active { width: 140px; font-size: 13px; }
-
-    /* ---- Frase impacto ---- */
     .frase-subtitulo { letter-spacing: 2px; font-size: 0.75rem; }
     .frase-principal { font-size: 1.4rem; min-height: 70px; line-height: 1.5; }
     .frase-boton { padding: 12px 28px; font-size: 0.85rem; }
-
-    /* ---- Carrusel 3D: solo 1 card visible ---- */
     .carousel-3d-wrapper { height: 300px; }
     .card-3d             { width: 90%; }
     .card-3d.next,
@@ -1143,20 +1091,14 @@ footer .bi-whatsapp:hover { background: rgba(255,255,255,0.25) !important; trans
     .card-overlay        { padding: 18px; }
     .card-overlay h2     { font-size: 1.2rem; margin-bottom: 4px; }
     .card-overlay p      { font-size: 0.82rem; margin-bottom: 8px; }
-
-    /* ---- Stats ---- */
     .stat-numero { font-size: 2.2rem; }
     .stat-label  { font-size: 0.78rem; }
     .stat-card   { padding: 22px 14px; }
     .stat-icono  { font-size: 2rem; margin-bottom: 10px; }
-
-    /* ---- Hero subpáginas ---- */
     .hero { min-height: 48vh; }
     .hero-subtitulo { font-size: 0.92rem; }
     .hero-stats     { flex-wrap: wrap; gap: 15px; justify-content: center; }
     .hero-stat-num  { font-size: 1.8rem; }
-
-    /* ---- Timeline ---- */
     .timeline::before { left: 20px; }
     .timeline-titulo  { font-size: 1.8rem; }
     .timeline-item,
@@ -1168,96 +1110,55 @@ footer .bi-whatsapp:hover { background: rgba(255,255,255,0.25) !important; trans
     .timeline-punto,
     .timeline-item.derecha .timeline-punto { left: 12px; right: auto; }
     .timeline-card { max-width: 100%; }
-
-    /* ---- Flip cards ---- */
     .flip-container { height: 420px; }
     .ag-img-wrap    { height: 260px; }
     .ag-nombre      { font-size: 1.05rem; }
     .ag-detalle     { font-size: 0.85rem; }
-
-    /* ---- Filtros sticky ---- */
     .filtros-sticky { top: 56px; }
-
-    /* ---- Mapa ---- */
     .mapa-iframe  { height: 300px; }
     .mapa-titulo  { font-size: 1.8rem; }
 
-    /* ---- Sección frase: padding ---- */
     #frase-impacto { padding: 70px 16px !important; }
-
-    /* ---- Títulos de sección ---- */
     h2 { font-size: 1.6rem !important; }
     h3 { font-size: 1.3rem !important; }
-
-    /* ---- Secciones: padding reducido ---- */
     section { padding-top: 60px !important; padding-bottom: 60px !important; }
 }
 
-/* ==============================================
-   RESPONSIVE — Teléfonos pequeños (max 480px)
-   ============================================== */
 @media (max-width: 480px) {
-    /* Header */
     .main-header { padding: 0 10px; }
     .header-inner { height: 56px; }
     .header-logo img { height: 24px; }
     .main-header.scrolled .header-logo img { height: 22px; }
     .search-input.active { width: 120px; font-size: 12px; padding: 6px 10px; }
-
-    /* Frase */
     .frase-principal { font-size: 1.15rem; min-height: 60px; }
     .frase-subtitulo { letter-spacing: 1.5px; font-size: 0.7rem; }
     #frase-impacto   { padding: 55px 14px !important; }
-
-    /* Carrusel */
     .carousel-3d-wrapper { height: 240px; }
     .card-3d             { width: 94%; }
     .card-overlay h2     { font-size: 1rem; }
     .card-overlay p      { display: none; }
-
-    /* Stats */
     .stat-card   { padding: 18px 10px; border-radius: 14px; }
     .stat-numero { font-size: 1.9rem; }
     .stat-icono  { font-size: 1.7rem; margin-bottom: 8px; }
-
-    /* Hero */
     .hero       { min-height: 42vh; }
     .hero-stats { gap: 10px; }
     .hero-stat-num   { font-size: 1.5rem; }
     .hero-stat-label { font-size: 0.7rem; }
-
-    /* Filtros */
     .filtros-sticky  { top: 56px; padding: 12px 0; }
     .filtro-btn      { padding: 6px 14px; font-size: 0.78rem; }
-
-    /* Flip cards */
     .flip-container { height: 380px; }
     .ag-img-wrap    { height: 220px; }
-
-    /* Timeline */
     .timeline-titulo { font-size: 1.5rem; margin-bottom: 40px; }
     .timeline-card   { padding: 16px 18px; }
-
-    /* Mapa */
     .mapa-iframe  { height: 250px; }
     .mapa-titulo  { font-size: 1.5rem; }
-
-    /* Títulos */
     h2 { font-size: 1.4rem !important; }
     h3 { font-size: 1.2rem !important; }
-
-    /* Secciones */
     section { padding-top: 50px !important; padding-bottom: 50px !important; }
 }
 
-/* ==============================================
-   DISPOSITIVOS TÁCTILES — Flip cards con click
-   En pantallas sin hover (móvil/tablet), el flip
-   se activa tocando la tarjeta (vía JS + clase)
-   ============================================== */
+/* TÁCTIL — flip cards con click */
 @media (hover: none) {
-    /* Desactiva el flip automático por hover */
     .flip-container:hover .flip-card { transform: none; }
-    /* El flip se activa solo con la clase .flipped (JS) */
     .flip-container.flipped .flip-card { transform: rotateY(180deg); }
 }

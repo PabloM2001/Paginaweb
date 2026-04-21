@@ -759,13 +759,16 @@
     <script src="../js/script.js"></script>
 
     <script>
-        // ── Configurar worker de PDF.js ──
         if (typeof pdfjsLib !== 'undefined') {
             pdfjsLib.GlobalWorkerOptions.workerSrc =
                 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
         }
 
-        let pageFlip = null;
+        let pdfDoc     = null;
+        let pdfCurrent = 0;
+        let pdfTotal   = 0;
+        let rendering  = false;
+        let canvas     = null;
 
         async function abrirPDF(ruta, titulo) {
             document.getElementById('pdfTitulo').textContent = titulo;
@@ -775,145 +778,90 @@
 
             const loading   = document.getElementById('bookLoading');
             const container = document.getElementById('bookContainer');
-            loading.style.display  = 'flex';
-            loading.innerHTML = `
-                <div class="book-spinner"></div>
-                <span id="loadingText" style="color:rgba(255,255,255,0.7);font-size:0.9rem;">Cargando PDF…</span>`;
+            loading.style.display = 'flex';
+            loading.innerHTML = `<div class="book-spinner"></div>
+                <span style="color:rgba(255,255,255,0.7);font-size:0.9rem;">Cargando…</span>`;
             document.getElementById('pageInfo').textContent = '—';
             document.getElementById('btnPrev').disabled = true;
             document.getElementById('btnNext').disabled = true;
 
-            // Limpiar visor anterior
-            if (pageFlip) { try { pageFlip.destroy(); } catch(e){} pageFlip = null; }
+            if (pdfDoc) { pdfDoc.destroy(); pdfDoc = null; }
             container.innerHTML = '';
-            container.removeAttribute('style');
-
-            // Verificar librerías
-            if (typeof pdfjsLib === 'undefined') {
-                document.getElementById('loadingText').textContent =
-                    '⚠ PDF.js no disponible (requiere conexión a internet).';
-                return;
-            }
-            if (typeof St === 'undefined') {
-                document.getElementById('loadingText').textContent =
-                    '⚠ StPageFlip no disponible (requiere conexión a internet).';
-                return;
-            }
 
             try {
-                // Codificar espacios en la ruta
                 const rutaOk = ruta.replace(/ /g, '%20');
-
-                const pdfDoc = await pdfjsLib.getDocument({
+                pdfDoc = await pdfjsLib.getDocument({
                     url: rutaOk,
                     cMapUrl: 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/cmaps/',
                     cMapPacked: true,
                 }).promise;
 
-                const total = pdfDoc.numPages;
+                pdfTotal   = pdfDoc.numPages;
+                pdfCurrent = 1;
 
-                // ── Dimensiones fijas basadas en la ventana ──
-                const pageW = Math.min(Math.floor((window.innerWidth  - 160) / 2), 650);
-                const pageH = Math.min(Math.floor( window.innerHeight * 0.73),      730);
-
-                // Escala de render: 2.5× el tamaño de display para texto nítido
-                const fp     = await pdfDoc.getPage(1);
-                const baseVp = fp.getViewport({ scale: 1 });
-                const sc     = Math.max((pageW / baseVp.width) * 2.5, 2.0);
-
-                // ── Renderizar TODAS las páginas con barra de progreso ──
-                const srcs = [];
-                for (let i = 1; i <= total; i++) {
-                    document.getElementById('loadingText').textContent =
-                        `Procesando página ${i} de ${total}…`;
-                    const pg     = await pdfDoc.getPage(i);
-                    const vp     = pg.getViewport({ scale: sc });
-                    const cv     = document.createElement('canvas');
-                    cv.width     = vp.width;
-                    cv.height    = vp.height;
-                    const ctx    = cv.getContext('2d');
-                    ctx.imageSmoothingEnabled = true;
-                    ctx.imageSmoothingQuality = 'high';
-                    await pg.render({ canvasContext: ctx, viewport: vp }).promise;
-                    srcs.push(cv.toDataURL('image/jpeg', 0.94));
-                }
-
-                // ── Forzar tamaño del contenedor antes de crear el libro ──
-                container.style.cssText =
-                    `width:${pageW * 2}px; height:${pageH}px; margin:0 auto; display:block; overflow:hidden;`;
-
-                // ── Crear elementos de página con <img> ──
-                srcs.forEach(src => {
-                    const div = document.createElement('div');
-                    div.className = 'page';
-                    div.style.cssText = 'background:white; overflow:hidden;';
-                    const img = document.createElement('img');
-                    img.src = src;
-                    img.style.cssText = 'width:100%; height:100%; display:block; object-fit:fill;';
-                    div.appendChild(img);
-                    container.appendChild(div);
-                });
-
-                // ── Inicializar StPageFlip ──
-                pageFlip = new St.PageFlip(container, {
-                    width:               pageW,
-                    height:              pageH,
-                    size:                'fixed',
-                    autoSize:            false,
-                    drawShadow:          true,
-                    flippingTime:        650,
-                    maxShadowOpacity:    0.5,
-                    showCover:           true,
-                    mobileScrollSupport: false,
-                    useMouseEvents:      true,
-                    startPage:           0,
-                });
-
-                pageFlip.loadFromHTML(container.querySelectorAll('.page'));
-                pageFlip.on('flip', e => actualizarPagina(e.data));
-                actualizarPagina(0);
+                // Canvas reutilizable
+                canvas = document.createElement('canvas');
+                canvas.style.cssText = 'display:block; max-width:100%; max-height:100%; margin:0 auto; border-radius:4px; box-shadow:0 10px 40px rgba(0,0,0,0.5);';
+                container.style.cssText = 'width:100%; height:100%; display:flex; align-items:center; justify-content:center;';
+                container.appendChild(canvas);
 
                 loading.style.display = 'none';
-                document.getElementById('btnPrev').disabled = false;
-                document.getElementById('btnNext').disabled = false;
+                await renderPagina(pdfCurrent);
 
             } catch (err) {
-                console.error('Error al cargar PDF:', err);
+                console.error(err);
                 loading.innerHTML = `
                     <div style="text-align:center;padding:28px;">
                         <i class="bi bi-exclamation-circle" style="font-size:2.5rem;color:#e74c3c;display:block;margin-bottom:14px;"></i>
-                        <p style="color:rgba(255,255,255,0.8);margin-bottom:18px;">
-                            No se pudo cargar el visor.<br>
-                            <small style="opacity:0.6;">${err.message || ''}</small>
-                        </p>
-                        <a href="${ruta}" download class="btn-lib-dl" style="display:inline-flex;margin:0 auto 10px;">
-                            <i class="bi bi-download"></i> Descargar PDF
-                        </a><br>
-                        <button onclick="cerrarVisor()" class="btn-lib-cerrar" style="display:inline-flex;margin:0 auto;">
-                            Cerrar
-                        </button>
+                        <p style="color:rgba(255,255,255,0.8);margin-bottom:18px;">No se pudo cargar el PDF.<br><small style="opacity:0.6;">${err.message||''}</small></p>
+                        <a href="${ruta}" download class="btn-lib-dl" style="display:inline-flex;margin:0 auto 10px;"><i class="bi bi-download"></i> Descargar</a><br>
+                        <button onclick="cerrarVisor()" class="btn-lib-cerrar" style="display:inline-flex;margin:0 auto;">Cerrar</button>
                     </div>`;
             }
         }
 
-        function actualizarPagina(idx) {
-            if (!pageFlip) return;
-            const total = pageFlip.getPageCount();
-            document.getElementById('pageInfo').textContent =
-                `Página ${idx + 1} de ${total}`;
+        async function renderPagina(num) {
+            if (rendering || !pdfDoc) return;
+            rendering = true;
+            document.getElementById('btnPrev').disabled = true;
+            document.getElementById('btnNext').disabled = true;
+
+            const page = await pdfDoc.getPage(num);
+            const maxW = document.getElementById('bookContainer').offsetWidth  || (window.innerWidth  - 160);
+            const maxH = document.getElementById('bookContainer').offsetHeight || (window.innerHeight - 130);
+            const vpBase = page.getViewport({ scale: 1 });
+            const scale  = Math.min(maxW / vpBase.width, maxH / vpBase.height) * window.devicePixelRatio;
+            const vp     = page.getViewport({ scale });
+
+            canvas.width  = vp.width;
+            canvas.height = vp.height;
+            canvas.style.width  = (vp.width  / window.devicePixelRatio) + 'px';
+            canvas.style.height = (vp.height / window.devicePixelRatio) + 'px';
+
+            await page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise;
+
+            pdfCurrent = num;
+            document.getElementById('pageInfo').textContent = `Página ${num} de ${pdfTotal}`;
+            document.getElementById('btnPrev').disabled = num <= 1;
+            document.getElementById('btnNext').disabled = num >= pdfTotal;
+            rendering = false;
         }
 
-        function prevPage() { if (pageFlip) pageFlip.flipPrev('top'); }
-        function nextPage() { if (pageFlip) pageFlip.flipNext('top'); }
+        function prevPage() { if (pdfCurrent > 1)       renderPagina(pdfCurrent - 1); }
+        function nextPage() { if (pdfCurrent < pdfTotal) renderPagina(pdfCurrent + 1); }
 
         function cerrarVisor() {
             document.getElementById('pdfOverlay').style.display = 'none';
-            if (pageFlip) { try { pageFlip.destroy(); } catch(e){} pageFlip = null; }
             document.getElementById('bookContainer').innerHTML = '';
+            if (pdfDoc) { pdfDoc.destroy(); pdfDoc = null; }
             document.body.style.overflow = '';
         }
 
-        document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrarVisor(); });
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape')      cerrarVisor();
+            if (e.key === 'ArrowRight')  nextPage();
+            if (e.key === 'ArrowLeft')   prevPage();
+        });
         document.getElementById('pdfOverlay').addEventListener('click', function(e) {
             if (e.target === this) cerrarVisor();
         });

@@ -6,21 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ver Más - Cooperativa San Pedro</title>
 
-    <!-- =============================================
-         LIBRERÍAS EXTERNAS (CDN)
-    ============================================= -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
-
-    <!-- CSS del proyecto -->
     <link rel="stylesheet" href="../css/estilos.css">
 
     <style>
         * { font-family: 'Outfit', sans-serif; }
 
-        /* ===== HERO ===== */
         .hero-ver-mas {
             background: linear-gradient(135deg, #022d5e 0%, #033E81 50%, #0a5aad 100%);
             padding: 100px 0 80px;
@@ -37,8 +31,6 @@
             top: -150px; right: -100px;
         }
 
-        /* ===== TARJETA DEL EQUIPO ===== */
-        /* Tarjeta con foto, nombre y cargo */
         .team-card {
             background: white;
             border-radius: 20px;
@@ -53,7 +45,6 @@
             box-shadow: 0 20px 50px rgba(0,0,0,0.14);
         }
 
-        /* Zona de avatar con fondo gradiente */
         .team-avatar {
             height: 140px;
             display: flex;
@@ -63,7 +54,6 @@
             position: relative;
         }
 
-        /* Círculo de iniciales */
         .team-inicial {
             width: 90px;
             height: 90px;
@@ -78,12 +68,10 @@
             border: 3px solid rgba(255,255,255,0.4);
         }
 
-        /* Parte inferior de la tarjeta */
         .team-info {
             padding: 20px;
         }
 
-        /* ===== TARJETA DE RECONOCIMIENTO / PREMIO ===== */
         .premio-card {
             background: white;
             border-radius: 18px;
@@ -100,7 +88,6 @@
             box-shadow: 0 14px 40px rgba(0,0,0,0.12);
         }
 
-        /* Ícono del premio */
         .premio-icon {
             width: 60px;
             height: 60px;
@@ -112,8 +99,6 @@
             font-size: 1.6rem;
         }
 
-        /* ===== ALIANZAS ===== */
-        /* Logo de alianza con efecto grayscale al hover */
         .alianza-logo {
             background: white;
             border-radius: 16px;
@@ -131,7 +116,6 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.12);
         }
 
-        /* Nombre de la alianza en texto cuando no hay logo */
         .alianza-nombre {
             font-size: 1rem;
             font-weight: 700;
@@ -146,8 +130,6 @@
             margin-top: 4px;
         }
 
-        /* ===== RSE - RESPONSABILIDAD SOCIAL ===== */
-        /* Tarjeta de programa social */
         .rse-card {
             border-radius: 20px;
             overflow: hidden;
@@ -161,7 +143,6 @@
             box-shadow: 0 18px 50px rgba(0,0,0,0.14);
         }
 
-        /* Cabecera de color de cada programa RSE */
         .rse-header {
             padding: 35px 25px;
             text-align: center;
@@ -172,7 +153,6 @@
             padding: 25px;
         }
 
-        /* ===== ANIMACIÓN SCROLL REVEAL ===== */
         .reveal {
             opacity: 0;
             transform: translateY(30px);
@@ -193,9 +173,7 @@
 
 <body>
 
-    <!-- =============================================
-         HEADER - BARRA DE NAVEGACIÓN
-    ============================================= -->
+    <!-- HEADER -->
         <header class="main-header" id="mainHeader">
         <div class="header-inner">
 
@@ -296,9 +274,7 @@
         </div>
     </header>
 
-    <!-- =============================================
-         HERO - ENCABEZADO DE VER MÁS
-    ============================================= -->
+    <!-- HERO -->
     <section class="hero-ver-mas">
         <div class="container position-relative" style="z-index:2; text-align:center;">
             <span style="
@@ -324,10 +300,6 @@
         </div>
     </section>
 
-    <!-- =============================================
-         CONSEJO DE ADMINISTRACIÓN
-         Equipo directivo con tarjetas de perfil
-    ============================================= -->
     <section style="padding: 80px 0; background: #f8f9fa;">
         <div class="container">
 
@@ -341,10 +313,8 @@
                 </p>
             </div>
 
-            <!-- Grid de tarjetas de equipo -->
             <div class="row g-4 justify-content-center">
 
-                <!-- Presidente -->
                 <div class="col-md-6 col-lg-3 reveal delay-1">
                     <div class="team-card">
                         <div class="team-avatar" style="background: linear-gradient(135deg, #033E81, #033E81);">
@@ -360,7 +330,6 @@
                     </div>
                 </div>
 
-                <!-- Vicepresidente -->
                 <div class="col-md-6 col-lg-3 reveal delay-2">
                     <div class="team-card">
                         <div class="team-avatar" style="background: linear-gradient(135deg, #4EAE33, #7bd65a);">
@@ -376,7 +345,6 @@
                     </div>
                 </div>
 
-                <!-- Secretario -->
                 <div class="col-md-6 col-lg-3 reveal delay-3">
                     <div class="team-card">
                         <div class="team-avatar" style="background: linear-gradient(135deg, #4EAE33, #7bd65a);">
@@ -392,7 +360,6 @@
                     </div>
                 </div>
 
-                <!-- Gerente General -->
                 <div class="col-md-6 col-lg-3 reveal delay-4">
                     <div class="team-card">
                         <div class="team-avatar" style="background: linear-gradient(135deg, #b7950b, #4EAE33);">
@@ -412,10 +379,6 @@
         </div>
     </section>
 
-    <!-- =============================================
-         RECONOCIMIENTOS Y PREMIOS
-         Logros y certificaciones obtenidas
-    ============================================= -->
     <section style="padding: 80px 0; background: white;">
         <div class="container">
 
@@ -428,7 +391,6 @@
 
             <div class="row g-4">
 
-                <!-- Premio 1 -->
                 <div class="col-md-6 reveal">
                     <div class="premio-card">
                         <div class="premio-icon" style="background: rgba(243,156,18,0.1);">
@@ -445,7 +407,6 @@
                     </div>
                 </div>
 
-                <!-- Premio 2 -->
                 <div class="col-md-6 reveal delay-1">
                     <div class="premio-card">
                         <div class="premio-icon" style="background: rgba(13,110,253,0.1);">
@@ -462,7 +423,6 @@
                     </div>
                 </div>
 
-                <!-- Premio 3 -->
                 <div class="col-md-6 reveal">
                     <div class="premio-card">
                         <div class="premio-icon" style="background: rgba(78,174,51,0.1);">
@@ -479,7 +439,6 @@
                     </div>
                 </div>
 
-                <!-- Premio 4 -->
                 <div class="col-md-6 reveal delay-1">
                     <div class="premio-card">
                         <div class="premio-icon" style="background: rgba(3,62,129,0.10);">
@@ -500,10 +459,6 @@
         </div>
     </section>
 
-    <!-- =============================================
-         ALIANZAS ESTRATÉGICAS
-         Organizaciones con las que trabajamos
-    ============================================= -->
     <section style="padding: 80px 0; background: #f8f9fa;">
         <div class="container">
 
@@ -518,7 +473,6 @@
                 </p>
             </div>
 
-            <!-- Grid de aliados -->
             <div class="row g-4 justify-content-center">
 
                 <div class="col-6 col-md-4 col-lg-2 reveal">
@@ -579,10 +533,6 @@
         </div>
     </section>
 
-    <!-- =============================================
-         RESPONSABILIDAD SOCIAL EMPRESARIAL (RSE)
-         Programas de impacto comunitario
-    ============================================= -->
     <section style="padding: 80px 0; background: white;">
         <div class="container">
 
@@ -599,7 +549,6 @@
 
             <div class="row g-4">
 
-                <!-- RSE 1: Educación -->
                 <div class="col-md-6 col-lg-3 reveal delay-1">
                     <div class="rse-card">
                         <div class="rse-header" style="background: linear-gradient(135deg, #033E81, #033E81);">
@@ -617,7 +566,6 @@
                     </div>
                 </div>
 
-                <!-- RSE 2: Medio Ambiente -->
                 <div class="col-md-6 col-lg-3 reveal delay-2">
                     <div class="rse-card">
                         <div class="rse-header" style="background: linear-gradient(135deg, #4EAE33, #7bd65a);">
@@ -635,7 +583,6 @@
                     </div>
                 </div>
 
-                <!-- RSE 3: Educación Financiera -->
                 <div class="col-md-6 col-lg-3 reveal delay-3">
                     <div class="rse-card">
                         <div class="rse-header" style="background: linear-gradient(135deg, #b7950b, #4EAE33);">
@@ -653,7 +600,6 @@
                     </div>
                 </div>
 
-                <!-- RSE 4: Mujeres Emprendedoras -->
                 <div class="col-md-6 col-lg-3 reveal delay-4">
                     <div class="rse-card">
                         <div class="rse-header" style="background: linear-gradient(135deg, #4EAE33, #7bd65a);">
@@ -675,9 +621,6 @@
         </div>
     </section>
 
-    <!-- =============================================
-         CTA - CONTACTO FINAL
-    ============================================= -->
     <section style="padding: 80px 0; background: #f8f9fa;">
         <div class="container">
             <div class="reveal" style="
@@ -704,9 +647,7 @@
         </div>
     </section>
 
-    <!-- =============================================
-         FOOTER - PIE DE PÁGINA
-    ============================================= -->
+    <!-- FOOTER -->
     <footer id="contacto">
         <div style="background: white; line-height: 0;">
             <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg">
@@ -768,13 +709,11 @@
         </div>
     </footer>
 
-    <!-- SCRIPTS -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
     <script src="../js/script.js"></script>
 
     <script>
-        /* SCROLL REVEAL CON INTERSECTIONOBSERVER */
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) entry.target.classList.add('visible');

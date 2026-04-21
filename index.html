@@ -6,48 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cooperativa San Pedro</title>
 
-    <!-- =============================================
-         LIBRERÍAS EXTERNAS (CDN) jjjjjjjjjjjjj
-         Se cargan desde internet, no requieren instalación
-    ============================================= -->
-
-    <!-- Bootstrap CSS: Framework de diseño para estilos y componentes -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-
-    <!-- Bootstrap JS: Necesario para componentes interactivos de Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-
-    <!-- Bootstrap Icons: Librería de íconos para usar con clase "bi bi-nombre" -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-
-    <!-- =============================================
-         ESTILOS PROPIOS DEL PROYECTO
-         Archivo CSS personalizado de la Cooperativa
-    ============================================= -->
     <link rel="stylesheet" href="css/estilos.css">
 
 </head>
 
 <body>
 
-    <!-- =============================================
-         HEADER - BARRA DE NAVEGACIÓN PRINCIPAL
-         Contiene: Logo, menú de navegación y buscador
-    ============================================= -->
+    <!-- HEADER -->
     <header class="main-header" id="mainHeader">
         <div class="header-inner">
 
-            <!-- LOGO -->
             <a href="index.html" class="header-logo">
                 <img src="image/Logo Cooperativa - Blanco.png" alt="Cooperativa San Pedro">
             </a>
 
-            <!-- HAMBURGER (mobile) -->
             <button class="nav-toggle" id="navToggle" aria-label="Menú">
                 <span></span><span></span><span></span>
             </button>
 
-            <!-- NAV PRINCIPAL -->
             <nav class="main-nav" id="mainNav">
                 <ul class="nav-list">
 
@@ -55,7 +34,6 @@
                         <a href="index.html" class="nav-link">Inicio</a>
                     </li>
 
-                    <!-- Puntos de Servicio -->
                     <li class="nav-item has-dropdown">
                         <a href="#" class="nav-link" onclick="return false">
                             Puntos de Servicio <i class="bi bi-chevron-down nav-arrow"></i>
@@ -78,7 +56,6 @@
                         </div>
                     </li>
 
-                    <!-- Productos y Servicios -->
                     <li class="nav-item has-dropdown">
                         <a href="#" class="nav-link" onclick="return false">
                             Productos y Servicios <i class="bi bi-chevron-down nav-arrow"></i>
@@ -105,7 +82,6 @@
                         </div>
                     </li>
 
-                    <!-- Nosotros -->
                     <li class="nav-item has-dropdown">
                         <a href="#" class="nav-link" onclick="return false">
                             Nosotros <i class="bi bi-chevron-down nav-arrow"></i>
@@ -159,7 +135,6 @@
                 </ul>
             </nav>
 
-            <!-- BUSCADOR -->
             <div class="header-search">
                 <input type="text" class="search-input" id="searchInput" placeholder="Buscar...">
                 <button class="search-btn" onclick="toggleSearch()">
@@ -170,8 +145,8 @@
         </div>
     </header>
 
-      
-       <!-- ===== FRASE IMPACTO ===== -->
+
+       <!-- FRASE IMPACTO -->
         <section id="frase-impacto" style="
             position: relative;
             padding: 70px 20px;
@@ -179,13 +154,11 @@
             overflow: hidden;
             background: #033E81;">
 
-            <!-- Círculos animados de fondo -->
             <div class="circulo-fondo c1"></div>
             <div class="circulo-fondo c2"></div>
             <div class="circulo-fondo c3"></div>
             <div class="circulo-fondo c4"></div>
 
-            <!-- Contenido -->
             <div style="position: relative; z-index: 2;">
                 <p class="frase-subtitulo">Cooperativa San Pedro</p>
                 <h1 class="frase-principal" id="fraseTexto"></h1>
@@ -194,67 +167,36 @@
         </section>
 
 
-    <!-- =============================================
-         SECCIÓN CARRUSEL 3D
-         Muestra imágenes con efecto de profundidad 3D
-         Se mueve automáticamente cada 4 segundos
-    ============================================= -->
+    <!-- CARRUSEL 3D -->
     <section class="py-5" style="background: #f8f9fa; overflow: hidden;">
-        <!-- overflow: hidden: evita que las tarjetas laterales se salgan del contenedor -->
         <div class="container">
             <div class="carousel-3d-wrapper">
-                <!-- carousel-3d-wrapper: contenedor principal con perspectiva 3D, definido en estilos.css -->
-
                 <div class="carousel-3d" id="carousel3d">
-                    <!-- carousel-3d: contenedor interno de las tarjetas -->
-
-                    <!-- SLIDE 1 - Tarjeta activa (visible al centro) -->
                     <div class="card-3d active">
-                        <!-- active: clase que posiciona esta tarjeta al frente y centro -->
                         <img src="image/carru1.jpeg" alt="Slide 1">
-                        
                     </div>
-
-                    <!-- SLIDE 2 - Tarjeta siguiente (visible a la derecha, más pequeña) -->
                     <div class="card-3d next">
-                        <!-- next: clase que posiciona esta tarjeta a la derecha con efecto 3D -->
                         <img src="image/carru2.jpeg" alt="Slide 2">
-                        
                     </div>
-
-                    <!-- SLIDE 3 - Tarjeta anterior (visible a la izquierda, más pequeña) -->
                     <div class="card-3d prev">
-                        <!-- prev: clase que posiciona esta tarjeta a la izquierda con efecto 3D -->
                         <img src="image/carru3.jpeg" alt="Slide 3">
-                        
                     </div>
-
                 </div>
-
-                <!-- BOTONES DE NAVEGACIÓN MANUAL -->
                 <button class="btn-3d-prev">&#10094;</button>
-                <!-- &#10094; es el símbolo de flecha izquierda ❮ -->
                 <button class="btn-3d-next">&#10095;</button>
-                <!-- &#10095; es el símbolo de flecha derecha ❯ -->
-
-                <!-- PUNTOS INDICADORES DE POSICIÓN -->
                 <div class="dots-3d">
-                    <!-- Cada punto corresponde a un slide, el activo se resalta -->
-                    <span class="dot-3d active"></span> <!-- Punto slide 1 -->
-                    <span class="dot-3d"></span>         <!-- Punto slide 2 -->
-                    <span class="dot-3d"></span>         <!-- Punto slide 3 -->
+                    <span class="dot-3d active"></span>
+                    <span class="dot-3d"></span>
+                    <span class="dot-3d"></span>
                 </div>
-
             </div>
         </div>
     </section>
 
 
 
-    <!-- ===== SECCIÓN ESTADÍSTICAS ===== -->
+    <!-- ESTADÍSTICAS -->
         <section class="stats-section">
-
-            <!-- Ola decorativa arriba -->
             <div style="line-height: 0; margin-bottom: -2px;">
                 <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg">
                     <path fill="#033E81" d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z"/>
@@ -269,7 +211,6 @@
 
                     <div class="row g-4 text-center">
 
-                        <!-- Stat 1 -->
                         <div class="col-6 col-md-3">
                             <div class="stat-card">
                                 <div class="stat-icono">👥</div>
@@ -278,7 +219,6 @@
                             </div>
                         </div>
 
-                        <!-- Stat 2 -->
                         <div class="col-6 col-md-3">
                             <div class="stat-card">
                                 <div class="stat-icono">🏢</div>
@@ -287,7 +227,6 @@
                             </div>
                         </div>
 
-                        <!-- Stat 3 -->
                         <div class="col-6 col-md-3">
                             <div class="stat-card">
                                 <div class="stat-icono">📅</div>
@@ -296,7 +235,6 @@
                             </div>
                         </div>
 
-                        <!-- Stat 4 -->
                         <div class="col-6 col-md-3">
                             <div class="stat-card">
                                 <div class="stat-icono">💰</div>
@@ -309,7 +247,6 @@
                 </div>
             </div>
 
-            <!-- Ola decorativa abajo -->
             <div style="line-height: 0; margin-top: -2px;">
                 <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg">
                     <path fill="#033E81" d="M0,30 C360,0 1080,60 1440,30 L1440,0 L0,0 Z"/>
@@ -335,32 +272,23 @@
    
 
 
-    <!-- =============================================
-         FOOTER - PIE DE PÁGINA
-         Contiene: info de la cooperativa, enlaces y contacto
-    ============================================= -->
-    <!-- ===== FOOTER MEJORADO ===== -->
+    <!-- FOOTER -->
     <footer id="contacto">
-
-        <!-- Ola decorativa arriba del footer -->
         <div style="background: white; line-height: 0;">
             <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg">
                 <path fill="#033E81" d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z"/>
             </svg>
         </div>
 
-        <!-- Contenido principal del footer -->
         <div style="background: linear-gradient(135deg, #033E81 0%, #033E81 50%, #033E81 100%); padding: 60px 0 30px;">
             <div class="container">
                 <div class="row g-4 mb-5">
 
-                    <!-- COLUMNA 1: Logo y descripción -->
                     <div class="col-md-4">
                         <img src="image/Logo Cooperativa - Blanco.png" height="45" alt="Logo" class="mb-3">
                         <p style="color: #a8c4e0; line-height: 1.8;">
                             Tu cooperativa de confianza, comprometida con tu bienestar financiero y el desarrollo de nuestra comunidad.
                         </p>
-                        <!-- Redes sociales -->
                         <div class="d-flex gap-3 mt-3">
                             <a href="#" style="
                                 width: 38px; height: 38px;
@@ -392,7 +320,6 @@
                         </div>
                     </div>
 
-                    <!-- COLUMNA 2: Enlaces rápidos -->
                     <div class="col-md-2 offset-md-1">
                         <h6 style="color: #4fc3f7; font-weight: bold; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px;">
                             Enlaces
@@ -409,7 +336,6 @@
                         </ul>
                     </div>
 
-                    <!-- COLUMNA 3: Servicios -->
                     <div class="col-md-2">
                         <h6 style="color: #4fc3f7; font-weight: bold; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px;">
                             Servicios
@@ -424,7 +350,6 @@
                         </ul>
                     </div>
 
-                    <!-- COLUMNA 4: Contacto -->
                     <div class="col-md-3">
                         <h6 style="color: #4fc3f7; font-weight: bold; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px;">
                             Contacto
@@ -465,10 +390,7 @@
 
                 </div>
 
-                <!-- Línea separadora -->
                 <hr style="border-color: rgba(255,255,255,0.1); margin-bottom: 25px;">
-
-                <!-- Derechos de autor -->
                 <div class="d-flex flex-wrap justify-content-between align-items-center">
                     <p style="color: #a8c4e0; margin: 0; font-size: 14px;">
                         © 2024 Cooperativa San Pedro. Todos los derechos reservados.
@@ -482,18 +404,8 @@
     </footer>
 
 
-    <!-- =============================================
-         SCRIPTS AL FINAL DEL BODY
-         Se cargan al final para que el HTML ya esté listo
-    ============================================= -->
-
-    <!-- Popper.js: requerido por algunos componentes de Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
-
-    <!-- Bootstrap JS adicional -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
-
-    <!-- Script propio del proyecto: buscador y carrusel 3D -->
     <script src="js/script.js"></script>
 
 </body>
