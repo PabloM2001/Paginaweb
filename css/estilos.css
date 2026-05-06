@@ -203,7 +203,7 @@
     100% { filter: drop-shadow(0 0 2px rgba(255,255,255,0.2)); }
 }
 
-.main-header {
+.jagel {
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -220,7 +220,7 @@
     object-position: center;
 }
 
-.main-header.scrolled {
+.jagel.scrolled {
     background: rgba(3,62,129,0.97);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
@@ -237,7 +237,7 @@
     transition: height 0.3s ease;
 }
 
-.main-header.scrolled .header-inner { height: 56px; }
+.jagel.scrolled .header-inner { height: 56px; }
 
 .header-logo img {
     height: 40px;
@@ -246,7 +246,7 @@
     animation: pulso 3s infinite;
 }
 
-.main-header.scrolled .header-logo img { height: 34px; }
+.jagel.scrolled .header-logo img { height: 34px; }
 
 .header-logo img:hover {
     animation: none;
@@ -422,11 +422,11 @@
 .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 @media (max-width: 992px) {
-    .main-header { padding: 0 16px; }
+    .jagel { padding: 0 16px; }
     .nav-toggle  { display: flex; }
 
     .header-logo img { height: 32px; }
-    .main-header.scrolled .header-logo img { height: 28px; }
+    .jagel.scrolled .header-logo img { height: 28px; }
 
     .main-nav {
         position: absolute;
@@ -1074,10 +1074,10 @@ footer .bi-whatsapp:hover { background: rgba(255,255,255,0.25) !important; trans
 }
 
 @media (max-width: 768px) {
-    .main-header { padding: 0 12px; }
+    .jagel { padding: 0 12px; }
     .header-inner { height: 60px; }
     .header-logo img { height: 28px; }
-    .main-header.scrolled .header-logo img { height: 24px; }
+    .jagel.scrolled .header-logo img { height: 24px; }
     .search-input.active { width: 140px; font-size: 13px; }
     .frase-subtitulo { letter-spacing: 2px; font-size: 0.75rem; }
     .frase-principal { font-size: 1.4rem; min-height: 70px; line-height: 1.5; }
@@ -1125,10 +1125,10 @@ footer .bi-whatsapp:hover { background: rgba(255,255,255,0.25) !important; trans
 }
 
 @media (max-width: 480px) {
-    .main-header { padding: 0 10px; }
+    .jagel { padding: 0 10px; }
     .header-inner { height: 56px; }
     .header-logo img { height: 24px; }
-    .main-header.scrolled .header-logo img { height: 22px; }
+    .jagel.scrolled .header-logo img { height: 22px; }
     .search-input.active { width: 120px; font-size: 12px; padding: 6px 10px; }
     .frase-principal { font-size: 1.15rem; min-height: 60px; }
     .frase-subtitulo { letter-spacing: 1.5px; font-size: 0.7rem; }

@@ -16,7 +16,7 @@
 <body>
 
     <!-- HEADER -->
-    <header class="main-header" id="mainHeader">
+    <header class="jagel" id="mainHeader">
         <div class="header-inner">
 
             <a href="index.html" class="header-logo">
@@ -77,7 +77,7 @@
                             </a>
                             <a href="pages/tarjeta-credito.html" class="drop-link">
                                 <div class="drop-icon" style="background:rgba(3,62,129,0.1);color:#033E81;"><i class="bi bi-credit-card-fill"></i></div>
-                                <div><span class="drop-title">Tarjeta de Crédito</span><span class="drop-sub">Paga con facilidad</span></div>
+                                <div><span class="drop-title">Tarjetas Micoope</span><span class="drop-sub">Crédito y Débito VISA</span></div>
                             </a>
                         </div>
                     </li>
@@ -167,6 +167,51 @@
         </section>
 
 
+    <!-- VIDEO -->
+    <section style="background:linear-gradient(135deg,#022d5e,#033E81);padding:70px 0;">
+        <div class="container">
+
+            <!-- Texto superior -->
+            <div style="text-align:center;margin-bottom:36px;">
+                <h2 style="color:white;font-size:clamp(1.8rem,4vw,3rem);font-weight:900;margin-bottom:10px;">
+                    71 años <span style="color:#4fc3f7;">construyendo juntos</span>
+                </h2>
+                <p style="color:rgba(255,255,255,0.65);font-size:1rem;max-width:520px;margin:0 auto;">
+                    Conoce la historia y el trabajo de nuestra cooperativa al servicio de la comunidad.
+                </p>
+            </div>
+
+            <!-- Marco del video -->
+            <div style="max-width:1100px;margin:0 auto;position:relative;">
+                <!-- Borde decorativo -->
+                <div style="position:absolute;inset:-8px;border-radius:28px;background:linear-gradient(135deg,#4fc3f7,#4EAE33,#4fc3f7);opacity:0.5;z-index:0;"></div>
+                <!-- Contenedor video -->
+                <div style="position:relative;z-index:1;background:#000;border-radius:22px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,0.5);">
+                    <video id="videoCoope" autoplay muted loop playsinline
+                           style="width:100%;height:auto;max-height:600px;object-fit:cover;display:block;">
+                        <source src="image/71.mp4" type="video/mp4">
+                    </video>
+                    <!-- Botón mute/unmute -->
+                    <button id="btnMute" onclick="toggleMute()" style="
+                        position:absolute;bottom:18px;right:18px;
+                        background:rgba(0,0,0,0.55);
+                        border:2px solid rgba(255,255,255,0.35);
+                        color:white;border-radius:50px;
+                        padding:8px 18px;cursor:pointer;
+                        font-size:0.85rem;font-weight:600;
+                        display:flex;align-items:center;gap:8px;
+                        backdrop-filter:blur(6px);
+                        transition:all 0.3s ease;
+                        z-index:10;">
+                        <i class="bi bi-volume-mute-fill" id="iconMute"></i>
+                        <span id="labelMute">Activar audio</span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
     <!-- CARRUSEL 3D -->
     <section class="py-5" style="background: #f8f9fa; overflow: hidden;">
         <div class="container">
@@ -230,7 +275,7 @@
                         <div class="col-6 col-md-3">
                             <div class="stat-card">
                                 <div class="stat-icono">📅</div>
-                                <h3 class="stat-numero" data-target="70">0</h3>
+                                <h3 class="stat-numero" data-target="71">0</h3>
                                 <p class="stat-label">Años de experiencia</p>
                             </div>
                         </div>
@@ -407,6 +452,21 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
     <script src="js/script.js"></script>
+    <script>
+        function toggleMute() {
+            const video = document.getElementById('videoCoope');
+            const icon  = document.getElementById('iconMute');
+            const label = document.getElementById('labelMute');
+            video.muted = !video.muted;
+            if (video.muted) {
+                icon.className  = 'bi bi-volume-mute-fill';
+                label.textContent = 'Activar audio';
+            } else {
+                icon.className  = 'bi bi-volume-up-fill';
+                label.textContent = 'Silenciar';
+            }
+        }
+    </script>
 
 </body>
 </html>

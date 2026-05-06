@@ -1,18 +1,18 @@
 /* 1. BUSCADOR */
-const _base = window.location.pathname.includes('/pages/') ? '../' : '';
+const jagel = window.location.pathname.includes('/pages/') ? '../' : '';
 
 const SEARCH_INDEX = [
-    { label: 'Inicio',              url: _base + 'index.html',                   keywords: ['inicio', 'home', 'principal', 'bienvenido'] },
-    { label: 'Quiénes Somos',       url: _base + 'pages/about.html',              keywords: ['quienes somos', 'quiénes somos', 'nosotros', 'cooperativa', 'sobre'] },
-    { label: 'Historia',            url: _base + 'pages/historia.html',           keywords: ['historia', 'fundacion', 'fundación', 'origen', 'años'] },
-    { label: 'Misión y Visión',     url: _base + 'pages/mision-vision.html',      keywords: ['mision', 'misión', 'vision', 'visión', 'valores', 'objetivos'] },
-    { label: 'Ahorro',              url: _base + 'pages/ahorro.html',             keywords: ['ahorro', 'ahorros', 'cuenta', 'deposito', 'depósito', 'ahorrar'] },
-    { label: 'Préstamos',           url: _base + 'pages/prestamos.html',          keywords: ['prestamo', 'préstamo', 'prestamos', 'préstamos', 'credito', 'crédito', 'financiamiento', 'fianza'] },
-    { label: 'Tarjeta de Crédito',  url: _base + 'pages/tarjeta-credito.html',    keywords: ['tarjeta', 'credito', 'crédito', 'visa', 'tarjeta de credito', 'tarjeta de crédito'] },
-    { label: 'Agencias',            url: _base + 'pages/agencias.html',           keywords: ['agencia', 'agencias', 'sucursal', 'sucursales', 'oficina', 'ubicacion', 'ubicación'] },
-    { label: 'Agentes',             url: _base + 'pages/agentes.html',            keywords: ['agente', 'agentes', 'corresponsal', 'corresponsales', 'punto de servicio'] },
-    { label: 'Contáctanos',         url: _base + 'pages/contactanos.html',        keywords: ['contacto', 'contactanos', 'contáctanos', 'telefono', 'teléfono', 'correo', 'escribir', 'comunicar'] },
-    { label: 'Memoria de Labores',  url: _base + 'pages/memoria-labores.html',    keywords: ['memoria', 'labores', 'memoria de labores', 'informe', 'reporte', 'anual'] },
+    { label: 'Inicio',              url: jagel + 'index.html',                   keywords: ['inicio', 'home', 'principal', 'bienvenido'] },
+    { label: 'Quiénes Somos',       url: jagel + 'pages/about.html',              keywords: ['quienes somos', 'quiénes somos', 'nosotros', 'cooperativa', 'sobre'] },
+    { label: 'Historia',            url: jagel + 'pages/historia.html',           keywords: ['historia', 'fundacion', 'fundación', 'origen', 'años'] },
+    { label: 'Misión y Visión',     url: jagel + 'pages/mision-vision.html',      keywords: ['mision', 'misión', 'vision', 'visión', 'valores', 'objetivos'] },
+    { label: 'Ahorro',              url: jagel + 'pages/ahorro.html',             keywords: ['ahorro', 'ahorros', 'cuenta', 'deposito', 'depósito', 'ahorrar'] },
+    { label: 'Préstamos',           url: jagel + 'pages/prestamos.html',          keywords: ['prestamo', 'préstamo', 'prestamos', 'préstamos', 'credito', 'crédito', 'financiamiento', 'fianza'] },
+    { label: 'Tarjeta de Crédito',  url: jagel + 'pages/tarjeta-credito.html',    keywords: ['tarjeta', 'credito', 'crédito', 'visa', 'tarjeta de credito', 'tarjeta de crédito'] },
+    { label: 'Agencias',            url: jagel + 'pages/agencias.html',           keywords: ['agencia', 'agencias', 'sucursal', 'sucursales', 'oficina', 'ubicacion', 'ubicación'] },
+    { label: 'Agentes',             url: jagel + 'pages/agentes.html',            keywords: ['agente', 'agentes', 'corresponsal', 'corresponsales', 'punto de servicio'] },
+    { label: 'Contáctanos',         url: jagel + 'pages/contactanos.html',        keywords: ['contacto', 'contactanos', 'contáctanos', 'telefono', 'teléfono', 'correo', 'escribir', 'comunicar'] },
+    { label: 'Memoria de Labores',  url: jagel + 'pages/memoria-labores.html',    keywords: ['memoria', 'labores', 'memoria de labores', 'informe', 'reporte', 'anual'] },
 ];
 
 function buscarEnIndice(query) {
