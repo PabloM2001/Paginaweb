@@ -19,6 +19,7 @@
          ESTILOS PROPIOS — ruta corregida ../css/
     ============================================= -->
     <link rel="stylesheet" href="../css/estilos.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 
     <style>
         /* Fuente global */
@@ -164,6 +165,10 @@
                                 <div class="drop-icon" style="background:rgba(3,62,129,0.1);color:#033E81;"><i class="bi bi-credit-card-fill"></i></div>
                                 <div><span class="drop-title">Tarjetas Micoope</span><span class="drop-sub">Crédito y Débito VISA</span></div>
                             </a>
+                            <a href="./cotizador.html" class="drop-link">
+                                <div class="drop-icon" style="background:rgba(78,174,51,0.12);color:#4EAE33;"><i class="bi bi-calculator"></i></div>
+                                <div><span class="drop-title">Cotizador</span><span class="drop-sub">Simula tu crédito</span></div>
+                            </a>
                         </div>
                     </li>
 
@@ -172,10 +177,7 @@
                             Nosotros <i class="bi bi-chevron-down nav-arrow"></i>
                         </a>
                         <div class="nav-dropdown">
-                            <a href="./about.html" class="drop-link">
-                                <div class="drop-icon"><i class="bi bi-people-fill"></i></div>
-                                <div><span class="drop-title">Quienes somos</span><span class="drop-sub">Nuestra cooperativa</span></div>
-                            </a>
+                            
                             <a href="./mision-vision.html" class="drop-link">
                                 <div class="drop-icon"><i class="bi bi-eye-fill"></i></div>
                                 <div><span class="drop-title">Mision y Vision</span><span class="drop-sub">Nuestros valores</span></div>
@@ -202,6 +204,30 @@
                         </a>
                     </li>
 
+                    <li class="nav-item" style="position:relative;">
+                        <a href="https://micoopeenlinea.com.gt/Retail/servletcontroller" target="_blank"
+                           style="display:inline-flex;align-items:center;justify-content:center;margin-left:6px;width:42px;height:42px;border-radius:50%;text-decoration:none;background:white;border:2px solid rgba(255,255,255,0.3);transition:all 0.3s;box-shadow:0 2px 8px rgba(0,0,0,0.15);overflow:hidden;"
+                           onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 18px rgba(0,0,0,0.25)';this.nextElementSibling.style.opacity='1';this.nextElementSibling.style.transform='translateX(-50%) translateY(0)'"
+                           onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,0.15)';this.nextElementSibling.style.opacity='0';this.nextElementSibling.style.transform='translateX(-50%) translateY(-6px)'">
+                            <img src="../image/logo-micoope-enlinea.png" alt="Micoope En Línea" height="30" style="display:block;">
+                        </a>
+                        <span style="position:absolute;bottom:-34px;left:50%;transform:translateX(-50%) translateY(-6px);background:#033E81;color:white;font-size:0.75rem;font-weight:600;padding:4px 10px;border-radius:6px;white-space:nowrap;opacity:0;transition:all 0.25s;pointer-events:none;z-index:999;">
+                            Micoope En Línea
+                        </span>
+                    </li>
+
+                    <li class="nav-item" style="position:relative;">
+                        <a href="https://soyfri.com/" target="_blank"
+                           style="display:inline-flex;align-items:center;justify-content:center;margin-left:6px;width:42px;height:42px;border-radius:50%;text-decoration:none;background:white;border:2px solid rgba(255,255,255,0.3);transition:all 0.3s;box-shadow:0 2px 8px rgba(0,0,0,0.15);overflow:hidden;"
+                           onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 18px rgba(0,0,0,0.25)';this.nextElementSibling.style.opacity='1';this.nextElementSibling.style.transform='translateX(-50%) translateY(0)'"
+                           onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,0.15)';this.nextElementSibling.style.opacity='0';this.nextElementSibling.style.transform='translateX(-50%) translateY(-6px)'">
+                            <img src="../image/logo-fri.png" alt="FRI" height="30" style="display:block;">
+                        </a>
+                        <span style="position:absolute;bottom:-34px;left:50%;transform:translateX(-50%) translateY(-6px);background:#033E81;color:white;font-size:0.75rem;font-weight:600;padding:4px 10px;border-radius:6px;white-space:nowrap;opacity:0;transition:all 0.25s;pointer-events:none;z-index:999;">
+                            Soy FRI
+                        </span>
+                    </li>
+
                 </ul>
             </nav>
 
@@ -219,7 +245,7 @@
          HERO — Encabezado de la sección de Agencias
          Partículas animadas + título + estadísticas
     ============================================= -->
-    <section class="hero">
+    <section class="hero" style="min-height:620px;display:flex;align-items:center;padding:100px 0 60px;">
         <!-- Partículas animadas de fondo -->
         <div class="particula p1"></div>
         <div class="particula p2"></div>
@@ -227,21 +253,26 @@
         <div class="particula p4"></div>
         <div class="particula p5"></div>
 
-        <div class="hero-content">
-        
-            <!-- Título principal -->
-            <h1 class="hero-titulo">
-                <span class="linea1">Nuestras</span>
-                <span class="linea2">Agencias</span>
-            </h1>
-            <p class="hero-subtitulo">
-                8 agencias en Huehuetenango para atenderte donde nos necesitas.
-                Encuentre su agencia más cercana y visítenos.
-            </p>
-            <!-- Estadísticas rápidas animadas -->
-        </div>
+        <div class="container" style="position:relative;z-index:2;width:100%;">
+            <div class="row align-items-center g-5">
 
-        
+                <!-- Columna izquierda: Título -->
+                <div class="col-lg-4" style="margin-top:-80px;">
+                    <h1 class="hero-titulo" style="text-align:left;margin-bottom:16px;font-size:clamp(3.2rem,6vw,5.5rem);">
+                        <span class="linea1">Nuestras</span>
+                        <span class="linea2">Agencias</span>
+                    </h1>
+                </div>
+
+                <!-- Columna derecha: Mapa -->
+                <div class="col-lg-8">
+                    <div style="border-radius:20px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.3);">
+                        <div id="mapaAgencias" style="height:460px;width:100%;"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </section>
 
     <!-- =============================================
@@ -901,7 +932,7 @@
 
                 <hr style="border-color:rgba(255,255,255,0.1); margin-bottom:25px;">
                 <p style="color:#a8c4e0; margin:0; font-size:14px; text-align:center;">
-                    © 2024 Cooperativa San Pedro. Todos los derechos reservados.
+                    © 2026 Cooperativa San Pedro. Todos los derechos reservados.
                 </p>
 
             </div>
@@ -914,6 +945,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
     <script src="../js/script.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
     <script>
         /* =============================================
@@ -937,7 +969,62 @@
         }, { threshold: 0.15 });
 
         document.querySelectorAll('.timeline-item').forEach(el => tlObserver.observe(el));
+
+        /* =============================================
+           MAPA INTERACTIVO — Leaflet + OpenStreetMap
+        ============================================= */
+        window.addEventListener('load', function () {
+            var mapa = L.map('mapaAgencias', { scrollWheelZoom: true });
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                maxZoom: 19
+            }).addTo(mapa);
+
+            setTimeout(function () { mapa.invalidateSize(); }, 400);
+
+            var iconoAgencia = L.icon({
+                iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
+                iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
+                shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                shadowSize: [41, 41]
+            });
+
+            var agencias = [
+                { nombre: 'Agencia Central', dir: 'San Pedro Soloma, Huehuetenango.', tel: 'PBX 7963-2828', lat: 15.6591349, lng: -91.4320282, url: 'https://maps.app.goo.gl/mTiRWRgamkR8RK82A' },
+                { nombre: 'Agencia Santa Eulalia', dir: 'Santa Eulalia, Huehuetenango.', tel: 'PBX 7963-2800', lat: 15.7204, lng: -91.4703, url: 'https://maps.app.goo.gl/t4CHzepnHpG5XZ7r7' },
+                { nombre: 'Agencia Santa Cruz Barillas', dir: 'Santa Cruz Barillas, Huehuetenango.', tel: 'PBX 7963-2888', lat: 15.8024603, lng: -91.3150502, url: 'https://www.google.com/maps/place/Cooperativa+San+Pedro+R.L./@15.8024603,-91.3150502,21z' },
+                { nombre: 'Agencia Huehuetenango', dir: '3a Calle 6-47, Z.1, Huehuetenango.', tel: 'PBX 7963-2844', lat: 15.3213583, lng: -91.4685809, url: 'https://www.google.com/maps/place/3a+Calle+5b,+Huehuetenango/@15.3213583,-91.4685809,21z' },
+                { nombre: 'Agencia San Miguel Acatán', dir: 'San Miguel Acatán, Huehuetenango.', tel: 'PBX 7963-2850', lat: 15.7119, lng: -91.6290, url: 'https://maps.app.goo.gl/zKAFBcza5i3nJdwBA' },
+                { nombre: 'Agencia Mayaland', dir: 'Alde Mayaland, Playa Grande Ixcan, Quiche', tel: 'PBX 7963-2890', lat: 15.9820, lng: -90.7058 },
+                { nombre: "Agencia Centro Comercial Tz'uluma", dir: "Centro Comercial Tz'uluma, San Pedro Soloma", tel: 'PBX 7963-2820', lat: 15.6602, lng: -91.4308 },
+                { nombre: 'Agencia Playa Grande', dir: 'Playa Grade Ixcan, Quiche', tel: 'PBX 7963-2870', lat: 15.9967, lng: -90.7178 }
+            ];
+
+            var bounds = [];
+            agencias.forEach(function (ag) {
+                bounds.push([ag.lat, ag.lng]);
+                L.marker([ag.lat, ag.lng], { icon: iconoAgencia })
+                    .addTo(mapa)
+                    .bindPopup(
+                        '<div style="font-family:sans-serif;min-width:200px;padding:4px 2px;">' +
+                        '<div style="font-weight:800;color:#033E81;font-size:0.95rem;margin-bottom:4px;">' + ag.nombre + '</div>' +
+                        '<div style="color:#555;font-size:0.82rem;margin-bottom:2px;">&#128205; ' + ag.dir + '</div>' +
+                        '<div style="color:#555;font-size:0.82rem;margin-bottom:10px;">&#128222; ' + ag.tel + '</div>' +
+                        '<a href="' + (ag.url || 'https://www.google.com/maps?q=' + ag.lat + ',' + ag.lng) + '" target="_blank" style="display:inline-block;background:#4EAE33;color:white;padding:6px 16px;border-radius:50px;text-decoration:none;font-size:0.8rem;font-weight:700;">Ver en mapa &rarr;</a>' +
+                        '</div>',
+                        { maxWidth: 260 }
+                    );
+            });
+
+            mapa.fitBounds(bounds, { padding: [40, 40] });
+        });
     </script>
 
 </body>
 </html>
+
+

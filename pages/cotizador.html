@@ -1,0 +1,709 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="icon" type="image/png" href="../image/Imagotipo Vertical Original.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cotizador - Cooperativa San Pedro</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/estilos.css">
+
+    <style>
+        * { font-family: 'Outfit', sans-serif; }
+
+        .hero-cotizador {
+            background: linear-gradient(135deg, #033E81 0%, #022d5e 100%);
+            padding: 100px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-cotizador::before {
+            content: '';
+            position: absolute;
+            width: 450px; height: 450px;
+            background: rgba(79,195,247,0.07);
+            border-radius: 50%;
+            top: -120px; right: -120px;
+        }
+        .hero-cotizador::after {
+            content: '';
+            position: absolute;
+            width: 300px; height: 300px;
+            background: rgba(78,174,51,0.06);
+            border-radius: 50%;
+            bottom: -80px; left: -80px;
+        }
+
+        .cotizador-card {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(3,62,129,0.12);
+            overflow: hidden;
+        }
+
+        .cotizador-sidebar {
+            background: linear-gradient(180deg, #033E81 0%, #022d5e 100%);
+            padding: 40px 30px;
+            color: white;
+        }
+
+        .cotizador-form {
+            padding: 28px 32px;
+        }
+
+        .campo-label {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: #444;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .campo-input {
+            width: 100%;
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.92rem;
+            color: #333;
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .campo-input:focus {
+            border-color: #033E81;
+            box-shadow: 0 0 0 3px rgba(3,62,129,0.1);
+            background: white;
+        }
+
+        .range-wrap { position: relative; }
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            accent-color: #033E81;
+            cursor: pointer;
+        }
+
+        .btn-calcular {
+            width: 100%;
+            background: linear-gradient(135deg, #4EAE33, #3c9228);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 12px;
+            font-size: 0.97rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 6px;
+        }
+        .btn-calcular:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(78,174,51,0.4);
+        }
+
+        .resultado-box {
+            display: none;
+            background: linear-gradient(135deg, #033E81, #022d5e);
+            border-radius: 18px;
+            padding: 30px;
+            margin-top: 24px;
+            color: white;
+        }
+        .resultado-box.visible { display: block; }
+
+        .res-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .res-item:last-child { border-bottom: none; }
+        .res-label { color: rgba(255,255,255,0.7); font-size: 0.9rem; }
+        .res-valor { color: white; font-weight: 700; font-size: 1rem; }
+        .res-cuota { font-size: 2rem; font-weight: 900; color: #7bd65a; }
+
+        .tip-card {
+            background: white;
+            border-radius: 18px;
+            padding: 24px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.07);
+            border-left: 4px solid #033E81;
+            transition: transform 0.3s ease;
+        }
+        .tip-card:hover { transform: translateY(-4px); }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        @media print {
+            body * { visibility: hidden; }
+            #resultado, #resultado * { visibility: visible; }
+            #resultado {
+                position: fixed; top: 0; left: 0; width: 100%;
+                display: block !important;
+                background: white !important;
+                color: #222 !important;
+                padding: 32px;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            #resultado .res-label { color: #555 !important; }
+            #resultado .res-valor { color: #033E81 !important; }
+            #resultado .res-cuota { color: #4EAE33 !important; }
+            #btnDescargar { display: none !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="jagel" id="mainHeader">
+        <div class="header-inner">
+            <a href="../index.html" class="header-logo">
+                <img src="../image/Logo Cooperativa - Blanco.png" alt="Cooperativa San Pedro">
+            </a>
+            <button class="nav-toggle" id="navToggle" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+            <nav class="main-nav" id="mainNav">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">Inicio</a></li>
+
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link" onclick="return false">
+                            Puntos de Servicio <i class="bi bi-chevron-down nav-arrow"></i>
+                        </a>
+                        <div class="nav-dropdown">
+                            <a href="./agencias.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-building"></i></div>
+                                <div><span class="drop-title">Agencias</span><span class="drop-sub">8 puntos en Huehuetenango</span></div>
+                            </a>
+                            <a href="./agentes.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-person-badge"></i></div>
+                                <div><span class="drop-title">Agentes Micoope</span><span class="drop-sub">Cerca de tu comunidad</span></div>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link" onclick="return false">
+                            Productos y Servicios <i class="bi bi-chevron-down nav-arrow"></i>
+                        </a>
+                        <div class="nav-dropdown">
+                            <a href="./ahorro.html" class="drop-link">
+                                <div class="drop-icon green"><i class="bi bi-piggy-bank"></i></div>
+                                <div><span class="drop-title">Ahorro</span><span class="drop-sub">Cuentas y depositos</span></div>
+                            </a>
+                            <a href="./prestamos.html" class="drop-link">
+                                <div class="drop-icon" style="background:rgba(79,195,247,0.12);color:#033E81;"><i class="bi bi-cash-coin"></i></div>
+                                <div><span class="drop-title">Prestamos</span><span class="drop-sub">Creditos accesibles</span></div>
+                            </a>
+                            <a href="./tarjeta-credito.html" class="drop-link">
+                                <div class="drop-icon" style="background:rgba(3,62,129,0.1);color:#033E81;"><i class="bi bi-credit-card-fill"></i></div>
+                                <div><span class="drop-title">Tarjetas Micoope</span><span class="drop-sub">Crédito y Débito VISA</span></div>
+                            </a>
+                            <a href="./cotizador.html" class="drop-link">
+                                <div class="drop-icon" style="background:rgba(78,174,51,0.12);color:#4EAE33;"><i class="bi bi-calculator"></i></div>
+                                <div><span class="drop-title">Cotizador</span><span class="drop-sub">Simula tu crédito</span></div>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link" onclick="return false">
+                            Nosotros <i class="bi bi-chevron-down nav-arrow"></i>
+                        </a>
+                        <div class="nav-dropdown">
+                            <a href="./mision-vision.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-eye-fill"></i></div>
+                                <div><span class="drop-title">Mision y Vision</span><span class="drop-sub">Nuestros valores</span></div>
+                            </a>
+                            <a href="./historia.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-clock-history"></i></div>
+                                <div><span class="drop-title">Historia</span><span class="drop-sub">Nuestros inicios</span></div>
+                            </a>
+                            <a href="./memoria-labores.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-file-earmark-text"></i></div>
+                                <div><span class="drop-title">Memoria de Labores</span><span class="drop-sub">Informes anuales</span></div>
+                            </a>
+                            <div class="drop-divider"></div>
+                            <a href="./ver-mas.html" class="drop-link">
+                                <div class="drop-icon green"><i class="bi bi-arrow-right-circle"></i></div>
+                                <div><span class="drop-title">Ver mas</span><span class="drop-sub">Todo sobre nosotros</span></div>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="./contactanos.html" class="nav-link nav-cta">
+                            <i class="bi bi-telephone-fill"></i> Contactanos
+                        </a>
+                    </li>
+                    <li class="nav-item" style="position:relative;">
+                        <a href="https://micoopeenlinea.com.gt/Retail/servletcontroller" target="_blank"
+                           style="display:inline-flex;align-items:center;justify-content:center;margin-left:6px;width:42px;height:42px;border-radius:50%;text-decoration:none;background:white;border:2px solid rgba(255,255,255,0.3);transition:all 0.3s;box-shadow:0 2px 8px rgba(0,0,0,0.15);overflow:hidden;"
+                           onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 18px rgba(0,0,0,0.25)';this.nextElementSibling.style.opacity='1';this.nextElementSibling.style.transform='translateX(-50%) translateY(0)'"
+                           onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,0.15)';this.nextElementSibling.style.opacity='0';this.nextElementSibling.style.transform='translateX(-50%) translateY(-6px)'">
+                            <img src="../image/logo-micoope-enlinea.png" alt="Micoope En Linea" height="30" style="display:block;">
+                        </a>
+                        <span style="position:absolute;bottom:-34px;left:50%;transform:translateX(-50%) translateY(-6px);background:#033E81;color:white;font-size:0.75rem;font-weight:600;padding:4px 10px;border-radius:6px;white-space:nowrap;opacity:0;transition:all 0.25s;pointer-events:none;z-index:999;">
+                            Micoope En Linea
+                        </span>
+                    </li>
+
+                    <li class="nav-item" style="position:relative;">
+                        <a href="https://soyfri.com/" target="_blank"
+                           style="display:inline-flex;align-items:center;justify-content:center;margin-left:6px;width:42px;height:42px;border-radius:50%;text-decoration:none;background:white;border:2px solid rgba(255,255,255,0.3);transition:all 0.3s;box-shadow:0 2px 8px rgba(0,0,0,0.15);overflow:hidden;"
+                           onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 18px rgba(0,0,0,0.25)';this.nextElementSibling.style.opacity='1';this.nextElementSibling.style.transform='translateX(-50%) translateY(0)'"
+                           onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,0.15)';this.nextElementSibling.style.opacity='0';this.nextElementSibling.style.transform='translateX(-50%) translateY(-6px)'">
+                            <img src="../image/logo-fri.png" alt="FRI" height="30" style="display:block;">
+                        </a>
+                        <span style="position:absolute;bottom:-34px;left:50%;transform:translateX(-50%) translateY(-6px);background:#033E81;color:white;font-size:0.75rem;font-weight:600;padding:4px 10px;border-radius:6px;white-space:nowrap;opacity:0;transition:all 0.25s;pointer-events:none;z-index:999;">
+                            Soy FRI
+                        </span>
+                    </li>
+                </ul>
+            </nav>
+            <div class="header-search">
+                <input type="text" class="search-input" id="searchInput" placeholder="Buscar...">
+                <button class="search-btn" onclick="toggleSearch()">
+                    <i class="bi bi-search" id="searchIcon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero-cotizador">
+        <div class="container position-relative" style="z-index:2;text-align:center;">
+            <span style="background:rgba(79,195,247,0.15);color:#4fc3f7;padding:8px 20px;border-radius:50px;font-size:0.9rem;font-weight:600;letter-spacing:1px;display:inline-block;margin-bottom:20px;border:1px solid rgba(79,195,247,0.3);">
+                <i class="bi bi-calculator me-2"></i>SIMULADOR DE CRÉDITO
+            </span>
+            <h1 style="font-size:clamp(2rem,5vw,3.5rem);font-weight:900;color:white;margin-bottom:16px;">
+                Cotiza tu <span style="color:#4fc3f7;">préstamo</span>
+            </h1>
+            <p style="color:rgba(255,255,255,0.75);font-size:1.05rem;max-width:520px;margin:0 auto;">
+                Simula tu crédito en segundos y conoce tu cuota mensual estimada.
+            </p>
+        </div>
+    </section>
+
+    <!-- COTIZADOR -->
+    <section style="padding:70px 0;background:#f0f4fa;">
+        <div class="container">
+            <div class="row g-5 justify-content-center">
+
+                <!-- Tips laterales -->
+                <div class="col-lg-4 reveal">
+                    <h5 style="font-weight:800;color:#033E81;margin-bottom:20px;">¿Cómo funciona?</h5>
+                    <div class="d-flex flex-column gap-3">
+                        <div class="tip-card">
+                            <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+                                <div style="width:36px;height:36px;background:#033E81;border-radius:10px;display:flex;align-items:center;justify-content:center;color:white;font-weight:700;flex-shrink:0;">1</div>
+                                <strong style="color:#033E81;">Selecciona el tipo</strong>
+                            </div>
+                            <p style="color:#666;font-size:0.88rem;margin:0;">Elige el tipo de crédito que mejor se adapte a tu necesidad.</p>
+                        </div>
+                        <div class="tip-card">
+                            <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+                                <div style="width:36px;height:36px;background:#4EAE33;border-radius:10px;display:flex;align-items:center;justify-content:center;color:white;font-weight:700;flex-shrink:0;">2</div>
+                                <strong style="color:#033E81;">Define el monto</strong>
+                            </div>
+                            <p style="color:#666;font-size:0.88rem;margin:0;">Ingresa el monto que deseas solicitar.</p>
+                        </div>
+                        <div class="tip-card">
+                            <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+                                <div style="width:36px;height:36px;background:#4fc3f7;border-radius:10px;display:flex;align-items:center;justify-content:center;color:white;font-weight:700;flex-shrink:0;">3</div>
+                                <strong style="color:#033E81;">Elige el plazo</strong>
+                            </div>
+                            <p style="color:#666;font-size:0.88rem;margin:0;">Escoge cuántos meses necesitas para pagar tu crédito.</p>
+                        </div>
+                        <div class="tip-card" style="border-left-color:#4EAE33;">
+                            <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+                                <i class="bi bi-info-circle-fill" style="color:#4EAE33;font-size:1.4rem;"></i>
+                                <strong style="color:#033E81;">¿Listo para aplicar?</strong>
+                            </div>
+                            <p style="color:#666;font-size:0.88rem;margin-bottom:12px;">Visita cualquiera de nuestras agencias o contáctanos.</p>
+                            <a href="./contactanos.html" style="display:inline-block;background:#4EAE33;color:white;padding:8px 20px;border-radius:50px;text-decoration:none;font-size:0.85rem;font-weight:700;">
+                                Contáctanos →
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-8 reveal">
+                    <div class="cotizador-card">
+                        <div class="cotizador-form">
+
+                            <h4 style="font-weight:800;color:#033E81;margin-bottom:4px;font-size:1.1rem;">
+                                <i class="bi bi-sliders me-2" style="color:#4EAE33;"></i>Solicitud de Cotización
+                            </h4>
+                            <p style="color:#888;font-size:0.82rem;margin-bottom:20px;">Completa los datos para calcular tu cuota estimada</p>
+
+                            <!-- 1. Nombre completo -->
+                            <div class="mb-3">
+                                <label class="campo-label">
+                                    <span style="background:#033E81;color:white;border-radius:50%;width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700;margin-right:7px;">1</span>
+                                    Nombre completo
+                                </label>
+                                <input type="text" class="campo-input" id="cot-nombre" placeholder="Ej: Juan García">
+                            </div>
+
+                            <!-- 2. Número de teléfono -->
+                            <div class="mb-3">
+                                <label class="campo-label">
+                                    <span style="background:#033E81;color:white;border-radius:50%;width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700;margin-right:7px;">2</span>
+                                    Número de teléfono
+                                </label>
+                                <input type="tel" class="campo-input" id="cot-telefono" placeholder="Ej: 5000-0000">
+                            </div>
+
+                            <!-- 3. Préstamo a solicitar -->
+                            <div class="mb-3">
+                                <label class="campo-label">
+                                    <span style="background:#033E81;color:white;border-radius:50%;width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700;margin-right:7px;">3</span>
+                                    Préstamo a solicitar
+                                </label>
+                                <select class="campo-input" id="tipoPrestamo" onchange="actualizarTasa()">
+                                    <option value="">— Selecciona un tipo —</option>
+                                    <option value="1.75">Crédito Personal</option>
+                                    <option value="1.20">Crédito Comercial</option>
+                                    <option value="0.95">Crédito Agrícola</option>
+                                    <option value="1.10">Crédito Vivienda</option>
+                                    <option value="1.50">Crédito de Consumo</option>
+                                    <option value="1.40">Crédito Emprendedor</option>
+                                    <option value="1.65">Crédito Fiduciario</option>
+                                </select>
+                            </div>
+
+                            <!-- Tasa de interés (solo lectura, aparece al seleccionar) -->
+                            <div class="mb-3" id="tasaWrap" style="display:none;">
+                                <label class="campo-label" style="color:#4EAE33;">
+                                    <i class="bi bi-lock-fill me-1"></i> Tasa de interés aplicable
+                                </label>
+                                <div style="background:#f0fff4;border:2px solid #4EAE33;border-radius:10px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;">
+                                    <span id="tasaNombre" style="color:#033E81;font-weight:600;font-size:0.88rem;"></span>
+                                    <span id="tasaValor" style="color:#4EAE33;font-weight:900;font-size:1.05rem;"></span>
+                                </div>
+                                <p style="color:#aaa;font-size:0.74rem;margin-top:4px;margin-bottom:0;">
+                                    <i class="bi bi-info-circle me-1"></i>Tasa asignada automáticamente. No modificable.
+                                </p>
+                            </div>
+
+                            <!-- 4. Método de interés -->
+                            <div class="mb-3">
+                                <label class="campo-label">
+                                    <span style="background:#033E81;color:white;border-radius:50%;width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700;margin-right:7px;">4</span>
+                                    Método de interés
+                                </label>
+                                <select class="campo-input" id="metodo">
+                                    <option value="nivelada">Cuota Nivelada</option>
+                                    <option value="saldos">Sobre Saldos</option>
+                                </select>
+                            </div>
+
+                            <!-- 5. Monto solicitado -->
+                            <div class="mb-3">
+                                <label class="campo-label">
+                                    <span style="background:#033E81;color:white;border-radius:50%;width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700;margin-right:7px;">5</span>
+                                    Monto solicitado (Q)
+                                </label>
+                                <input type="number" class="campo-input" id="monto" placeholder="Ej: 25000" min="1000" max="500000" step="500">
+                                <p style="color:#aaa;font-size:0.74rem;margin-top:4px;margin-bottom:0;">Monto entre Q 1,000 y Q 500,000</p>
+                            </div>
+
+                            <!-- 6. Plazo en meses -->
+                            <div class="mb-3">
+                                <label class="campo-label">
+                                    <span style="background:#033E81;color:white;border-radius:50%;width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700;margin-right:7px;">6</span>
+                                    Plazo en meses
+                                </label>
+                                <input type="number" class="campo-input" id="plazo" placeholder="Ej: 24" min="3" max="60" step="1">
+                                <p style="color:#aaa;font-size:0.74rem;margin-top:4px;margin-bottom:0;">Plazo entre 3 y 60 meses</p>
+                            </div>
+
+                            <!-- 7. Ingresos mensuales -->
+                            <div class="mb-3">
+                                <label class="campo-label">
+                                    <span style="background:#033E81;color:white;border-radius:50%;width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700;margin-right:7px;">7</span>
+                                    Ingresos mensuales (Q)
+                                </label>
+                                <input type="number" class="campo-input" id="ingresos" placeholder="Ej: 5000" min="0" step="100">
+                                <p style="color:#aaa;font-size:0.74rem;margin-top:4px;margin-bottom:0;">Tus ingresos ayudan a evaluar tu capacidad de pago</p>
+                            </div>
+
+                            <button class="btn-calcular" onclick="cotizar()">
+                                <i class="bi bi-calculator me-2"></i>Cotizar
+                            </button>
+
+                            <!-- Resultado -->
+                            <div class="resultado-box" id="resultado">
+                                <p style="color:rgba(255,255,255,0.7);font-size:0.8rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;">
+                                    <i class="bi bi-check-circle-fill me-2" style="color:#7bd65a;"></i>Resumen de tu cotización
+                                </p>
+
+                                <div style="text-align:center;padding:20px 0;border-bottom:1px solid rgba(255,255,255,0.1);margin-bottom:16px;">
+                                    <div id="resCuotaLabel" style="color:rgba(255,255,255,0.7);font-size:0.88rem;margin-bottom:6px;">Cuota mensual estimada</div>
+                                    <div class="res-cuota" id="resCuota">Q 0.00</div>
+                                    <div id="resCapacidad" style="margin-top:10px;font-size:0.82rem;"></div>
+                                </div>
+
+                                <div class="res-item">
+                                    <span class="res-label">Tipo de préstamo</span>
+                                    <span class="res-valor" id="resTipo">—</span>
+                                </div>
+                                <div class="res-item">
+                                    <span class="res-label">Método de interés</span>
+                                    <span class="res-valor" id="resMetodo">—</span>
+                                </div>
+                                <div class="res-item">
+                                    <span class="res-label">Monto solicitado</span>
+                                    <span class="res-valor" id="resMonto">Q 0.00</span>
+                                </div>
+                                <div class="res-item">
+                                    <span class="res-label">Plazo</span>
+                                    <span class="res-valor" id="resPlazo">— meses</span>
+                                </div>
+                                <div class="res-item">
+                                    <span class="res-label">Tasa mensual</span>
+                                    <span class="res-valor" id="resTasa">—</span>
+                                </div>
+                                <div class="res-item">
+                                    <span class="res-label">Total a pagar</span>
+                                    <span class="res-valor" id="resTotal">Q 0.00</span>
+                                </div>
+                                <div class="res-item">
+                                    <span class="res-label">Total intereses</span>
+                                    <span class="res-valor" id="resIntereses">Q 0.00</span>
+                                </div>
+
+                                <p style="color:rgba(255,255,255,0.45);font-size:0.78rem;margin-top:16px;margin-bottom:12px;">
+                                    * Cálculo referencial. La tasa y condiciones finales pueden variar según evaluación crediticia.
+                                </p>
+
+                                <button id="btnDescargar" onclick="window.print()"
+                                    style="width:100%;padding:12px;background:white;color:#033E81;font-weight:700;font-size:0.95rem;border:none;border-radius:10px;cursor:pointer;transition:all 0.3s;display:flex;align-items:center;justify-content:center;gap:8px;"
+                                    onmouseover="this.style.background='#e8f0fb'" onmouseout="this.style.background='white'">
+                                    <i class="bi bi-download"></i> Descargar cotización (PDF)
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="contacto">
+        <div style="background:white;line-height:0;">
+            <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#033E81" d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z"/>
+            </svg>
+        </div>
+        <div style="background:#033E81;padding:60px 0 30px;">
+            <div class="container">
+                <div class="row g-4 mb-5">
+                    <div class="col-md-4">
+                        <img src="../image/Logo Cooperativa - Blanco.png" height="45" alt="Logo" class="mb-3">
+                        <p style="color:#a8c4e0;line-height:1.8;">Tu cooperativa de confianza, comprometida con tu bienestar financiero.</p>
+                    </div>
+                    <div class="col-md-2 offset-md-1">
+                        <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Enlaces</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><a href="../index.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Inicio</a></li>
+                            <li class="mb-2"><a href="./agencias.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Agencias</a></li>
+                            <li class="mb-2"><a href="./contactanos.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Contáctanos</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3 offset-md-1">
+                        <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Contacto</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-3 d-flex align-items-center gap-3">
+                                <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i class="bi bi-telephone" style="color:#4fc3f7;"></i></div>
+                                <span style="color:#a8c4e0;">PBX 79632828</span>
+                            </li>
+                            <li class="d-flex align-items-center gap-3">
+                                <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i class="bi bi-geo-alt" style="color:#4fc3f7;"></i></div>
+                                <span style="color:#a8c4e0;">San Pedro Soloma, Huehuetenango</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <hr style="border-color:rgba(255,255,255,0.1);margin-bottom:25px;">
+                <p style="color:#a8c4e0;margin:0;font-size:14px;text-align:center;">© 2026 Cooperativa San Pedro. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+    <script>
+        function fmt(n) {
+            return 'Q ' + n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        }
+
+        function actualizarTasa() {
+            const sel = document.getElementById('tipoPrestamo');
+            const wrap = document.getElementById('tasaWrap');
+            if (sel.value) {
+                document.getElementById('tasaNombre').textContent = sel.options[sel.selectedIndex].text;
+                document.getElementById('tasaValor').textContent = sel.value + '% mensual';
+                wrap.style.display = 'block';
+            } else {
+                wrap.style.display = 'none';
+            }
+        }
+
+        function cotizar() {
+            const sel     = document.getElementById('tipoPrestamo');
+            const metodo  = document.getElementById('metodo').value;
+            const monto   = parseFloat(document.getElementById('monto').value);
+            const plazo   = parseInt(document.getElementById('plazo').value);
+            const ingresos = parseFloat(document.getElementById('ingresos').value) || 0;
+
+            if (!sel.value) { alert('Por favor selecciona el tipo de préstamo.'); return; }
+            if (!monto || monto < 1000) { alert('Ingresa un monto válido (mínimo Q 1,000).'); return; }
+            if (!plazo || plazo < 3 || plazo > 60) { alert('El plazo debe estar entre 3 y 60 meses.'); return; }
+
+            const r = parseFloat(sel.value) / 100;
+            let cuota, total, intereses;
+
+            if (metodo === 'nivelada') {
+                // Cuota Nivelada: cuota fija cada mes (francés)
+                cuota = monto * (r * Math.pow(1 + r, plazo)) / (Math.pow(1 + r, plazo) - 1);
+                total = cuota * plazo;
+                intereses = total - monto;
+                document.getElementById('resCuotaLabel').textContent = 'Cuota mensual estimada';
+                document.getElementById('resMetodo').textContent = 'Cuota Nivelada';
+            } else {
+                // Sobre Saldos: interés sobre el saldo pendiente; se muestra la primera cuota (más alta)
+                const capitalMensual = monto / plazo;
+                cuota = capitalMensual + monto * r;
+                total = monto + monto * r * (plazo + 1) / 2;
+                intereses = total - monto;
+                document.getElementById('resCuotaLabel').textContent = 'Primera cuota (la más alta)';
+                document.getElementById('resMetodo').textContent = 'Sobre Saldos';
+            }
+
+            document.getElementById('resCuota').textContent = fmt(cuota);
+            document.getElementById('resTipo').textContent = sel.options[sel.selectedIndex].text;
+            document.getElementById('resMonto').textContent = fmt(monto);
+            document.getElementById('resPlazo').textContent = plazo + ' meses';
+            document.getElementById('resTasa').textContent = sel.value + '% mensual';
+            document.getElementById('resTotal').textContent = fmt(total);
+            document.getElementById('resIntereses').textContent = fmt(intereses);
+
+            const capacidadEl = document.getElementById('resCapacidad');
+            if (ingresos > 0) {
+                const pct = (cuota / ingresos) * 100;
+                let color, icono, msg;
+                if (pct <= 30) {
+                    color = '#7bd65a'; icono = '✓';
+                    msg = `Cuota representa el ${pct.toFixed(1)}% de tus ingresos. ¡Capacidad de pago adecuada!`;
+                } else if (pct <= 50) {
+                    color = '#ffd54f'; icono = '⚠';
+                    msg = `Cuota representa el ${pct.toFixed(1)}% de tus ingresos. Considera reducir el monto o ampliar el plazo.`;
+                } else {
+                    color = '#ff7043'; icono = '✕';
+                    msg = `Cuota representa el ${pct.toFixed(1)}% de tus ingresos. Supera el nivel recomendado.`;
+                }
+                capacidadEl.innerHTML = `<span style="color:${color};font-weight:600;">${icono} ${msg}</span>`;
+            } else {
+                capacidadEl.innerHTML = '';
+            }
+
+            document.getElementById('resultado').classList.add('visible');
+            document.getElementById('resultado').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.12 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+
+    <script>
+        function descargarCotizacion() {
+            var nombre    = document.getElementById('cot-nombre').value || '—';
+            var telefono  = document.getElementById('cot-telefono').value || '—';
+            var tipo      = document.getElementById('resTipo').textContent;
+            var metodo    = document.getElementById('resMetodo').textContent;
+            var monto     = document.getElementById('resMonto').textContent;
+            var plazo     = document.getElementById('resPlazo').textContent;
+            var tasa      = document.getElementById('resTasa').textContent;
+            var cuota     = document.getElementById('resCuota').textContent;
+            var total     = document.getElementById('resTotal').textContent;
+            var intereses = document.getElementById('resIntereses').textContent;
+            var label     = document.getElementById('resCuotaLabel').textContent;
+            var capacidad = document.getElementById('resCapacidad').innerText || '';
+            var fecha     = new Date().toLocaleDateString('es-GT', {day:'2-digit', month:'long', year:'numeric'});
+
+            var html = '<!DOCTYPE html><html><head><meta charset="UTF-8">'
+                + '<title>Cotizacion - Cooperativa San Pedro</title>'
+                + '<style>'
+                + 'body{font-family:Arial,sans-serif;margin:0;padding:0;color:#222}'
+                + '.hdr{background:#033E81;color:white;padding:28px 36px;display:flex;align-items:center;justify-content:space-between}'
+                + '.hdr h1{margin:0;font-size:1.3rem;font-weight:800}'
+                + '.hdr p{margin:4px 0 0;font-size:0.82rem;opacity:0.8}'
+                + '.fecha{font-size:0.8rem;opacity:0.7;text-align:right}'
+                + '.bdy{padding:32px 36px}'
+                + '.sol{background:#f0f4ff;border-radius:10px;padding:16px 20px;margin-bottom:24px}'
+                + '.sol h3{margin:0 0 10px;color:#033E81;font-size:0.85rem;text-transform:uppercase;letter-spacing:1px}'
+                + '.sol p{margin:4px 0;font-size:0.92rem}'
+                + '.cbox{background:#033E81;color:white;border-radius:12px;text-align:center;padding:24px;margin-bottom:24px}'
+                + '.clabel{font-size:0.82rem;opacity:0.75;margin-bottom:6px}'
+                + '.cmonto{font-size:2.2rem;font-weight:900;color:#7bd65a}'
+                + '.ccap{font-size:0.8rem;margin-top:8px;color:#b0d4ff}'
+                + 'table{width:100%;border-collapse:collapse}'
+                + 'tr{border-bottom:1px solid #eee}'
+                + 'td{padding:10px 4px;font-size:0.92rem}'
+                + 'td:last-child{text-align:right;font-weight:700;color:#033E81}'
+                + '.ftr{margin-top:30px;font-size:0.75rem;color:#aaa;border-top:1px solid #eee;padding-top:14px}'
+                + '@media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact}}'
+                + '</style></head><body>'
+                + '<div class="hdr"><div><h1>Cooperativa San Pedro R.L.</h1><p>Cotizacion de Prestamo</p></div>'
+                + '<div class="fecha">Fecha: ' + fecha + '</div></div>'
+                + '<div class="bdy">'
+                + '<div class="sol"><h3>Datos del solicitante</h3>'
+                + '<p><strong>Nombre:</strong> ' + nombre + '</p>'
+                + '<p><strong>Telefono:</strong> ' + telefono + '</p></div>'
+                + '<div class="cbox"><div class="clabel">' + label + '</div>'
+                + '<div class="cmonto">' + cuota + '</div>'
+                + '<div class="ccap">' + capacidad + '</div></div>'
+                + '<table>'
+                + '<tr><td>Tipo de prestamo</td><td>' + tipo + '</td></tr>'
+                + '<tr><td>Metodo de interes</td><td>' + metodo + '</td></tr>'
+                + '<tr><td>Monto solicitado</td><td>' + monto + '</td></tr>'
+                + '<tr><td>Plazo</td><td>' + plazo + '</td></tr>'
+                + '<tr><td>Tasa mensual</td><td>' + tasa + '</td></tr>'
+                + '<tr><td>Total a pagar</td><td>' + total + '</td></tr>'
+                + '<tr><td>Total intereses</td><td>' + intereses + '</td></tr>'
+                + '</table>'
+                + '<p class="ftr">* Calculo referencial. La tasa y condiciones finales pueden variar segun evaluacion crediticia.<br>Cooperativa San Pedro R.L. &mdash; PBX 7963-2828</p>'
+                + '</div></body></html>';
+
+            var win = window.open('', '_blank');
+            win.document.write(html);
+            win.document.close();
+            setTimeout(function() { win.print(); }, 500);
+        }
+    </script>
+
+</body>
+</html>
+
+
+
