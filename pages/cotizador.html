@@ -28,6 +28,7 @@
             background: rgba(79,195,247,0.07);
             border-radius: 50%;
             top: -120px; right: -120px;
+            pointer-events: none;
         }
         .hero-cotizador::after {
             content: '';
@@ -36,23 +37,27 @@
             background: rgba(78,174,51,0.06);
             border-radius: 50%;
             bottom: -80px; left: -80px;
+            pointer-events: none;
         }
 
         .cotizador-card {
             background: white;
             border-radius: 24px;
             box-shadow: 0 20px 60px rgba(3,62,129,0.12);
-            overflow: hidden;
+            overflow: visible;
         }
-
         .cotizador-sidebar {
             background: linear-gradient(180deg, #033E81 0%, #022d5e 100%);
             padding: 40px 30px;
             color: white;
+            border-radius: 24px 0 0 24px;
+            overflow: hidden;
         }
 
         .cotizador-form {
             padding: 28px 32px;
+            position: relative;
+            z-index: 5;
         }
 
         .campo-label {
@@ -74,6 +79,9 @@
             color: #333;
             outline: none;
             transition: border-color 0.3s, box-shadow 0.3s;
+            pointer-events: auto !important;
+            position: relative;
+            z-index: 10;
         }
         .campo-input:focus {
             border-color: #033E81;
@@ -342,7 +350,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-8 reveal">
+                <div class="col-lg-8">
                     <div class="cotizador-card">
                         <div class="cotizador-form">
 
@@ -376,14 +384,11 @@
                                     Préstamo a solicitar
                                 </label>
                                 <select class="campo-input" id="tipoPrestamo" onchange="actualizarTasa()">
-                                    <option value="">— Selecciona un tipo —</option>
-                                    <option value="1.75">Crédito Personal</option>
-                                    <option value="1.20">Crédito Comercial</option>
-                                    <option value="0.95">Crédito Agrícola</option>
-                                    <option value="1.10">Crédito Vivienda</option>
-                                    <option value="1.50">Crédito de Consumo</option>
-                                    <option value="1.40">Crédito Emprendedor</option>
-                                    <option value="1.65">Crédito Fiduciario</option>
+                                    <option value="">— Selecciona una garantía —</option>
+                                    <option value="1.00" data-anual="12">Escritura Registrada — 12% anual</option>
+                                    <option value="1.25" data-anual="15">Escritura Pública — 15% anual</option>
+                                    <option value="1.4167" data-anual="17">Fiduciario — 17% anual</option>
+                                    <option value="2.0833" data-anual="25">Crédito sin fiador — 25% anual</option>
                                 </select>
                             </div>
 
@@ -392,9 +397,15 @@
                                 <label class="campo-label" style="color:#4EAE33;">
                                     <i class="bi bi-lock-fill me-1"></i> Tasa de interés aplicable
                                 </label>
-                                <div style="background:#f0fff4;border:2px solid #4EAE33;border-radius:10px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;">
-                                    <span id="tasaNombre" style="color:#033E81;font-weight:600;font-size:0.88rem;"></span>
-                                    <span id="tasaValor" style="color:#4EAE33;font-weight:900;font-size:1.05rem;"></span>
+                                <div style="background:#f0fff4;border:2px solid #4EAE33;border-radius:10px;padding:12px 16px;">
+                                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+                                        <span id="tasaNombre" style="color:#033E81;font-weight:700;font-size:0.88rem;"></span>
+                                        <span id="tasaValor" style="color:#4EAE33;font-weight:900;font-size:1.05rem;"></span>
+                                    </div>
+                                    <div style="display:flex;gap:16px;flex-wrap:wrap;">
+                                        <span style="font-size:0.78rem;color:#555;"><i class="bi bi-calendar-month me-1" style="color:#4EAE33;"></i>Mensual: <strong id="tasaMensual"></strong></span>
+                                        <span style="font-size:0.78rem;color:#555;"><i class="bi bi-geo-alt me-1" style="color:#033E81;"></i>Destino: <strong>Vivienda, comercio, consumo, servicios</strong></span>
+                                    </div>
                                 </div>
                                 <p style="color:#aaa;font-size:0.74rem;margin-top:4px;margin-bottom:0;">
                                     <i class="bi bi-info-circle me-1"></i>Tasa asignada automáticamente. No modificable.
@@ -419,7 +430,7 @@
                                     <span style="background:#033E81;color:white;border-radius:50%;width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700;margin-right:7px;">5</span>
                                     Monto solicitado (Q)
                                 </label>
-                                <input type="number" class="campo-input" id="monto" placeholder="Ej: 25000" min="1000" max="500000" step="500">
+                                <input type="text" inputmode="numeric" class="campo-input" id="monto" placeholder="Ej: 25000">
                                 <p style="color:#aaa;font-size:0.74rem;margin-top:4px;margin-bottom:0;">Monto entre Q 1,000 y Q 500,000</p>
                             </div>
 
@@ -429,7 +440,7 @@
                                     <span style="background:#033E81;color:white;border-radius:50%;width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700;margin-right:7px;">6</span>
                                     Plazo en meses
                                 </label>
-                                <input type="number" class="campo-input" id="plazo" placeholder="Ej: 24" min="3" max="60" step="1">
+                                <input type="text" inputmode="numeric" class="campo-input" id="plazo" placeholder="Ej: 24">
                                 <p style="color:#aaa;font-size:0.74rem;margin-top:4px;margin-bottom:0;">Plazo entre 3 y 60 meses</p>
                             </div>
 
@@ -439,7 +450,7 @@
                                     <span style="background:#033E81;color:white;border-radius:50%;width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700;margin-right:7px;">7</span>
                                     Ingresos mensuales (Q)
                                 </label>
-                                <input type="number" class="campo-input" id="ingresos" placeholder="Ej: 5000" min="0" step="100">
+                                <input type="text" inputmode="numeric" class="campo-input" id="ingresos" placeholder="Ej: 5000">
                                 <p style="color:#aaa;font-size:0.74rem;margin-top:4px;margin-bottom:0;">Tus ingresos ayudan a evaluar tu capacidad de pago</p>
                             </div>
 
@@ -556,11 +567,16 @@
         }
 
         function actualizarTasa() {
-            const sel = document.getElementById('tipoPrestamo');
+            const sel  = document.getElementById('tipoPrestamo');
             const wrap = document.getElementById('tasaWrap');
             if (sel.value) {
-                document.getElementById('tasaNombre').textContent = sel.options[sel.selectedIndex].text;
-                document.getElementById('tasaValor').textContent = sel.value + '% mensual';
+                const opt    = sel.options[sel.selectedIndex];
+                const anual  = opt.getAttribute('data-anual');
+                const mensual= parseFloat(sel.value).toFixed(2);
+                const nombre = opt.text.split(' —')[0];
+                document.getElementById('tasaNombre').textContent  = nombre;
+                document.getElementById('tasaValor').textContent   = anual + '% anual';
+                document.getElementById('tasaMensual').textContent = mensual + '% mensual';
                 wrap.style.display = 'block';
             } else {
                 wrap.style.display = 'none';
@@ -570,9 +586,9 @@
         function cotizar() {
             const sel     = document.getElementById('tipoPrestamo');
             const metodo  = document.getElementById('metodo').value;
-            const monto   = parseFloat(document.getElementById('monto').value);
-            const plazo   = parseInt(document.getElementById('plazo').value);
-            const ingresos = parseFloat(document.getElementById('ingresos').value) || 0;
+            const monto   = parseFloat(document.getElementById('monto').value.replace(/[^\d.]/g,''));
+            const plazo   = parseInt(document.getElementById('plazo').value.replace(/\D/g,''));
+            const ingresos = parseFloat(document.getElementById('ingresos').value.replace(/[^\d.]/g,'')) || 0;
 
             if (!sel.value) { alert('Por favor selecciona el tipo de préstamo.'); return; }
             if (!monto || monto < 1000) { alert('Ingresa un monto válido (mínimo Q 1,000).'); return; }
@@ -602,7 +618,8 @@
             document.getElementById('resTipo').textContent = sel.options[sel.selectedIndex].text;
             document.getElementById('resMonto').textContent = fmt(monto);
             document.getElementById('resPlazo').textContent = plazo + ' meses';
-            document.getElementById('resTasa').textContent = sel.value + '% mensual';
+            const anual = sel.options[sel.selectedIndex].getAttribute('data-anual');
+            document.getElementById('resTasa').textContent = anual + '% anual (' + parseFloat(sel.value).toFixed(2) + '% mensual)';
             document.getElementById('resTotal').textContent = fmt(total);
             document.getElementById('resIntereses').textContent = fmt(intereses);
 
