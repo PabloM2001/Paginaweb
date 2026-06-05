@@ -133,10 +133,8 @@ if (navToggle && mainNav) {
 
     mainNav.querySelectorAll('.drop-link.has-sub').forEach(function (item) {
         item.addEventListener('click', function (e) {
-            if (window.innerWidth <= 992) {
-                e.stopPropagation();
-                this.classList.toggle('sub-open');
-            }
+            e.stopPropagation();
+            this.classList.toggle('sub-open');
         });
     });
 }
