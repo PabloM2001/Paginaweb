@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Admin · Cooperativa San Pedro</title>
+    <link rel="icon" type="image/png" href="../image/Imagotipo Vertical Original.png">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Outfit', sans-serif; }
+        body { background: #f0f4fa; min-height: 100vh; }
+
+        /* ── HEADER ── */
+        .adm-header {
+            background: linear-gradient(90deg, #033E81 0%, #022d5e 100%);
+            padding: 0 28px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+        .adm-header-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .adm-header-left img { height: 36px; }
+        .adm-header-title {
+            color: white;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+        .adm-header-title span {
+            display: block;
+            font-size: 0.72rem;
+            font-weight: 400;
+            color: rgba(255,255,255,0.5);
+        }
+        .adm-header-right { display: flex; align-items: center; gap: 16px; }
+        .adm-user {
+            color: rgba(255,255,255,0.75);
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+        .adm-user i { font-size: 1.1rem; color: #4fc3f7; }
+        .btn-logout {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 8px;
+            padding: 7px 14px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Outfit', sans-serif;
+            transition: all 0.2s;
+        }
+        .btn-logout:hover { background: rgba(255,255,255,0.2); }
+
+        /* ── STATS BAR ── */
+        .stats-bar {
+            background: white;
+            border-bottom: 1px solid #e9ecef;
+            padding: 10px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .storage-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .storage-bar {
+            width: 160px;
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .storage-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4EAE33, #033E81);
+            border-radius: 4px;
+            transition: width 0.4s;
+        }
+        .storage-text {
+            font-size: 0.82rem;
+            color: #666;
+        }
+        .storage-text strong { color: #033E81; }
+        .btn-reset-all {
+            background: #fff0f0;
+            color: #c0392b;
+            border: 1px solid #ffc9c9;
+            border-radius: 8px;
+            padding: 7px 14px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Outfit', sans-serif;
+            transition: all 0.2s;
+        }
+        .btn-reset-all:hover { background: #ffd5d5; }
+
+        /* ── MAIN ── */
+        .adm-main { padding: 28px; max-width: 1300px; margin: 0 auto; }
+
+        /* ── PAGE TITLE ── */
+        .page-title {
+            margin-bottom: 24px;
+        }
+        .page-title h2 {
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: #033E81;
+            margin-bottom: 4px;
+        }
+        .page-title p {
+            color: #888;
+            font-size: 0.87rem;
+        }
+
+        /* ── FILTER TABS ── */
+        .filter-tabs {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 28px;
+        }
+        .ftab {
+            padding: 8px 18px;
+            border-radius: 50px;
+            border: 2px solid #e9ecef;
+            background: white;
+            color: #666;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Outfit', sans-serif;
+            transition: all 0.2s;
+        }
+        .ftab:hover { border-color: #033E81; color: #033E81; }
+        .ftab.active { background: #033E81; border-color: #033E81; color: white; }
+
+        /* ── SECTION ── */
+        .img-section { margin-bottom: 36px; }
+        .sec-title {
+            font-size: 1rem;
+            font-weight: 800;
+            color: #033E81;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e9ecef;
+        }
+        .sec-title .sec-count {
+            background: rgba(3,62,129,0.1);
+            color: #033E81;
+            border-radius: 50px;
+            padding: 2px 10px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        /* ── GRID ── */
+        .img-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        /* ── IMAGE CARD ── */
+        .img-card {
+            background: white;
+            border-radius: 18px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+            overflow: hidden;
+            border: 2px solid transparent;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .img-card:hover { box-shadow: 0 8px 28px rgba(0,0,0,0.12); }
+        .img-card.is-custom { border-color: #4EAE33; }
+
+        .card-badge {
+            padding: 8px 16px;
+            font-size: 0.73rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .badge-default { background: #f8f9fa; color: #999; }
+        .badge-custom  { background: rgba(78,174,51,0.1); color: #4EAE33; }
+
+        .card-preview {
+            width: 100%;
+            height: 180px;
+            background: #f0f4fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+        .card-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 8px;
+        }
+        .card-preview .no-img {
+            color: #ccc;
+            font-size: 2.5rem;
+        }
+
+        .card-body { padding: 14px 16px 0; }
+        .card-label {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #222;
+            margin-bottom: 6px;
+        }
+        .card-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+        .meta-tag {
+            font-size: 0.73rem;
+            color: #888;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .meta-tag i { color: #033E81; }
+
+        .card-actions {
+            padding: 0 16px 16px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .btn-upload {
+            flex: 1;
+            min-width: 120px;
+            background: linear-gradient(135deg, #033E81, #022d5e);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 9px 12px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+        .btn-upload:hover { opacity: 0.88; transform: translateY(-1px); }
+        .btn-reset {
+            background: #f0f4fa;
+            color: #555;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 9px 12px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Outfit', sans-serif;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .btn-reset:hover { background: #ffd5d5; color: #c0392b; border-color: #ffc9c9; }
+
+        .pending-bar {
+            display: none;
+            padding: 10px 16px;
+            background: rgba(78,174,51,0.06);
+            border-top: 1px solid rgba(78,174,51,0.15);
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .pending-bar.show { display: flex; }
+        .btn-save {
+            flex: 1;
+            background: linear-gradient(135deg, #4EAE33, #3c9228);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 9px 12px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Outfit', sans-serif;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        .btn-save:hover { opacity: 0.88; }
+        .btn-cancel-up {
+            background: white;
+            color: #888;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 9px 12px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Outfit', sans-serif;
+            transition: all 0.2s;
+        }
+        .btn-cancel-up:hover { background: #f5f5f5; }
+
+        .size-warn {
+            display: none;
+            padding: 8px 16px;
+            background: #fff8e1;
+            border-top: 1px solid #ffe082;
+            font-size: 0.75rem;
+            color: #8a6d00;
+            gap: 6px;
+            align-items: center;
+        }
+        .size-warn.show { display: flex; }
+
+        /* ── TOAST ── */
+        .toast {
+            position: fixed;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: #033E81;
+            color: white;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            white-space: nowrap;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+        }
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+        .toast.success { background: #4EAE33; }
+        .toast.error   { background: #c0392b; }
+
+        /* ── EMPTY STATE ── */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #bbb;
+        }
+        .empty-state i { font-size: 3rem; margin-bottom: 12px; display: block; }
+
+        @media (max-width: 600px) {
+            .adm-header { padding: 0 16px; }
+            .adm-main { padding: 16px; }
+            .stats-bar { padding: 10px 16px; }
+            .adm-user span { display: none; }
+            .img-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="adm-header">
+        <div class="adm-header-left">
+            <img src="../image/Logo Cooperativa - Blanco.png" alt="Logo">
+            <div class="adm-header-title">
+                Panel de Administración
+                <span>Cooperativa San Pedro R.L.</span>
+            </div>
+        </div>
+        <div class="adm-header-right">
+            <div class="adm-user">
+                <i class="bi bi-person-circle"></i>
+                <span>Administrador</span>
+            </div>
+            <button class="btn-logout" onclick="logout()">
+                <i class="bi bi-box-arrow-right me-1"></i>Cerrar sesión
+            </button>
+        </div>
+    </header>
+
+    <!-- STATS BAR -->
+    <div class="stats-bar">
+        <div class="storage-info">
+            <div>
+                <div class="storage-bar">
+                    <div class="storage-fill" id="storageFill" style="width:0%"></div>
+                </div>
+            </div>
+            <div class="storage-text">
+                Almacenamiento: <strong id="storageUsed">0 KB</strong> / 5 MB usados
+            </div>
+        </div>
+        <button class="btn-reset-all" onclick="confirmResetAll()">
+            <i class="bi bi-arrow-counterclockwise me-1"></i>Restaurar todas las imágenes originales
+        </button>
+    </div>
+
+    <!-- MAIN -->
+    <div class="adm-main">
+        <div class="page-title">
+            <h2><i class="bi bi-images me-2" style="color:#4EAE33;"></i>Gestión de Imágenes</h2>
+            <p>Selecciona una imagen para reemplazarla. Los cambios se aplican en todo el sitio automáticamente.</p>
+        </div>
+
+        <!-- FILTROS -->
+        <div class="filter-tabs" id="filterTabs"></div>
+
+        <!-- CONTENIDO -->
+        <div id="imageContainer"></div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        /* ── AUTH ── */
+        if (sessionStorage.getItem('adminAuth') !== '1') {
+            window.location.href = 'login.html';
+        }
+
+        function logout() {
+            if (confirm('¿Seguro que deseas cerrar sesión?')) {
+                sessionStorage.removeItem('adminAuth');
+                window.location.href = 'login.html';
+            }
+        }
+
+        /* ── DEFINICIÓN DE IMÁGENES ── */
+        var imagenes = [
+            { key: 'carru1.jpeg',                         label: 'Carrusel — Imagen 1',          seccion: 'Carrusel (Inicio)',      tam: '1280 × 960 px', tipo: 'JPEG' },
+            { key: 'carru2.jpeg',                         label: 'Carrusel — Imagen 2',          seccion: 'Carrusel (Inicio)',      tam: '1280 × 960 px', tipo: 'JPEG' },
+            { key: 'carru3.jpeg',                         label: 'Carrusel — Imagen 3',          seccion: 'Carrusel (Inicio)',      tam: '1280 × 960 px', tipo: 'JPEG' },
+            { key: 'Logo Cooperativa - Blanco.png',       label: 'Logo Blanco (Header/Footer)',  seccion: 'Logos e Identidad',     tam: 'Libre × 45 px, fondo transparente', tipo: 'PNG' },
+            { key: 'Imagotipo Vertical Original.png',     label: 'Imagotipo Vertical',           seccion: 'Logos e Identidad',     tam: '200 × 200 px mínimo', tipo: 'PNG' },
+            { key: 'Imagotipo Horizontal Original.png',   label: 'Imagotipo Horizontal',         seccion: 'Logos e Identidad',     tam: '400 × 150 px', tipo: 'PNG' },
+            { key: 'cinta logo coope.png',                label: 'Cinta Decorativa',             seccion: 'Logos e Identidad',     tam: 'Ancho completo × 6 px', tipo: 'PNG' },
+            { key: 'creditos.jpeg',                       label: 'Imagen — Créditos',            seccion: 'Productos y Servicios', tam: '800 × 500 px', tipo: 'JPEG' },
+            { key: 'ahorro.jpeg',                         label: 'Imagen — Ahorro',              seccion: 'Productos y Servicios', tam: '800 × 500 px', tipo: 'JPEG' },
+            { key: 'tarjeta_credito.jpeg',                label: 'Imagen — Tarjeta Crédito',     seccion: 'Productos y Servicios', tam: '800 × 500 px', tipo: 'JPEG' },
+            { key: 'tarjeta_credito2.png',                label: 'Tarjeta Crédito (variante)',   seccion: 'Productos y Servicios', tam: '800 × 500 px', tipo: 'PNG' },
+            { key: 'tarjeta_debito.png',                  label: 'Imagen — Tarjeta Débito',      seccion: 'Productos y Servicios', tam: '800 × 500 px', tipo: 'PNG' },
+            { key: 'AGE1.jpeg',                           label: 'Foto Agente 1',                seccion: 'Agentes Micoope',       tam: '400 × 400 px', tipo: 'JPEG' },
+            { key: 'AGE6.jpeg',                           label: 'Foto Agente 6',                seccion: 'Agentes Micoope',       tam: '400 × 400 px', tipo: 'JPEG' },
+            { key: 'AGE7.jpeg',                           label: 'Foto Agente 7',                seccion: 'Agentes Micoope',       tam: '400 × 400 px', tipo: 'JPEG' },
+            { key: 'AGE8.jpeg',                           label: 'Foto Agente 8',                seccion: 'Agentes Micoope',       tam: '400 × 400 px', tipo: 'JPEG' },
+            { key: 'AGE10.jpeg',                          label: 'Foto Agente 10',               seccion: 'Agentes Micoope',       tam: '400 × 400 px', tipo: 'JPEG' },
+            { key: 'AGE12.jpeg',                          label: 'Foto Agente 12',               seccion: 'Agentes Micoope',       tam: '400 × 400 px', tipo: 'JPEG' },
+            { key: '01.jpeg',                             label: 'Agencia Central',              seccion: 'Fotos de Agencias',     tam: '800 × 500 px', tipo: 'JPEG' },
+            { key: '1.jfif',                              label: 'Agencia Huehuetenango / Tz\'uluma', seccion: 'Fotos de Agencias', tam: '800 × 500 px', tipo: 'JPEG' },
+            { key: '2.jfif',                              label: 'Agencia Santa Eulalia / San Miguel', seccion: 'Fotos de Agencias', tam: '800 × 500 px', tipo: 'JPEG' },
+            { key: '03.jpeg',                             label: 'Agencia Santa Cruz Barillas',  seccion: 'Fotos de Agencias',     tam: '800 × 500 px', tipo: 'JPEG' },
+            { key: '06.jpeg',                             label: 'Agencia Mayaland',             seccion: 'Fotos de Agencias',     tam: '800 × 500 px', tipo: 'JPEG' },
+            { key: '08.jpeg',                             label: 'Agencia Playa Grande',         seccion: 'Fotos de Agencias',     tam: '800 × 500 px', tipo: 'JPEG' },
+        ];
+
+        /* ── PENDING STORE: new images pending save ── */
+        var pending = {}; // key → dataURL
+
+        /* ── FILTERS ── */
+        var secciones = ['Todas'];
+        imagenes.forEach(function(img) {
+            if (secciones.indexOf(img.seccion) === -1) secciones.push(img.seccion);
+        });
+        var filtroActivo = 'Todas';
+
+        function renderTabs() {
+            var tabsEl = document.getElementById('filterTabs');
+            tabsEl.innerHTML = '';
+            secciones.forEach(function(sec) {
+                var btn = document.createElement('button');
+                btn.className = 'ftab' + (sec === filtroActivo ? ' active' : '');
+                var count = sec === 'Todas' ? imagenes.length : imagenes.filter(function(i){ return i.seccion === sec; }).length;
+                btn.innerHTML = sec + ' <span style="opacity:0.6;font-size:0.75em;">(' + count + ')</span>';
+                btn.onclick = function() { filtroActivo = sec; renderTabs(); renderImages(); };
+                tabsEl.appendChild(btn);
+            });
+        }
+
+        /* ── RENDER IMAGES ── */
+        function renderImages() {
+            var container = document.getElementById('imageContainer');
+            container.innerHTML = '';
+
+            var filtered = filtroActivo === 'Todas' ? imagenes : imagenes.filter(function(i){ return i.seccion === filtroActivo; });
+
+            if (filtered.length === 0) {
+                container.innerHTML = '<div class="empty-state"><i class="bi bi-image-slash"></i>No hay imágenes en esta sección</div>';
+                return;
+            }
+
+            // Group by section
+            var grupos = {};
+            filtered.forEach(function(img) {
+                if (!grupos[img.seccion]) grupos[img.seccion] = [];
+                grupos[img.seccion].push(img);
+            });
+
+            Object.keys(grupos).forEach(function(secName) {
+                var secDiv = document.createElement('div');
+                secDiv.className = 'img-section';
+
+                var titleEl = document.createElement('h3');
+                titleEl.className = 'sec-title';
+                titleEl.innerHTML = '<i class="bi bi-folder2-open"></i>' + secName + '<span class="sec-count">' + grupos[secName].length + '</span>';
+                secDiv.appendChild(titleEl);
+
+                var grid = document.createElement('div');
+                grid.className = 'img-grid';
+
+                grupos[secName].forEach(function(img) {
+                    grid.appendChild(buildCard(img));
+                });
+
+                secDiv.appendChild(grid);
+                container.appendChild(secDiv);
+            });
+
+            updateStorage();
+        }
+
+        function buildCard(img) {
+            var safeId = img.key.replace(/[^a-zA-Z0-9]/g, '_');
+            var stored  = localStorage.getItem('admin_img_' + img.key);
+            var hasPend = !!pending[img.key];
+            var isCustom = !!stored;
+            var displaySrc = hasPend ? pending[img.key] : (stored || ('../image/' + encodeURIComponent(img.key)));
+
+            var card = document.createElement('div');
+            card.className = 'img-card' + (isCustom ? ' is-custom' : '');
+            card.id = 'card-' + safeId;
+
+            /* Badge */
+            var badge = document.createElement('div');
+            badge.className = 'card-badge ' + (isCustom ? 'badge-custom' : 'badge-default');
+            badge.innerHTML = isCustom
+                ? '<i class="bi bi-check-circle-fill"></i> Imagen personalizada'
+                : '<i class="bi bi-image"></i> Imagen original';
+            card.appendChild(badge);
+
+            /* Preview */
+            var previewWrap = document.createElement('div');
+            previewWrap.className = 'card-preview';
+            var previewImg = document.createElement('img');
+            previewImg.src = displaySrc;
+            previewImg.alt = img.label;
+            previewImg.id = 'prev-' + safeId;
+            previewImg.onerror = function() {
+                this.style.display = 'none';
+                previewWrap.innerHTML = '<div class="no-img"><i class="bi bi-image-slash"></i></div>';
+            };
+            previewWrap.appendChild(previewImg);
+            card.appendChild(previewWrap);
+
+            /* Body */
+            var body = document.createElement('div');
+            body.className = 'card-body';
+            body.innerHTML = '<div class="card-label">' + img.label + '</div>'
+                + '<div class="card-meta">'
+                + '<span class="meta-tag"><i class="bi bi-rulers"></i>' + img.tam + '</span>'
+                + '<span class="meta-tag"><i class="bi bi-file-earmark-image"></i>' + img.tipo + '</span>'
+                + '</div>';
+            card.appendChild(body);
+
+            /* Actions */
+            var actions = document.createElement('div');
+            actions.className = 'card-actions';
+
+            var fileInput = document.createElement('input');
+            fileInput.type = 'file';
+            fileInput.id = 'file-' + safeId;
+            fileInput.accept = 'image/*';
+            fileInput.style.display = 'none';
+            fileInput.setAttribute('data-key', img.key);
+            fileInput.addEventListener('change', function() {
+                handleFileSelect(img.key, this);
+            });
+            actions.appendChild(fileInput);
+
+            var uploadLabel = document.createElement('label');
+            uploadLabel.className = 'btn-upload';
+            uploadLabel.htmlFor = 'file-' + safeId;
+            uploadLabel.innerHTML = '<i class="bi bi-upload"></i>Cambiar imagen';
+            actions.appendChild(uploadLabel);
+
+            if (isCustom) {
+                var resetBtn = document.createElement('button');
+                resetBtn.className = 'btn-reset';
+                resetBtn.innerHTML = '<i class="bi bi-arrow-counterclockwise"></i>Restaurar';
+                resetBtn.setAttribute('data-key', img.key);
+                resetBtn.onclick = function() { resetImg(img.key); };
+                actions.appendChild(resetBtn);
+            }
+
+            card.appendChild(actions);
+
+            /* Pending bar (save/cancel) */
+            var pendBar = document.createElement('div');
+            pendBar.className = 'pending-bar' + (hasPend ? ' show' : '');
+            pendBar.id = 'pend-' + safeId;
+
+            var saveBtn = document.createElement('button');
+            saveBtn.className = 'btn-save';
+            saveBtn.innerHTML = '<i class="bi bi-check-circle"></i>Guardar cambio';
+            saveBtn.onclick = function() { saveImg(img.key); };
+            pendBar.appendChild(saveBtn);
+
+            var cancelBtn = document.createElement('button');
+            cancelBtn.className = 'btn-cancel-up';
+            cancelBtn.textContent = 'Cancelar';
+            cancelBtn.onclick = function() { cancelImg(img.key); };
+            pendBar.appendChild(cancelBtn);
+
+            card.appendChild(pendBar);
+
+            /* Size warning */
+            var warn = document.createElement('div');
+            warn.className = 'size-warn';
+            warn.id = 'warn-' + safeId;
+            warn.innerHTML = '<i class="bi bi-exclamation-triangle"></i>Imagen grande (>500 KB). Recomendamos comprimirla antes de guardar.';
+            card.appendChild(warn);
+
+            return card;
+        }
+
+        /* ── FILE SELECTION ── */
+        function handleFileSelect(key, input) {
+            if (!input.files || !input.files[0]) return;
+            var file = input.files[0];
+            var safeId = key.replace(/[^a-zA-Z0-9]/g, '_');
+
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var dataUrl = e.target.result;
+                pending[key] = dataUrl;
+
+                /* Update preview */
+                var prevImg = document.getElementById('prev-' + safeId);
+                if (prevImg) prevImg.src = dataUrl;
+
+                /* Show pending bar */
+                var pendBar = document.getElementById('pend-' + safeId);
+                if (pendBar) pendBar.classList.add('show');
+
+                /* Size warning */
+                var warnEl = document.getElementById('warn-' + safeId);
+                if (warnEl) {
+                    var kb = Math.round(dataUrl.length * 0.75 / 1024);
+                    warnEl.classList.toggle('show', kb > 500);
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+
+        /* ── SAVE ── */
+        function saveImg(key) {
+            if (!pending[key]) return;
+            localStorage.setItem('admin_img_' + key, pending[key]);
+            delete pending[key];
+            showToast('✓ Imagen guardada correctamente', 'success');
+            renderImages();
+            updateStorage();
+        }
+
+        /* ── CANCEL ── */
+        function cancelImg(key) {
+            delete pending[key];
+            renderImages();
+        }
+
+        /* ── RESET SINGLE ── */
+        function resetImg(key) {
+            if (!confirm('¿Restaurar la imagen original de "' + key + '"?')) return;
+            localStorage.removeItem('admin_img_' + key);
+            delete pending[key];
+            showToast('Imagen restaurada a la original', 'success');
+            renderImages();
+            updateStorage();
+        }
+
+        /* ── RESET ALL ── */
+        function confirmResetAll() {
+            var count = 0;
+            for (var k in localStorage) {
+                if (k.startsWith('admin_img_')) count++;
+            }
+            if (count === 0) { showToast('No hay imágenes personalizadas', 'error'); return; }
+            if (!confirm('¿Restaurar TODAS las ' + count + ' imágenes a las originales? Esta acción no se puede deshacer.')) return;
+            for (var k in localStorage) {
+                if (k.startsWith('admin_img_')) localStorage.removeItem(k);
+            }
+            pending = {};
+            showToast('Todas las imágenes restauradas', 'success');
+            renderImages();
+            updateStorage();
+        }
+
+        /* ── STORAGE INFO ── */
+        function updateStorage() {
+            var totalBytes = 0;
+            for (var k in localStorage) {
+                if (k.startsWith('admin_img_')) {
+                    totalBytes += (localStorage.getItem(k).length * 2);
+                }
+            }
+            var kb = Math.round(totalBytes / 1024);
+            var mb = (kb / 1024).toFixed(2);
+            var pct = Math.min((totalBytes / (5 * 1024 * 1024)) * 100, 100);
+
+            document.getElementById('storageUsed').textContent = kb > 1024 ? mb + ' MB' : kb + ' KB';
+            document.getElementById('storageFill').style.width = pct + '%';
+            document.getElementById('storageFill').style.background = pct > 80
+                ? 'linear-gradient(90deg,#e67e22,#c0392b)'
+                : 'linear-gradient(90deg,#4EAE33,#033E81)';
+        }
+
+        /* ── TOAST ── */
+        function showToast(msg, tipo) {
+            var toast = document.getElementById('toast');
+            toast.textContent = msg;
+            toast.className = 'toast show' + (tipo ? ' ' + tipo : '');
+            clearTimeout(toast._t);
+            toast._t = setTimeout(function() { toast.className = 'toast'; }, 3000);
+        }
+
+        /* ── INIT ── */
+        renderTabs();
+        renderImages();
+    </script>
+
+</body>
+</html>

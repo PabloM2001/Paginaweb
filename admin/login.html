@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin · Cooperativa San Pedro</title>
+    <link rel="icon" type="image/png" href="../image/Imagotipo Vertical Original.png">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Outfit', sans-serif; }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #033E81 0%, #022d5e 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            width: 500px; height: 500px;
+            background: rgba(79,195,247,0.06);
+            border-radius: 50%;
+            top: -150px; right: -150px;
+            pointer-events: none;
+        }
+        body::after {
+            content: '';
+            position: fixed;
+            width: 350px; height: 350px;
+            background: rgba(78,174,51,0.05);
+            border-radius: 50%;
+            bottom: -100px; left: -100px;
+            pointer-events: none;
+        }
+
+        .card {
+            background: white;
+            border-radius: 24px;
+            padding: 48px 40px 40px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.35);
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo-wrap {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+        .logo-wrap img { height: 72px; }
+
+        .badge-admin {
+            display: inline-block;
+            background: rgba(3,62,129,0.08);
+            color: #033E81;
+            border-radius: 50px;
+            padding: 5px 16px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            font-size: 1.55rem;
+            font-weight: 900;
+            color: #033E81;
+            margin-bottom: 4px;
+            text-align: center;
+        }
+        .sub {
+            color: #999;
+            font-size: 0.85rem;
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .field-label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #555;
+            margin-bottom: 6px;
+            letter-spacing: 0.3px;
+        }
+        .field-wrap {
+            position: relative;
+            margin-bottom: 18px;
+        }
+        .field-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #aaa;
+            font-size: 1rem;
+        }
+        input {
+            width: 100%;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 11px 14px 11px 40px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            color: #333;
+            outline: none;
+            transition: border-color 0.25s, box-shadow 0.25s;
+        }
+        input:focus {
+            border-color: #033E81;
+            box-shadow: 0 0 0 3px rgba(3,62,129,0.1);
+        }
+
+        .btn-login {
+            width: 100%;
+            background: linear-gradient(135deg, #4EAE33, #3c9228);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 13px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Outfit', sans-serif;
+            transition: all 0.3s;
+            margin-top: 4px;
+        }
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(78,174,51,0.4);
+        }
+        .btn-login:active { transform: translateY(0); }
+
+        .err {
+            display: none;
+            background: #fff5f5;
+            border: 1px solid #ffc9c9;
+            color: #c0392b;
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-size: 0.85rem;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .back {
+            text-align: center;
+            margin-top: 22px;
+        }
+        .back a {
+            color: #bbb;
+            font-size: 0.82rem;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .back a:hover { color: #033E81; }
+
+        .divider {
+            height: 1px;
+            background: #f0f0f0;
+            margin: 28px 0 24px;
+        }
+        .note {
+            font-size: 0.75rem;
+            color: #ccc;
+            text-align: center;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="logo-wrap">
+            <img src="../image/Imagotipo Vertical Original.png" alt="Cooperativa San Pedro">
+        </div>
+
+        <div style="text-align:center; margin-bottom:28px;">
+            <div class="badge-admin"><i class="bi bi-shield-lock-fill me-1"></i>Panel Administrativo</div>
+            <h1>Acceso al Sistema</h1>
+            <p class="sub">Ingresa tus credenciales para gestionar el sitio</p>
+        </div>
+
+        <div class="err" id="err">
+            <i class="bi bi-x-circle-fill me-2"></i>Usuario o contraseña incorrectos
+        </div>
+
+        <form onsubmit="login(event)" autocomplete="on">
+            <label class="field-label" for="u"><i class="bi bi-person me-1"></i>Usuario</label>
+            <div class="field-wrap">
+                <i class="bi bi-person field-icon"></i>
+                <input type="text" id="u" placeholder="admin" autocomplete="username" spellcheck="false">
+            </div>
+
+            <label class="field-label" for="p"><i class="bi bi-key me-1"></i>Contraseña</label>
+            <div class="field-wrap">
+                <i class="bi bi-lock field-icon"></i>
+                <input type="password" id="p" placeholder="••••••••" autocomplete="current-password">
+            </div>
+
+            <button type="submit" class="btn-login">
+                <i class="bi bi-box-arrow-in-right me-2"></i>Ingresar al Panel
+            </button>
+        </form>
+
+        <div class="divider"></div>
+        <p class="note">
+            <i class="bi bi-info-circle me-1"></i>
+            Acceso exclusivo para administradores del sitio.<br>
+            Cooperativa San Pedro R.L. © 2026
+        </p>
+
+        <div class="back">
+            <a href="../index.html"><i class="bi bi-arrow-left me-1"></i>Volver al sitio web</a>
+        </div>
+    </div>
+
+    <script>
+        // Redirigir si ya está autenticado en esta sesión
+        if (sessionStorage.getItem('adminAuth') === '1') {
+            window.location.href = 'panel.html';
+        }
+
+        /* ──────────────────────────────────────────────────────
+           CREDENCIALES DE ACCESO
+           Para cambiar usuario o contraseña, modifica USER y PASS
+        ────────────────────────────────────────────────────── */
+        var USER = 'admin';
+        var PASS = 'SanPedro2026';
+
+        function login(e) {
+            e.preventDefault();
+            var u = document.getElementById('u').value.trim();
+            var p = document.getElementById('p').value;
+            var errEl = document.getElementById('err');
+
+            if (u === USER && p === PASS) {
+                sessionStorage.setItem('adminAuth', '1');
+                window.location.href = 'panel.html';
+            } else {
+                errEl.style.display = 'block';
+                document.getElementById('p').value = '';
+                document.getElementById('p').focus();
+                setTimeout(function() { errEl.style.display = 'none'; }, 4000);
+            }
+        }
+    </script>
+
+</body>
+</html>

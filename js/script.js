@@ -122,11 +122,20 @@ if (navToggle && mainNav) {
         });
     });
 
-    mainNav.querySelectorAll('.drop-link, .nav-item:not(.has-dropdown) .nav-link').forEach(link => {
+    mainNav.querySelectorAll('.drop-link:not(.has-sub), .sub-link, .nav-item:not(.has-dropdown) .nav-link').forEach(link => {
         link.addEventListener('click', function () {
             if (window.innerWidth <= 992) {
                 navToggle.classList.remove('open');
                 mainNav.classList.remove('open');
+            }
+        });
+    });
+
+    mainNav.querySelectorAll('.drop-link.has-sub').forEach(function (item) {
+        item.addEventListener('click', function (e) {
+            if (window.innerWidth <= 992) {
+                e.stopPropagation();
+                this.classList.toggle('sub-open');
             }
         });
     });
@@ -285,3 +294,15 @@ if (sinResultados) {
         sinResultados.style.display = visibles === 0 ? 'block' : 'none';
     }
 }
+
+
+/* 9. ADMIN — REEMPLAZO DE IMÁGENES */
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('img[src]').forEach(function (img) {
+        var src      = img.getAttribute('src');
+        var filename = src.split('/').pop();
+        if (!filename) return;
+        var stored = localStorage.getItem('admin_img_' + decodeURIComponent(filename));
+        if (stored) img.src = stored;
+    });
+});

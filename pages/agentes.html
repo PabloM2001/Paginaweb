@@ -162,6 +162,7 @@
             opacity: 1;
             transform: translateY(0);
         }
+
     </style>
 </head>
 
@@ -238,10 +239,19 @@
                                 <div class="drop-icon"><i class="bi bi-clock-history"></i></div>
                                 <div><span class="drop-title">Historia</span><span class="drop-sub">Nuestros inicios</span></div>
                             </a>
-                            <a href="./memoria-labores.html" class="drop-link">
-                                <div class="drop-icon"><i class="bi bi-file-earmark-text"></i></div>
-                                <div><span class="drop-title">Memoria de Labores</span><span class="drop-sub">Informes anuales</span></div>
-                            </a>
+                            <div class="drop-link has-sub">
+                                <div class="drop-icon" style="background:rgba(3,62,129,0.1);color:#033E81;"><i class="bi bi-graph-up-arrow"></i></div>
+                                <div><span class="drop-title">Informe Financiero</span><span class="drop-sub">y de Actividades</span></div>
+                                <i class="bi bi-chevron-right" style="margin-left:auto;font-size:0.75rem;color:#bbb;flex-shrink:0;"></i>
+                                <div class="sub-dropdown">
+                                    <a href="./memoria-labores.html" class="sub-link">
+                                        <i class="bi bi-file-earmark-text" style="color:#033E81;"></i>Memoria de Labores
+                                    </a>
+                                    <a href="./dictamen-auditores.html" class="sub-link">
+                                        <i class="bi bi-file-earmark-check" style="color:#4EAE33;"></i>Dictamen de Auditores Externos
+                                    </a>
+                                </div>
+                            </div>
                             <div class="drop-divider"></div>
                             <a href="./ver-mas.html" class="drop-link">
                                 <div class="drop-icon green"><i class="bi bi-arrow-right-circle"></i></div>
@@ -338,9 +348,9 @@
                 <div class="col-lg-5 d-none d-lg-flex align-items-center justify-content-center">
                     <div style="position: relative; width: 100%;">
                         <div style="position: absolute; top: -15px; right: -15px; width: 100%; height: 100%; border: 3px solid #4EAE33; border-radius: 20px; z-index: 0;"></div>
-                        <img src="../image/1.jfif" alt="Agente Bancario" style="width: 100%; height: 420px; object-fit: cover; border-radius: 20px; position: relative; z-index: 1; box-shadow: 0 20px 60px rgba(0,0,0,0.3);">
+                        <img src="../image/agentes.jpg" alt="Agente Bancario" style="width: 100%; height: 420px; object-fit: cover; border-radius: 20px; position: relative; z-index: 1; box-shadow: 0 20px 60px rgba(0,0,0,0.3);">
                         
-                        <div style="position: absolute; top: 20px; right: 30px; background: #4EAE33; color: white; border-radius: 50px; padding: 8px 16px; font-size: 0.8rem; font-weight: 600; z-index: 2; box-shadow: 0 4px 15px rgba(78,174,51,0.4);"><i class="bi bi-patch-check-fill me-1"></i>Autorizado</div>
+                        
                     </div>
                 </div>
 
@@ -355,12 +365,12 @@
                 <div class="col-lg-5 reveal">
                     <div style="position: relative;">
                         <div style="position: absolute; top: -12px; left: -12px; width: 100%; height: 100%; border: 3px solid #4EAE33; border-radius: 24px; z-index: 0;"></div>
-                        <img src="../image/1.jfif"
-                             alt="Agente Autorizado"
+                        <img src="../image/Mapa%20Agentes.jpg"
+                             alt="Mapa de Agentes Micoope"
                              style="
                                 width: 100%;
-                                height: 380px;
-                                object-fit: cover;
+                                height: auto;
+                                object-fit: contain;
                                 border-radius: 20px;
                                 position: relative;
                                 z-index: 1;
@@ -704,23 +714,23 @@
                         <div class="flip-card">
                             <div class="flip-front">
                                 <div class="ag-img-wrap">
-                                    <img class="ag-img" src="../image/" alt="Agente El Mercado">
-                                    
+                                    <img class="ag-img" src="../image/Imagenes%20Agentes_Activa%20Cell.jpg" alt="Activa Cell">
+
                                 </div>
                                 <div class="ag-info">
-                                    <h5 class="ag-nombre">Aciva Cell</h5>
+                                    <h5 class="ag-nombre">Activa Cell</h5>
                                     <div class="ag-detalle">
                                         <i class="bi bi-geo-alt-fill" style="color:#033E81;"></i>
-                                        <span>Canton Centro 3 calle, 2-041, Zona 1, Santa Cruz Barillas, Huehuetenango</span>
+                                        <span>Cantón Centro 3 calle, 2-041, Zona 1, Santa Cruz Barillas, Huehuetenango</span>
                                     </div>
-                                    
+
                                     <div class="flip-hint"><i class="bi bi-arrow-repeat"></i> Girar para ver más</div>
                                 </div>
                                 <img src="../image/cinta logo coope.png" alt="" class="ag-cinta">
                             </div>
                             <div class="flip-back" style="background: #033E81;">
                                 <div class="flip-back-icono">
-                                    <img src="../image/2.jfif" alt="Agente 08" style="width:80px;height:80px;object-fit:cover;border-radius:50%;border:3px solid rgba(255,255,255,0.5);box-shadow:0 4px 12px rgba(0,0,0,0.3);">
+                                    <img src="../image/Imagenes%20Agentes_Activa%20Cell.jpg" alt="Activa Cell" style="width:80px;height:80px;object-fit:cover;border-radius:50%;border:3px solid rgba(255,255,255,0.5);box-shadow:0 4px 12px rgba(0,0,0,0.3);">
                                 </div>
                                 <h4>Agente Activa Cell</h4>
                                 <p style="font-size:0.85rem;opacity:0.85;">Santa Cruz Barillas, Huehuetenango<br></p>

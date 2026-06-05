@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="icon" type="image/png" href="../image/Imagotipo Vertical Original.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dictamen de Auditores Externos - Cooperativa San Pedro</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/estilos.css">
+
+    <style>
+        * { font-family: 'Outfit', sans-serif; }
+
+        .hero-dictamen {
+            background: linear-gradient(135deg, #033E81 0%, #022d5e 100%);
+            padding: 100px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-dictamen::before {
+            content: '';
+            position: absolute;
+            width: 450px; height: 450px;
+            background: rgba(79,195,247,0.07);
+            border-radius: 50%;
+            top: -120px; right: -120px;
+            pointer-events: none;
+        }
+        .hero-dictamen::after {
+            content: '';
+            position: absolute;
+            width: 300px; height: 300px;
+            background: rgba(78,174,51,0.06);
+            border-radius: 50%;
+            bottom: -80px; left: -80px;
+            pointer-events: none;
+        }
+
+        .anio-titulo {
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: #033E81;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid #4EAE33;
+            display: inline-block;
+        }
+
+        .pdf-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px 24px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            box-shadow: 0 4px 20px rgba(3,62,129,0.08);
+            border: 2px solid #f0f4fa;
+            transition: all 0.3s ease;
+            margin-bottom: 14px;
+        }
+        .pdf-card:hover {
+            border-color: #033E81;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(3,62,129,0.14);
+        }
+        .pdf-icon {
+            width: 52px; height: 52px;
+            min-width: 52px;
+            background: linear-gradient(135deg, #c0392b, #e74c3c);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+        .pdf-info { flex: 1; }
+        .pdf-nombre {
+            font-weight: 700;
+            color: #033E81;
+            font-size: 0.97rem;
+            margin-bottom: 3px;
+        }
+        .pdf-meta {
+            font-size: 0.78rem;
+            color: #aaa;
+        }
+        .btn-ver {
+            background: #033E81;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 9px 18px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Outfit', sans-serif;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+        .btn-ver:hover { background: #022d5e; color: white; transform: translateY(-1px); }
+        .btn-descargar {
+            background: linear-gradient(135deg, #4EAE33, #3c9228);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 9px 18px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Outfit', sans-serif;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+        .btn-descargar:hover { opacity: 0.88; color: white; transform: translateY(-1px); }
+
+        .empty-card {
+            background: #f8f9fa;
+            border: 2px dashed #dee2e6;
+            border-radius: 16px;
+            padding: 48px 32px;
+            text-align: center;
+            color: #aaa;
+        }
+        .empty-card i { font-size: 3rem; margin-bottom: 12px; display: block; }
+        .empty-card p { margin: 0; font-size: 0.92rem; }
+
+        /* Modal visor PDF */
+        .modal-pdf { display: none; position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,0.7); align-items: center; justify-content: center; }
+        .modal-pdf.show { display: flex; }
+        .modal-inner {
+            background: white;
+            border-radius: 18px;
+            width: 92vw; max-width: 900px;
+            height: 88vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+        }
+        .modal-header {
+            padding: 14px 20px;
+            background: #033E81;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+        .modal-header span { font-weight: 700; font-size: 0.97rem; }
+        .btn-cerrar {
+            background: rgba(255,255,255,0.15);
+            border: none;
+            color: white;
+            border-radius: 8px;
+            padding: 7px 14px;
+            cursor: pointer;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        .btn-cerrar:hover { background: rgba(255,255,255,0.25); }
+        #pdfFrame { flex: 1; border: none; width: 100%; }
+
+        .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="jagel" id="mainHeader">
+        <div class="header-inner">
+            <a href="../index.html" class="header-logo">
+                <img src="../image/Logo Cooperativa - Blanco.png" alt="Cooperativa San Pedro">
+            </a>
+            <button class="nav-toggle" id="navToggle" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+            <nav class="main-nav" id="mainNav">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">Inicio</a></li>
+
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link" onclick="return false">
+                            Puntos de Servicio <i class="bi bi-chevron-down nav-arrow"></i>
+                        </a>
+                        <div class="nav-dropdown">
+                            <a href="./agencias.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-building"></i></div>
+                                <div><span class="drop-title">Agencias</span><span class="drop-sub">8 puntos en Huehuetenango</span></div>
+                            </a>
+                            <a href="./agentes.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-person-badge"></i></div>
+                                <div><span class="drop-title">Agentes Micoope</span><span class="drop-sub">Cerca de tu comunidad</span></div>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link" onclick="return false">
+                            Productos y Servicios <i class="bi bi-chevron-down nav-arrow"></i>
+                        </a>
+                        <div class="nav-dropdown">
+                            <a href="./ahorro.html" class="drop-link">
+                                <div class="drop-icon green"><i class="bi bi-piggy-bank"></i></div>
+                                <div><span class="drop-title">Ahorro</span><span class="drop-sub">Cuentas y depositos</span></div>
+                            </a>
+                            <a href="./prestamos.html" class="drop-link">
+                                <div class="drop-icon" style="background:rgba(79,195,247,0.12);color:#033E81;"><i class="bi bi-cash-coin"></i></div>
+                                <div><span class="drop-title">Prestamos</span><span class="drop-sub">Creditos accesibles</span></div>
+                            </a>
+                            <a href="./tarjeta-credito.html" class="drop-link">
+                                <div class="drop-icon" style="background:rgba(3,62,129,0.1);color:#033E81;"><i class="bi bi-credit-card-fill"></i></div>
+                                <div><span class="drop-title">Tarjetas Micoope</span><span class="drop-sub">Crédito y Débito VISA</span></div>
+                            </a>
+                            <a href="./cotizador.html" class="drop-link">
+                                <div class="drop-icon" style="background:rgba(78,174,51,0.12);color:#4EAE33;"><i class="bi bi-calculator"></i></div>
+                                <div><span class="drop-title">Cotizador</span><span class="drop-sub">Simula tu crédito</span></div>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link" onclick="return false">
+                            Nosotros <i class="bi bi-chevron-down nav-arrow"></i>
+                        </a>
+                        <div class="nav-dropdown">
+                            <a href="./mision-vision.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-eye-fill"></i></div>
+                                <div><span class="drop-title">Mision y Vision</span><span class="drop-sub">Nuestros valores</span></div>
+                            </a>
+                            <a href="./historia.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-clock-history"></i></div>
+                                <div><span class="drop-title">Historia</span><span class="drop-sub">Nuestros inicios</span></div>
+                            </a>
+                            <div class="drop-link has-sub">
+                                <div class="drop-icon" style="background:rgba(3,62,129,0.1);color:#033E81;"><i class="bi bi-graph-up-arrow"></i></div>
+                                <div><span class="drop-title">Informe Financiero</span><span class="drop-sub">y de Actividades</span></div>
+                                <i class="bi bi-chevron-right" style="margin-left:auto;font-size:0.75rem;color:#bbb;flex-shrink:0;"></i>
+                                <div class="sub-dropdown">
+                                    <a href="./memoria-labores.html" class="sub-link">
+                                        <i class="bi bi-file-earmark-text" style="color:#033E81;"></i>Memoria de Labores
+                                    </a>
+                                    <a href="./dictamen-auditores.html" class="sub-link">
+                                        <i class="bi bi-file-earmark-check" style="color:#4EAE33;"></i>Dictamen de Auditores Externos
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="drop-divider"></div>
+                            <a href="./ver-mas.html" class="drop-link">
+                                <div class="drop-icon green"><i class="bi bi-arrow-right-circle"></i></div>
+                                <div><span class="drop-title">Ver mas</span><span class="drop-sub">Todo sobre nosotros</span></div>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="./contactanos.html" class="nav-link nav-cta">
+                            <i class="bi bi-telephone-fill"></i> Contactanos
+                        </a>
+                    </li>
+                    <li class="nav-item" style="position:relative;">
+                        <a href="https://micoopeenlinea.com.gt/Retail/servletcontroller" target="_blank"
+                           style="display:inline-flex;align-items:center;justify-content:center;margin-left:6px;width:42px;height:42px;border-radius:50%;text-decoration:none;background:white;border:2px solid rgba(255,255,255,0.3);transition:all 0.3s;box-shadow:0 2px 8px rgba(0,0,0,0.15);overflow:hidden;"
+                           onmouseover="this.style.transform='translateY(-2px)';this.nextElementSibling.style.opacity='1';this.nextElementSibling.style.transform='translateX(-50%) translateY(0)'"
+                           onmouseout="this.style.transform='';this.nextElementSibling.style.opacity='0';this.nextElementSibling.style.transform='translateX(-50%) translateY(-6px)'">
+                            <img src="../image/logo-micoope-enlinea.png" alt="Micoope En Linea" height="30" style="display:block;">
+                        </a>
+                        <span style="position:absolute;bottom:-34px;left:50%;transform:translateX(-50%) translateY(-6px);background:#033E81;color:white;font-size:0.75rem;font-weight:600;padding:4px 10px;border-radius:6px;white-space:nowrap;opacity:0;transition:all 0.25s;pointer-events:none;z-index:999;">Micoope En Linea</span>
+                    </li>
+                    <li class="nav-item" style="position:relative;">
+                        <a href="https://soyfri.com/" target="_blank"
+                           style="display:inline-flex;align-items:center;justify-content:center;margin-left:6px;width:42px;height:42px;border-radius:50%;text-decoration:none;background:white;border:2px solid rgba(255,255,255,0.3);transition:all 0.3s;box-shadow:0 2px 8px rgba(0,0,0,0.15);overflow:hidden;"
+                           onmouseover="this.style.transform='translateY(-2px)';this.nextElementSibling.style.opacity='1';this.nextElementSibling.style.transform='translateX(-50%) translateY(0)'"
+                           onmouseout="this.style.transform='';this.nextElementSibling.style.opacity='0';this.nextElementSibling.style.transform='translateX(-50%) translateY(-6px)'">
+                            <img src="../image/logo-fri.png" alt="FRI" height="30" style="display:block;">
+                        </a>
+                        <span style="position:absolute;bottom:-34px;left:50%;transform:translateX(-50%) translateY(-6px);background:#033E81;color:white;font-size:0.75rem;font-weight:600;padding:4px 10px;border-radius:6px;white-space:nowrap;opacity:0;transition:all 0.25s;pointer-events:none;z-index:999;">Soy FRI</span>
+                    </li>
+                </ul>
+            </nav>
+            <div class="header-search">
+                <input type="text" class="search-input" id="searchInput" placeholder="Buscar...">
+                <button class="search-btn" onclick="toggleSearch()">
+                    <i class="bi bi-search" id="searchIcon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero-dictamen">
+        <div class="container position-relative" style="z-index:2;text-align:center;">
+            <span style="background:rgba(78,174,51,0.15);color:#7bd65a;padding:8px 20px;border-radius:50px;font-size:0.9rem;font-weight:600;letter-spacing:1px;display:inline-block;margin-bottom:20px;border:1px solid rgba(78,174,51,0.3);">
+                <i class="bi bi-file-earmark-check me-2"></i>INFORME FINANCIERO Y DE ACTIVIDADES
+            </span>
+            <h1 style="font-size:clamp(2rem,5vw,3.2rem);font-weight:900;color:white;margin-bottom:16px;">
+                Dictamen de <span style="color:#7bd65a;">Auditores Externos</span>
+            </h1>
+            <p style="color:rgba(255,255,255,0.75);font-size:1.05rem;max-width:540px;margin:0 auto;">
+                Informes financieros auditados de forma independiente para mayor transparencia con nuestros asociados.
+            </p>
+        </div>
+    </section>
+
+    <!-- CONTENIDO -->
+    <section style="padding:70px 0;background:#f0f4fa;">
+        <div class="container">
+
+            <!-- Intro -->
+            <div class="row justify-content-center mb-5">
+                <div class="col-lg-8 text-center reveal">
+                    <div style="background:white;border-radius:20px;padding:32px 40px;box-shadow:0 6px 24px rgba(3,62,129,0.08);border-left:5px solid #4EAE33;">
+                        <i class="bi bi-shield-check" style="font-size:2.5rem;color:#4EAE33;display:block;margin-bottom:12px;"></i>
+                        <h4 style="font-weight:800;color:#033E81;margin-bottom:10px;">Transparencia Financiera</h4>
+                        <p style="color:#666;font-size:0.95rem;margin:0;line-height:1.7;">
+                            Los dictámenes de auditores externos son elaborados por firmas auditoras independientes y reflejan la situación financiera real de la Cooperativa San Pedro R.L., garantizando información veraz y confiable para todos nuestros asociados.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Documentos por año -->
+            <div class="row justify-content-center">
+                <div class="col-lg-9">
+
+                    <!-- Año 2026 -->
+                    <div class="reveal mb-5">
+                        <h2 class="anio-titulo">Dictamen de Auditores Externos 2026</h2>
+                        <div class="empty-card">
+                            <i class="bi bi-hourglass-split" style="color:#ccc;"></i>
+                            <p><strong>En preparación</strong><br>El dictamen del año 2026 estará disponible próximamente.</p>
+                        </div>
+                    </div>
+
+                    <!-- Año 2025 -->
+                    <div class="reveal mb-5">
+                        <h2 class="anio-titulo">Dictamen de Auditores Externos 2025</h2>
+                        <div class="empty-card">
+                            <i class="bi bi-file-earmark-check" style="color:#ccc;"></i>
+                            <p>El dictamen del año 2025 estará disponible en esta sección.<br>
+                            <span style="font-size:0.82rem;color:#bbb;">Para más información contáctanos en <strong>PBX 7963-2828</strong></span></p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Info card -->
+            <div class="row justify-content-center mt-2">
+                <div class="col-lg-9">
+                    <div class="reveal" style="background:linear-gradient(135deg,#033E81,#022d5e);border-radius:20px;padding:32px 36px;color:white;display:flex;align-items:center;gap:28px;flex-wrap:wrap;">
+                        <div style="flex:1;min-width:220px;">
+                            <h5 style="font-weight:800;margin-bottom:6px;">¿Necesitas un informe anterior?</h5>
+                            <p style="color:rgba(255,255,255,0.75);font-size:0.88rem;margin:0;">
+                                Si requieres dictámenes de años anteriores, comunícate directamente con nuestra gerencia general.
+                            </p>
+                        </div>
+                        <a href="./contactanos.html" style="background:#4EAE33;color:white;padding:12px 28px;border-radius:50px;text-decoration:none;font-weight:700;font-size:0.92rem;white-space:nowrap;transition:all 0.2s;"
+                           onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
+                            <i class="bi bi-envelope me-2"></i>Contáctanos
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="contacto">
+        <div style="background:white;line-height:0;">
+            <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#033E81" d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z"/>
+            </svg>
+        </div>
+        <div style="background:#033E81;padding:60px 0 30px;">
+            <div class="container">
+                <div class="row g-4 mb-5">
+                    <div class="col-md-4">
+                        <img src="../image/Logo Cooperativa - Blanco.png" height="45" alt="Logo" class="mb-3">
+                        <p style="color:#a8c4e0;line-height:1.8;">Tu cooperativa de confianza, comprometida con tu bienestar financiero.</p>
+                    </div>
+                    <div class="col-md-2 offset-md-1">
+                        <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Enlaces</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><a href="../index.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Inicio</a></li>
+                            <li class="mb-2"><a href="./agencias.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Agencias</a></li>
+                            <li class="mb-2"><a href="./contactanos.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Contáctanos</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3 offset-md-1">
+                        <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Contacto</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-3 d-flex align-items-center gap-3">
+                                <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i class="bi bi-telephone" style="color:#4fc3f7;"></i></div>
+                                <span style="color:#a8c4e0;">PBX 79632828</span>
+                            </li>
+                            <li class="d-flex align-items-center gap-3">
+                                <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i class="bi bi-geo-alt" style="color:#4fc3f7;"></i></div>
+                                <span style="color:#a8c4e0;">San Pedro Soloma, Huehuetenango</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <hr style="border-color:rgba(255,255,255,0.1);margin-bottom:25px;">
+                <p style="color:#a8c4e0;margin:0;font-size:14px;text-align:center;">© 2026 Cooperativa San Pedro. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.12 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+
+</body>
+</html>
