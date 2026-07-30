@@ -16,25 +16,59 @@
     <style>
         * { font-family: 'Outfit', sans-serif; }
 
-        .hero-historia {
-            background: linear-gradient(135deg, #033E81 0%, #1a3a6b 50%, #033E81 100%);
-            padding: 100px 0 80px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-historia::before {
-            content: '';
-            position: absolute;
-            width: 600px; height: 600px;
-            background: radial-gradient(circle, rgba(79,195,247,0.06) 0%, transparent 70%);
-            top: -200px; right: -200px;
-            animation: flotarCirculo 8s ease-in-out infinite;
-        }
-
         @keyframes flotarCirculo {
             0%, 100% { transform: translate(0, 0); }
             50% { transform: translate(-20px, 20px); }
+        }
+        @keyframes hZoom { from { transform: scale(1); } to { transform: scale(1.07); } }
+        @keyframes hFadeUp { from { opacity:0; transform:translateY(35px); } to { opacity:1; transform:translateY(0); } }
+
+        .hero-historia {
+            position: relative;
+            height: 100vh;
+            min-height: 580px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hero-historia-bg {
+            position: absolute; inset: 0;
+            width: 100%; height: 100%;
+            object-fit: cover; object-position: center;
+            animation: hZoom 12s ease-out forwards;
+            z-index: 0;
+        }
+        .hero-historia::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(2,10,30,0.35) 0%,
+                rgba(2,10,30,0.6) 60%,
+                rgba(2,10,30,0.88) 100%
+            );
+            z-index: 1;
+        }
+        .hero-historia::after {
+            content: '';
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse at 70% 40%, rgba(3,62,129,0.4) 0%, transparent 60%);
+            z-index: 1;
+            pointer-events: none;
+        }
+        .hero-historia-content {
+            position: relative; z-index: 2;
+            text-align: center;
+            animation: hFadeUp 1s 0.2s ease both;
+        }
+        .hero-historia-line {
+            position: absolute;
+            bottom: 0; left: 50%; transform: translateX(-50%);
+            width: 80px; height: 4px;
+            background: linear-gradient(to right, #4EAE33, #033E81);
+            border-radius: 2px;
+            z-index: 3;
         }
 
         /* TIMELINE */
@@ -271,7 +305,10 @@
                             Nosotros <i class="bi bi-chevron-down nav-arrow"></i>
                         </a>
                         <div class="nav-dropdown">
-                            
+                            <a href="./about.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-people-fill"></i></div>
+                                <div><span class="drop-title">¿Quiénes somos?</span><span class="drop-sub">Nuestra cooperativa</span></div>
+                            </a>
                             <a href="./mision-vision.html" class="drop-link">
                                 <div class="drop-icon"><i class="bi bi-eye-fill"></i></div>
                                 <div><span class="drop-title">Mision y Vision</span><span class="drop-sub">Nuestros valores</span></div>
@@ -295,6 +332,10 @@
                                 <div><span class="drop-title">Ver mas</span><span class="drop-sub">Todo sobre nosotros</span></div>
                             </a>
                         </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="./empleo.html" class="nav-link">Mi Empleo</a>
                     </li>
 
                     <li class="nav-item">
@@ -341,43 +382,12 @@
 
     <!-- HERO -->
     <section class="hero-historia">
-        <div class="container position-relative" style="z-index:2; text-align:center;">
-            <span style="
-                background: rgba(79,195,247,0.15);
-                color: #4fc3f7;
-                padding: 8px 20px;
-                border-radius: 50px;
-                font-size: 0.9rem;
-                font-weight: 600;
-                letter-spacing: 1px;
-                display: inline-block;
-                margin-bottom: 20px;
-                border: 1px solid rgba(79,195,247,0.3);">
-                <i class="bi bi-clock-history me-2"></i>NOSOTROS
-            </span>
-            <h1 style="font-size: clamp(2rem, 5vw, 3.8rem); font-weight: 900; color: white; line-height: 1.15; margin-bottom: 20px;">
-                Nuestra Historia
-            </h1>
-            <p style="color: rgba(255,255,255,0.75); font-size: 1.1rem; max-width: 600px; margin: 0 auto 40px; line-height: 1.8;">
-                Décadas de trabajo, esfuerzo y compromiso con los asociados de
-                San Pedro Soloma y toda la región de Huehuetenango.
-            </p>
-
-            <div style="
-                display: inline-flex;
-                align-items: center;
-                gap: 15px;
-                background: rgba(255,255,255,0.08);
-                border: 1px solid rgba(255,255,255,0.15);
-                border-radius: 16px;
-                padding: 18px 35px;">
-                <i class="bi bi-award" style="font-size: 2rem; color: #4EAE33;"></i>
-                <div style="text-align: left;">
-                    <div style="font-size: 2rem; font-weight: 900; color: white; line-height: 1;">70</div>
-                    <div style="color: rgba(255,255,255,0.6); font-size: 0.85rem;">años de trayectoria</div>
-                </div>
-            </div>
+        <img src="../image/Historia/Inicio.jpg" alt="Historia" class="hero-historia-bg">
+        <div class="hero-historia-content">
+            <p style="font-size:0.72rem;font-weight:700;letter-spacing:7px;text-transform:uppercase;color:#7bd658;margin-bottom:18px;">Cooperativa San Pedro</p>
+            <h1 style="font-size:clamp(4rem,10vw,8rem);font-weight:900;color:white;line-height:0.95;letter-spacing:-4px;margin:0;">Nuestra Historia</h1>
         </div>
+        <div class="hero-historia-line"></div>
     </section>
 
 
@@ -387,7 +397,7 @@
         <div class="container">
 
             <div class="text-center mb-5">
-                <p style="color:#033E81; font-weight:600; letter-spacing:4px; text-transform:uppercase; font-size:0.85rem; margin-bottom:8px;">CRONOLOGÍA</p>
+                <p style="color:#4EAE33; font-weight:700; letter-spacing:4px; text-transform:uppercase; font-size:0.8rem; margin-bottom:8px;">CRONOLOGÍA</p>
                 <h2 style="font-size:2.3rem; font-weight:800; color:#033E81; margin:0;">
                     Hitos de nuestra trayectoria
                 </h2>
@@ -396,151 +406,164 @@
             <div class="tl-wrapper">
                 <div class="tl-linea"></div>
 
-
+                <!-- 1559 -->
                 <div class="tl-fila">
                     <div class="tl-izq">
                         <div class="tl-card">
-                            <span class="tl-badge">Fundación</span>
-                            <div class="tl-anio">1990</div>
-                            <div class="tl-titulo">Nace Cooperativa San Pedro</div>
-                            <p class="tl-desc">Un grupo de 24 familias visionarias de San Pedro Soloma se unen para crear un sistema financiero solidario y accesible para toda la comunidad.</p>
+                            <span class="tl-badge">Origen del territorio</span>
+                            <div class="tl-anio">1559</div>
+                            <div class="tl-titulo">Tierra Q'anjob'al: San Pedro Soloma</div>
+                            <p class="tl-desc">San Pedro Soloma, territorio del pueblo Q'anjob'al, fue fundado formalmente en 1559. Tras siglos de administración colonial y cambios eclesiásticos, esta tierra de identidad, lengua y cosmovisión propias fue el suelo donde germinaría el espíritu cooperativista.</p>
                         </div>
                     </div>
                     <div class="tl-punto"></div>
                     <div class="tl-vacio">
-                        <div class="tl-img-circle">
-                            <img src="../image/1.jfif" alt="">
+                        <div class="tl-img-circle" style="align-items:center;justify-content:center;">
+                            <i class="bi bi-map" style="font-size:5.5rem;color:rgba(3,62,129,0.18);"></i>
                         </div>
                     </div>
                 </div>
 
+                <!-- 1955 -->
                 <div class="tl-fila">
                     <div class="tl-vacio">
-                        <div class="tl-img-circle">
-                            <img src="../image/" alt="">
+                        <div class="tl-img-circle" style="align-items:center;justify-content:center;">
+                            <i class="bi bi-person-arms-up" style="font-size:5.5rem;color:rgba(3,62,129,0.18);"></i>
                         </div>
                     </div>
                     <div class="tl-punto"></div>
                     <div class="tl-der">
                         <div class="tl-card">
-                            <div class="tl-anio">1993</div>
-                            <div class="tl-titulo">Primera sede propia</div>
-                            <p class="tl-desc">Adquirimos nuestro primer local permanente en el parque central de San Pedro Soloma, consolidando nuestra presencia en la comunidad.</p>
+                            <span class="tl-badge">La semilla</span>
+                            <div class="tl-anio">1955</div>
+                            <div class="tl-titulo">El Padre Félix Courier siembra la idea</div>
+                            <p class="tl-desc">El padre Félix Courier, de la Orden de Maryknoll, llega a San Pedro Soloma e introduce el cooperativismo. Aunque este primer intento fracasó, plantó la semilla que una década después daría fruto: la organización solidaria de una comunidad decidida a cambiar su realidad económica.</p>
                         </div>
                     </div>
                 </div>
 
+                <!-- 1965 Fundación -->
                 <div class="tl-fila">
                     <div class="tl-izq">
                         <div class="tl-card">
-                            <div class="tl-anio">1997</div>
-                            <div class="tl-titulo">500 asociados</div>
-                            <p class="tl-desc">Alcanzamos 500 asociados activos, lo que nos permitió ampliar la cartera de productos e iniciar el programa de préstamos agrícolas.</p>
-                        </div>
-                    </div>
-                    <div class="tl-punto"></div>
-                    <div class="tl-vacio">
-                        <div class="tl-img-circle">
-                            <img src="../image/" alt="">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="tl-fila">
-                    <div class="tl-vacio">
-                        <div class="tl-img-circle">
-                            <img src="../image/" alt="">
-                        </div>
-                    </div>
-                    <div class="tl-punto" style="background:#4EAE33; border-color:#033E81;"></div>
-                    <div class="tl-der">
-                        <div class="tl-card">
-                            <span class="tl-badge">Expansión</span>
-                            <div class="tl-anio">2002</div>
-                            <div class="tl-titulo">Primera sucursal: Santa Eulalia</div>
-                            <p class="tl-desc">Inauguramos nuestra primera agencia fuera de San Pedro Soloma, comenzando la expansión regional hacia Huehuetenango.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="tl-fila">
-                    <div class="tl-izq">
-                        <div class="tl-card">
-                            <div class="tl-anio">2007</div>
-                            <div class="tl-titulo">Modernización tecnológica</div>
-                            <p class="tl-desc">Implementamos nuestro primer sistema informático de gestión financiera, mejorando el servicio a los asociados en todas las agencias.</p>
-                        </div>
-                    </div>
-                    <div class="tl-punto"></div>
-                    <div class="tl-vacio">
-                        <div class="tl-img-circle">
-                            <img src="../image/" alt="">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="tl-fila">
-                    <div class="tl-vacio">
-                        <div class="tl-img-circle">
-                            <img src="../image/" alt="">
-                        </div>
-                    </div>
-                    <div class="tl-punto"></div>
-                    <div class="tl-der">
-                        <div class="tl-card">
-                            <div class="tl-anio">2010</div>
-                            <div class="tl-titulo">20 años y 3,000 asociados</div>
-                            <p class="tl-desc">Celebramos dos décadas de servicio con 3,000 asociados, 5 agencias y el lanzamiento del programa de Educación Financiera comunitaria.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="tl-fila">
-                    <div class="tl-izq">
-                        <div class="tl-card">
-                            <span class="tl-badge">Premio</span>
-                            <div class="tl-anio">2015</div>
-                            <div class="tl-titulo">Reconocimiento Nacional MICOOPE</div>
-                            <p class="tl-desc">Recibimos el reconocimiento de Mejor Cooperativa del Año por MICOOPE, destacando nuestro modelo de inclusión financiera.</p>
+                            <span class="tl-badge">Fundación oficial</span>
+                            <div class="tl-anio">12 · Sep · 1965</div>
+                            <div class="tl-titulo">Nace la Cooperativa San Pedro</div>
+                            <p class="tl-desc">Bajo la guía del sacerdote Juan King, la cooperativa se funda oficialmente. La motivación fue clara: combatir el abuso de los prestamistas locales, quienes cobraban intereses de hasta el 15% y confiscaban tierras ante la falta de pago. La cooperativa nació como un refugio financiero ético para la comunidad.</p>
                         </div>
                     </div>
                     <div class="tl-punto" style="background:#4EAE33; border-color:#033E81;"></div>
                     <div class="tl-vacio">
                         <div class="tl-img-circle">
-                            <img src="../image/" alt="">
+                            <img src="../image/Historia/Inicio.jpg" alt="Fundación 1965">
                         </div>
                     </div>
                 </div>
 
+                <!-- Primeros años -->
                 <div class="tl-fila">
                     <div class="tl-vacio">
-                        <div class="tl-img-circle">
-                            <img src="../image/" alt="">
+                        <div class="tl-img-circle" style="align-items:center;justify-content:center;">
+                            <i class="bi bi-house-heart" style="font-size:5.5rem;color:rgba(3,62,129,0.18);"></i>
                         </div>
                     </div>
                     <div class="tl-punto"></div>
                     <div class="tl-der">
                         <div class="tl-card">
-                            <div class="tl-anio">2019</div>
-                            <div class="tl-titulo">Agentes y banca digital</div>
-                            <p class="tl-desc">Lanzamos la red de agentes autorizados con más de 80 puntos de servicio y la primera versión de nuestra plataforma de banca en línea.</p>
+                            <span class="tl-badge">Humildes comienzos</span>
+                            <div class="tl-anio">1965 – 1975</div>
+                            <div class="tl-titulo">El dinero detrás del calendario</div>
+                            <p class="tl-desc">Con aportaciones de apenas Q5 y créditos máximos de Q100, la cooperativa operó en el corredor de un convento, el fondo de una cancha de baloncesto y luego en una pequeña oficina. El dinero se resguardaba en un hueco en la pared, oculto detrás de un calendario para evitar robos.</p>
                         </div>
                     </div>
                 </div>
 
+                <!-- 1976 Terremoto -->
+                <div class="tl-fila">
+                    <div class="tl-izq">
+                        <div class="tl-card">
+                            <span class="tl-badge">Resiliencia</span>
+                            <div class="tl-anio">1976</div>
+                            <div class="tl-titulo">El Terremoto: una prueba superada</div>
+                            <p class="tl-desc">El devastador terremoto de 1976 sacudió Guatemala, pero la cooperativa se mantuvo en pie. Gracias a préstamos de FENACOAC y entidades estatales, pudo apoyar la reconstrucción de la comunidad, consolidando su papel como pilar de apoyo en momentos de crisis.</p>
+                        </div>
+                    </div>
+                    <div class="tl-punto"></div>
+                    <div class="tl-vacio">
+                        <div class="tl-img-circle" style="align-items:center;justify-content:center;">
+                            <i class="bi bi-shield-fill-check" style="font-size:5.5rem;color:rgba(3,62,129,0.18);"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Conflicto Armado -->
+                <div class="tl-fila">
+                    <div class="tl-vacio">
+                        <div class="tl-img-circle" style="align-items:center;justify-content:center;">
+                            <i class="bi bi-peace" style="font-size:5.5rem;color:rgba(3,62,129,0.18);"></i>
+                        </div>
+                    </div>
+                    <div class="tl-punto"></div>
+                    <div class="tl-der">
+                        <div class="tl-card">
+                            <span class="tl-badge">Perseverancia</span>
+                            <div class="tl-anio">Años 80</div>
+                            <div class="tl-titulo">Conflicto Armado Interno</div>
+                            <p class="tl-desc">Fue una época de gran peligro. La economía se estancó y el comercio se interrumpió en toda la región. La cooperativa sobrevivió con determinación y, tras la firma de los Acuerdos de Paz, reactivó su actividad con renovada fuerza, demostrando la resiliencia de su gente.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 1986 Tecnología -->
+                <div class="tl-fila">
+                    <div class="tl-izq">
+                        <div class="tl-card">
+                            <span class="tl-badge">Modernización</span>
+                            <div class="tl-anio">1986</div>
+                            <div class="tl-titulo">La primera computadora: una 386</div>
+                            <p class="tl-desc">Ante el desconocimiento total de la computación, la cooperativa dio el salto tecnológico adquiriendo su primer equipo: una computadora 386 que costó Q19,000. Los directivos realizaban viajes épicos de madrugada hacia la Capital para capacitarse, enfrentando fallas mecánicas y caminos difíciles.</p>
+                        </div>
+                    </div>
+                    <div class="tl-punto" style="background:#4EAE33; border-color:#033E81;"></div>
+                    <div class="tl-vacio">
+                        <div class="tl-img-circle" style="align-items:center;justify-content:center;">
+                            <i class="bi bi-pc-display-horizontal" style="font-size:5.5rem;color:rgba(3,62,129,0.18);"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Presencia femenina / Año 2000 -->
+                <div class="tl-fila">
+                    <div class="tl-vacio">
+                        <div class="tl-img-circle" style="align-items:center;justify-content:center;">
+                            <i class="bi bi-currency-exchange" style="font-size:5.5rem;color:rgba(3,62,129,0.18);"></i>
+                        </div>
+                    </div>
+                    <div class="tl-punto"></div>
+                    <div class="tl-der">
+                        <div class="tl-card">
+                            <span class="tl-badge">Auge inesperado</span>
+                            <div class="tl-anio">Año 2000</div>
+                            <div class="tl-titulo">El efecto Y2K y la confianza comunitaria</div>
+                            <p class="tl-desc">Mientras el mundo temía el "efecto Y2K", la cooperativa vivió un auge inesperado: como sus registros eran manuales y no dependían de software antiguo, la gente retiró su dinero de los bancos por miedo y lo depositó aquí. También destacó la creciente presencia femenina, con mujeres tomando un rol cada vez más relevante como asociadas.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hoy - Legado -->
                 <div class="tl-fila">
                     <div class="tl-izq">
                         <div class="tl-card">
                             <span class="tl-badge">Hoy</span>
-                            <div class="tl-anio">2026</div>
-                            <div class="tl-titulo">Más de 12,000 asociados</div>
-                            <p class="tl-desc">Somos la cooperativa más grande de Huehuetenango, con 8 agencias, 150+ agentes y 12,000 asociados activos. Nuestra visión: ser líderes en Guatemala para 2030.</p>
+                            <div class="tl-anio">Más de 60 años</div>
+                            <div class="tl-titulo">Un legado de constancia y servicio</div>
+                            <p class="tl-desc">Hoy la Cooperativa San Pedro gestiona Ahorros, Remesas y Créditos, y es el motor que permitió a muchos agricultores convertirse en comerciantes. Se ha consolidado no solo como una solución financiera, sino como una inspiración de honradez, constancia y servicio a la comunidad Q'anjob'al.</p>
                         </div>
                     </div>
                     <div class="tl-punto" style="background:#4EAE33; border-color:white; box-shadow:0 0 0 6px rgba(78,174,51,0.3);"></div>
                     <div class="tl-vacio">
                         <div class="tl-img-circle">
-                            <img src="../image/" alt="">
+                            <img src="../image/Historia/Inicio.jpg" alt="Cooperativa hoy">
                         </div>
                     </div>
                 </div>
@@ -559,9 +582,9 @@
                 <h2 style="color:white; font-weight:800; font-size:2rem; margin-bottom:15px;">
                     Sé parte de esta historia
                 </h2>
-                <p style="color:rgba(255,255,255,0.75); max-width:500px; margin:0 auto 30px; line-height:1.8;">
-                    71 años de historia nos respaldan. Únete a la familia de
-                    Cooperativa San Pedro y comienza a construir tu futuro financiero.
+                <p style="color:rgba(255,255,255,0.75); max-width:520px; margin:0 auto 30px; line-height:1.8;">
+                    Desde 1965, la Cooperativa San Pedro ha sido motor de desarrollo para su comunidad.
+                    Únete a más de 60 años de constancia, honradez y servicio.
                 </p>
                 <div class="d-flex flex-wrap gap-3 justify-content-center">
                    
@@ -582,6 +605,14 @@
         </div>
         <div style="background: linear-gradient(135deg, #033E81 0%, #033E81 50%, #033E81 100%); padding: 60px 0 30px;">
             <div class="container">
+                <div style="display:flex;align-items:center;gap:40px;flex-wrap:wrap;margin-bottom:40px;padding-bottom:30px;border-bottom:1px solid rgba(255,255,255,0.1);">
+                    <span style="color:rgba(255,255,255,0.5);font-style:italic;font-size:1.15rem;font-weight:600;white-space:nowrap;">Con el respaldo de</span>
+                    <div style="display:flex;align-items:center;gap:40px;flex-wrap:wrap;">
+                        <img src="../image/Micoope.webp" alt="Micoope" style="height:62px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.85;">
+                        <img src="../image/logo_fondo.png" alt="Fondo Garantía Micoope" style="height:54px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.85;">
+                        <img src="../image/logo_seguros.png" alt="Seguros Columna" style="height:62px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.85;">
+                    </div>
+                </div>
                 <div class="row g-4 mb-5">
                     <div class="col-md-4">
                         <img src="../image/Logo Cooperativa - Blanco.png" height="45" alt="Logo" class="mb-3">

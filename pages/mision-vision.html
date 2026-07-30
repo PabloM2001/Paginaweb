@@ -31,145 +31,155 @@
             top: -150px; right: -150px;
         }
 
-        .mv-placa-wrap {
+        /* HERO */
+        @keyframes heroFadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes heroZoom {
+            from { transform: scale(1); }
+            to   { transform: scale(1.08); }
+        }
+        .mv-hero {
+            padding: 0;
+            min-height: 700px;
             position: relative;
-            padding: 18px;
-            max-width: 100%;
-            margin: 0 auto;
+            overflow: hidden;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
         }
-
-        .mv-tornillo {
+        .mv-hero-img {
             position: absolute;
-            width: 24px; height: 24px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 35% 35%, #f0f0f0, #b0b0b0 50%, #787878);
-            box-shadow: 0 3px 8px rgba(0,0,0,0.45), inset 0 1px 2px rgba(255,255,255,0.7);
-            z-index: 10;
+            inset: 0;
+            background-image: url('../image/mision_vision.jpg');
+            background-size: cover;
+            background-position: center;
+            animation: heroZoom 8s ease-out forwards;
+            z-index: 0;
         }
-        .mv-tornillo::after {
+        /* gradiente oscuro en la parte inferior para legibilidad */
+        .mv-hero::before {
             content: '';
             position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%,-50%) rotate(45deg);
-            width: 11px; height: 2px;
-            background: rgba(0,0,0,0.22);
-            border-radius: 1px;
-            box-shadow: 0 3px 0 rgba(0,0,0,0.22);
+            inset: 0;
+            background: linear-gradient(to bottom, transparent 40%, rgba(3,20,60,0.75) 100%);
+            pointer-events: none;
+            z-index: 0;
         }
-        .mv-tornillo.tl { top: 4px;  left: 4px;  }
-        .mv-tornillo.tr { top: 4px;  right: 4px; }
-        .mv-tornillo.bl { bottom: 4px; left: 4px; }
-        .mv-tornillo.br { bottom: 4px; right: 4px;}
-
-        .mv-card {
-            border-radius: 6px;
-            overflow: hidden;
-            background: white;
-            border: 1px solid rgba(0,0,0,0.06);
-            box-shadow:
-                0 4px 6px rgba(0,0,0,0.05),
-                0 10px 30px rgba(0,0,0,0.12),
-                0 30px 60px rgba(0,0,0,0.12),
-                inset 0 1px 0 rgba(255,255,255,0.9);
-            transition: transform 0.35s ease, box-shadow 0.35s ease;
-        }
-        .mv-card:hover {
-            transform: translateY(-5px);
-            box-shadow:
-                0 6px 10px rgba(0,0,0,0.07),
-                0 16px 40px rgba(0,0,0,0.16),
-                0 40px 80px rgba(0,0,0,0.14),
-                inset 0 1px 0 rgba(255,255,255,0.9);
-        }
-
-        .mv-card-logo {
-            height: 38px;
-            margin-bottom: 20px;
-            display: block;
-        }
-
-        .mv-card-header {
-            padding: 36px 80px 30px;
-            background: white;
-            border-bottom: 1px solid rgba(3,62,129,0.12);
-            text-align: center;
-        }
-        .mv-card-header .proposito-label {
+        .mv-hero-badge {
             display: inline-block;
-            font-size: 0.72rem;
+            background: rgba(3,62,129,0.72);
+            color: #ffffff;
+            font-size: 0.7rem;
             font-weight: 700;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
             text-transform: uppercase;
-            color: #4EAE33;
-            margin-bottom: 10px;
+            padding: 8px 24px;
+            border-radius: 30px;
+            border: 1px solid rgba(255,255,255,0.35);
+            margin-bottom: 16px;
+            text-shadow: 0 1px 6px rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            animation: heroFadeUp 0.9s ease both;
         }
-        .mv-card-header .proposito-titulo {
-            font-size: 1.95rem;
+        .mv-hero-title {
+            font-size: clamp(2.8rem, 7vw, 5rem);
             font-weight: 900;
-            color: #033E81;
-            margin-bottom: 12px;
+            color: white;
+            line-height: 1.05;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
         }
-        .mv-card-header .proposito-texto {
-            font-size: 1.95rem;
-            color: #555;
-            line-height: 1.8;
-            max-width: 800px;
+        .mv-hero-title em {
+            color: #7bd658;
+            font-style: normal;
+        }
+        .mv-hero-sub {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.92);
+            max-width: 480px;
             margin: 0 auto;
+            line-height: 1.8;
+            text-shadow: 0 2px 12px rgba(0,0,0,0.7);
+            animation: heroFadeUp 0.9s 0.25s ease both;
         }
 
-        .mv-divisor {
-            width: 1px;
-            background: rgba(3,62,129,0.15);
-            align-self: stretch;
-            margin: 0 8px;
-            flex-shrink: 0;
-        }
+        /* PANELES */
+        .mv-panel { padding: 100px 0; position: relative; overflow: hidden; }
+        .mv-panel-blue  { background: #0b2e5e; }
+        .mv-panel-light { background: #ffffff; }
+        .mv-panel-green { background: #f0f9e8; }
 
-        .mv-bloque {
-            flex: 1;
-            padding: 42px 50px;
+        .mv-panel-inner {
+            max-width: 720px;
+            opacity: 0;
+            transition: opacity 0.9s cubic-bezier(0.22,1,0.36,1),
+                        transform 0.9s cubic-bezier(0.22,1,0.36,1);
         }
-        .mv-bloque-titulo {
-            font-size: 2.2rem;
-            font-weight: 900;
-            color: #033E81;
-            margin-bottom: 6px;
-        }
-        .mv-bloque-sub {
-            font-size: 0.82rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: #4EAE33;
-            font-weight: 700;
-            margin-bottom: 22px;
+        .mv-panel-inner.from-left  { transform: translateX(-70px); }
+        .mv-panel-inner.from-right { transform: translateX(70px); margin-left: auto; }
+        .mv-panel-inner.visible    { opacity: 1; transform: translateX(0); }
+
+        .mv-panel-step {
             display: block;
-        }
-        .mv-bloque p {
-            font-size: 1.05rem;
-            line-height: 1.9;
-            color: #444;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 5px;
+            text-transform: uppercase;
             margin-bottom: 20px;
         }
-        .mv-bloque blockquote {
-            border-left: 4px solid #033E81;
-            padding: 14px 20px;
-            background: rgba(3,62,129,0.05);
-            border-radius: 0 10px 10px 0;
-            font-style: italic;
-            font-weight: 700;
-            font-size: 0.95rem;
-            color: #033E81;
-            margin: 0;
-        }
+        .mv-panel-blue  .mv-panel-step { color: rgba(255,255,255,0.4); }
+        .mv-panel-light .mv-panel-step { color: #4EAE33; }
+        .mv-panel-green .mv-panel-step { color: #3a9228; }
 
-        .mv-card-body {
-            display: flex;
+        .mv-panel-title {
+            font-size: clamp(3rem, 5.5vw, 5rem);
+            font-weight: 900;
+            line-height: 1.0;
+            letter-spacing: -2px;
+            margin-bottom: 24px;
         }
+        .mv-panel-blue  .mv-panel-title { color: #ffffff; }
+        .mv-panel-light .mv-panel-title { color: #033E81; }
+        .mv-panel-green .mv-panel-title { color: #033E81; }
 
-        .mv-card-cinta {
-            height: 62px;
-            background: url('../image/cinta logo coope.png') center/auto 100% repeat-x;
-            overflow: hidden;
+        .mv-panel-rule {
+            width: 54px; height: 5px;
+            border-radius: 3px;
+            margin-bottom: 28px;
+        }
+        .mv-panel-blue  .mv-panel-rule { background: #7bd658; }
+        .mv-panel-light .mv-panel-rule { background: #033E81; }
+        .mv-panel-green .mv-panel-rule { background: #4EAE33; }
+
+        .mv-panel-text {
+            font-size: 1.45rem;
+            line-height: 1.9;
+        }
+        .mv-panel-blue  .mv-panel-text { color: rgba(255,255,255,0.68); }
+        .mv-panel-light .mv-panel-text { color: #555; }
+        .mv-panel-green .mv-panel-text { color: #444; }
+
+        /* número decorativo de fondo */
+        .mv-panel-deco {
+            position: absolute;
+            font-size: clamp(12rem, 22vw, 22rem);
+            font-weight: 900;
+            line-height: 1;
+            letter-spacing: -10px;
+            user-select: none;
+            pointer-events: none;
+            bottom: -20px;
+        }
+        .mv-panel-blue  .mv-panel-deco { right: -20px; color: rgba(255,255,255,0.04); }
+        .mv-panel-light .mv-panel-deco { left: -20px;  color: rgba(3,62,129,0.05); }
+        .mv-panel-green .mv-panel-deco { right: -20px; color: rgba(78,174,51,0.1); }
+
+        @media (max-width: 768px) {
+            .mv-panel { padding: 72px 0; }
+            .mv-panel-inner.from-right { margin-left: 0; }
         }
 
         .valor-card {
@@ -252,6 +262,77 @@
             background: #ffffff;
             padding: 40px 24px 48px;
             font-family: sans-serif;
+        }
+        /* imagen valores - diseño único */
+        .valores-img-featured {
+            position: relative;
+            flex: 1 1 600px;
+            max-width: 680px;
+            padding: 20px 20px 20px 0;
+        }
+        /* barra vertical gradiente a la izquierda */
+        .valores-img-featured::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 10%; bottom: 10%;
+            width: 6px;
+            border-radius: 3px;
+            background: linear-gradient(to bottom, #4EAE33, #033E81);
+        }
+        /* grid de puntos decorativos */
+        .valores-img-featured::after {
+            content: '';
+            position: absolute;
+            bottom: 0; right: -10px;
+            width: 120px; height: 120px;
+            background-image: radial-gradient(circle, #4EAE33 1.5px, transparent 1.5px);
+            background-size: 14px 14px;
+            opacity: 0.45;
+            z-index: 0;
+        }
+        .valores-img-wrap {
+            position: relative;
+            z-index: 1;
+            border-radius: 0 28px 28px 0;
+            overflow: hidden;
+            box-shadow: 12px 20px 60px rgba(3,62,129,0.25), -4px -4px 0 #4EAE33;
+        }
+        .valores-img-featured img {
+            width: 100%;
+            display: block;
+            object-fit: cover;
+            max-height: 660px;
+            transition: transform 6s ease;
+        }
+        .valores-img-featured:hover img {
+            transform: scale(1.04);
+        }
+        .valores-img-overlay {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            background: linear-gradient(to top, rgba(3,20,60,0.82) 0%, transparent 100%);
+            padding: 40px 28px 24px;
+            z-index: 2;
+        }
+        .valores-img-label {
+            display: inline-block;
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .valores-img-label span {
+            display: block;
+            font-size: 0.7rem;
+            font-weight: 400;
+            letter-spacing: 4px;
+            color: #7bd658;
+            margin-bottom: 4px;
+        }
+        @media (max-width: 768px) {
+            .valores-img-featured { max-width: 100%; padding: 20px 0 20px 20px; }
+            .valores-img-wrap { border-radius: 28px 0 0 28px; }
         }
 
         .valores-header {
@@ -468,7 +549,10 @@
                             Nosotros <i class="bi bi-chevron-down nav-arrow"></i>
                         </a>
                         <div class="nav-dropdown">
-                            
+                            <a href="./about.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-people-fill"></i></div>
+                                <div><span class="drop-title">¿Quiénes somos?</span><span class="drop-sub">Nuestra cooperativa</span></div>
+                            </a>
                             <a href="./mision-vision.html" class="drop-link">
                                 <div class="drop-icon"><i class="bi bi-eye-fill"></i></div>
                                 <div><span class="drop-title">Mision y Vision</span><span class="drop-sub">Nuestros valores</span></div>
@@ -492,6 +576,10 @@
                                 <div><span class="drop-title">Ver mas</span><span class="drop-sub">Todo sobre nosotros</span></div>
                             </a>
                         </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="./empleo.html" class="nav-link">Mi Empleo</a>
                     </li>
 
                     <li class="nav-item">
@@ -538,65 +626,61 @@
 
 
 
-    <!-- MISIÓN Y VISIÓN -->
-    <section style="padding: 20px 0 80px; background: #f8f9fa;">
-        <div class="container">
+    <!-- HERO -->
+    <section class="mv-hero">
+        <div class="mv-hero-img"></div>
+        <div class="container" style="position:relative;z-index:1;padding-bottom:50px;">
+            <span class="mv-hero-badge">Identidad Institucional</span>
+            <p class="mv-hero-sub">Los pilares que guían cada decisión y cada paso de nuestra cooperativa.</p>
+        </div>
+    </section>
 
-        <div class="mv-placa-wrap reveal" style="max-width:900px;">
-            <div class="mv-tornillo tl"></div>
-            <div class="mv-tornillo tr"></div>
-            <div class="mv-tornillo bl"></div>
-            <div class="mv-tornillo br"></div>
-
-            <div class="mv-card">
-                <div style="display:flex; align-items:center; gap:18px; padding:18px 40px 0;">
-                    <div style="flex:1; height:1px; background:linear-gradient(90deg,transparent,#033E81);"></div>
-                    <img src="../image/Imagotipo Horizontal Original.png" alt="" style="height:38px; opacity:0.75;">
-                    <div style="flex:1; height:1px; background:linear-gradient(90deg,#4EAE33,transparent);"></div>
-                </div>
-
-                <div class="mv-card-header">
-                   
-                    <div class="proposito-titulo">Propósito Visionario</div>
-                    <p class="proposito-texto">
-                        Ser la cooperativa que mojora la calidad de vida de los asociados y sus comunidades
-                    </p>
-                </div>
-
-                <div style="padding:0 60px; border-bottom:1px solid rgba(3,62,129,0.1); text-align:center;">
-                   
-                    <div style="font-size:1.95rem;font-weight:900;color:#033E81;margin-bottom:14px;">Misión</div>
-                    <p style="font-size:1.95rem;color:#555;line-height:1.85;margin-bottom:16px;max-width:700px;margin-left:auto;margin-right:auto;">
-                        Brindar soluciones de ahorro y crédito innovadoras y de alta calidad con beneficios
-                        asociadoeconómicos para el progreso de nuestros asociados.
-                    </p>
-                    
-                </div>
-
-                <div style="padding:20px 80px 20px; text-align:center;">
-                    
-                    <div style="font-size:1.95rem;font-weight:900;color:#033E81;margin-bottom:14px;">Visión</div>
-                    <p style="font-size:1.95rem;color:#555;line-height:1.85;margin-bottom:16px;max-width:700px;margin-left:auto;margin-right:auto;">
-                        Ser la cooperativa líder en innovación, mejora y desarrollo de nuestros asociados,
-                        familias y comunidades.
-                    </p>
-                    
-                </div>
-
-                <div class="mv-card-cinta"></div>
+    <!-- PROPÓSITO -->
+    <div class="mv-panel mv-panel-blue" style="background-image:url('../image/Proposito.jpg');background-size:cover;background-position:center;position:relative;padding:20px 0;">
+        <div style="position:absolute;inset:0;background:rgba(3,20,60,0.62);z-index:0;"></div>
+        <span class="mv-panel-deco" style="z-index:1;position:relative;">01</span>
+        <div class="container" style="position:relative;z-index:1;">
+            <div class="mv-panel-inner from-left">
+                <h2 class="mv-panel-title">Propósito<br>Visionario</h2>
+                <div class="mv-panel-rule"></div>
+                <p class="mv-panel-text">Ser la cooperativa que mejora la calidad de vida de los asociados y sus comunidades.</p>
             </div>
         </div>
+    </div>
 
-    </section>
+    <!-- MISIÓN -->
+    <div class="mv-panel mv-panel-light">
+        <span class="mv-panel-deco">02</span>
+        <div class="container" style="position:relative;z-index:1;">
+            <div class="mv-panel-inner from-right">
+                <h2 class="mv-panel-title">Misión</h2>
+                <div class="mv-panel-rule"></div>
+                <p class="mv-panel-text">Brindar soluciones de ahorro y crédito innovadoras y de alta calidad con beneficios económicos para el progreso de nuestros asociados.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- VISIÓN -->
+    <div class="mv-panel mv-panel-green">
+        <span class="mv-panel-deco">03</span>
+        <div class="container" style="position:relative;z-index:1;">
+            <div class="mv-panel-inner from-left">
+                <h2 class="mv-panel-title">Visión</h2>
+                <div class="mv-panel-rule"></div>
+                <p class="mv-panel-text">Ser la cooperativa líder en innovación, mejora y desarrollo de nuestros asociados, familias y comunidades.</p>
+            </div>
+        </div>
+    </div>
 
     <!-- VALORES -->
      <section class="valores-section">
-
         <div class="valores-header">
             <div class="valores-badge">Nuestros</div>
             <p class="valores-title">Valores</p>
         </div>
 
+        <div style="display:flex;align-items:center;gap:48px;flex-wrap:wrap;max-width:1100px;margin:0 auto;">
+        <div style="flex:1 1 420px;min-width:0;">
         <div class="valores-list">
 
             <div class="valor-row">
@@ -688,50 +772,22 @@
                 <span class="valor-label">Enfoque al Asociado</span>
             </div>
             </div>
-
-
         </div>
-    </section>
-
-
-
-
-    <section style="padding: 80px 0; background: white;">
-        <div class="container">
-            <div class="reveal" style="
-                background: linear-gradient(135deg, #033E81, #033E81);
-                border-radius: 24px;
-                padding: 60px;
-                text-align: center;">
-                <h2 style="color: white; font-weight: 800; font-size: 2rem; margin-bottom: 15px;">
-                    Sé parte de nuestra cooperativa
-                </h2>
-                <p style="color: rgba(255,255,255,0.75); max-width: 500px; margin: 0 auto 30px; line-height: 1.8;">
-                    Juntos compartimos los mismos valores y trabajamos por un mismo objetivo:
-                    tu bienestar financiero y el de tu familia.
-                </p>
-                <div class="d-flex flex-wrap gap-3 justify-content-center">
-                    <a href="./about.html" style="
-                        background: linear-gradient(135deg, #033E81, #4fc3f7);
-                        color: white; padding: 14px 32px;
-                        border-radius: 50px; text-decoration: none;
-                        font-weight: 600; transition: all 0.3s;">
-                        <i class="bi bi-people me-2"></i>Asociarme
-                    </a>
-                    <a href="./historia.html" style="
-                        background: transparent; color: white;
-                        padding: 14px 32px; border-radius: 50px;
-                        text-decoration: none; font-weight: 600;
-                        border: 2px solid rgba(255,255,255,0.4);
-                        transition: all 0.3s;">
-                        <i class="bi bi-clock-history me-2"></i>Nuestra Historia
-                    </a>
-                </div>
+        </div><!-- fin lista col -->
+        <div class="valores-img-featured">
+            <div class="valores-img-wrap">
+                <img src="../image/valores.jpg" alt="Nuestros Valores">
             </div>
         </div>
+        </div><!-- fin flex row -->
     </section>
 
+
+
+
+   
     <!-- FOOTER -->
+
     <footer id="contacto">
         <div style="background: white; line-height: 0;">
             <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg">
@@ -740,6 +796,14 @@
         </div>
         <div style="background: linear-gradient(135deg, #033E81 0%, #033E81 50%, #033E81 100%); padding: 60px 0 30px;">
             <div class="container">
+                <div style="display:flex;align-items:center;gap:40px;flex-wrap:wrap;margin-bottom:40px;padding-bottom:30px;border-bottom:1px solid rgba(255,255,255,0.1);">
+                    <span style="color:rgba(255,255,255,0.5);font-style:italic;font-size:1.15rem;font-weight:600;white-space:nowrap;">Con el respaldo de</span>
+                    <div style="display:flex;align-items:center;gap:40px;flex-wrap:wrap;">
+                        <img src="../image/Micoope.webp" alt="Micoope" style="height:62px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.85;">
+                        <img src="../image/logo_fondo.png" alt="Fondo Garantía Micoope" style="height:54px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.85;">
+                        <img src="../image/logo_seguros.png" alt="Seguros Columna" style="height:62px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.85;">
+                    </div>
+                </div>
                 <div class="row g-4 mb-5">
                     <div class="col-md-4">
                         <img src="../image/Logo Cooperativa - Blanco.png" height="45" alt="Logo" class="mb-3">
@@ -805,6 +869,17 @@
         }, { threshold: 0.12 });
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        const panelObs = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    panelObs.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.25 });
+
+        document.querySelectorAll('.mv-panel-inner').forEach(el => panelObs.observe(el));
 
         const valoresList = document.querySelector('.valores-list');
         if (valoresList) {

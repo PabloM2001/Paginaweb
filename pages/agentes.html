@@ -16,32 +16,44 @@
         * { font-family: 'Outfit', sans-serif; }
 
         .hero-agentes {
-            background: linear-gradient(135deg, #033E81 0%, #033E81 60%, #033E81 100%);
-            padding: 100px 0 80px;
             position: relative;
+            height: 82vh;
+            min-height: 520px;
             overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+            padding-bottom: 0px;
         }
+        @keyframes agZoom { from { transform: scale(1); } to { transform: scale(1.06); } }
+        @keyframes agFadeUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
 
+        .hero-agentes-bg {
+            position: absolute; inset: 0;
+            width: 100%; height: 100%;
+            object-fit: cover; object-position: center;
+            z-index: 0;
+            animation: agZoom 12s ease-out forwards;
+        }
+        .hero-agentes .container {
+            animation: agFadeUp 1s 0.2s ease both;
+        }
         .hero-agentes::before {
             content: '';
-            position: absolute;
-            width: 400px;
-            height: 400px;
-            background: rgba(79,195,247,0.08);
-            border-radius: 50%;
-            top: -100px;
-            right: -100px;
+            position: absolute; inset: 0;
+            background: linear-gradient(
+                to top,
+                rgba(2,10,30,0.96) 0%,
+                rgba(3,30,90,0.60) 45%,
+                rgba(3,62,129,0.25) 100%
+            );
+            z-index: 1;
         }
-
         .hero-agentes::after {
             content: '';
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            background: rgba(123,214,90,0.06);
-            border-radius: 50%;
-            bottom: -80px;
-            left: -80px;
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse at 20% 80%, rgba(78,174,51,0.15) 0%, transparent 55%);
+            z-index: 1;
+            pointer-events: none;
         }
 
         .tipo-card {
@@ -73,33 +85,78 @@
             color: white;
         }
 
-        .beneficio-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 15px;
-            padding: 20px;
+        /* Acordeón beneficios */
+        .ben-acordeon { display: flex; flex-direction: column; gap: 10px; }
+
+        .ben-item {
             background: white;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-            transition: all 0.3s ease;
+            border-radius: 16px;
+            box-shadow: 0 2px 12px rgba(3,62,129,0.07);
+            overflow: hidden;
+            cursor: pointer;
+            transition: box-shadow 0.3s, transform 0.2s;
+            border: 2px solid transparent;
+        }
+        .ben-item:hover { box-shadow: 0 6px 24px rgba(3,62,129,0.13); }
+        .ben-item.active {
+            border-color: #033E81;
+            box-shadow: 0 8px 28px rgba(3,62,129,0.18);
         }
 
-        .beneficio-item:hover {
-            transform: translateX(5px);
-            box-shadow: 0 8px 25px rgba(13,110,253,0.12);
+        .ben-cabecera {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 18px 22px;
+            user-select: none;
         }
 
-        .beneficio-icon {
-            width: 48px;
-            height: 48px;
-            min-width: 48px;
-            background: linear-gradient(135deg, rgba(3,62,129,0.1), rgba(13,110,253,0.15));
+        .ben-icono {
+            width: 44px;
+            height: 44px;
+            min-width: 44px;
             border-radius: 12px;
+            background: rgba(3,62,129,0.08);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             color: #033E81;
+            transition: background 0.3s, color 0.3s;
+        }
+        .ben-item.active .ben-icono {
+            background: #033E81;
+            color: white;
+        }
+
+        .ben-titulo {
+            flex: 1;
+            font-weight: 700;
+            color: #1a2a4a;
+            font-size: 0.97rem;
+            transition: color 0.3s;
+        }
+        .ben-item.active .ben-titulo { color: #033E81; }
+
+        .ben-chevron {
+            font-size: 1rem;
+            color: #033E81;
+            transition: transform 0.35s ease;
+        }
+        .ben-item.active .ben-chevron { transform: rotate(180deg); }
+
+        .ben-cuerpo {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.3s ease;
+            padding: 0 22px 0 80px;
+            color: #555;
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+        .ben-item.active .ben-cuerpo {
+            max-height: 200px;
+            padding: 0 22px 18px 80px;
         }
 
         .cta-agente {
@@ -129,38 +186,279 @@
             color: rgba(255,255,255,0.5);
         }
 
-        .paso-num {
-            width: 50px;
-            height: 50px;
-            background: #033E81;
+        /* Stepper interactivo */
+        .stepper-wrap {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 0;
+            overflow-x: auto;
+            padding-bottom: 8px;
+            scrollbar-width: none;
+        }
+        .stepper-wrap::-webkit-scrollbar { display: none; }
+
+        .st-paso {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            flex: 1;
+            min-width: 80px;
+            max-width: 120px;
+            position: relative;
+        }
+        .st-paso::after {
+            content: '';
+            position: absolute;
+            top: 21px;
+            left: 50%;
+            width: 100%;
+            height: 2px;
+            background: #dde5f5;
+            z-index: 0;
+            transition: background 0.4s;
+        }
+        .st-paso:last-child::after { display: none; }
+        .st-paso.visitado::after { background: linear-gradient(90deg, #033E81, #033E81); }
+
+        .st-burbuja {
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
+            border: 2px solid #dde5f5;
+            background: #f4f7fd;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-weight: 800;
+            color: #aab4cc;
+            font-size: 1rem;
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+        .st-paso:hover .st-burbuja { border-color: #9ab4de; color: #9ab4de; }
+        .st-paso.visitado .st-burbuja { background: rgba(3,62,129,0.1); border-color: #033E81; color: #033E81; }
+        .st-paso.activo .st-burbuja {
+            background: #033E81;
+            border-color: #033E81;
             color: white;
-            font-weight: 700;
-            font-size: 1.2rem;
-            margin: 0 auto 15px;
+            box-shadow: 0 0 0 7px rgba(3,62,129,0.12);
+            transform: scale(1.12);
         }
+        .st-paso.final.activo .st-burbuja { background: #4EAE33; border-color: #4EAE33; box-shadow: 0 0 0 7px rgba(78,174,51,0.15); }
 
-        .paso-linea {
-            position: absolute;
-            top: 25px;
-            left: calc(50% + 25px);
-            width: calc(100% - 50px);
-            height: 2px;
-            background: linear-gradient(90deg, #033E81, #4fc3f7);
+        .st-label {
+            font-size: 0.67rem;
+            color: #bbb;
+            text-align: center;
+            line-height: 1.3;
+            transition: color 0.3s;
+            max-width: 90px;
         }
+        .st-paso.activo .st-label { color: #033E81; font-weight: 700; }
+        .st-paso.visitado .st-label { color: #6680aa; }
+
+        /* Panel de detalle */
+        .proceso-panel {
+            background: linear-gradient(135deg, #f0f5ff 0%, #eaf3ff 100%);
+            border-radius: 24px;
+            padding: 48px 52px;
+            margin-top: 36px;
+            position: relative;
+            overflow: hidden;
+            min-height: 200px;
+        }
+        .proceso-panel::before {
+            content: '';
+            position: absolute;
+            top: -60px; right: -60px;
+            width: 200px; height: 200px;
+            border-radius: 50%;
+            background: rgba(3,62,129,0.06);
+        }
+        .proceso-panel-inner {
+            display: flex;
+            gap: 44px;
+            align-items: center;
+            transition: opacity 0.25s ease, transform 0.25s ease;
+        }
+        .proceso-panel-icono {
+            width: 110px;
+            height: 110px;
+            min-width: 110px;
+            background: white;
+            border-radius: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #033E81;
+            box-shadow: 0 8px 28px rgba(3,62,129,0.14);
+            transition: color 0.3s;
+        }
+        .proceso-panel-body { flex: 1; }
+        .proceso-panel-etiq {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: #4EAE33;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        .proceso-panel-titulo {
+            font-size: 1.55rem;
+            font-weight: 900;
+            color: #033E81;
+            margin-bottom: 12px;
+            line-height: 1.25;
+        }
+        .proceso-panel-desc {
+            color: #556;
+            line-height: 1.85;
+            font-size: 0.95rem;
+        }
+        .proceso-nav-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 28px;
+        }
+        .proceso-barra-wrap {
+            flex: 1;
+            height: 4px;
+            background: rgba(3,62,129,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .proceso-barra-fill {
+            height: 100%;
+            background: #033E81;
+            border-radius: 10px;
+            transition: width 0.4s ease;
+        }
+        .proceso-btn {
+            padding: 10px 24px;
+            border-radius: 50px;
+            border: none;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.25s;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+        .proceso-btn-prev { background: white; color: #033E81; border: 2px solid #dde5f5; }
+        .proceso-btn-prev:hover { border-color: #033E81; }
+        .proceso-btn-prev:disabled { opacity: 0.35; cursor: default; }
+        .proceso-btn-next { background: #033E81; color: white; }
+        .proceso-btn-next:hover { background: #0a5eb5; }
+        .proceso-btn-next.final { background: #4EAE33; }
+        .proceso-btn-next.final:hover { background: #3c9228; }
 
         .reveal {
             opacity: 0;
             transform: translateY(30px);
             transition: opacity 0.6s ease, transform 0.6s ease;
         }
-
         .reveal.visible {
             opacity: 1;
             transform: translateY(0);
+        }
+
+        /* GALERÍA */
+        .galeria-agentes {
+            background: transparent;
+            padding: 80px 0;
+        }
+        .galeria-header {
+            margin-bottom: 40px;
+        }
+        .galeria-header p {
+            font-size: 0.72rem; font-weight: 700; letter-spacing: 6px;
+            text-transform: uppercase; color: #4EAE33; margin-bottom: 10px;
+        }
+        .galeria-header h2 {
+            font-size: 2.4rem; font-weight: 900; color: #033E81; margin: 0;
+        }
+        .galeria-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: 260px 260px;
+            gap: 12px;
+        }
+        .galeria-grande {
+            grid-row: span 2;
+        }
+        .galeria-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 14px;
+            cursor: pointer;
+        }
+        .galeria-item img {
+            width: 100%; height: 100%;
+            object-fit: cover; object-position: center;
+            transition: transform 0.5s ease;
+            display: block;
+        }
+        .galeria-item:hover img {
+            transform: scale(1.07);
+        }
+        .galeria-overlay {
+            position: absolute; inset: 0;
+            background: rgba(3,62,129,0.55);
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; transition: opacity 0.3s ease;
+            font-size: 1.8rem; color: white;
+        }
+        .galeria-item:hover .galeria-overlay { opacity: 1; }
+
+        /* LIGHTBOX GALERÍA */
+        .galeria-lb {
+            display: none; position: fixed; inset: 0;
+            background: rgba(2,10,30,0.97); z-index: 9999;
+            align-items: center; justify-content: center; cursor: zoom-out;
+        }
+        .galeria-lb.abierto { display: flex; }
+        .galeria-lb img {
+            max-width: 88vw; max-height: 90vh; object-fit: contain;
+            border-radius: 14px; box-shadow: 0 30px 80px rgba(0,0,0,0.6); cursor: default;
+        }
+        .galeria-lb-close {
+            position: absolute; top: 18px; right: 22px;
+            background: rgba(255,255,255,0.1); border: none; color: white;
+            width: 44px; height: 44px; border-radius: 50%; font-size: 1.2rem;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            transition: background 0.2s;
+        }
+        .galeria-lb-close:hover { background: rgba(255,255,255,0.22); }
+        .galeria-lb-prev, .galeria-lb-next {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18);
+            color: white; width: 48px; height: 48px; border-radius: 50%;
+            font-size: 1.1rem; cursor: pointer; display: flex;
+            align-items: center; justify-content: center; transition: all 0.2s;
+        }
+        .galeria-lb-prev { left: 20px; }
+        .galeria-lb-next { right: 20px; }
+        .galeria-lb-prev:hover, .galeria-lb-next:hover { background: rgba(78,174,51,0.35); border-color: #4EAE33; }
+        .galeria-lb-counter {
+            position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+            color: rgba(255,255,255,0.45); font-size: 0.78rem; font-weight: 600; letter-spacing: 3px;
+        }
+        @media (max-width: 768px) {
+            .galeria-grid {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: auto;
+            }
+            .galeria-grande { grid-row: span 1; }
+        }
+        @media (max-width: 480px) {
+            .galeria-grid { grid-template-columns: 1fr; }
         }
 
     </style>
@@ -230,7 +528,10 @@
                             Nosotros <i class="bi bi-chevron-down nav-arrow"></i>
                         </a>
                         <div class="nav-dropdown">
-                            
+                            <a href="./about.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-people-fill"></i></div>
+                                <div><span class="drop-title">¿Quiénes somos?</span><span class="drop-sub">Nuestra cooperativa</span></div>
+                            </a>
                             <a href="./mision-vision.html" class="drop-link">
                                 <div class="drop-icon"><i class="bi bi-eye-fill"></i></div>
                                 <div><span class="drop-title">Mision y Vision</span><span class="drop-sub">Nuestros valores</span></div>
@@ -254,6 +555,10 @@
                                 <div><span class="drop-title">Ver mas</span><span class="drop-sub">Todo sobre nosotros</span></div>
                             </a>
                         </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="./empleo.html" class="nav-link">Mi Empleo</a>
                     </li>
 
                     <li class="nav-item">
@@ -300,11 +605,12 @@
 
     <!-- HERO -->
     <section class="hero-agentes">
-        <div class="container position-relative" style="z-index:2;">
+        <img src="../image/AgentesPortada.jpg" alt="Agentes" class="hero-agentes-bg">
+        <div class="container position-relative" style="z-index:2;padding-bottom:40px;">
             <div class="row align-items-center">
                 <div class="col-lg-7">
                     <h1 style="font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; color: white; line-height: 1.1; margin-bottom: 20px;">
-                        Nuestros <span style="color: #4fc3f7;">Agentes Autorizados</span><br>
+                        Nuestros <span style="color: white;">Agentes Autorizados</span><br>
                         
                     </h1>
 
@@ -314,40 +620,6 @@
                         cual presta servicios de atención a los asociados mediante un punto de servicio
                         instalado dentro de su establecimiento.
                     </p>
-
-                    <div class="d-flex flex-wrap gap-3">
-                        <a href="#nuestros-agentes" style="
-                            background: linear-gradient(135deg, #033E81, #4fc3f7);
-                            color: white;
-                            padding: 14px 32px;
-                            border-radius: 50px;
-                            text-decoration: none;
-                            font-weight: 600;
-                            transition: all 0.3s ease;
-                            box-shadow: 0 8px 25px rgba(13,110,253,0.4);">
-                            <i class="bi bi-search me-2"></i>Encuentra un Agente
-                        </a>
-                        <a href="#ser-agente" style="
-                            background: transparent;
-                            color: white;
-                            padding: 14px 32px;
-                            border-radius: 50px;
-                            text-decoration: none;
-                            font-weight: 600;
-                            border: 2px solid rgba(255,255,255,0.4);
-                            transition: all 0.3s ease;">
-                            <i class="bi bi-shop me-2"></i>Ser Agente
-                        </a>
-                    </div>
-                </div>
-
-                <div class="col-lg-5 d-none d-lg-flex align-items-center justify-content-center">
-                    <div style="position: relative; width: 100%;">
-                        <div style="position: absolute; top: -15px; right: -15px; width: 100%; height: 100%; border: 3px solid #4EAE33; border-radius: 20px; z-index: 0;"></div>
-                        <img src="../image/agentes.jpg" alt="Agente Bancario" style="width: 100%; height: 420px; object-fit: cover; border-radius: 20px; position: relative; z-index: 1; box-shadow: 0 20px 60px rgba(0,0,0,0.3);">
-                        
-                        
-                    </div>
                 </div>
 
             </div>
@@ -450,6 +722,47 @@
     </section>
 
  
+
+    <!-- GALERÍA -->
+    <section class="galeria-agentes">
+        <div class="container">
+            <div class="text-center galeria-header">
+                <p>Nuestra red</p>
+                <h2>Agentes en Acción</h2>
+            </div>
+            <div class="galeria-grid">
+                <div class="galeria-item galeria-grande" onclick="galeriaAbrir(0)">
+                    <img src="../image/A1.jpg" alt="Agente 1">
+                    <div class="galeria-overlay"><i class="bi bi-zoom-in"></i></div>
+                </div>
+                <div class="galeria-item" onclick="galeriaAbrir(1)">
+                    <img src="../image/A2.jpg" alt="Agente 2">
+                    <div class="galeria-overlay"><i class="bi bi-zoom-in"></i></div>
+                </div>
+                <div class="galeria-item" onclick="galeriaAbrir(2)">
+                    <img src="../image/A3.jpg" alt="Agente 3">
+                    <div class="galeria-overlay"><i class="bi bi-zoom-in"></i></div>
+                </div>
+                <div class="galeria-item" onclick="galeriaAbrir(3)">
+                    <img src="../image/A4.jpg" alt="Agente 4">
+                    <div class="galeria-overlay"><i class="bi bi-zoom-in"></i></div>
+                </div>
+                <div class="galeria-item" onclick="galeriaAbrir(4)">
+                    <img src="../image/A5.jpg" alt="Agente 5">
+                    <div class="galeria-overlay"><i class="bi bi-zoom-in"></i></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LIGHTBOX GALERÍA -->
+    <div class="galeria-lb" id="galeriaLb" onclick="galeriaCerrar()">
+        <button class="galeria-lb-close" onclick="galeriaCerrar()"><i class="bi bi-x-lg"></i></button>
+        <button class="galeria-lb-prev" onclick="event.stopPropagation();galeriaMover(-1)"><i class="bi bi-chevron-left"></i></button>
+        <img id="galeriaLbImg" src="" alt="" onclick="event.stopPropagation()">
+        <button class="galeria-lb-next" onclick="event.stopPropagation();galeriaMover(1)"><i class="bi bi-chevron-right"></i></button>
+        <div class="galeria-lb-counter" id="galeriaLbCounter"></div>
+    </div>
 
     <!-- AGENTES -->
     <section id="nuestros-agentes" style="background: #f0f4f8; padding: 80px 0;">
@@ -857,142 +1170,108 @@
     <!-- BENEFICIOS -->
     <section style="padding: 80px 0; background: #f8f9fa;">
         <div class="container">
-            <div class="row g-5 align-items-center">
+            <div class="row g-5 align-items-start">
 
-                <div class="col-lg-5 reveal">
-                    <span style="color: #033E81; font-weight: 600; letter-spacing: 1px; font-size: 0.9rem;">PARA EL AGENTE</span>
-                    <h2 style="font-size: 2.2rem; font-weight: 800; color: #033E81; margin: 10px 0 15px;">
-                        Beneficios de ser<br>Agente San Pedro
-                    </h2>
-                    <p style="color: #666; line-height: 1.8;">
-                        Únete a nuestra red y aumenta los ingresos de tu negocio mientras
-                        ayudas a tu comunidad a acceder a servicios financieros.
-                    </p>
-                    <a href="#ser-agente" style="
-                        display: inline-block;
-                        margin-top: 20px;
-                        background: #033E81;
-                        color: white;
-                        padding: 14px 30px;
-                        border-radius: 50px;
-                        text-decoration: none;
-                        font-weight: 600;
-                        transition: all 0.3s ease;">
-                        Solicitar ser agente →
-                    </a>
+                <div class="col-lg-4 reveal">
+                    <div style="position:sticky;top:100px;">
+                        <span style="color:#4EAE33;font-weight:700;letter-spacing:4px;font-size:0.75rem;text-transform:uppercase;">Para el agente</span>
+                        <h2 style="font-size:2.2rem;font-weight:900;color:#033E81;margin:12px 0 16px;line-height:1.15;">
+                            Beneficios de ser<br>Agente San Pedro
+                        </h2>
+                        <p style="color:#666;line-height:1.8;margin-bottom:28px;">
+                            Únete a nuestra red y aumenta los ingresos de tu negocio mientras ayudas a tu comunidad a acceder a servicios financieros.
+                        </p>
+                        <a href="#ser-agente" style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#033E81,#0a5eb5);color:white;padding:14px 30px;border-radius:50px;text-decoration:none;font-weight:700;font-size:0.9rem;transition:all 0.3s;box-shadow:0 6px 20px rgba(3,62,129,0.3);"
+                            onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 10px 28px rgba(3,62,129,0.4)'"
+                            onmouseout="this.style.transform='';this.style.boxShadow='0 6px 20px rgba(3,62,129,0.3)'">
+                            Solicitar ser agente <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
                 </div>
 
-                <div class="col-lg-7">
-                    <div class="row g-3">
+                <div class="col-lg-8 reveal">
+                    <div class="ben-acordeon">
 
-                        <div class="col-12 reveal">
-                            <div class="beneficio-item">
-                                <div class="beneficio-icon">
-                                    <i class="bi bi-people"></i>
-                                </div>
-                                <div>
-                                    <h6 style="font-weight: 700; color: #033E81; margin-bottom: 4px;">Incremento de Clientes al negocio</h6>
-                                    <p style="color: #666; margin: 0; font-size: 0.9rem;">
-                                        Al ofrecer servicios financieros, más personas visitan el establecimiento para
-                                        realizar depósitos, retiros, pagos o consultas, lo que aumenta el flujo de
-                                        clientes y las oportunidades de venta del negocio.
-                                    </p>
-                                </div>
+                        <div class="ben-item active" onclick="benToggle(this)">
+                            <div class="ben-cabecera">
+                                <div class="ben-icono"><i class="bi bi-people"></i></div>
+                                <span class="ben-titulo">Incremento de Clientes al negocio</span>
+                                <i class="bi bi-chevron-down ben-chevron"></i>
+                            </div>
+                            <div class="ben-cuerpo">
+                                Al ofrecer servicios financieros, más personas visitan el establecimiento para realizar depósitos, retiros, pagos o consultas, lo que aumenta el flujo de clientes y las oportunidades de venta del negocio.
                             </div>
                         </div>
 
-                        <div class="col-12 reveal">
-                            <div class="beneficio-item">
-                                <div class="beneficio-icon">
-                                    <i class="bi bi-cash-coin"></i>
-                                </div>
-                                <div>
-                                    <h6 style="font-weight: 700; color: #033E81; margin-bottom: 4px;">Generación de Ingresos por Comisiones</h6>
-                                    <p style="color: #666; margin: 0; font-size: 0.9rem;">
-                                        El agente recibe comisiones por cada transacción realizada, lo cual
-                                        representa un ingreso adicional para el negocio sin necesidad de realizar una
-                                        inversión grande.
-                                    </p>
-                                </div>
+                        <div class="ben-item" onclick="benToggle(this)">
+                            <div class="ben-cabecera">
+                                <div class="ben-icono"><i class="bi bi-cash-coin"></i></div>
+                                <span class="ben-titulo">Generación de Ingresos por Comisiones</span>
+                                <i class="bi bi-chevron-down ben-chevron"></i>
+                            </div>
+                            <div class="ben-cuerpo">
+                                El agente recibe comisiones por cada transacción realizada, lo cual representa un ingreso adicional para el negocio sin necesidad de realizar una inversión grande.
                             </div>
                         </div>
 
-                        <div class="col-12 reveal">
-                            <div class="beneficio-item">
-                                <div class="beneficio-icon">
-                                    <i class="bi bi-shield-check"></i>
-                                </div>
-                                <div>
-                                    <h6 style="font-weight: 700; color: #033E81; margin-bottom: 4px;">Posicionamiento y confianza del Negocio</h6>
-                                    <p style="color: #666; margin: 0; font-size: 0.9rem;">
-                                        Ser Agente MICOOPE permite que el negocio sea reconocido como un punto
-                                        autorizado de la cooperativa, lo que genera mayor confianza y prestigio en la
-                                        comunidad.
-                                    </p>
-                                </div>
+                        <div class="ben-item" onclick="benToggle(this)">
+                            <div class="ben-cabecera">
+                                <div class="ben-icono"><i class="bi bi-shield-check"></i></div>
+                                <span class="ben-titulo">Posicionamiento y confianza del Negocio</span>
+                                <i class="bi bi-chevron-down ben-chevron"></i>
+                            </div>
+                            <div class="ben-cuerpo">
+                                Ser Agente MICOOPE permite que el negocio sea reconocido como un punto autorizado de la cooperativa, lo que genera mayor confianza y prestigio en la comunidad.
                             </div>
                         </div>
 
-                        <div class="col-12 reveal">
-                            <div class="beneficio-item">
-                                <div class="beneficio-icon">
-                                    <i class="bi bi-patch-check"></i>
-                                </div>
-                                <div>
-                                    <h6 style="font-weight: 700; color: #033E81; margin-bottom: 4px;">Mayor competividad</h6>
-                                    <p style="color: #666; margin: 0; font-size: 0.9rem;">
-                                        El negocio se vuelve más atractivo frente a otros comercios cercanos, ya que
-                                        ofrece servicios financieros adicionales que otros establecimientos no tienen.
-                                    </p>
-                                </div>
+                        <div class="ben-item" onclick="benToggle(this)">
+                            <div class="ben-cabecera">
+                                <div class="ben-icono"><i class="bi bi-patch-check"></i></div>
+                                <span class="ben-titulo">Mayor competitividad</span>
+                                <i class="bi bi-chevron-down ben-chevron"></i>
+                            </div>
+                            <div class="ben-cuerpo">
+                                El negocio se vuelve más atractivo frente a otros comercios cercanos, ya que ofrece servicios financieros adicionales que otros establecimientos no tienen.
                             </div>
                         </div>
 
-                        <div class="col-12 reveal">
-                            <div class="beneficio-item">
-                                <div class="beneficio-icon">
-                                    <i class="bi bi-person-arms-up"></i>
-                                </div>
-                                <div>
-                                    <h6 style="font-weight: 700; color: #033E81; margin-bottom: 4px;">Apoyo y capacitación de la cooperativa</h6>
-                                    <p style="color: #666; margin: 0; font-size: 0.9rem;">
-                                        La cooperativa brinda capacitación, acompañamiento y supervisión, para
-                                        asegurar que el agente opere correctamente.
-                                    </p>
-                                </div>
+                        <div class="ben-item" onclick="benToggle(this)">
+                            <div class="ben-cabecera">
+                                <div class="ben-icono"><i class="bi bi-person-arms-up"></i></div>
+                                <span class="ben-titulo">Apoyo y capacitación de la cooperativa</span>
+                                <i class="bi bi-chevron-down ben-chevron"></i>
+                            </div>
+                            <div class="ben-cuerpo">
+                                La cooperativa brinda capacitación, acompañamiento y supervisión para asegurar que el agente opere correctamente.
                             </div>
                         </div>
-                        <div class="col-12 reveal">
-                            <div class="beneficio-item">
-                                <div class="beneficio-icon">
-                                    <i class="bi bi-card-image"></i>
-                                </div>
-                                <div>
-                                    <h6 style="font-weight: 700; color: #033E81; margin-bottom: 4px;">Material e imagen institucional</h6>
-                                    <p style="color: #666; margin: 0; font-size: 0.9rem;">
-                                        El agente recibe material publicitario, rótulos e imagen institucional, lo cual
-                                        mejora la presentación del negocio y lo identifica como punto de servicio
-                                        MICOOPE.
-                                    </p>
-                                </div>
+
+                        <div class="ben-item" onclick="benToggle(this)">
+                            <div class="ben-cabecera">
+                                <div class="ben-icono"><i class="bi bi-card-image"></i></div>
+                                <span class="ben-titulo">Material e imagen institucional</span>
+                                <i class="bi bi-chevron-down ben-chevron"></i>
+                            </div>
+                            <div class="ben-cuerpo">
+                                El agente recibe material publicitario, rótulos e imagen institucional, lo cual mejora la presentación del negocio y lo identifica como punto de servicio MICOOPE.
                             </div>
                         </div>
-                        <div class="col-12 reveal">
-                            <div class="beneficio-item">
-                                <div class="beneficio-icon">
-                                    <i class="bi bi-headset"></i>
-                                </div>
-                                <div>
-                                    <h6 style="font-weight: 700; color: #033E81; margin-bottom: 4px;">Soporte técnico permanente</h6>
-                                    <p style="color: #666; margin: 0; font-size: 0.9rem;">
-                                        Asistencia técnica y capacitación continua para operar con seguridad.
-                                    </p>
-                                </div>
+
+                        <div class="ben-item" onclick="benToggle(this)">
+                            <div class="ben-cabecera">
+                                <div class="ben-icono"><i class="bi bi-headset"></i></div>
+                                <span class="ben-titulo">Soporte técnico permanente</span>
+                                <i class="bi bi-chevron-down ben-chevron"></i>
+                            </div>
+                            <div class="ben-cuerpo">
+                                Asistencia técnica y capacitación continua para operar con seguridad y resolver cualquier inconveniente en el menor tiempo posible.
                             </div>
                         </div>
 
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
@@ -1001,95 +1280,80 @@
     <section style="padding: 80px 0; background: white;">
         <div class="container">
             <div class="text-center mb-5 reveal">
-                <span style="color: #033E81; font-weight: 600; letter-spacing: 1px; font-size: 0.9rem;">PROCESO</span>
-                <h2 style="font-size: 2.3rem; font-weight: 800; color: #033E81; margin-top: 8px;">
+                <span style="color:#4EAE33;font-weight:700;letter-spacing:4px;font-size:0.75rem;text-transform:uppercase;">PROCESO</span>
+                <h2 style="font-size: 2.3rem; font-weight: 800; color: #033E81; margin-top: 10px;">
                     ¿Cómo convertirte en Agente?
                 </h2>
+                <p style="color:#777;max-width:480px;margin:10px auto 0;font-size:0.95rem;">
+                    Haz clic en cada paso para conocer los requisitos del proceso
+                </p>
             </div>
 
-            <div class="row g-4 justify-content-center">
-
-                <div class="col-md-6 col-lg-3 reveal">
-                    <div style="text-align:center; position:relative; padding:20px;">
-                        <div class="paso-num">1</div>
-                        <h6 style="font-weight:700; color:#033E81; margin-bottom:8px;">Ser Asociado de la Cooperativa San Pedro</h6>
-                        <p style="color:#666; font-size:0.9rem;">
-                            Debes ser asociado activo de la Cooperativa San Pedro R.L. para poder aplicar como agente.
-                        </p>
-                    </div>
+            <!-- Stepper de pasos -->
+            <div class="stepper-wrap reveal" id="stepperWrap">
+                <div class="st-paso activo visitado" onclick="pasoIr(0)">
+                    <div class="st-burbuja">1</div>
+                    <span class="st-label">Ser Asociado</span>
                 </div>
-
-                <div class="col-md-6 col-lg-3 reveal">
-                    <div style="text-align:center; position:relative; padding:20px;">
-                        <div class="paso-num">2</div>
-                        <h6 style="font-weight:700; color:#033E81; margin-bottom:8px;">Documento de Identificación DPI</h6>
-                        <p style="color:#666; font-size:0.9rem;">
-                            Presenta tu DPI vigente, original y fotocopia, como parte del proceso de identificación.
-                        </p>
-                    </div>
+                <div class="st-paso" onclick="pasoIr(1)">
+                    <div class="st-burbuja">2</div>
+                    <span class="st-label">DPI</span>
                 </div>
-
-                <div class="col-md-6 col-lg-3 reveal">
-                    <div style="text-align:center; position:relative; padding:20px;">
-                        <div class="paso-num">3</div>
-                        <h6 style="font-weight:700; color:#033E81; margin-bottom:8px;">Patente de Comercio</h6>
-                        <p style="color:#666; font-size:0.9rem;">
-                            Tu negocio debe contar con patente de comercio vigente que acredite su funcionamiento legal.
-                        </p>
-                    </div>
+                <div class="st-paso" onclick="pasoIr(2)">
+                    <div class="st-burbuja">3</div>
+                    <span class="st-label">Patente de Comercio</span>
                 </div>
-
-                <div class="col-md-6 col-lg-3 reveal">
-                    <div style="text-align:center; position:relative; padding:20px;">
-                        <div class="paso-num">4</div>
-                        <h6 style="font-weight:700; color:#033E81; margin-bottom:8px;">RTU actualizado</h6>
-                        <p style="color:#666; font-size:0.9rem;">
-                            Presenta el Registro Tributario Unificado actualizado ante la SAT para validar tu negocio.
-                        </p>
-                    </div>
+                <div class="st-paso" onclick="pasoIr(3)">
+                    <div class="st-burbuja">4</div>
+                    <span class="st-label">RTU</span>
                 </div>
-
-                <div class="col-md-6 col-lg-3 reveal">
-                    <div style="text-align:center; position:relative; padding:20px;">
-                        <div class="paso-num">6</div>
-                        <h6 style="font-weight:700; color:#033E81; margin-bottom:8px;">Carta de solicitud a la Gerencia</h6>
-                        <p style="color:#666; font-size:0.9rem;">
-                            El asociado debe presentar una carta formal dirigida a la Gerencia de la Cooperativa solicitando ser agente.
-                        </p>
-                    </div>
+                <div class="st-paso" onclick="pasoIr(4)">
+                    <div class="st-burbuja">5</div>
+                    <span class="st-label">Cuenta Activa</span>
                 </div>
-
-                <div class="col-md-6 col-lg-3 reveal">
-                    <div style="text-align:center; position:relative; padding:20px;">
-                        <div class="paso-num">7</div>
-                        <h6 style="font-weight:700; color:#033E81; margin-bottom:8px;">Facturas electrónicas emitidas por negocio</h6>
-                        <p style="color:#666; font-size:0.9rem;">
-                            Tu negocio debe emitir facturas electrónicas como respaldo de las operaciones realizadas.
-                        </p>
-                    </div>
+                <div class="st-paso" onclick="pasoIr(5)">
+                    <div class="st-burbuja">6</div>
+                    <span class="st-label">Carta a Gerencia</span>
                 </div>
-
-                <div class="col-md-6 col-lg-3 reveal">
-                    <div style="text-align:center; position:relative; padding:20px;">
-                        <div class="paso-num">8</div>
-                        <h6 style="font-weight:700; color:#033E81; margin-bottom:8px;">Tener buen historial crediticio</h6>
-                        <p style="color:#666; font-size:0.9rem;">
-                            Se requiere un historial crediticio limpio y sin morosidad para garantizar la confianza del servicio.
-                        </p>
-                    </div>
+                <div class="st-paso" onclick="pasoIr(6)">
+                    <div class="st-burbuja">7</div>
+                    <span class="st-label">Facturas Electrónicas</span>
                 </div>
-
-                <div class="col-md-6 col-lg-3 reveal">
-                    <div style="text-align:center; position:relative; padding:20px;">
-                        <div class="paso-num" style="background: linear-gradient(135deg, #4EAE33, #7bd65a);">9</div>
-                        <h6 style="font-weight:700; color:#033E81; margin-bottom:8px;">¡Activación!</h6>
-                        <p style="color:#666; font-size:0.9rem;">
-                            Una vez aprobado, recibes capacitación y el equipo necesario para comenzar a operar como agente MICOOPE.
-                        </p>
-                    </div>
+                <div class="st-paso" onclick="pasoIr(7)">
+                    <div class="st-burbuja">8</div>
+                    <span class="st-label">Historial Crediticio</span>
                 </div>
-
+                <div class="st-paso final" onclick="pasoIr(8)">
+                    <div class="st-burbuja">9</div>
+                    <span class="st-label">¡Activación!</span>
+                </div>
             </div>
+
+            <!-- Panel de detalle -->
+            <div class="proceso-panel reveal">
+                <div class="proceso-panel-inner" id="procesoPanelInner">
+                    <div class="proceso-panel-icono" id="procesoPanelIcono">
+                        <i class="bi bi-person-check" id="procesoPanelIcon"></i>
+                    </div>
+                    <div class="proceso-panel-body">
+                        <p class="proceso-panel-etiq" id="procesoPanelEtiq">PASO 1 DE 9</p>
+                        <h3 class="proceso-panel-titulo" id="procesoPanelTitulo">Ser Asociado de la Cooperativa San Pedro</h3>
+                        <p class="proceso-panel-desc" id="procesoPanelDesc">Debes ser asociado activo de la Cooperativa San Pedro R.L. para poder aplicar como agente.</p>
+                        <div class="proceso-nav-row">
+                            <button class="proceso-btn proceso-btn-prev" id="procesoBtnPrev" onclick="pasoIr(pasoActual - 1)" disabled>
+                                <i class="bi bi-arrow-left"></i> Anterior
+                            </button>
+                            <div class="proceso-barra-wrap">
+                                <div class="proceso-barra-fill" id="procesoBarraFill" style="width:11.1%;"></div>
+                            </div>
+                            <button class="proceso-btn proceso-btn-next" id="procesoBtnNext" onclick="pasoIr(pasoActual + 1)">
+                                Siguiente <i class="bi bi-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
 
@@ -1222,6 +1486,14 @@
 
         <div style="background: linear-gradient(135deg, #033E81 0%, #033E81 50%, #033E81 100%); padding: 60px 0 30px;">
             <div class="container">
+                <div style="display:flex;align-items:center;gap:40px;flex-wrap:wrap;margin-bottom:40px;padding-bottom:30px;border-bottom:1px solid rgba(255,255,255,0.1);">
+                    <span style="color:rgba(255,255,255,0.5);font-style:italic;font-size:1.15rem;font-weight:600;white-space:nowrap;">Con el respaldo de</span>
+                    <div style="display:flex;align-items:center;gap:40px;flex-wrap:wrap;">
+                        <img src="../image/Micoope.webp" alt="Micoope" style="height:62px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.85;">
+                        <img src="../image/logo_fondo.png" alt="Fondo Garantía Micoope" style="height:54px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.85;">
+                        <img src="../image/logo_seguros.png" alt="Seguros Columna" style="height:62px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.85;">
+                    </div>
+                </div>
                 <div class="row g-4 mb-5">
 
                     <div class="col-md-4">
@@ -1348,6 +1620,115 @@
                 btn.innerHTML = '<i class="bi bi-send me-2"></i>Enviar solicitud';
                 error.style.display = 'block';
             });
+        }
+
+        // LIGHTBOX GALERÍA
+        const GAL_IMGS = [
+            '../image/A1.jpg',
+            '../image/A2.jpg',
+            '../image/A3.jpg',
+            '../image/A4.jpg',
+            '../image/A5.jpg'
+        ];
+        let galActual = 0;
+        function galeriaAbrir(idx) {
+            galActual = idx;
+            document.getElementById('galeriaLbImg').src = GAL_IMGS[idx];
+            document.getElementById('galeriaLbCounter').textContent = (idx + 1) + ' / ' + GAL_IMGS.length;
+            document.getElementById('galeriaLb').classList.add('abierto');
+            document.body.style.overflow = 'hidden';
+        }
+        function galeriaCerrar() {
+            document.getElementById('galeriaLb').classList.remove('abierto');
+            document.body.style.overflow = '';
+        }
+        function galeriaMover(dir) {
+            galeriaAbrir((galActual + dir + GAL_IMGS.length) % GAL_IMGS.length);
+        }
+        document.addEventListener('keydown', function(e) {
+            const lb = document.getElementById('galeriaLb');
+            if (!lb.classList.contains('abierto')) return;
+            if (e.key === 'Escape') galeriaCerrar();
+            if (e.key === 'ArrowLeft')  galeriaMover(-1);
+            if (e.key === 'ArrowRight') galeriaMover(1);
+        });
+
+        function benToggle(item) {
+            const items = document.querySelectorAll('.ben-item');
+            items.forEach(function(el) {
+                if (el !== item) el.classList.remove('active');
+            });
+            item.classList.toggle('active');
+        }
+
+        // ── Stepper Proceso ──────────────────────────────────────────
+        let pasoActual = 0;
+        const PASOS_DATA = [
+            { num: 1, icon: 'bi-person-check',     titulo: 'Ser Asociado de la Cooperativa San Pedro',     desc: 'Debes ser asociado activo de la Cooperativa San Pedro R.L. para poder aplicar como agente. Si aún no eres asociado, acércate a cualquiera de nuestras agencias para iniciar tu proceso de afiliación.' },
+            { num: 2, icon: 'bi-card-text',         titulo: 'Documento de Identificación (DPI)',            desc: 'Presenta tu DPI vigente, original y fotocopia, como parte del proceso de identificación. Este documento es indispensable para validar tu identidad ante la cooperativa.' },
+            { num: 3, icon: 'bi-shop',              titulo: 'Patente de Comercio',                          desc: 'Tu negocio debe contar con patente de comercio vigente que acredite su funcionamiento legal. Esto garantiza que el punto de atención opera dentro del marco jurídico establecido.' },
+            { num: 4, icon: 'bi-file-earmark-ruled',titulo: 'RTU actualizado',                             desc: 'Presenta el Registro Tributario Unificado actualizado ante la SAT para validar tu negocio. El RTU debe reflejar la actividad comercial actual del establecimiento.' },
+            { num: 5, icon: 'bi-bank',              titulo: 'Cuenta activa en la Cooperativa',             desc: 'Debes tener una cuenta de ahorros activa en la Cooperativa San Pedro. Esta cuenta se utiliza para el manejo de las operaciones y liquidaciones como agente.' },
+            { num: 6, icon: 'bi-envelope-paper',    titulo: 'Carta de solicitud a la Gerencia',            desc: 'El asociado debe presentar una carta formal dirigida a la Gerencia de la Cooperativa solicitando ser agente. En ella se describen las condiciones del negocio y la motivación para unirse a la red.' },
+            { num: 7, icon: 'bi-receipt',           titulo: 'Facturas electrónicas emitidas por negocio',  desc: 'Tu negocio debe emitir facturas electrónicas como respaldo de las operaciones realizadas. La facturación electrónica es un requisito tributario para operar como punto autorizado.' },
+            { num: 8, icon: 'bi-graph-up-arrow',    titulo: 'Tener buen historial crediticio',             desc: 'Se requiere un historial crediticio limpio y sin morosidad para garantizar la confianza del servicio. La cooperativa verifica este aspecto como parte de su proceso de evaluación.' },
+            { num: 9, icon: 'bi-rocket-takeoff',    titulo: '¡Activación!',                                desc: 'Una vez aprobado, recibes capacitación completa y el equipo necesario para comenzar a operar como agente MICOOPE. ¡Bienvenido a la red de agentes Cooperativa San Pedro!', final: true }
+        ];
+
+        function pasoIr(idx) {
+            if (idx < 0 || idx >= PASOS_DATA.length) return;
+            pasoActual = idx;
+            const p = PASOS_DATA[idx];
+            const total = PASOS_DATA.length;
+
+            // Actualizar burbujas
+            document.querySelectorAll('.st-paso').forEach(function(el, i) {
+                el.classList.remove('activo', 'visitado');
+                if (i < idx) el.classList.add('visitado');
+                if (i === idx) el.classList.add('activo', 'visitado');
+            });
+
+            // Animar salida del panel
+            const inner = document.getElementById('procesoPanelInner');
+            inner.style.opacity = '0';
+            inner.style.transform = 'translateY(12px)';
+
+            setTimeout(function() {
+                // Actualizar contenido
+                document.getElementById('procesoPanelIcon').className = 'bi ' + p.icon;
+                document.getElementById('procesoPanelEtiq').textContent = 'PASO ' + p.num + ' DE 9';
+                document.getElementById('procesoPanelTitulo').textContent = p.titulo;
+                document.getElementById('procesoPanelDesc').textContent = p.desc;
+
+                // Color ícono si es paso final
+                document.getElementById('procesoPanelIcono').style.color = p.final ? '#4EAE33' : '#033E81';
+
+                // Barra de progreso
+                document.getElementById('procesoBarraFill').style.width = ((idx + 1) / total * 100) + '%';
+                document.getElementById('procesoBarraFill').style.background = p.final ? '#4EAE33' : '#033E81';
+
+                // Botón siguiente
+                const btnNext = document.getElementById('procesoBtnNext');
+                if (p.final) {
+                    btnNext.innerHTML = '¡Solicitar ahora! <i class="bi bi-arrow-right"></i>';
+                    btnNext.classList.add('final');
+                    btnNext.onclick = function() { document.getElementById('ser-agente').scrollIntoView({behavior:'smooth'}); };
+                } else {
+                    btnNext.innerHTML = 'Siguiente <i class="bi bi-arrow-right"></i>';
+                    btnNext.classList.remove('final');
+                    btnNext.onclick = function() { pasoIr(pasoActual + 1); };
+                }
+
+                // Botón anterior
+                const btnPrev = document.getElementById('procesoBtnPrev');
+                btnPrev.disabled = idx === 0;
+                btnPrev.onclick = function() { pasoIr(pasoActual - 1); };
+
+                // Animar entrada
+                inner.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                inner.style.opacity = '1';
+                inner.style.transform = 'translateY(0)';
+            }, 200);
         }
     </script>
 

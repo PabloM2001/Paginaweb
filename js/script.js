@@ -205,6 +205,29 @@ if (fraseEl) {
     }
 
     setTimeout(escribir, 500);
+
+    // A los 6 segundos: desaparece el texto y empieza el video con overlay desvaneciéndose
+    setTimeout(() => {
+        const contenedor = fraseEl.closest('div');
+        const overlay = document.getElementById('fraseOverlay');
+        const video = document.getElementById('videoFondo');
+
+        // Desvanecer texto
+        if (contenedor) {
+            contenedor.style.transition = 'opacity 1.2s ease';
+            contenedor.style.opacity = '0';
+            setTimeout(() => contenedor.style.display = 'none', 1200);
+        }
+
+        // Iniciar video y desvanecer overlay con blur
+        if (video) video.play();
+        if (overlay) {
+            overlay.style.opacity = '0';
+            overlay.style.backdropFilter = 'blur(0px)';
+            overlay.style.webkitBackdropFilter = 'blur(0px)';
+            setTimeout(() => overlay.style.display = 'none', 1800);
+        }
+    }, 6000);
 }
 
 

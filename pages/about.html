@@ -15,29 +15,98 @@
     <style>
         * { font-family: 'Outfit', sans-serif; }
 
-        .hero-about {
-            background: linear-gradient(135deg, #033E81 0%, #033E81 55%, #033E81 100%);
-            padding: 100px 0 80px;
-            position: relative;
-            overflow: hidden;
-        }
+        @keyframes haZoom { from { transform: scale(1); } to { transform: scale(1.06); } }
+        @keyframes haFadeUp { from { opacity:0; transform:translateY(40px); } to { opacity:1; transform:translateY(0); } }
 
+        .hero-about {
+            position: relative;
+            height: 100vh;
+            min-height: 600px;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+            padding-bottom: 200px;
+        }
+        .ha-bg-img {
+            position: absolute; inset: 0;
+            width: 100%; height: 100%;
+            object-fit: cover; object-position: center;
+            animation: haZoom 10s ease-out forwards;
+            z-index: 0;
+        }
+        /* overlay degradado oscuro */
         .hero-about::before {
             content: '';
-            position: absolute;
-            width: 500px; height: 500px;
-            background: rgba(79,195,247,0.06);
-            border-radius: 50%;
-            top: -150px; right: -150px;
+            position: absolute; inset: 0;
+            background: linear-gradient(
+                to top,
+                rgba(2,10,30,0.95) 0%,
+                rgba(3,30,90,0.55) 50%,
+                rgba(3,62,129,0.25) 100%
+            );
+            z-index: 1;
         }
-
+        /* difuminación azul lateral */
         .hero-about::after {
             content: '';
+            position: absolute; inset: 0;
+            background:
+                radial-gradient(ellipse at 20% 60%, rgba(3,62,129,0.55) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(79,195,247,0.18) 0%, transparent 50%);
+            z-index: 1;
+            pointer-events: none;
+        }
+        /* "71" gigante de fondo */
+        .ha-watermark {
             position: absolute;
-            width: 300px; height: 300px;
-            background: rgba(123,214,90,0.05);
-            border-radius: 50%;
-            bottom: -80px; left: -80px;
+            right: -20px; bottom: -40px;
+            font-size: clamp(280px, 35vw, 480px);
+            font-weight: 900;
+            line-height: 1;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(78,174,51,0.18);
+            user-select: none;
+            pointer-events: none;
+            z-index: 2;
+            letter-spacing: -20px;
+        }
+        /* barra verde diagonal izquierda */
+        .ha-stripe {
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 7px;
+            background: linear-gradient(to bottom, #4EAE33, #033E81);
+            z-index: 3;
+        }
+        /* contenido */
+        .ha-content {
+            position: relative; z-index: 4;
+            padding: 0 6%;
+            animation: haFadeUp 1s 0.3s ease both;
+        }
+        .ha-eyebrow {
+            font-size: 0.72rem; font-weight: 700;
+            letter-spacing: 6px; text-transform: uppercase;
+            color: #4EAE33; margin-bottom: 16px;
+            display: flex; align-items: center; gap: 12px;
+        }
+        .ha-eyebrow::before {
+            content: '';
+            display: inline-block;
+            width: 36px; height: 2px;
+            background: #4EAE33;
+        }
+        .ha-titulo {
+            font-size: clamp(3.5rem, 8vw, 7rem);
+            font-weight: 900; color: #fff;
+            line-height: 0.95;
+            letter-spacing: -3px;
+            margin: 0;
+        }
+        .ha-titulo span {
+            display: block;
+            color: #4EAE33;
+            font-style: italic;
         }
 
         .stat-about {
@@ -46,6 +115,10 @@
             border-radius: 16px;
             padding: 20px;
             text-align: center;
+        }
+        @media (max-width: 768px) {
+            .hero-about { padding-bottom: 50px; }
+            .ha-watermark { font-size: 180px; }
         }
 
         .feature-card {
@@ -123,6 +196,120 @@
         .reveal.delay-2 { transition-delay: 0.2s; }
         .reveal.delay-3 { transition-delay: 0.3s; }
         .reveal.delay-4 { transition-delay: 0.4s; }
+        /* EDUCACIÓN COOPERATIVISTA */
+        .edu-section {
+            background: white;
+            padding: 90px 0;
+        }
+        .edu-header { margin-bottom: 48px; }
+        .edu-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(78,174,51,0.1); color: #2d7a1a;
+            font-size: 0.75rem; font-weight: 700; letter-spacing: 4px;
+            text-transform: uppercase; padding: 8px 20px; border-radius: 50px;
+            margin-bottom: 16px;
+        }
+        .edu-header h2 {
+            font-size: 2.4rem; font-weight: 900; color: #033E81;
+            margin: 0 0 12px; line-height: 1.15;
+        }
+        .edu-header p {
+            color: #777; font-size: 1rem; max-width: 580px;
+            margin: 0 auto; line-height: 1.8;
+        }
+
+        /* TABS */
+        .edu-tabs {
+            display: flex; gap: 16px; justify-content: center;
+            margin-bottom: 40px; flex-wrap: wrap;
+        }
+        .edu-tab {
+            display: flex; align-items: center; gap: 12px;
+            padding: 14px 28px; border-radius: 60px;
+            border: 2px solid #e0e8f5;
+            background: white; cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 700; font-size: 0.95rem; color: #666;
+        }
+        .edu-tab img {
+            height: 36px; width: auto; object-fit: contain;
+        }
+        .edu-tab:hover {
+            border-color: #033E81; color: #033E81;
+            box-shadow: 0 6px 20px rgba(3,62,129,0.12);
+        }
+        .edu-tab.active {
+            background: white;
+            border-color: #033E81; color: #033E81;
+            box-shadow: 0 8px 28px rgba(3,62,129,0.18);
+        }
+
+        /* PANELS */
+        .edu-panel { display: none; animation: haFadeUp 0.4s ease both; }
+        .edu-panel.active { display: block; }
+
+        .edu-info-box {
+            background: #f8faff;
+            border-radius: 20px;
+            padding: 36px 32px;
+            border: 1.5px solid rgba(3,62,129,0.08);
+        }
+        .edu-logo-grande {
+            max-height: 160px; max-width: 100%;
+            object-fit: contain; display: block;
+            margin-bottom: 24px;
+        }
+        .edu-titulo {
+            font-size: 1.6rem; font-weight: 900; color: #033E81; margin-bottom: 12px;
+        }
+        .edu-desc {
+            font-size: 0.92rem; color: #555; line-height: 1.8; margin-bottom: 20px;
+        }
+        .edu-tag {
+            display: inline-flex; align-items: center; gap: 7px;
+            background: rgba(78,174,51,0.1); color: #2d7a1a;
+            font-size: 0.8rem; font-weight: 600;
+            padding: 5px 14px; border-radius: 30px;
+            margin: 4px 4px 4px 0;
+        }
+        .edu-tag i { font-size: 1.4rem; }
+
+        /* GALERÍA */
+        .edu-galeria-label {
+            font-size: 0.8rem; font-weight: 700; color: #033E81;
+            letter-spacing: 2px; text-transform: uppercase;
+            margin-bottom: 16px; display: flex; align-items: center; gap: 8px;
+        }
+        .edu-galeria {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+        }
+        .edu-foto-slot {
+            background: #f0f4fa;
+            border: 2px dashed #c8d6f0;
+            border-radius: 14px;
+            aspect-ratio: 4/3;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            gap: 8px; color: #a0b4d0;
+            transition: all 0.3s ease;
+        }
+        .edu-foto-slot i { font-size: 2rem; }
+        .edu-foto-slot span { font-size: 0.8rem; font-weight: 600; }
+        .edu-foto-slot:hover {
+            border-color: #033E81; color: #033E81; background: #e8f0ff;
+        }
+        /* Cuando se reemplace con imagen real */
+        .edu-foto-slot img {
+            width: 100%; height: 100%;
+            object-fit: cover; border-radius: 12px; display: block;
+        }
+        @media (max-width: 576px) {
+            .edu-galeria { grid-template-columns: 1fr; }
+            .edu-tab { padding: 10px 18px; font-size: 0.85rem; }
+            .edu-tab img { height: 28px; }
+        }
     </style>
 </head>
 
@@ -190,7 +377,10 @@
                             Nosotros <i class="bi bi-chevron-down nav-arrow"></i>
                         </a>
                         <div class="nav-dropdown">
-                            
+                            <a href="./about.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-people-fill"></i></div>
+                                <div><span class="drop-title">¿Quiénes somos?</span><span class="drop-sub">Nuestra cooperativa</span></div>
+                            </a>
                             <a href="./mision-vision.html" class="drop-link">
                                 <div class="drop-icon"><i class="bi bi-eye-fill"></i></div>
                                 <div><span class="drop-title">Mision y Vision</span><span class="drop-sub">Nuestros valores</span></div>
@@ -214,6 +404,10 @@
                                 <div><span class="drop-title">Ver mas</span><span class="drop-sub">Todo sobre nosotros</span></div>
                             </a>
                         </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="./empleo.html" class="nav-link">Mi Empleo</a>
                     </li>
 
                     <li class="nav-item">
@@ -260,240 +454,192 @@
 
     <!-- HERO -->
     <section class="hero-about">
-        <div class="container position-relative" style="z-index:2;">
-            <div class="row align-items-center g-5">
+        <img src="../image/Quienes somos.jpg" alt="Quiénes Somos" class="ha-bg-img">
+        <div class="ha-stripe"></div>
+        <div class="ha-watermark">71</div>
+        <div class="ha-content">
+            <h1 class="ha-titulo">
+                71 años
+                <span>a tu lado</span>
+            </h1>
+        </div>
+    </section>
 
-                <div class="col-lg-6">
-                    <span style="background:rgba(79,195,247,0.15);color:#4fc3f7;padding:8px 20px;border-radius:50px;font-size:0.85rem;font-weight:600;letter-spacing:2px;display:inline-block;margin-bottom:20px;border:1px solid rgba(79,195,247,0.3);">
-                        <i class="bi bi-building me-2"></i>COOPERATIVA SAN PEDRO R.L.
-                    </span>
-                    <h1 style="font-size:clamp(2rem,5vw,3.8rem);font-weight:900;color:white;line-height:1.1;margin-bottom:20px;">
-                        71 años<br><span style="color:#4fc3f7;">a tu lado</span>
-                    </h1>
-                    <p style="color:rgba(255,255,255,0.78);font-size:1.05rem;line-height:1.9;margin-bottom:30px;max-width:520px;">
-                        Somos una institución financiera cooperativa con sede en San Pedro Soloma, Huehuetenango.
-                        Durante 71 años hemos trabajado para brindar servicios financieros accesibles,
-                        solidarios y de calidad a nuestros asociados y sus familias.
-                    </p>
-                    <div class="d-flex flex-wrap gap-3">
-                        <a href="./historia.html" style="background:#4EAE33;color:white;padding:13px 28px;border-radius:50px;text-decoration:none;font-weight:700;box-shadow:0 8px 25px rgba(78,174,51,0.4);">
-                            <i class="bi bi-clock-history me-2"></i>Nuestra Historia
-                        </a>
-                        <a href="#asociarme" style="background:transparent;color:white;padding:13px 28px;border-radius:50px;text-decoration:none;font-weight:600;border:2px solid rgba(255,255,255,0.4);">
-                            <i class="bi bi-person-plus me-2"></i>Asociarme
-                        </a>
+    <!-- QUIÉN ES COOPERATIVA SAN PEDRO -->
+    <section style="padding:0;background:#fff;overflow:hidden;">
+        <div style="display:flex;flex-wrap:wrap;min-height:520px;">
+
+            <!-- Imagen izquierda -->
+            <div style="flex:1 1 420px;min-height:420px;position:relative;">
+                <img src="../image/Identidad.jpg" alt="Quiénes Somos"
+                     style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;">
+                <div style="position:absolute;inset:0;background:linear-gradient(to right,transparent 60%,white 100%);"></div>
+            </div>
+
+            <!-- Texto derecha -->
+            <div style="flex:1 1 380px;padding:70px 6% 70px 4%;display:flex;flex-direction:column;justify-content:center;background:white;">
+                <h2 style="font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:900;color:#033E81;line-height:1.15;margin-bottom:22px;">
+                    ¿Quién es<br>Cooperativa San Pedro?
+                </h2>
+                <div style="width:48px;height:4px;background:linear-gradient(to right,#033E81,#4EAE33);border-radius:2px;margin-bottom:26px;"></div>
+                <p style="font-size:1rem;color:#555;line-height:1.9;margin-bottom:18px;">
+                    Somos una institución financiera cooperativa fundada en <strong style="color:#033E81;">1954</strong>, con sede en San Pedro Soloma, Huehuetenango. Nacimos para ofrecer soluciones financieras accesibles, solidarias y de calidad a las familias de nuestra región.
+                </p>
+                <p style="font-size:1rem;color:#555;line-height:1.9;margin:0;">
+                    Con <strong style="color:#033E81;">71 años</strong> de trayectoria y <strong style="color:#4EAE33;">10,800 asociados</strong>, seguimos creciendo junto a nuestras comunidades con el compromiso de ser una cooperativa cercana, confiable y transformadora.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- NUESTRO RESPALDO -->
+    <section style="padding:80px 0;background:#f8fafc;">
+        <div class="container">
+            <div style="text-align:center;margin-bottom:52px;">
+                <span style="display:inline-block;background:rgba(3,62,129,0.08);color:#033E81;font-size:0.72rem;font-weight:700;letter-spacing:5px;text-transform:uppercase;padding:7px 22px;border-radius:50px;margin-bottom:14px;">Alianzas Estratégicas</span>
+                <h2 style="font-size:2.4rem;font-weight:900;color:#033E81;margin:0;line-height:1.1;">Nuestro Respaldo</h2>
+                <p style="color:#888;margin-top:12px;font-size:1rem;max-width:520px;margin-left:auto;margin-right:auto;">Trabajamos junto a instituciones sólidas que fortalecen y garantizan los servicios que ofrecemos a nuestros asociados.</p>
+            </div>
+
+            <div style="display:flex;gap:28px;flex-wrap:wrap;justify-content:center;">
+
+                <!-- Micoope -->
+                <div style="flex:1 1 260px;max-width:320px;background:white;border-radius:20px;padding:40px 32px;text-align:center;box-shadow:0 4px 24px rgba(3,62,129,0.08);border:1px solid rgba(3,62,129,0.06);transition:transform 0.3s,box-shadow 0.3s;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 16px 40px rgba(3,62,129,0.14)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 24px rgba(3,62,129,0.08)'">
+                    <div style="height:70px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;">
+                        <img src="../image/Micoope.webp" alt="Micoope" style="max-height:60px;max-width:160px;object-fit:contain;">
                     </div>
+                    <div style="width:40px;height:3px;background:linear-gradient(to right,#033E81,#4EAE33);border-radius:2px;margin:0 auto 16px;"></div>
+                    <h4 style="font-size:1rem;font-weight:800;color:#033E81;margin-bottom:10px;">Micoope</h4>
+                    <p style="font-size:0.88rem;color:#666;line-height:1.7;margin:0;">Federación nacional de cooperativas de ahorro y crédito que nos respalda con servicios financieros integrados y tecnología de vanguardia.</p>
                 </div>
 
-                <div class="col-lg-6">
-                    <div class="row g-3">
-                        <div class="col-6">
-                            <div class="stat-about">
-                                <div style="font-size:2.6rem;font-weight:900;color:#4fc3f7;line-height:1;">71</div>
-                                <div style="color:rgba(255,255,255,0.65);font-size:0.85rem;margin-top:6px;">Años de experiencia</div>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="stat-about">
-                                <div style="font-size:2.6rem;font-weight:900;color:#7bd65a;line-height:1;">10,800</div>
-                                <div style="color:rgba(255,255,255,0.65);font-size:0.85rem;margin-top:6px;">Asociados activos</div>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="stat-about">
-                                <div style="font-size:2.6rem;font-weight:900;color:#4EAE33;line-height:1;">8</div>
-                                <div style="color:rgba(255,255,255,0.65);font-size:0.85rem;margin-top:6px;">Agencias</div>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="stat-about">
-                                <div style="font-size:2.6rem;font-weight:900;color:#7bd65a;line-height:1;">70%</div>
-                                <div style="color:rgba(255,255,255,0.65);font-size:0.85rem;margin-top:6px;">Satisfacción</div>
-                            </div>
-                        </div>
+                <!-- Fondo de Garantía -->
+                <div style="flex:1 1 260px;max-width:320px;background:white;border-radius:20px;padding:40px 32px;text-align:center;box-shadow:0 4px 24px rgba(3,62,129,0.08);border:1px solid rgba(3,62,129,0.06);transition:transform 0.3s,box-shadow 0.3s;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 16px 40px rgba(3,62,129,0.14)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 24px rgba(3,62,129,0.08)'">
+                    <div style="height:70px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;">
+                        <img src="../image/logo_fondo.png" alt="Fondo de Garantía" style="max-height:60px;max-width:160px;object-fit:contain;">
                     </div>
+                    <div style="width:40px;height:3px;background:linear-gradient(to right,#033E81,#4EAE33);border-radius:2px;margin:0 auto 16px;"></div>
+                    <h4 style="font-size:1rem;font-weight:800;color:#033E81;margin-bottom:10px;">Fondo de Garantía</h4>
+                    <p style="font-size:0.88rem;color:#666;line-height:1.7;margin:0;">Institución que protege los ahorros de nuestros asociados, brindando seguridad y confianza ante cualquier eventualidad financiera.</p>
+                </div>
+
+                <!-- Seguros Columna -->
+                <div style="flex:1 1 260px;max-width:320px;background:white;border-radius:20px;padding:40px 32px;text-align:center;box-shadow:0 4px 24px rgba(3,62,129,0.08);border:1px solid rgba(3,62,129,0.06);transition:transform 0.3s,box-shadow 0.3s;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 16px 40px rgba(3,62,129,0.14)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 24px rgba(3,62,129,0.08)'">
+                    <div style="height:70px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;">
+                        <img src="../image/logo_seguros.png" alt="Seguros Columna" style="max-height:60px;max-width:160px;object-fit:contain;">
+                    </div>
+                    <div style="width:40px;height:3px;background:linear-gradient(to right,#033E81,#4EAE33);border-radius:2px;margin:0 auto 16px;"></div>
+                    <h4 style="font-size:1rem;font-weight:800;color:#033E81;margin-bottom:10px;">Seguros Columna</h4>
+                    <p style="font-size:0.88rem;color:#666;line-height:1.7;margin:0;">Empresa aseguradora que nos permite ofrecer coberturas y protección integral a nuestros asociados y sus familias.</p>
                 </div>
 
             </div>
         </div>
     </section>
 
-    <!-- QUIÉNES SOMOS -->
-    <section style="padding:90px 0;background:white;">
+
+    <!-- ALIANZAS EDUCACIÓN COOPERATIVISTA -->
+    <section class="edu-section">
         <div class="container">
-            <div class="row g-5 align-items-center">
-                <div class="col-lg-6 reveal">
-                    <img src="../image/Logo Cooperativa - Color.png" alt="Cooperativa San Pedro"
-                         style="max-width:220px;display:block;margin-bottom:30px;"
-                         onerror="this.style.display='none'">
-                    <p style="color:#4EAE33;font-size:0.8rem;font-weight:700;letter-spacing:4px;text-transform:uppercase;margin-bottom:12px;">Quiénes somos</p>
-                    <h2 style="font-size:2.8rem;font-weight:900;color:#033E81;line-height:1.15;margin-bottom:22px;">
-                        Una cooperativa<br>que nació para <span style="color:#4EAE33;">servir</span>
-                    </h2>
-                    <p style="color:#555;font-size:1rem;line-height:1.9;margin-bottom:18px;">
-                        Cooperativa San Pedro R.L. es una institución financiera cooperativa con sede en
-                        San Pedro Soloma, Huehuetenango, afiliada a la red MICOOPE. Somos propiedad
-                        de nuestros asociados y trabajamos cada día para mejorar su calidad de vida
-                        a través de servicios financieros accesibles y responsables.
-                    </p>
-                    <p style="color:#555;font-size:1rem;line-height:1.9;">
-                        Con 71 años de trayectoria, hemos crecido junto a nuestras comunidades,
-                        expandiendo nuestra cobertura y modernizando nuestros servicios para
-                        atender las necesidades financieras de cada asociado y su familia.
-                    </p>
-                </div>
-                <div class="col-lg-6 reveal">
-                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-                        <div style="background:linear-gradient(135deg,#033E81,#0a5fbb);border-radius:20px;padding:30px 24px;color:white;text-align:center;">
-                            <i class="bi bi-shield-check" style="font-size:2.2rem;margin-bottom:12px;display:block;color:#4fc3f7;"></i>
-                            <div style="font-weight:800;font-size:1rem;margin-bottom:6px;">Regulados SBS</div>
-                            <div style="font-size:0.8rem;color:rgba(255,255,255,0.7);">Supervisión y control financiero</div>
+
+            <div class="text-center edu-header">
+                <span class="edu-badge"><i class="bi bi-mortarboard-fill"></i> Educación Cooperativista</span>
+                <h2>Alianzas de Educación Cooperativista</h2>
+                <p>Programas educativos que fortalecen el desarrollo integral de nuestros asociados, familias y comunidades.</p>
+            </div>
+
+            <!-- TABS -->
+            <div class="edu-tabs">
+                <button class="edu-tab active" onclick="eduTab(0, this)">
+                    <img src="../image/Programas/wachalal.png" alt="Wachalal">
+                    <span>Wachalal</span>
+                </button>
+                <button class="edu-tab" onclick="eduTab(1, this)">
+                    <img src="../image/Programas/Huellas.png" alt="Huellas">
+                    <span>Huellas</span>
+                </button>
+                <button class="edu-tab" onclick="eduTab(2, this)">
+                    <img src="../image/Programas/Florece.webp" alt="Florece">
+                    <span>Florece</span>
+                </button>
+            </div>
+
+            <!-- PANEL WACHALAL -->
+            <div class="edu-panel active" id="edu-0">
+                <div class="row g-5 align-items-start">
+                    <div class="col-lg-4">
+                        <div class="edu-info-box">
+                            <img src="../image/Programas/wachalal.png" alt="Wachalal" class="edu-logo-grande">
+                            <h3 class="edu-titulo">Wachalal</h3>
+                            <p class="edu-desc">Programa educativo cooperativista orientado a fortalecer los valores de solidaridad, trabajo en equipo y educación financiera entre los asociados y sus comunidades.</p>
+                            <div class="edu-tag"><i class="bi bi-check-circle-fill"></i> Educación Financiera</div>
+                            <div class="edu-tag"><i class="bi bi-check-circle-fill"></i> Valores Cooperativos</div>
+                            <div class="edu-tag"><i class="bi bi-check-circle-fill"></i> Desarrollo Comunitario</div>
                         </div>
-                        <div style="background:linear-gradient(135deg,#4EAE33,#3a9628);border-radius:20px;padding:30px 24px;color:white;text-align:center;">
-                            <i class="bi bi-people-fill" style="font-size:2.2rem;margin-bottom:12px;display:block;color:white;"></i>
-                            <div style="font-weight:800;font-size:1rem;margin-bottom:6px;">Red MICOOPE</div>
-                            <div style="font-size:0.8rem;color:rgba(255,255,255,0.8);">Sistema cooperativo nacional</div>
-                        </div>
-                        <div style="background:#f0f4fa;border-radius:20px;padding:30px 24px;text-align:center;border:2px solid #e0e8f4;">
-                            <i class="bi bi-lock-fill" style="font-size:2.2rem;margin-bottom:12px;display:block;color:#033E81;"></i>
-                            <div style="font-weight:800;font-size:1rem;color:#033E81;margin-bottom:6px;">Protección FOPAC</div>
-                            <div style="font-size:0.8rem;color:#888;">Tu dinero está seguro</div>
-                        </div>
-                        <div style="background:#f0f4fa;border-radius:20px;padding:30px 24px;text-align:center;border:2px solid #e0e8f4;">
-                            <i class="bi bi-geo-alt-fill" style="font-size:2.2rem;margin-bottom:12px;display:block;color:#4EAE33;"></i>
-                            <div style="font-weight:800;font-size:1rem;color:#033E81;margin-bottom:6px;">8 Agencias</div>
-                            <div style="font-size:0.8rem;color:#888;">En toda la región</div>
+                    </div>
+                    <div class="col-lg-8">
+                        <p class="edu-galeria-label"><i class="bi bi-images"></i> Galería del programa</p>
+                        <div class="edu-galeria" id="galeria-0">
+                            <div class="edu-foto-slot"><i class="bi bi-image"></i><span>Foto 1</span></div>
+                            <div class="edu-foto-slot"><i class="bi bi-image"></i><span>Foto 2</span></div>
+                            <div class="edu-foto-slot"><i class="bi bi-image"></i><span>Foto 3</span></div>
+                            <div class="edu-foto-slot"><i class="bi bi-image"></i><span>Foto 4</span></div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-
-    <!-- NUESTROS PRODUCTOS -->
-    <section style="padding:90px 0;background:#f0f4fa;">
-        <div class="container">
-            <div class="text-center mb-5 reveal">
-                <p style="color:#4EAE33;font-size:0.8rem;font-weight:700;letter-spacing:4px;text-transform:uppercase;margin-bottom:10px;">Lo que ofrecemos</p>
-                <h2 style="font-size:2.8rem;font-weight:900;color:#033E81;margin-bottom:10px;">Nuestros Productos</h2>
-                <p style="color:#888;max-width:500px;margin:0 auto;">Soluciones financieras diseñadas para acompañarte en cada etapa de tu vida.</p>
-            </div>
-            <div class="row g-4">
-
-                <!-- Ahorro -->
-                <div class="col-md-4 reveal delay-1">
-                    <a href="./ahorro.html" style="text-decoration:none;">
-                        <div style="background:white;border-radius:24px;overflow:hidden;box-shadow:0 8px 30px rgba(3,62,129,0.1);transition:all 0.35s ease;height:100%;"
-                             onmouseover="this.style.transform='translateY(-8px)';this.style.boxShadow='0 20px 50px rgba(3,62,129,0.18)'"
-                             onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 8px 30px rgba(3,62,129,0.1)'">
-                            <div style="background:linear-gradient(135deg,#4EAE33,#3a9628);padding:36px;text-align:center;">
-                                <i class="bi bi-piggy-bank" style="font-size:3.5rem;color:white;display:block;margin-bottom:12px;"></i>
-                                <h4 style="color:white;font-weight:800;margin:0;">Ahorro</h4>
-                            </div>
-                            <div style="padding:28px;">
-                                <p style="color:#666;line-height:1.8;margin-bottom:20px;font-size:0.95rem;">
-                                    Cuentas de ahorro y depósitos a plazo fijo con tasas competitivas para hacer crecer tu dinero de forma segura.
-                                </p>
-                                <span style="color:#4EAE33;font-weight:700;font-size:0.9rem;">Ver más <i class="bi bi-arrow-right ms-1"></i></span>
-                            </div>
+            <!-- PANEL HUELLAS -->
+            <div class="edu-panel" id="edu-1">
+                <div class="row g-5 align-items-start">
+                    <div class="col-lg-4">
+                        <div class="edu-info-box">
+                            <img src="../image/Programas/Huellas.png" alt="Huellas" class="edu-logo-grande">
+                            <h3 class="edu-titulo">Huellas</h3>
+                            <p class="edu-desc">Iniciativa que deja huella en la vida de nuestros asociados a través de capacitaciones, talleres y actividades educativas que impulsan su crecimiento personal y profesional.</p>
+                            <div class="edu-tag"><i class="bi bi-check-circle-fill"></i> Capacitaciones</div>
+                            <div class="edu-tag"><i class="bi bi-check-circle-fill"></i> Talleres Prácticos</div>
+                            <div class="edu-tag"><i class="bi bi-check-circle-fill"></i> Crecimiento Personal</div>
                         </div>
-                    </a>
-                </div>
-
-                <!-- Préstamos -->
-                <div class="col-md-4 reveal delay-2">
-                    <a href="./prestamos.html" style="text-decoration:none;">
-                        <div style="background:white;border-radius:24px;overflow:hidden;box-shadow:0 8px 30px rgba(3,62,129,0.1);transition:all 0.35s ease;height:100%;"
-                             onmouseover="this.style.transform='translateY(-8px)';this.style.boxShadow='0 20px 50px rgba(3,62,129,0.18)'"
-                             onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 8px 30px rgba(3,62,129,0.1)'">
-                            <div style="background:linear-gradient(135deg,#033E81,#0a5fbb);padding:36px;text-align:center;">
-                                <i class="bi bi-cash-coin" style="font-size:3.5rem;color:white;display:block;margin-bottom:12px;"></i>
-                                <h4 style="color:white;font-weight:800;margin:0;">Préstamos</h4>
-                            </div>
-                            <div style="padding:28px;">
-                                <p style="color:#666;line-height:1.8;margin-bottom:20px;font-size:0.95rem;">
-                                    Créditos accesibles con tasas preferenciales para asociados. Para tu negocio, vivienda, educación o lo que necesites.
-                                </p>
-                                <span style="color:#033E81;font-weight:700;font-size:0.9rem;">Ver más <i class="bi bi-arrow-right ms-1"></i></span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Tarjetas -->
-                <div class="col-md-4 reveal delay-3">
-                    <a href="./tarjeta-credito.html" style="text-decoration:none;">
-                        <div style="background:white;border-radius:24px;overflow:hidden;box-shadow:0 8px 30px rgba(3,62,129,0.1);transition:all 0.35s ease;height:100%;"
-                             onmouseover="this.style.transform='translateY(-8px)';this.style.boxShadow='0 20px 50px rgba(3,62,129,0.18)'"
-                             onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 8px 30px rgba(3,62,129,0.1)'">
-                            <div style="background:linear-gradient(135deg,#1a1f71,#033E81);padding:36px;text-align:center;">
-                                <i class="bi bi-credit-card-2-front" style="font-size:3.5rem;color:white;display:block;margin-bottom:12px;"></i>
-                                <h4 style="color:white;font-weight:800;margin:0;">Tarjetas VISA</h4>
-                            </div>
-                            <div style="padding:28px;">
-                                <p style="color:#666;line-height:1.8;margin-bottom:20px;font-size:0.95rem;">
-                                    Tarjetas de crédito y débito VISA MICOOPE para compras en comercios, retiros en cajeros y pagos en línea.
-                                </p>
-                                <span style="color:#1a1f71;font-weight:700;font-size:0.9rem;">Ver más <i class="bi bi-arrow-right ms-1"></i></span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- CÓMO ASOCIARSE -->
-    <section id="asociarme" style="padding:90px 0;background:white;">
-        <div class="container">
-            <div class="row g-5 align-items-center">
-                <div class="col-lg-5 reveal">
-                    <p style="color:#4EAE33;font-size:0.8rem;font-weight:700;letter-spacing:4px;text-transform:uppercase;margin-bottom:12px;">Únete hoy</p>
-                    <h2 style="font-size:2.8rem;font-weight:900;color:#033E81;line-height:1.15;margin-bottom:20px;">
-                        ¿Cómo ser<br><span style="color:#4EAE33;">asociado?</span>
-                    </h2>
-                    <p style="color:#555;line-height:1.9;margin-bottom:30px;">
-                        Asociarte es sencillo. Solo necesitas cumplir unos pocos requisitos y visitar cualquiera de nuestras agencias. En minutos formarás parte de la familia cooperativa.
-                    </p>
-                    <a href="./contactanos.html" style="display:inline-block;background:#4EAE33;color:white;padding:14px 32px;border-radius:50px;text-decoration:none;font-weight:700;font-size:1rem;box-shadow:0 8px 25px rgba(78,174,51,0.35);">
-                        <i class="bi bi-telephone me-2"></i>Contáctanos
-                    </a>
-                </div>
-                <div class="col-lg-7 reveal">
-                    <div style="display:flex;flex-direction:column;gap:16px;">
-                        <div style="display:flex;align-items:center;gap:20px;background:#f8fafd;border-radius:16px;padding:22px 24px;border-left:4px solid #033E81;transition:all 0.3s;" onmouseover="this.style.background='#edf3fb'" onmouseout="this.style.background='#f8fafd'">
-                            <div style="width:44px;height:44px;min-width:44px;background:#033E81;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-weight:900;font-size:1rem;">1</div>
-                            <div>
-                                <div style="font-weight:700;color:#033E81;margin-bottom:3px;">Visita una agencia</div>
-                                <div style="color:#888;font-size:0.9rem;">Preséntate en cualquiera de nuestras 5 agencias en Huehuetenango</div>
-                            </div>
-                        </div>
-                        <div style="display:flex;align-items:center;gap:20px;background:#f8fafd;border-radius:16px;padding:22px 24px;border-left:4px solid #033E81;transition:all 0.3s;" onmouseover="this.style.background='#edf3fb'" onmouseout="this.style.background='#f8fafd'">
-                            <div style="width:44px;height:44px;min-width:44px;background:#033E81;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-weight:900;font-size:1rem;">2</div>
-                            <div>
-                                <div style="font-weight:700;color:#033E81;margin-bottom:3px;">Presenta tu DPI</div>
-                                <div style="color:#888;font-size:0.9rem;">Solo necesitas tu Documento Personal de Identificación vigente</div>
-                            </div>
-                        </div>
-                        <div style="display:flex;align-items:center;gap:20px;background:#f8fafd;border-radius:16px;padding:22px 24px;border-left:4px solid #033E81;transition:all 0.3s;" onmouseover="this.style.background='#edf3fb'" onmouseout="this.style.background='#f8fafd'">
-                            <div style="width:44px;height:44px;min-width:44px;background:#033E81;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-weight:900;font-size:1rem;">3</div>
-                            <div>
-                                <div style="font-weight:700;color:#033E81;margin-bottom:3px;">Realiza tu aportación inicial</div>
-                                <div style="color:#888;font-size:0.9rem;">Deposita tu aportación mínima y activa tu membresía cooperativa</div>
-                            </div>
-                        </div>
-                        <div style="display:flex;align-items:center;gap:20px;background:linear-gradient(135deg,#4EAE33,#3a9628);border-radius:16px;padding:22px 24px;">
-                            <div style="width:44px;height:44px;min-width:44px;background:rgba(255,255,255,0.25);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:1.3rem;">✓</div>
-                            <div>
-                                <div style="font-weight:800;color:white;margin-bottom:3px;">¡Ya eres parte de la familia!</div>
-                                <div style="color:rgba(255,255,255,0.85);font-size:0.9rem;">Accede a todos los productos y beneficios de la Cooperativa San Pedro</div>
-                            </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <p class="edu-galeria-label"><i class="bi bi-images"></i> Galería del programa</p>
+                        <div class="edu-galeria" id="galeria-1">
+                            <div class="edu-foto-slot"><i class="bi bi-image"></i><span>Foto 1</span></div>
+                            <div class="edu-foto-slot"><i class="bi bi-image"></i><span>Foto 2</span></div>
+                            <div class="edu-foto-slot"><i class="bi bi-image"></i><span>Foto 3</span></div>
+                            <div class="edu-foto-slot"><i class="bi bi-image"></i><span>Foto 4</span></div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <!-- PANEL FLORECE -->
+            <div class="edu-panel" id="edu-2">
+                <div class="row g-5 align-items-start">
+                    <div class="col-lg-4">
+                        <div class="edu-info-box">
+                            <img src="../image/Programas/Florece.webp" alt="Florece" class="edu-logo-grande">
+                            <h3 class="edu-titulo">Florece</h3>
+                            <p class="edu-desc">Programa diseñado para empoderar a los asociados con herramientas de educación cooperativista que les permitan florecer económica y socialmente dentro de su entorno familiar y comunitario.</p>
+                            <div class="edu-tag"><i class="bi bi-check-circle-fill"></i> Empoderamiento</div>
+                            <div class="edu-tag"><i class="bi bi-check-circle-fill"></i> Educación Cooperativa</div>
+                            <div class="edu-tag"><i class="bi bi-check-circle-fill"></i> Bienestar Familiar</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <p class="edu-galeria-label"><i class="bi bi-images"></i> Galería del programa</p>
+                        <div class="edu-galeria" id="galeria-2">
+                            <div class="edu-foto-slot"><i class="bi bi-image"></i><span>Foto 1</span></div>
+                            <div class="edu-foto-slot"><i class="bi bi-image"></i><span>Foto 2</span></div>
+                            <div class="edu-foto-slot"><i class="bi bi-image"></i><span>Foto 3</span></div>
+                            <div class="edu-foto-slot"><i class="bi bi-image"></i><span>Foto 4</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
 
@@ -507,6 +653,14 @@
 
         <div style="background: linear-gradient(135deg, #033E81 0%, #033E81 50%, #033E81 100%); padding: 60px 0 30px;">
             <div class="container">
+                <div style="display:flex;align-items:center;gap:40px;flex-wrap:wrap;margin-bottom:40px;padding-bottom:30px;border-bottom:1px solid rgba(255,255,255,0.1);">
+                    <span style="color:rgba(255,255,255,0.5);font-style:italic;font-size:1.15rem;font-weight:600;white-space:nowrap;">Con el respaldo de</span>
+                    <div style="display:flex;align-items:center;gap:40px;flex-wrap:wrap;">
+                        <img src="../image/Micoope.webp" alt="Micoope" style="height:62px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.85;">
+                        <img src="../image/logo_fondo.png" alt="Fondo Garantía Micoope" style="height:54px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.85;">
+                        <img src="../image/logo_seguros.png" alt="Seguros Columna" style="height:62px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.85;">
+                    </div>
+                </div>
                 <div class="row g-4 mb-5">
 
                     <div class="col-md-4">
@@ -582,6 +736,13 @@
         }, { threshold: 0.12 });
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        function eduTab(idx, btn) {
+            document.querySelectorAll('.edu-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.edu-panel').forEach(p => p.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('edu-' + idx).classList.add('active');
+        }
     </script>
 
 </body>

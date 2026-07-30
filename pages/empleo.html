@@ -1,0 +1,951 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="icon" type="image/png" href="../image/Imagotipo Vertical Original.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Empleo - Cooperativa San Pedro</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/estilos.css">
+
+    <style>
+        * { font-family: 'Outfit', sans-serif; }
+
+        @keyframes eZoom { from { transform: scale(1); } to { transform: scale(1.06); } }
+        @keyframes eFadeUp { from { opacity:0; transform:translateY(35px); } to { opacity:1; transform:translateY(0); } }
+        @keyframes pulsoVerde {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(78,174,51,0.4); }
+            50% { box-shadow: 0 0 0 14px rgba(78,174,51,0); }
+        }
+
+        /* HERO */
+        .hero-empleo {
+            position: relative;
+            height: 65vh;
+            min-height: 420px;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+            padding-bottom: 70px;
+        }
+        .hero-empleo-bg {
+            position: absolute; inset: 0;
+            width: 100%; height: 100%;
+            object-fit: cover; object-position: center top;
+            animation: eZoom 12s ease-out forwards;
+            z-index: 0;
+        }
+        .hero-empleo::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: linear-gradient(
+                to top,
+                rgba(2,10,30,0.96) 0%,
+                rgba(3,30,90,0.60) 45%,
+                rgba(3,62,129,0.25) 100%
+            );
+            z-index: 1;
+        }
+        .hero-empleo::after {
+            content: '';
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse at 20% 80%, rgba(78,174,51,0.18) 0%, transparent 55%);
+            z-index: 1;
+            pointer-events: none;
+        }
+        .he-stripe {
+            position: absolute;
+            top: 0; left: 0;
+            width: 5px; height: 100%;
+            background: linear-gradient(to bottom, #4EAE33, #033E81);
+            z-index: 3;
+        }
+        .he-content {
+            position: relative; z-index: 2;
+            padding-left: 20px;
+            animation: eFadeUp 1s 0.2s ease both;
+        }
+        .he-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(78,174,51,0.18);
+            border: 1px solid rgba(78,174,51,0.4);
+            color: #7bd658; font-size: 0.72rem; font-weight: 700;
+            letter-spacing: 5px; text-transform: uppercase;
+            padding: 6px 18px; border-radius: 50px;
+            margin-bottom: 20px;
+        }
+        .he-titulo {
+            font-size: clamp(3.2rem, 8vw, 6.5rem);
+            font-weight: 900; color: white;
+            line-height: 0.9; letter-spacing: -3px;
+            margin: 0 0 16px;
+        }
+        .he-titulo span {
+            display: block;
+            font-size: 45%;
+            font-weight: 400;
+            letter-spacing: 1px;
+            color: rgba(255,255,255,0.65);
+            margin-top: 12px;
+        }
+        .he-line {
+            width: 60px; height: 4px;
+            background: linear-gradient(to right, #4EAE33, #033E81);
+            border-radius: 2px;
+            margin-top: 20px;
+        }
+
+        /* PLAZAS — TARJETAS SIMPLES */
+        .plazas-section {
+            background: #f5f7fb;
+            padding: 80px 0;
+        }
+        .plazas-header {
+            text-align: center;
+            margin-bottom: 52px;
+        }
+        .plazas-header p {
+            font-size: 0.72rem; font-weight: 700; letter-spacing: 6px;
+            text-transform: uppercase; color: #4EAE33; margin-bottom: 10px;
+        }
+        .plazas-header h2 {
+            font-size: 2.4rem; font-weight: 900; color: #033E81; margin: 0;
+        }
+        .plazas-header span {
+            display: block; font-size: 0.95rem; font-weight: 400;
+            color: #777; margin-top: 10px;
+        }
+        .plazas-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+        .plaza-tarjeta {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(3,62,129,0.08);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .plaza-tarjeta:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 14px 40px rgba(3,62,129,0.15);
+        }
+        .plaza-tarjeta-img {
+            padding: 20px 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .plaza-tarjeta-img img {
+            width: 100%;
+            height: 310px;
+            object-fit: contain;
+            object-position: center;
+            display: block;
+            cursor: pointer;
+        }
+        .plaza-tarjeta-footer {
+            padding: 16px 20px 20px;
+        }
+        .btn-ver-conv {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: #033E81;
+            color: white;
+            font-weight: 700;
+            font-size: 0.87rem;
+            padding: 11px 0;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        .btn-ver-conv:hover {
+            background: #022a5c;
+            box-shadow: 0 6px 20px rgba(3,62,129,0.3);
+        }
+
+        /* SECCIÓN POSTULACIÓN */
+        .como-postular {
+            background: linear-gradient(135deg, #033E81 0%, #022460 100%);
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .como-postular::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse at 80% 50%, rgba(78,174,51,0.2) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .paso-num {
+            width: 52px; height: 52px;
+            background: rgba(255,255,255,0.12);
+            border: 2px solid rgba(255,255,255,0.25);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.3rem; font-weight: 900; color: white;
+            flex-shrink: 0;
+            animation: pulsoVerde 3s ease infinite;
+        }
+
+        /* ALERTA NUEVA PLAZA */
+        .alerta-plaza {
+            background: linear-gradient(135deg, #f0f7ff, #e8f5e3);
+            border: 1.5px solid rgba(3,62,129,0.15);
+            border-radius: 16px;
+            padding: 28px 32px;
+        }
+
+        /* LIGHTBOX */
+        .emp-lb {
+            display: none; position: fixed; inset: 0;
+            background: rgba(2,10,30,0.97); z-index: 9999;
+            align-items: center; justify-content: center; cursor: zoom-out;
+        }
+        .emp-lb.abierto { display: flex; }
+        .emp-lb img {
+            max-width: 88vw; max-height: 90vh; object-fit: contain;
+            border-radius: 14px; box-shadow: 0 30px 80px rgba(0,0,0,0.6); cursor: default;
+        }
+        .emp-lb-close {
+            position: absolute; top: 18px; right: 22px;
+            background: rgba(255,255,255,0.1); border: none; color: white;
+            width: 44px; height: 44px; border-radius: 50%; font-size: 1.2rem;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            transition: background 0.2s;
+        }
+        .emp-lb-close:hover { background: rgba(255,255,255,0.22); }
+        .emp-lb-prev, .emp-lb-next {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18);
+            color: white; width: 48px; height: 48px; border-radius: 50%;
+            font-size: 1.1rem; cursor: pointer; display: flex;
+            align-items: center; justify-content: center; transition: all 0.2s;
+        }
+        .emp-lb-prev { left: 20px; }
+        .emp-lb-next { right: 20px; }
+        .emp-lb-prev:hover, .emp-lb-next:hover { background: rgba(78,174,51,0.35); border-color: #4EAE33; }
+        .emp-lb-counter {
+            position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+            color: rgba(255,255,255,0.45); font-size: 0.78rem; font-weight: 600; letter-spacing: 3px;
+        }
+
+        @media (max-width: 992px) {
+            .plazas-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 576px) {
+            .plazas-grid { grid-template-columns: 1fr; }
+            .he-titulo { letter-spacing: -1px; }
+        }
+
+        /* MODAL CV */
+        .cv-modal-overlay {
+            display: none;
+            position: fixed; inset: 0;
+            background: rgba(2,10,30,0.75);
+            backdrop-filter: blur(4px);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .cv-modal-overlay.abierto { display: flex; }
+        .cv-modal {
+            background: white;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 560px;
+            max-height: 92vh;
+            overflow-y: auto;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+            animation: eFadeUp 0.35s ease both;
+        }
+        .cv-modal-header {
+            background: linear-gradient(135deg, #033E81, #0a5eb5);
+            padding: 28px 32px 24px;
+            border-radius: 20px 20px 0 0;
+            position: relative;
+        }
+        .cv-modal-header h4 {
+            color: white; font-weight: 900; font-size: 1.35rem; margin: 0 0 4px;
+        }
+        .cv-modal-header p {
+            color: rgba(255,255,255,0.7); font-size: 0.85rem; margin: 0;
+        }
+        .cv-modal-close {
+            position: absolute; top: 16px; right: 18px;
+            background: rgba(255,255,255,0.15); border: none; color: white;
+            width: 36px; height: 36px; border-radius: 50%; font-size: 1rem;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            transition: background 0.2s;
+        }
+        .cv-modal-close:hover { background: rgba(255,255,255,0.28); }
+        .cv-modal-body { padding: 28px 32px; }
+        .cv-field { margin-bottom: 18px; }
+        .cv-field label {
+            display: block; font-weight: 700; font-size: 0.82rem;
+            color: #033E81; margin-bottom: 6px; letter-spacing: 0.3px;
+        }
+        .cv-field input,
+        .cv-field select {
+            width: 100%; padding: 11px 16px;
+            border: 1.5px solid #dde3f0; border-radius: 10px;
+            font-size: 0.9rem; font-family: 'Outfit', sans-serif;
+            color: #333; outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            background: #f8faff;
+        }
+        .cv-field input:focus,
+        .cv-field select:focus {
+            border-color: #033E81;
+            box-shadow: 0 0 0 3px rgba(3,62,129,0.1);
+            background: white;
+        }
+        .cv-field-file {
+            border: 2px dashed #c8d6f0;
+            border-radius: 12px;
+            padding: 22px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: #f8faff;
+            position: relative;
+        }
+        .cv-field-file:hover { border-color: #033E81; background: #f0f5ff; }
+        .cv-field-file input[type="file"] {
+            position: absolute; inset: 0; opacity: 0; cursor: pointer;
+            width: 100%; height: 100%; border: none; padding: 0;
+        }
+        .cv-field-file i { font-size: 1.8rem; color: #033E81; display: block; margin-bottom: 8px; }
+        .cv-field-file span { font-size: 0.85rem; color: #666; display: block; }
+        .cv-field-file strong { font-size: 0.82rem; color: #033E81; }
+        .cv-modal-footer { padding: 0 32px 28px; }
+        .btn-enviar-cv {
+            width: 100%; padding: 14px;
+            background: linear-gradient(135deg, #033E81, #0a5eb5);
+            color: white; font-weight: 800; font-size: 0.95rem;
+            border: none; border-radius: 50px; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            transition: all 0.3s ease;
+        }
+        .btn-enviar-cv:hover {
+            background: linear-gradient(135deg, #022a5c, #033E81);
+            box-shadow: 0 8px 24px rgba(3,62,129,0.35);
+            transform: translateY(-2px);
+        }
+        .cv-success {
+            display: none; text-align: center; padding: 20px 0 10px;
+        }
+        .cv-success i { font-size: 3rem; color: #4EAE33; display: block; margin-bottom: 12px; }
+        .cv-success h5 { font-weight: 800; color: #033E81; margin-bottom: 6px; }
+        .cv-success p { color: #666; font-size: 0.88rem; }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="jagel" id="mainHeader">
+        <div class="header-inner">
+
+            <a href="../index.html" class="header-logo">
+                <img src="../image/Logo Cooperativa - Blanco.png" alt="Cooperativa San Pedro">
+            </a>
+
+            <button class="nav-toggle" id="navToggle" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+
+            <nav class="main-nav" id="mainNav">
+                <ul class="nav-list">
+
+                    <li class="nav-item"><a href="../index.html" class="nav-link">Inicio</a></li>
+
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link" onclick="return false">
+                            Puntos de Servicio <i class="bi bi-chevron-down nav-arrow"></i>
+                        </a>
+                        <div class="nav-dropdown">
+                            <a href="./agencias.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-building"></i></div>
+                                <div><span class="drop-title">Agencias</span><span class="drop-sub">8 puntos en Huehuetenango</span></div>
+                            </a>
+                            <a href="./agentes.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-person-badge"></i></div>
+                                <div><span class="drop-title">Agentes Micoope</span><span class="drop-sub">Cerca de tu comunidad</span></div>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link" onclick="return false">
+                            Productos y Servicios <i class="bi bi-chevron-down nav-arrow"></i>
+                        </a>
+                        <div class="nav-dropdown">
+                            <a href="./ahorro.html" class="drop-link">
+                                <div class="drop-icon green"><i class="bi bi-piggy-bank"></i></div>
+                                <div><span class="drop-title">Ahorro</span><span class="drop-sub">Cuentas y depositos</span></div>
+                            </a>
+                            <a href="./prestamos.html" class="drop-link">
+                                <div class="drop-icon" style="background:rgba(79,195,247,0.12);color:#033E81;"><i class="bi bi-cash-coin"></i></div>
+                                <div><span class="drop-title">Prestamos</span><span class="drop-sub">Creditos accesibles</span></div>
+                            </a>
+                            <a href="./tarjeta-credito.html" class="drop-link">
+                                <div class="drop-icon" style="background:rgba(3,62,129,0.1);color:#033E81;"><i class="bi bi-credit-card-fill"></i></div>
+                                <div><span class="drop-title">Tarjetas Micoope</span><span class="drop-sub">Crédito y Débito VISA</span></div>
+                            </a>
+                            <a href="./cotizador.html" class="drop-link">
+                                <div class="drop-icon" style="background:rgba(78,174,51,0.12);color:#4EAE33;"><i class="bi bi-calculator"></i></div>
+                                <div><span class="drop-title">Cotizador</span><span class="drop-sub">Simula tu crédito</span></div>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link" onclick="return false">
+                            Nosotros <i class="bi bi-chevron-down nav-arrow"></i>
+                        </a>
+                        <div class="nav-dropdown">
+                            <a href="./about.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-people-fill"></i></div>
+                                <div><span class="drop-title">¿Quiénes somos?</span><span class="drop-sub">Nuestra cooperativa</span></div>
+                            </a>
+                            <a href="./mision-vision.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-eye-fill"></i></div>
+                                <div><span class="drop-title">Mision y Vision</span><span class="drop-sub">Nuestros valores</span></div>
+                            </a>
+                            <a href="./historia.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-clock-history"></i></div>
+                                <div><span class="drop-title">Historia</span><span class="drop-sub">Nuestros inicios</span></div>
+                            </a>
+                            <div class="drop-link has-sub">
+                                <div class="drop-icon" style="background:rgba(3,62,129,0.1);color:#033E81;"><i class="bi bi-graph-up-arrow"></i></div>
+                                <div><span class="drop-title">Informe Financiero</span><span class="drop-sub">y de Actividades</span></div>
+                                <i class="bi bi-chevron-down sub-chevron" style="margin-left:auto;font-size:0.75rem;color:#bbb;flex-shrink:0;"></i>
+                                <div class="sub-dropdown">
+                                    <a href="./memoria-labores.html" class="sub-link"><i class="bi bi-file-earmark-text" style="color:#033E81;"></i>Memoria de Labores</a>
+                                    <a href="./dictamen-auditores.html" class="sub-link"><i class="bi bi-file-earmark-check" style="color:#4EAE33;"></i>Dictamen de Auditores Externos</a>
+                                </div>
+                            </div>
+                            <div class="drop-divider"></div>
+                            <a href="./ver-mas.html" class="drop-link">
+                                <div class="drop-icon green"><i class="bi bi-arrow-right-circle"></i></div>
+                                <div><span class="drop-title">Ver mas</span><span class="drop-sub">Todo sobre nosotros</span></div>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="./empleo.html" class="nav-link">Mi Empleo</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="./contactanos.html" class="nav-link nav-cta">
+                            <i class="bi bi-telephone-fill"></i> Contactanos
+                        </a>
+                    </li>
+                    <li class="nav-item" style="position:relative;">
+                        <a href="https://micoopeenlinea.com.gt/Retail/servletcontroller" target="_blank"
+                           style="display:inline-flex;align-items:center;justify-content:center;margin-left:6px;width:42px;height:42px;border-radius:50%;text-decoration:none;background:white;border:2px solid rgba(255,255,255,0.3);transition:all 0.3s;box-shadow:0 2px 8px rgba(0,0,0,0.15);overflow:hidden;"
+                           onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 18px rgba(0,0,0,0.25)';this.nextElementSibling.style.opacity='1';this.nextElementSibling.style.transform='translateX(-50%) translateY(0)'"
+                           onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,0.15)';this.nextElementSibling.style.opacity='0';this.nextElementSibling.style.transform='translateX(-50%) translateY(-6px)'">
+                            <img src="../image/logo-micoope-enlinea.png" alt="Micoope En Linea" height="30" style="display:block;">
+                        </a>
+                        <span style="position:absolute;bottom:-34px;left:50%;transform:translateX(-50%) translateY(-6px);background:#033E81;color:white;font-size:0.75rem;font-weight:600;padding:4px 10px;border-radius:6px;white-space:nowrap;opacity:0;transition:all 0.25s;pointer-events:none;z-index:999;">
+                            Micoope En Linea
+                        </span>
+                    </li>
+
+                    <li class="nav-item" style="position:relative;">
+                        <a href="https://soyfri.com/" target="_blank"
+                           style="display:inline-flex;align-items:center;justify-content:center;margin-left:6px;width:42px;height:42px;border-radius:50%;text-decoration:none;background:white;border:2px solid rgba(255,255,255,0.3);transition:all 0.3s;box-shadow:0 2px 8px rgba(0,0,0,0.15);overflow:hidden;"
+                           onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 18px rgba(0,0,0,0.25)';this.nextElementSibling.style.opacity='1';this.nextElementSibling.style.transform='translateX(-50%) translateY(0)'"
+                           onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,0.15)';this.nextElementSibling.style.opacity='0';this.nextElementSibling.style.transform='translateX(-50%) translateY(-6px)'">
+                            <img src="../image/logo-fri.png" alt="FRI" height="30" style="display:block;">
+                        </a>
+                        <span style="position:absolute;bottom:-34px;left:50%;transform:translateX(-50%) translateY(-6px);background:#033E81;color:white;font-size:0.75rem;font-weight:600;padding:4px 10px;border-radius:6px;white-space:nowrap;opacity:0;transition:all 0.25s;pointer-events:none;z-index:999;">
+                            Soy FRI
+                        </span>
+                    </li>
+
+                </ul>
+            </nav>
+
+            <div class="header-search">
+                <input type="text" class="search-input" id="searchInput" placeholder="Buscar...">
+                <button class="search-btn" onclick="toggleSearch()">
+                    <i class="bi bi-search" id="searchIcon"></i>
+                </button>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero-empleo">
+        <img src="../image/Mi Empleo/presentacion.jpg" alt="Mi Empleo" class="hero-empleo-bg">
+        <div class="he-stripe"></div>
+        <div class="container he-content">
+            <div class="he-badge">
+                <i class="bi bi-briefcase-fill"></i>
+                Oportunidades Laborales
+            </div>
+            <h1 class="he-titulo">
+                Mi Empleo
+                <span>Sé parte de nuestra familia</span>
+            </h1>
+            <div class="he-line"></div>
+        </div>
+    </section>
+
+    <!-- PLAZAS DISPONIBLES -->
+    <section class="plazas-section">
+        <div class="container">
+            <div class="plazas-header">
+                <p>Oportunidades laborales</p>
+                <h2>Plazas Disponibles</h2>
+                <span>Haz clic en "Ver convocatoria" para ver los detalles completos de cada plaza</span>
+            </div>
+            <div class="plazas-grid">
+
+                <div class="plaza-tarjeta">
+                    <div class="plaza-tarjeta-img">
+                        <img src="../image/Mi Empleo/GerenteAdm.jpg" alt="Gerente Administrativo" onclick="lbAbrir(0)">
+                    </div>
+                    <div class="plaza-tarjeta-footer">
+                        <button class="btn-ver-conv" onclick="lbAbrir(0)">
+                            <i class="bi bi-eye-fill"></i> Ver convocatoria
+                        </button>
+                    </div>
+                </div>
+
+                <div class="plaza-tarjeta">
+                    <div class="plaza-tarjeta-img">
+                        <img src="../image/Mi Empleo/JefAgenciaSanta.jpg" alt="Jefe de Agencia Santa" onclick="lbAbrir(1)">
+                    </div>
+                    <div class="plaza-tarjeta-footer">
+                        <button class="btn-ver-conv" onclick="lbAbrir(1)">
+                            <i class="bi bi-eye-fill"></i> Ver convocatoria
+                        </button>
+                    </div>
+                </div>
+
+                <div class="plaza-tarjeta">
+                    <div class="plaza-tarjeta-img">
+                        <img src="../image/Mi Empleo/JefAgenSanMiguel.jpg" alt="Jefe de Agencia San Miguel" onclick="lbAbrir(2)">
+                    </div>
+                    <div class="plaza-tarjeta-footer">
+                        <button class="btn-ver-conv" onclick="lbAbrir(2)">
+                            <i class="bi bi-eye-fill"></i> Ver convocatoria
+                        </button>
+                    </div>
+                </div>
+
+                <div class="plaza-tarjeta">
+                    <div class="plaza-tarjeta-img">
+                        <img src="../image/Mi Empleo/SecreCreditos.jpg" alt="Secretaria de Créditos" onclick="lbAbrir(3)">
+                    </div>
+                    <div class="plaza-tarjeta-footer">
+                        <button class="btn-ver-conv" onclick="lbAbrir(3)">
+                            <i class="bi bi-eye-fill"></i> Ver convocatoria
+                        </button>
+                    </div>
+                </div>
+
+                <div class="plaza-tarjeta">
+                    <div class="plaza-tarjeta-img">
+                        <img src="../image/Mi Empleo/AseFinanciero.jpg" alt="Asesor Financiero" onclick="lbAbrir(4)">
+                    </div>
+                    <div class="plaza-tarjeta-footer">
+                        <button class="btn-ver-conv" onclick="lbAbrir(4)">
+                            <i class="bi bi-eye-fill"></i> Ver convocatoria
+                        </button>
+                    </div>
+                </div>
+
+                <div class="plaza-tarjeta">
+                    <div class="plaza-tarjeta-img">
+                        <img src="../image/Mi Empleo/AseCreditos.jpg" alt="Asesor de Créditos" onclick="lbAbrir(5)">
+                    </div>
+                    <div class="plaza-tarjeta-footer">
+                        <button class="btn-ver-conv" onclick="lbAbrir(5)">
+                            <i class="bi bi-eye-fill"></i> Ver convocatoria
+                        </button>
+                    </div>
+                </div>
+
+                <div class="plaza-tarjeta">
+                    <div class="plaza-tarjeta-img">
+                        <img src="../image/Mi Empleo/Auxiliar Rotativo.jpg" alt="Auxiliar Rotativo" onclick="lbAbrir(6)">
+                    </div>
+                    <div class="plaza-tarjeta-footer">
+                        <button class="btn-ver-conv" onclick="lbAbrir(6)">
+                            <i class="bi bi-eye-fill"></i> Ver convocatoria
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- LIGHTBOX -->
+    <div class="emp-lb" id="empLb" onclick="lbCerrar()">
+        <button class="emp-lb-close" onclick="lbCerrar()"><i class="bi bi-x-lg"></i></button>
+        <button class="emp-lb-prev" onclick="event.stopPropagation();lbMover(-1)"><i class="bi bi-chevron-left"></i></button>
+        <img id="empLbImg" src="" alt="" onclick="event.stopPropagation()">
+        <button class="emp-lb-next" onclick="event.stopPropagation();lbMover(1)"><i class="bi bi-chevron-right"></i></button>
+        <div class="emp-lb-counter" id="empLbCounter"></div>
+    </div>
+
+    <!-- ALERTA DE NUEVA PLAZA -->
+    <section style="background:#f0f4fa;padding:0 0 80px;">
+        <div class="container">
+            <div class="alerta-plaza">
+                <div class="row align-items-center g-4">
+                    <div class="col-md-7">
+                        <div style="display:flex;align-items:center;gap:14px;margin-bottom:12px;">
+                            <div style="width:46px;height:46px;background:linear-gradient(135deg,#033E81,#4EAE33);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                                <i class="bi bi-bell-fill" style="color:white;font-size:1.2rem;"></i>
+                            </div>
+                            <h3 style="font-size:1.3rem;font-weight:800;color:#033E81;margin:0;">¿Te interesa alguna de nuestras plazas?</h3>
+                        </div>
+                        <p style="color:#666;line-height:1.75;margin:0;">Si estás interesado en alguna de las plazas disponibles, puedes enviarnos tu CV y con gusto nos pondremos en contacto contigo para continuar con el proceso de selección.</p>
+                    </div>
+                    <div class="col-md-5 text-md-end">
+                        <button onclick="abrirModalCV()" class="btn-postular" style="font-size:0.9rem;padding:13px 30px;border:none;cursor:pointer;">
+                            <i class="bi bi-send-fill"></i> Enviar mi CV
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CÓMO POSTULARSE -->
+    <section class="como-postular">
+        <div class="container" style="position:relative;z-index:1;">
+            <div class="text-center mb-5">
+                <p style="color:#7bd658;font-weight:700;letter-spacing:5px;text-transform:uppercase;font-size:0.78rem;margin-bottom:10px;">Proceso de selección</p>
+                <h2 style="font-size:2.2rem;font-weight:900;color:white;margin:0;">¿Cómo postularse?</h2>
+            </div>
+
+            <div class="row g-4 justify-content-center">
+
+                <div class="col-md-3 col-sm-6">
+                    <div style="text-align:center;padding:10px;">
+                        <div class="paso-num" style="margin:0 auto 20px;">1</div>
+                        <h4 style="color:white;font-weight:700;font-size:1rem;margin-bottom:8px;">Revisa las plazas</h4>
+                        <p style="color:rgba(255,255,255,0.6);font-size:0.88rem;line-height:1.7;margin:0;">Encuentra la plaza que se ajuste a tu perfil y experiencia profesional.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-sm-6">
+                    <div style="text-align:center;padding:10px;">
+                        <div class="paso-num" style="margin:0 auto 20px;">2</div>
+                        <h4 style="color:white;font-weight:700;font-size:1rem;margin-bottom:8px;">Prepara tu CV</h4>
+                        <p style="color:rgba(255,255,255,0.6);font-size:0.88rem;line-height:1.7;margin:0;">Ten listo tu curriculum vitae actualizado y documentos de respaldo.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-sm-6">
+                    <div style="text-align:center;padding:10px;">
+                        <div class="paso-num" style="margin:0 auto 20px;">3</div>
+                        <h4 style="color:white;font-weight:700;font-size:1rem;margin-bottom:8px;">Postúlate</h4>
+                        <p style="color:rgba(255,255,255,0.6);font-size:0.88rem;line-height:1.7;margin:0;">Haz clic en "Postularme" en la plaza de tu interés y completa el formulario.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-sm-6">
+                    <div style="text-align:center;padding:10px;">
+                        <div class="paso-num" style="margin:0 auto 20px;">4</div>
+                        <h4 style="color:white;font-weight:700;font-size:1rem;margin-bottom:8px;">Espera contacto</h4>
+                        <p style="color:rgba(255,255,255,0.6);font-size:0.88rem;line-height:1.7;margin:0;">Nuestro equipo revisará tu perfil y se comunicará contigo a la brevedad.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- iframe oculto para envío de formulario sin recargar página -->
+    <iframe name="cv_iframe" id="cv_iframe" style="display:none;"></iframe>
+
+    <!-- MODAL ENVIAR CV -->
+    <div class="cv-modal-overlay" id="cvModalOverlay" onclick="cerrarModalCV(event)">
+        <div class="cv-modal" onclick="event.stopPropagation()">
+
+            <div class="cv-modal-header">
+                <button class="cv-modal-close" onclick="cerrarModalCV()"><i class="bi bi-x-lg"></i></button>
+                <h4><i class="bi bi-briefcase-fill me-2"></i>Enviar mi CV</h4>
+                <p>Completa el formulario y nos pondremos en contacto contigo.</p>
+            </div>
+
+            <form id="formEnviarCV"
+                  action="https://formsubmit.co/reclutamientoth@sanpedroesmicoope.com.gt"
+                  method="POST"
+                  enctype="multipart/form-data"
+                  target="cv_iframe"
+                  onsubmit="enviarCV(event)">
+                <input type="hidden" name="_subject" value="Nueva solicitud de Empleo - Cooperativa San Pedro">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_template" value="table">
+                <input type="hidden" name="_next" value="about:blank">
+
+                <div class="cv-modal-body">
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <div class="cv-field">
+                                <label>Nombre completo *</label>
+                                <input type="text" name="Nombre" placeholder="Tu nombre completo" required>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="cv-field">
+                                <label>Número de teléfono *</label>
+                                <input type="tel" name="Telefono" placeholder="Ej. 5555-1234" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="cv-field">
+                                <label>Departamento *</label>
+                                <input type="text" name="Departamento" placeholder="Ej. Huehuetenango" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="cv-field">
+                                <label>Municipio *</label>
+                                <input type="text" name="Municipio" placeholder="Ej. San Pedro Soloma" required>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="cv-field">
+                                <label>Puesto a solicitar *</label>
+                                <input type="text" name="Puesto" placeholder="Ej. Asesor de Créditos" required>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="cv-field">
+                                <label>Adjuntar CV</label>
+                                <div class="cv-field-file">
+                                    <input type="file" name="attachment" accept=".pdf,.doc,.docx" onchange="mostrarNombreArchivo(this)">
+                                    <i class="bi bi-cloud-upload"></i>
+                                    <span id="cvFileName">Selecciona tu archivo de CV</span>
+                                    <strong>PDF, DOC o DOCX — máx. 5 MB</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cv-modal-footer">
+                    <button type="submit" id="cvBtnEnviar" class="btn-enviar-cv">
+                        <i class="bi bi-send-fill"></i> Enviar solicitud
+                    </button>
+                    <div id="cv-error" style="display:none;text-align:center;padding:10px;background:#fff0f0;border-radius:10px;margin-top:12px;">
+                        <p style="color:#c0392b;font-size:0.88rem;margin:0;font-weight:600;">Ocurrió un error al enviar. Por favor intenta de nuevo.</p>
+                    </div>
+                </div>
+            </form>
+
+            <div class="cv-success" id="cvSuccess">
+                <i class="bi bi-check-circle-fill"></i>
+                <h5>¡Solicitud enviada!</h5>
+                <p>Gracias por tu interés. Revisaremos tu perfil<br>y nos comunicaremos contigo pronto.</p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer id="contacto">
+        <div style="background: white; line-height: 0;">
+            <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#033E81" d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z"/>
+            </svg>
+        </div>
+        <div style="background: linear-gradient(135deg, #033E81 0%, #033E81 50%, #033E81 100%); padding: 60px 0 30px;">
+            <div class="container">
+                <div style="display:flex;align-items:center;gap:40px;flex-wrap:wrap;margin-bottom:40px;padding-bottom:30px;border-bottom:1px solid rgba(255,255,255,0.1);">
+                    <span style="color:rgba(255,255,255,0.5);font-style:italic;font-size:1.15rem;font-weight:600;white-space:nowrap;">Con el respaldo de</span>
+                    <div style="display:flex;align-items:center;gap:40px;flex-wrap:wrap;">
+                        <img src="../image/Micoope.webp" alt="Micoope" style="height:62px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.85;">
+                        <img src="../image/logo_fondo.png" alt="Fondo Garantía Micoope" style="height:54px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.85;">
+                        <img src="../image/logo_seguros.png" alt="Seguros Columna" style="height:62px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.85;">
+                    </div>
+                </div>
+                <div class="row g-4 mb-5">
+                    <div class="col-md-4">
+                        <img src="../image/Logo Cooperativa - Blanco.png" height="45" alt="Logo" class="mb-3">
+                        <p style="color:#a8c4e0; line-height:1.8;">Tu cooperativa de confianza, comprometida con tu bienestar financiero.</p>
+                        <div class="d-flex gap-3 mt-3">
+                            <a href="#" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="bi bi-facebook"></i></a>
+                            <a href="#" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="bi bi-instagram"></i></a>
+                            <a href="#" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="bi bi-whatsapp"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-md-2 offset-md-1">
+                        <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Enlaces</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><a href="../index.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Inicio</a></li>
+                            <li class="mb-2"><a href="./agencias.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Agencias</a></li>
+                            <li class="mb-2"><a href="./about.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Nosotros</a></li>
+                            <li class="mb-2"><a href="./contactanos.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Contáctanos</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-2">
+                        <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Servicios</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><a href="./ahorro.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Ahorro</a></li>
+                            <li class="mb-2"><a href="./prestamos.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Préstamos</a></li>
+                            <li class="mb-2"><a href="./agentes.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Agentes</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3">
+                        <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Contacto</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-3 d-flex align-items-center gap-3">
+                                <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i class="bi bi-telephone" style="color:#4fc3f7;"></i></div>
+                                <span style="color:#a8c4e0;">PBX 79632828</span>
+                            </li>
+                            <li class="mb-3 d-flex align-items-center gap-3">
+                                <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i class="bi bi-envelope" style="color:#4fc3f7;"></i></div>
+                                <span style="color:#a8c4e0;">info@sanpedroesmicoope.com.gt</span>
+                            </li>
+                            <li class="d-flex align-items-center gap-3">
+                                <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i class="bi bi-geo-alt" style="color:#4fc3f7;"></i></div>
+                                <span style="color:#a8c4e0;">San Pedro Soloma, Huehuetenango</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <hr style="border-color:rgba(255,255,255,0.1); margin-bottom:25px;">
+                <p style="color:#a8c4e0; margin:0; font-size:14px; text-align:center;">
+                    © 2026 Cooperativa San Pedro. Todos los derechos reservados.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
+    <script src="../js/script.js"></script>
+
+    <script>
+        const LB_IMGS = [
+            '../image/Mi Empleo/GerenteAdm.jpg',
+            '../image/Mi Empleo/JefAgenciaSanta.jpg',
+            '../image/Mi Empleo/JefAgenSanMiguel.jpg',
+            '../image/Mi Empleo/SecreCreditos.jpg',
+            '../image/Mi Empleo/AseFinanciero.jpg',
+            '../image/Mi Empleo/AseCreditos.jpg',
+            '../image/Mi Empleo/Auxiliar Rotativo.jpg'
+        ];
+        let lbActual = 0;
+
+        function lbAbrir(idx) {
+            lbActual = idx;
+            document.getElementById('empLbImg').src = LB_IMGS[idx];
+            document.getElementById('empLbCounter').textContent = (idx + 1) + ' / ' + LB_IMGS.length;
+            document.getElementById('empLb').classList.add('abierto');
+            document.body.style.overflow = 'hidden';
+        }
+        function lbCerrar() {
+            document.getElementById('empLb').classList.remove('abierto');
+            document.body.style.overflow = '';
+        }
+        function lbMover(dir) {
+            lbAbrir((lbActual + dir + LB_IMGS.length) % LB_IMGS.length);
+        }
+        document.addEventListener('keydown', e => {
+            const lb = document.getElementById('empLb');
+            if (!lb.classList.contains('abierto')) return;
+            if (e.key === 'Escape') lbCerrar();
+            if (e.key === 'ArrowLeft')  lbMover(-1);
+            if (e.key === 'ArrowRight') lbMover(1);
+        });
+
+        function abrirModalCV() {
+            document.getElementById('cvModalOverlay').classList.add('abierto');
+            document.body.style.overflow = 'hidden';
+        }
+        function cerrarModalCV(e) {
+            if (e && e.target !== document.getElementById('cvModalOverlay')) return;
+            document.getElementById('cvModalOverlay').classList.remove('abierto');
+            document.body.style.overflow = '';
+        }
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape' && document.getElementById('cvModalOverlay').classList.contains('abierto')) {
+                document.getElementById('cvModalOverlay').classList.remove('abierto');
+                document.body.style.overflow = '';
+            }
+        });
+        function mostrarNombreArchivo(input) {
+            const label = document.getElementById('cvFileName');
+            label.textContent = input.files.length ? input.files[0].name : 'Arrastra tu CV aquí o haz clic para seleccionar';
+        }
+        function enviarCV(e) {
+            var form = document.getElementById('formEnviarCV');
+            var btn  = document.getElementById('cvBtnEnviar');
+            var ok   = document.getElementById('cvSuccess');
+
+            // Validar campos requeridos
+            var valido = true;
+            form.querySelectorAll('[required]').forEach(function(el) {
+                if (!el.value.trim()) {
+                    el.style.borderColor = '#e74c3c';
+                    setTimeout(function() { el.style.borderColor = ''; }, 1500);
+                    if (valido) el.focus();
+                    valido = false;
+                }
+            });
+            if (!valido) { e.preventDefault(); return; }
+
+            // Mostrar estado enviando
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status"></span>Enviando...';
+
+            // Cuando el iframe carga = envío completado
+            var iframe = document.getElementById('cv_iframe');
+            iframe.onload = function() {
+                form.style.opacity = '0';
+                form.style.transition = 'opacity 0.4s';
+                setTimeout(function() {
+                    form.style.display = 'none';
+                    ok.style.display = 'block';
+                    ok.style.opacity = '0';
+                    ok.style.transition = 'opacity 0.4s';
+                    setTimeout(function() { ok.style.opacity = '1'; }, 30);
+                    setTimeout(function() {
+                        document.getElementById('cvModalOverlay').classList.remove('abierto');
+                        document.body.style.overflow = '';
+                        setTimeout(function() {
+                            form.style.display = '';
+                            form.style.opacity = '1';
+                            ok.style.display = 'none';
+                            form.reset();
+                            document.getElementById('cvFileName').textContent = 'Selecciona tu archivo de CV';
+                            btn.disabled = false;
+                            btn.innerHTML = '<i class="bi bi-send-fill"></i> Enviar solicitud';
+                            iframe.onload = null;
+                        }, 500);
+                    }, 2800);
+                }, 400);
+            };
+            // El formulario se envía al iframe (sin recargar la página)
+        }
+    </script>
+
+</body>
+</html>
