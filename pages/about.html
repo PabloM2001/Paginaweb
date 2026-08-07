@@ -318,6 +318,7 @@
             /* Tu Opinión card: less padding on small screens */
             .opinion-card { padding: 28px 20px !important; }
         }
+        @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
 
@@ -403,7 +404,6 @@
                                 <i class="bi bi-chevron-down sub-chevron" style="margin-left:auto;font-size:0.75rem;color:#bbb;flex-shrink:0;"></i>
                                 <div class="sub-dropdown">
                                     <a href="./memoria-labores.html" class="sub-link"><i class="bi bi-file-earmark-text" style="color:#033E81;"></i>Memoria de Labores</a>
-                                    <a href="./dictamen-auditores.html" class="sub-link"><i class="bi bi-file-earmark-check" style="color:#4EAE33;"></i>Dictamen de Auditores Externos</a>
                                 </div>
                             </div>
                             <div class="drop-divider"></div>
@@ -736,6 +736,11 @@
                             <p style="color:#666;">Tu comentario es muy valioso para nosotros.</p>
                         </div>
 
+                        <!-- Mensaje de error (oculto) -->
+                        <div id="opinionError" style="display:none;text-align:center;padding:14px;background:#fff0f0;border-radius:10px;margin-top:12px;">
+                            <p style="color:#c0392b;font-size:0.9rem;margin:0;font-weight:600;">Ocurrió un error al enviar. Por favor intenta de nuevo.</p>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -765,8 +770,49 @@
 
     function enviarOpinion(e){
         e.preventDefault();
-        document.getElementById('formOpinion').style.display = 'none';
-        document.getElementById('opinionExito').style.display = 'block';
+
+        var calificacion = document.getElementById('calificacion').value;
+        var comentario   = document.getElementById('opComentario').value.trim();
+        var btn          = e.submitter || document.querySelector('#formOpinion button[type="submit"]');
+
+        if (!calificacion || calificacion === '0') {
+            alert('Por favor selecciona una calificación de estrellas.');
+            return;
+        }
+
+        var estrellas = '';
+        for (var i = 0; i < parseInt(calificacion); i++) estrellas += '★';
+        for (var j = parseInt(calificacion); j < 5; j++) estrellas += '☆';
+
+        btn.disabled = true;
+        btn.innerHTML = '<span style="display:inline-block;width:18px;height:18px;border:2px solid rgba(255,255,255,0.4);border-top-color:white;border-radius:50%;animation:spin 0.7s linear infinite;vertical-align:middle;margin-right:8px;"></span> Enviando...';
+
+        var data = new FormData();
+        data.append('Calificación', estrellas + ' (' + calificacion + '/5)');
+        data.append('Comentario', comentario);
+        data.append('_subject', 'Nueva Opinión - Cooperativa San Pedro');
+        data.append('_captcha', 'false');
+        data.append('_template', 'table');
+
+        fetch('https://formsubmit.co/ajax/to@sanpedroesmicoope.com.gt', {
+            method: 'POST',
+            headers: { 'Accept': 'application/json' },
+            body: data
+        })
+        .then(function(res){ return res.json(); })
+        .then(function(json){
+            if (json.success === 'true' || json.success === true) {
+                document.getElementById('formOpinion').style.display = 'none';
+                document.getElementById('opinionExito').style.display = 'block';
+            } else {
+                throw new Error('fail');
+            }
+        })
+        .catch(function(){
+            btn.disabled = false;
+            btn.innerHTML = '<i class="bi bi-send-fill me-2"></i>Enviar mi opinión';
+            document.getElementById('opinionError').style.display = 'block';
+        });
     }
     </script>
 
