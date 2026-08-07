@@ -272,7 +272,11 @@
             .tl-fila { flex-direction: column; padding-left: 50px; }
             .tl-izq, .tl-der, .tl-vacio { width: 100%; padding: 0; text-align: left; }
             .tl-punto { position: absolute; left: 7px; top: 0; margin-top: 0; }
+            /* Ocultar solo los círculos vacíos (iconos decorativos), mostrar los que tienen imagen real */
             .tl-vacio { display: none; }
+            .tl-vacio:has(img), .tl-con-img { display: block; }
+            .tl-img-circle { width: 100%; height: 200px; border-radius: 14px; margin-top: 12px; }
+            .tl-img-circle img { border-radius: 12px; }
         }
 
         /* STATS */
@@ -495,42 +499,6 @@
             <div class="tl-wrapper">
                 <div class="tl-linea"></div>
 
-                <!-- 1559 -->
-                <div class="tl-fila">
-                    <div class="tl-izq">
-                        <div class="tl-card">
-                            <span class="tl-badge">Origen del territorio</span>
-                            <div class="tl-anio">1559</div>
-                            <div class="tl-titulo">Tierra Q'anjob'al: San Pedro Soloma</div>
-                            <p class="tl-desc">San Pedro Soloma, territorio del pueblo Q'anjob'al, fue fundado formalmente en 1559. Tras siglos de administración colonial y cambios eclesiásticos, esta tierra de identidad, lengua y cosmovisión propias fue el suelo donde germinaría el espíritu cooperativista.</p>
-                        </div>
-                    </div>
-                    <div class="tl-punto"></div>
-                    <div class="tl-vacio">
-                        <div class="tl-img-circle" style="align-items:center;justify-content:center;">
-                            <i class="bi bi-map" style="font-size:5.5rem;color:rgba(3,62,129,0.18);"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 1955 -->
-                <div class="tl-fila">
-                    <div class="tl-vacio">
-                        <div class="tl-img-circle" style="align-items:center;justify-content:center;">
-                            <i class="bi bi-person-arms-up" style="font-size:5.5rem;color:rgba(3,62,129,0.18);"></i>
-                        </div>
-                    </div>
-                    <div class="tl-punto"></div>
-                    <div class="tl-der">
-                        <div class="tl-card">
-                            <span class="tl-badge">La semilla</span>
-                            <div class="tl-anio">1955</div>
-                            <div class="tl-titulo">El Padre Félix Courier siembra la idea</div>
-                            <p class="tl-desc">El padre Félix Courier, de la Orden de Maryknoll, llega a San Pedro Soloma e introduce el cooperativismo. Aunque este primer intento fracasó, plantó la semilla que una década después daría fruto: la organización solidaria de una comunidad decidida a cambiar su realidad económica.</p>
-                        </div>
-                    </div>
-                </div>
-
                 <!-- 1965 Fundación -->
                 <div class="tl-fila">
                     <div class="tl-izq">
@@ -542,99 +510,27 @@
                         </div>
                     </div>
                     <div class="tl-punto" style="background:#4EAE33; border-color:#033E81;"></div>
-                    <div class="tl-vacio">
+                    <div class="tl-vacio tl-con-img">
                         <div class="tl-img-circle">
-                            <img src="../image/historia/IMAGEN 1.jpeg" alt="Fundación 1965">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Primeros años -->
-                <div class="tl-fila">
-                    <div class="tl-vacio">
-                        <div class="tl-img-circle" style="align-items:center;justify-content:center;">
-                            <i class="bi bi-house-heart" style="font-size:5.5rem;color:rgba(3,62,129,0.18);"></i>
-                        </div>
-                    </div>
-                    <div class="tl-punto"></div>
-                    <div class="tl-der">
-                        <div class="tl-card">
-                            <span class="tl-badge">Humildes comienzos</span>
-                            <div class="tl-anio">1965 – 1975</div>
-                            <div class="tl-titulo">El dinero detrás del calendario</div>
-                            <p class="tl-desc">Con aportaciones de apenas Q5 y créditos máximos de Q100, la cooperativa operó en el corredor de un convento, el fondo de una cancha de baloncesto y luego en una pequeña oficina. El dinero se resguardaba en un hueco en la pared, oculto detrás de un calendario para evitar robos.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 1976 Terremoto -->
-                <div class="tl-fila">
-                    <div class="tl-izq">
-                        <div class="tl-card">
-                            <span class="tl-badge">Resiliencia</span>
-                            <div class="tl-anio">1976</div>
-                            <div class="tl-titulo">El Terremoto: una prueba superada</div>
-                            <p class="tl-desc">El devastador terremoto de 1976 sacudió Guatemala, pero la cooperativa se mantuvo en pie. Gracias a préstamos de FENACOAC y entidades estatales, pudo apoyar la reconstrucción de la comunidad, consolidando su papel como pilar de apoyo en momentos de crisis.</p>
-                        </div>
-                    </div>
-                    <div class="tl-punto"></div>
-                    <div class="tl-vacio">
-                        <div class="tl-img-circle" style="align-items:center;justify-content:center;">
-                            <i class="bi bi-shield-fill-check" style="font-size:5.5rem;color:rgba(3,62,129,0.18);"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Conflicto Armado -->
-                <div class="tl-fila">
-                    <div class="tl-vacio">
-                        <div class="tl-img-circle" style="align-items:center;justify-content:center;">
-                            <i class="bi bi-peace" style="font-size:5.5rem;color:rgba(3,62,129,0.18);"></i>
-                        </div>
-                    </div>
-                    <div class="tl-punto"></div>
-                    <div class="tl-der">
-                        <div class="tl-card">
-                            <span class="tl-badge">Perseverancia</span>
-                            <div class="tl-anio">Años 80</div>
-                            <div class="tl-titulo">Conflicto Armado Interno</div>
-                            <p class="tl-desc">Fue una época de gran peligro. La economía se estancó y el comercio se interrumpió en toda la región. La cooperativa sobrevivió con determinación y, tras la firma de los Acuerdos de Paz, reactivó su actividad con renovada fuerza, demostrando la resiliencia de su gente.</p>
+                            <img src="../image/historia/IMAGEN 1.jpeg" alt="Fundación 1965" loading="lazy">
                         </div>
                     </div>
                 </div>
 
                 <!-- 1986 Tecnología -->
                 <div class="tl-fila">
-                    <div class="tl-izq">
+                    <div class="tl-vacio tl-con-img">
+                        <div class="tl-img-circle">
+                            <img src="../image/historia/IMAGEN 2.jpeg" alt="Historia Cooperativa" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="tl-punto" style="background:#4EAE33; border-color:#033E81;"></div>
+                    <div class="tl-der">
                         <div class="tl-card">
                             <span class="tl-badge">Modernización</span>
                             <div class="tl-anio">1986</div>
                             <div class="tl-titulo">La primera computadora: una 386</div>
                             <p class="tl-desc">Ante el desconocimiento total de la computación, la cooperativa dio el salto tecnológico adquiriendo su primer equipo: una computadora 386 que costó Q19,000. Los directivos realizaban viajes épicos de madrugada hacia la Capital para capacitarse, enfrentando fallas mecánicas y caminos difíciles.</p>
-                        </div>
-                    </div>
-                    <div class="tl-punto" style="background:#4EAE33; border-color:#033E81;"></div>
-                    <div class="tl-vacio">
-                        <div class="tl-img-circle">
-                            <img src="../image/historia/IMAGEN 2.jpeg" alt="Historia Cooperativa">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Presencia femenina / Año 2000 -->
-                <div class="tl-fila">
-                    <div class="tl-vacio">
-                        <div class="tl-img-circle" style="align-items:center;justify-content:center;">
-                            <i class="bi bi-currency-exchange" style="font-size:5.5rem;color:rgba(3,62,129,0.18);"></i>
-                        </div>
-                    </div>
-                    <div class="tl-punto"></div>
-                    <div class="tl-der">
-                        <div class="tl-card">
-                            <span class="tl-badge">Auge inesperado</span>
-                            <div class="tl-anio">Año 2000</div>
-                            <div class="tl-titulo">El efecto Y2K y la confianza comunitaria</div>
-                            <p class="tl-desc">Mientras el mundo temía el "efecto Y2K", la cooperativa vivió un auge inesperado: como sus registros eran manuales y no dependían de software antiguo, la gente retiró su dinero de los bancos por miedo y lo depositó aquí. También destacó la creciente presencia femenina, con mujeres tomando un rol cada vez más relevante como asociadas.</p>
                         </div>
                     </div>
                 </div>
@@ -650,9 +546,9 @@
                         </div>
                     </div>
                     <div class="tl-punto" style="background:#4EAE33; border-color:white; box-shadow:0 0 0 6px rgba(78,174,51,0.3);"></div>
-                    <div class="tl-vacio">
+                    <div class="tl-vacio tl-con-img">
                         <div class="tl-img-circle">
-                            <img src="../image/historia/IMAGEN 3.jpeg" alt="Cooperativa hoy">
+                            <img src="../image/historia/IMAGEN 3.jpeg" alt="Cooperativa hoy" loading="lazy">
                         </div>
                     </div>
                 </div>
@@ -686,32 +582,39 @@
     </section>
 
     <!-- FOOTER -->
-    <footer id="contacto">
+            <footer id="contacto">
+
         <div style="background: white; line-height: 0;">
             <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg">
                 <path fill="#033E81" d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z"/>
             </svg>
         </div>
-        <div style="background: linear-gradient(135deg, #033E81 0%, #033E81 50%, #033E81 100%); padding: 60px 0 30px;">
+
+        <div style="background: #033E81; padding: 60px 0 30px;">
             <div class="container">
                 <div style="display:flex;align-items:center;gap:40px;flex-wrap:wrap;margin-bottom:40px;padding-bottom:30px;border-bottom:1px solid rgba(255,255,255,0.1);">
                     <span style="color:rgba(255,255,255,0.5);font-style:italic;font-size:1.15rem;font-weight:600;white-space:nowrap;">Con el respaldo de</span>
                     <div style="display:flex;align-items:center;gap:40px;flex-wrap:wrap;">
-                        <img src="../image/Micoope.webp" alt="Micoope" style="height:62px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.85;">
-                        <img src="../image/logo_fondo.png" alt="Fondo Garantía Micoope" style="height:54px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.85;">
-                        <img src="../image/logo_seguros.png" alt="Seguros Columna" style="height:62px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.85;">
+                        <img src="../image/iconos/Micoope-1.png" alt="Micoope" style="height:62px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.85;">
+                        <img src="../image/iconos/Fondo-1.png" alt="Fondo Garantia Micoope" style="height:54px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.85;">
+                        <img src="../image/iconos/Columna-1.png" alt="Seguros Columna" style="height:62px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.85;">
                     </div>
                 </div>
                 <div class="row g-4 mb-5">
+
                     <div class="col-md-4">
                         <img src="../image/Logo Cooperativa - Blanco.png" height="45" alt="Logo" class="mb-3">
-                        <p style="color:#a8c4e0; line-height:1.8;">Tu cooperativa de confianza, comprometida con tu bienestar financiero.</p>
+                        <p style="color:#a8c4e0; line-height:1.8;">
+                            Tu cooperativa de confianza, comprometida con tu bienestar financiero
+                            y el desarrollo de nuestra comunidad.
+                        </p>
                         <div class="d-flex gap-3 mt-3">
-                            <a href="#" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="bi bi-facebook"></i></a>
+                            <a href="https://www.facebook.com/sanpedroesmicoope/?locale=es_LA" target="_blank" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="bi bi-facebook"></i></a>
                             <a href="#" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="bi bi-instagram"></i></a>
-                            <a href="#" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="bi bi-whatsapp"></i></a>
+                            <a href="https://api.whatsapp.com/send/?phone=50230776771&text&type=phone_number&app_absent=0" target="_blank" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="bi bi-whatsapp"></i></a>
                         </div>
                     </div>
+
                     <div class="col-md-2 offset-md-1">
                         <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Enlaces</h6>
                         <ul class="list-unstyled">
@@ -721,6 +624,7 @@
                             <li class="mb-2"><a href="./contactanos.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Contáctanos</a></li>
                         </ul>
                     </div>
+
                     <div class="col-md-2">
                         <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Servicios</h6>
                         <ul class="list-unstyled">
@@ -729,12 +633,13 @@
                             <li class="mb-2"><a href="./agentes.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Agentes</a></li>
                         </ul>
                     </div>
+
                     <div class="col-md-3">
                         <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Contacto</h6>
                         <ul class="list-unstyled">
                             <li class="mb-3 d-flex align-items-center gap-3">
                                 <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i class="bi bi-telephone" style="color:#4fc3f7;"></i></div>
-                                <span style="color:#a8c4e0;">PBX 79632828</span>
+                                <span style="color:#a8c4e0;">PBX 7963-2828</span>
                             </li>
                             <li class="mb-3 d-flex align-items-center gap-3">
                                 <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i class="bi bi-envelope" style="color:#4fc3f7;"></i></div>
@@ -746,11 +651,14 @@
                             </li>
                         </ul>
                     </div>
+
                 </div>
+
                 <hr style="border-color:rgba(255,255,255,0.1); margin-bottom:25px;">
                 <p style="color:#a8c4e0; margin:0; font-size:14px; text-align:center;">
-                    © 2026 Cooperativa San Pedro. Todos los derechos reservados.
+                    &copy; 2026 Cooperativa San Pedro. Todos los derechos reservados.
                 </p>
+
             </div>
         </div>
     </footer>

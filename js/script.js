@@ -257,7 +257,20 @@ if (statsSection) {
                 document.querySelectorAll('.stat-numero').forEach(num => {
                     if (!num.hasAttribute('data-target')) return;
                     const target = parseInt(num.getAttribute('data-target'));
-                    animarContador(num, target, 2000);
+                    const prefix = num.getAttribute('data-prefix') || '';
+                    const suffix = num.getAttribute('data-suffix') || '';
+                    const duracion = 2000;
+                    let inicio = 0;
+                    const incremento = target / (duracion / 16);
+                    const timer = setInterval(() => {
+                        inicio += incremento;
+                        if (inicio >= target) {
+                            num.textContent = prefix + target.toLocaleString() + suffix;
+                            clearInterval(timer);
+                        } else {
+                            num.textContent = prefix + Math.floor(inicio).toLocaleString() + suffix;
+                        }
+                    }, 16);
                 });
                 statsObserver.disconnect();
             }

@@ -255,39 +255,128 @@
         </div>
     </header>
 
-    <!-- =============================================
-         HERO — Encabezado de la sección de Agencias
-         Partículas animadas + título + estadísticas
-    ============================================= -->
-    <section class="hero" style="min-height:620px;display:flex;align-items:center;padding:100px 0 60px;">
-        <!-- Partículas animadas de fondo -->
-        <div class="particula p1"></div>
-        <div class="particula p2"></div>
-        <div class="particula p3"></div>
-        <div class="particula p4"></div>
-        <div class="particula p5"></div>
+    <!-- HERO AGENCIAS -->
+    <style>
+        .ag-hero {
+            padding-top: 68px;
+            background: #f0f4fa;
+            overflow: hidden;
+        }
+        /* Banda superior azul con título */
+        .ag-hero-band {
+            background: linear-gradient(135deg, #033E81 0%, #0554b0 100%);
+            padding: 60px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        .ag-hero-band::before {
+            content: '';
+            position: absolute;
+            right: -80px; top: -80px;
+            width: 420px; height: 420px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.04);
+        }
+        .ag-hero-band::after {
+            content: '';
+            position: absolute;
+            left: 30%; bottom: -100px;
+            width: 280px; height: 280px;
+            border-radius: 50%;
+            background: rgba(78,174,51,0.08);
+        }
+        /* Mapa flotante que solapa la banda */
+        .ag-mapa-wrap {
+            margin-top: -50px;
+            margin-bottom: 0;
+            padding: 0 0 60px;
+        }
+        .ag-mapa-card {
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(3,62,129,0.22);
+            border: 4px solid white;
+        }
+        /* Chips de stats */
+        .ag-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 50px;
+            padding: 8px 18px;
+            color: white;
+            font-size: 0.88rem;
+            font-weight: 600;
+            backdrop-filter: blur(6px);
+        }
+        .ag-chip i { color: #4EAE33; font-size: 1rem; }
 
-        <div class="container" style="position:relative;z-index:2;width:100%;">
-            <div class="row align-items-center g-5">
+        @media (max-width: 768px) {
+            .ag-hero-band { padding: 50px 0 70px; }
+            .ag-mapa-wrap { margin-top: -30px; }
+        }
+    </style>
 
-                <!-- Columna izquierda: Título -->
-                <div class="col-lg-4" style="margin-top:-80px;">
-                    <h1 class="hero-titulo" style="text-align:left;margin-bottom:16px;font-size:clamp(3.2rem,6vw,5.5rem);">
-                        <span class="linea1">Nuestras</span>
-                        <span class="linea2">Agencias</span>
-                    </h1>
-                </div>
+    <div class="ag-hero">
 
-                <!-- Columna derecha: Mapa -->
-                <div class="col-lg-8">
-                    <div style="border-radius:20px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.3);">
-                        <div id="mapaAgencias" style="height:460px;width:100%;"></div>
+        <!-- Banda azul con título y chips -->
+        <div class="ag-hero-band">
+            <div class="container" style="position:relative;z-index:2;">
+                <div class="row align-items-center g-4">
+
+                    <!-- Título -->
+                    <div class="col-lg-6">
+                        <p style="color:#4EAE33;font-weight:700;letter-spacing:5px;text-transform:uppercase;font-size:0.75rem;margin-bottom:14px;">Puntos de Servicio</p>
+                        <h1 style="color:white;font-weight:900;font-size:clamp(2.8rem,5.5vw,5rem);line-height:1;letter-spacing:-2px;margin-bottom:24px;">
+                            Cerca de<br>donde <span style="color:#4EAE33;">estás</span>
+                        </h1>
+                        <p style="color:rgba(255,255,255,0.7);font-size:1rem;line-height:1.75;max-width:420px;margin-bottom:32px;">
+                            Contamos con 9 agencias en Huehuetenango. Encuentra la más cercana a tu comunidad.
+                        </p>
+                        <!-- Chips -->
+                        <div style="display:flex;flex-wrap:wrap;gap:10px;">
+                            <span class="ag-chip"><i class="bi bi-building"></i> 9 Agencias</span>
+                            <span class="ag-chip"><i class="bi bi-clock"></i> Lun – Vie · 8am – 5pm</span>
+                            <span class="ag-chip"><i class="bi bi-geo-alt"></i> Huehuetenango</span>
+                        </div>
                     </div>
-                </div>
 
+                    <!-- Decoración derecha: pin gigante -->
+                    <div class="col-lg-6 text-center d-none d-lg-block" style="position:relative;">
+                        <div style="position:relative;display:inline-block;">
+                            <i class="bi bi-geo-alt-fill" style="font-size:11rem;color:rgba(255,255,255,0.07);position:absolute;top:-20px;right:0;"></i>
+                            <i class="bi bi-geo-alt-fill" style="font-size:9rem;color:rgba(78,174,51,0.18);"></i>
+                            <!-- 3 puntos animados -->
+                            <span style="position:absolute;width:14px;height:14px;background:#4EAE33;border-radius:50%;top:18%;left:28%;animation:pulsePin 2s infinite;box-shadow:0 0 0 0 rgba(78,174,51,0.5);"></span>
+                            <span style="position:absolute;width:10px;height:10px;background:#4fc3f7;border-radius:50%;top:38%;right:22%;animation:pulsePin 2.4s 0.5s infinite;"></span>
+                            <span style="position:absolute;width:12px;height:12px;background:white;border-radius:50%;bottom:30%;left:38%;animation:pulsePin 1.8s 0.9s infinite;"></span>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
-    </section>
+
+        <!-- Mapa flotante -->
+        <div class="ag-mapa-wrap">
+            <div class="container">
+                <div class="ag-mapa-card">
+                    <div id="mapaAgencias" style="height:480px;width:100%;"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <style>
+        @keyframes pulsePin {
+            0%   { transform:scale(1); box-shadow:0 0 0 0 rgba(78,174,51,0.5); }
+            70%  { transform:scale(1.2); box-shadow:0 0 0 12px rgba(78,174,51,0); }
+            100% { transform:scale(1); box-shadow:0 0 0 0 rgba(78,174,51,0); }
+        }
+    </style>
 
     <!-- =============================================
          BARRA STICKY DE FILTROS Y BÚSQUEDA
@@ -926,29 +1015,26 @@
          FOOTER — Datos de contacto reales y rutas correctas
     ============================================= -->
 
-    <footer id="contacto">
+            <footer id="contacto">
 
-        <!-- Ola decorativa SVG con nuevo color de marca -->
         <div style="background: white; line-height: 0;">
             <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg">
                 <path fill="#033E81" d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z"/>
             </svg>
         </div>
 
-        <!-- Cuerpo del footer -->
-        <div style="background: linear-gradient(135deg, #033E81 0%, #033E81 50%, #033E81 100%); padding: 60px 0 30px;">
+        <div style="background: #033E81; padding: 60px 0 30px;">
             <div class="container">
                 <div style="display:flex;align-items:center;gap:40px;flex-wrap:wrap;margin-bottom:40px;padding-bottom:30px;border-bottom:1px solid rgba(255,255,255,0.1);">
                     <span style="color:rgba(255,255,255,0.5);font-style:italic;font-size:1.15rem;font-weight:600;white-space:nowrap;">Con el respaldo de</span>
                     <div style="display:flex;align-items:center;gap:40px;flex-wrap:wrap;">
-                        <img src="../image/Micoope.webp" alt="Micoope" style="height:62px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.85;">
-                        <img src="../image/logo_fondo.png" alt="Fondo Garantía Micoope" style="height:54px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.85;">
-                        <img src="../image/logo_seguros.png" alt="Seguros Columna" style="height:62px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.85;">
+                        <img src="../image/iconos/Micoope-1.png" alt="Micoope" style="height:62px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.85;">
+                        <img src="../image/iconos/Fondo-1.png" alt="Fondo Garantia Micoope" style="height:54px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.85;">
+                        <img src="../image/iconos/Columna-1.png" alt="Seguros Columna" style="height:62px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.85;">
                     </div>
                 </div>
                 <div class="row g-4 mb-5">
 
-                    <!-- Columna 1: Logo y descripción -->
                     <div class="col-md-4">
                         <img src="../image/Logo Cooperativa - Blanco.png" height="45" alt="Logo" class="mb-3">
                         <p style="color:#a8c4e0; line-height:1.8;">
@@ -956,13 +1042,12 @@
                             y el desarrollo de nuestra comunidad.
                         </p>
                         <div class="d-flex gap-3 mt-3">
-                            <a href="#" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="bi bi-facebook"></i></a>
+                            <a href="https://www.facebook.com/sanpedroesmicoope/?locale=es_LA" target="_blank" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="bi bi-facebook"></i></a>
                             <a href="#" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="bi bi-instagram"></i></a>
-                            <a href="#" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="bi bi-whatsapp"></i></a>
+                            <a href="https://api.whatsapp.com/send/?phone=50230776771&text&type=phone_number&app_absent=0" target="_blank" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="bi bi-whatsapp"></i></a>
                         </div>
                     </div>
 
-                    <!-- Columna 2: Enlaces -->
                     <div class="col-md-2 offset-md-1">
                         <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Enlaces</h6>
                         <ul class="list-unstyled">
@@ -973,7 +1058,6 @@
                         </ul>
                     </div>
 
-                    <!-- Columna 3: Servicios -->
                     <div class="col-md-2">
                         <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Servicios</h6>
                         <ul class="list-unstyled">
@@ -983,7 +1067,6 @@
                         </ul>
                     </div>
 
-                    <!-- Columna 4: Contacto real -->
                     <div class="col-md-3">
                         <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Contacto</h6>
                         <ul class="list-unstyled">
@@ -1006,7 +1089,7 @@
 
                 <hr style="border-color:rgba(255,255,255,0.1); margin-bottom:25px;">
                 <p style="color:#a8c4e0; margin:0; font-size:14px; text-align:center;">
-                    © 2026 Cooperativa San Pedro. Todos los derechos reservados.
+                    &copy; 2026 Cooperativa San Pedro. Todos los derechos reservados.
                 </p>
 
             </div>
@@ -1048,7 +1131,7 @@
            MAPA INTERACTIVO — Leaflet + OpenStreetMap
         ============================================= */
         window.addEventListener('load', function () {
-            var mapa = L.map('mapaAgencias', { scrollWheelZoom: true });
+            var mapa = L.map('mapaAgencias', { scrollWheelZoom: false, zoomControl: true });
 
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
