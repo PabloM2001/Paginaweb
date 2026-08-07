@@ -367,6 +367,7 @@
 .drop-link:hover { background: #f2f6ff; transform: translateX(4px); color: #033E81; }
 
 .drop-icon {
+    display: none !important;
     width: 38px;
     height: 38px;
     min-width: 38px;
@@ -843,11 +844,17 @@
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255,255,255,0.15);
     transition: transform 0.3s ease, background 0.3s ease;
+    height: 160px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
 }
 
 .stat-card:hover { transform: translateY(-8px); background: rgba(255,255,255,0.15); }
 .stat-icono  { font-size: 2.5rem; margin-bottom: 15px; }
-.stat-numero { font-size: 3.5rem; font-weight: 900; color: white; margin: 0; line-height: 1; }
+.stat-numero { font-size: 2.8rem; font-weight: 900; color: white; margin: 0; line-height: 1; }
 .stat-label  { color: rgba(255,255,255,0.7); font-size: 0.9rem; margin-top: 8px; letter-spacing: 1px; }
 
 /* FOOTER */
@@ -1332,3 +1339,36 @@ footer .bi-whatsapp:hover { background: rgba(255,255,255,0.25) !important; trans
     .flip-container:hover .flip-card { transform: none; }
     .flip-container.flipped .flip-card { transform: rotateY(180deg); }
 }
+
+/* ===== BOTONES FLOTANTES REDES SOCIALES ===== */
+.social-flotante {
+    position: fixed;
+    bottom: 30px;
+    right: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 9999;
+}
+
+.social-flotante a {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.3rem;
+    text-decoration: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.social-flotante a:hover {
+    transform: translateY(-4px) scale(1.1);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.35);
+}
+
+.social-flotante .btn-whatsapp { background: #25D366; }
+.social-flotante .btn-facebook { background: #1877F2; }

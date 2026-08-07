@@ -282,18 +282,19 @@
         }
         .edu-galeria {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 14px;
         }
         .edu-foto-slot {
             background: #f0f4fa;
-            border: 2px dashed #c8d6f0;
             border-radius: 14px;
             aspect-ratio: 4/3;
-            display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
-            gap: 8px; color: #a0b4d0;
-            transition: all 0.3s ease;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .edu-foto-slot:hover {
+            transform: scale(1.03);
+            box-shadow: 0 10px 30px rgba(3,62,129,0.2);
         }
         .edu-foto-slot i { font-size: 2rem; }
         .edu-foto-slot span { font-size: 0.8rem; font-weight: 600; }
@@ -486,7 +487,7 @@
                     Somos una institución financiera cooperativa fundada en <strong style="color:#033E81;">1954</strong>, con sede en San Pedro Soloma, Huehuetenango. Nacimos para ofrecer soluciones financieras accesibles, solidarias y de calidad a las familias de nuestra región.
                 </p>
                 <p style="font-size:1rem;color:#555;line-height:1.9;margin:0;">
-                    Con <strong style="color:#033E81;">71 años</strong> de trayectoria y <strong style="color:#4EAE33;">10,800 asociados</strong>, seguimos creciendo junto a nuestras comunidades con el compromiso de ser una cooperativa cercana, confiable y transformadora.
+                    Con <strong style="color:#033E81;">71 años</strong> de trayectoria y <strong style="color:#4EAE33;">43,671 asociados</strong>, seguimos creciendo junto a nuestras comunidades con el compromiso de ser una cooperativa cercana, confiable y transformadora.
                 </p>
             </div>
 
@@ -506,8 +507,8 @@
 
                 <!-- Micoope -->
                 <div style="flex:1 1 260px;max-width:320px;background:white;border-radius:20px;padding:40px 32px;text-align:center;box-shadow:0 4px 24px rgba(3,62,129,0.08);border:1px solid rgba(3,62,129,0.06);transition:transform 0.3s,box-shadow 0.3s;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 16px 40px rgba(3,62,129,0.14)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 24px rgba(3,62,129,0.08)'">
-                    <div style="height:70px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;">
-                        <img src="../image/Micoope.webp" alt="Micoope" style="max-height:60px;max-width:160px;object-fit:contain;">
+                    <div style="height:120px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;">
+                        <img src="../image/iconos/Micoope.png" alt="Micoope" style="max-height:110px;max-width:220px;object-fit:contain;">
                     </div>
                     <div style="width:40px;height:3px;background:linear-gradient(to right,#033E81,#4EAE33);border-radius:2px;margin:0 auto 16px;"></div>
                     <h4 style="font-size:1rem;font-weight:800;color:#033E81;margin-bottom:10px;">Micoope</h4>
@@ -516,8 +517,8 @@
 
                 <!-- Fondo de Garantía -->
                 <div style="flex:1 1 260px;max-width:320px;background:white;border-radius:20px;padding:40px 32px;text-align:center;box-shadow:0 4px 24px rgba(3,62,129,0.08);border:1px solid rgba(3,62,129,0.06);transition:transform 0.3s,box-shadow 0.3s;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 16px 40px rgba(3,62,129,0.14)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 24px rgba(3,62,129,0.08)'">
-                    <div style="height:70px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;">
-                        <img src="../image/logo_fondo.png" alt="Fondo de Garantía" style="max-height:60px;max-width:160px;object-fit:contain;">
+                    <div style="height:120px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;">
+                        <img src="../image/iconos/Fondo.png" alt="Fondo de Garantía" style="max-height:110px;max-width:220px;object-fit:contain;">
                     </div>
                     <div style="width:40px;height:3px;background:linear-gradient(to right,#033E81,#4EAE33);border-radius:2px;margin:0 auto 16px;"></div>
                     <h4 style="font-size:1rem;font-weight:800;color:#033E81;margin-bottom:10px;">Fondo de Garantía</h4>
@@ -526,8 +527,8 @@
 
                 <!-- Seguros Columna -->
                 <div style="flex:1 1 260px;max-width:320px;background:white;border-radius:20px;padding:40px 32px;text-align:center;box-shadow:0 4px 24px rgba(3,62,129,0.08);border:1px solid rgba(3,62,129,0.06);transition:transform 0.3s,box-shadow 0.3s;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 16px 40px rgba(3,62,129,0.14)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 24px rgba(3,62,129,0.08)'">
-                    <div style="height:70px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;">
-                        <img src="../image/logo_seguros.png" alt="Seguros Columna" style="max-height:60px;max-width:160px;object-fit:contain;">
+                    <div style="height:120px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;">
+                        <img src="../image/iconos/Columna.png" alt="Seguros Columna" style="max-height:110px;max-width:220px;object-fit:contain;">
                     </div>
                     <div style="width:40px;height:3px;background:linear-gradient(to right,#033E81,#4EAE33);border-radius:2px;margin:0 auto 16px;"></div>
                     <h4 style="font-size:1rem;font-weight:800;color:#033E81;margin-bottom:10px;">Seguros Columna</h4>
@@ -552,16 +553,20 @@
             <!-- TABS -->
             <div class="edu-tabs">
                 <button class="edu-tab active" onclick="eduTab(0, this)">
-                    <img src="../image/Programas/wachalal.png" alt="Wachalal">
-                    <span>Wachalal</span>
+                    <img src="../image/Programas/Wachalal.png" alt="Wachalal">
+                    
                 </button>
                 <button class="edu-tab" onclick="eduTab(1, this)">
                     <img src="../image/Programas/Huellas.png" alt="Huellas">
-                    <span>Huellas</span>
+                    
                 </button>
                 <button class="edu-tab" onclick="eduTab(2, this)">
-                    <img src="../image/Programas/Florece.webp" alt="Florece">
-                    <span>Florece</span>
+                    <img src="../image/Programas/Florece.png" alt="Florece">
+                    
+                </button>
+                <button class="edu-tab" onclick="eduTab(3, this)">
+                    <img src="../image/Programas/Emprendemas.png" alt="Emprendemas">
+                   
                 </button>
             </div>
 
@@ -570,7 +575,7 @@
                 <div class="row g-5 align-items-start">
                     <div class="col-lg-4">
                         <div class="edu-info-box">
-                            <img src="../image/Programas/wachalal.png" alt="Wachalal" class="edu-logo-grande">
+                            <img src="../image/Programas/Wachalal.png" alt="Wachalal" class="edu-logo-grande">
                             <h3 class="edu-titulo">Wachalal</h3>
                             <p class="edu-desc">Programa educativo cooperativista orientado a fortalecer los valores de solidaridad, trabajo en equipo y educación financiera entre los asociados y sus comunidades.</p>
                             <div class="edu-tag"><i class="bi bi-check-circle-fill"></i> Educación Financiera</div>
@@ -581,10 +586,12 @@
                     <div class="col-lg-8">
                         <p class="edu-galeria-label"><i class="bi bi-images"></i> Galería del programa</p>
                         <div class="edu-galeria" id="galeria-0">
-                            <div class="edu-foto-slot"><i class="bi bi-image"></i><span>Foto 1</span></div>
-                            <div class="edu-foto-slot"><i class="bi bi-image"></i><span>Foto 2</span></div>
-                            <div class="edu-foto-slot"><i class="bi bi-image"></i><span>Foto 3</span></div>
-                            <div class="edu-foto-slot"><i class="bi bi-image"></i><span>Foto 4</span></div>
+                            <div class="edu-foto-slot"><img src="../image/Programas/Wachalal/DSC00547.jpg" alt="Wachalal"></div>
+                            <div class="edu-foto-slot"><img src="../image/Programas/Wachalal/DSC00558.jpg" alt="Wachalal"></div>
+                            <div class="edu-foto-slot"><img src="../image/Programas/Wachalal/DSC00561.jpg" alt="Wachalal"></div>
+                            <div class="edu-foto-slot"><img src="../image/Programas/Wachalal/DSC00562.jpg" alt="Wachalal"></div>
+                            <div class="edu-foto-slot"><img src="../image/Programas/Wachalal/DSC00564.jpg" alt="Wachalal"></div>
+                            <div class="edu-foto-slot"><img src="../image/Programas/Wachalal/DSC00568.jpg" alt="Wachalal"></div>
                         </div>
                     </div>
                 </div>
@@ -606,10 +613,12 @@
                     <div class="col-lg-8">
                         <p class="edu-galeria-label"><i class="bi bi-images"></i> Galería del programa</p>
                         <div class="edu-galeria" id="galeria-1">
-                            <div class="edu-foto-slot"><i class="bi bi-image"></i><span>Foto 1</span></div>
-                            <div class="edu-foto-slot"><i class="bi bi-image"></i><span>Foto 2</span></div>
-                            <div class="edu-foto-slot"><i class="bi bi-image"></i><span>Foto 3</span></div>
-                            <div class="edu-foto-slot"><i class="bi bi-image"></i><span>Foto 4</span></div>
+                            <div class="edu-foto-slot"><img src="../image/Programas/Huellas/DSC04745.JPG" alt="Huellas"></div>
+                            <div class="edu-foto-slot"><img src="../image/Programas/Huellas/DSC04756.JPG" alt="Huellas"></div>
+                            <div class="edu-foto-slot"><img src="../image/Programas/Huellas/DSC04765.JPG" alt="Huellas"></div>
+                            <div class="edu-foto-slot"><img src="../image/Programas/Huellas/DSC04773.JPG" alt="Huellas"></div>
+                            <div class="edu-foto-slot"><img src="../image/Programas/Huellas/DSC04787.JPG" alt="Huellas"></div>
+                            <div class="edu-foto-slot"><img src="../image/Programas/Huellas/DSC04793.JPG" alt="Huellas"></div>
                         </div>
                     </div>
                 </div>
@@ -620,7 +629,7 @@
                 <div class="row g-5 align-items-start">
                     <div class="col-lg-4">
                         <div class="edu-info-box">
-                            <img src="../image/Programas/Florece.webp" alt="Florece" class="edu-logo-grande">
+                            <img src="../image/Programas/Florece.png" alt="Florece" class="edu-logo-grande">
                             <h3 class="edu-titulo">Florece</h3>
                             <p class="edu-desc">Programa diseñado para empoderar a los asociados con herramientas de educación cooperativista que les permitan florecer económica y socialmente dentro de su entorno familiar y comunitario.</p>
                             <div class="edu-tag"><i class="bi bi-check-circle-fill"></i> Empoderamiento</div>
@@ -631,10 +640,39 @@
                     <div class="col-lg-8">
                         <p class="edu-galeria-label"><i class="bi bi-images"></i> Galería del programa</p>
                         <div class="edu-galeria" id="galeria-2">
-                            <div class="edu-foto-slot"><i class="bi bi-image"></i><span>Foto 1</span></div>
-                            <div class="edu-foto-slot"><i class="bi bi-image"></i><span>Foto 2</span></div>
-                            <div class="edu-foto-slot"><i class="bi bi-image"></i><span>Foto 3</span></div>
-                            <div class="edu-foto-slot"><i class="bi bi-image"></i><span>Foto 4</span></div>
+                            <div class="edu-foto-slot"><img src="../image/Programas/Florece/DVPA0337.JPG" alt="Florece"></div>
+                            <div class="edu-foto-slot"><img src="../image/Programas/Florece/IMG_0603.JPG" alt="Florece"></div>
+                            <div class="edu-foto-slot"><img src="../image/Programas/Florece/IMG_3771.JPG" alt="Florece"></div>
+                            <div class="edu-foto-slot"><img src="../image/Programas/Florece/IMG_3779.JPG" alt="Florece"></div>
+                            <div class="edu-foto-slot"><img src="../image/Programas/Florece/IMG_E4017.JPG" alt="Florece"></div>
+                            <div class="edu-foto-slot"><img src="../image/Programas/Florece/IMG_E4034.JPG" alt="Florece"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PANEL EMPRENDEMAS -->
+            <div class="edu-panel" id="edu-3">
+                <div class="row g-5 align-items-start">
+                    <div class="col-lg-4">
+                        <div class="edu-info-box">
+                            <img src="../image/Programas/Emprendemas.png" alt="Emprendemas" class="edu-logo-grande">
+                            <h3 class="edu-titulo">Emprendemas</h3>
+                            <p class="edu-desc">Programa de impulso al emprendimiento cooperativista que brinda herramientas, capacitación y acompañamiento a asociados con iniciativas de negocio propias.</p>
+                            <div class="edu-tag"><i class="bi bi-check-circle-fill"></i> Emprendimiento</div>
+                            <div class="edu-tag"><i class="bi bi-check-circle-fill"></i> Acompañamiento</div>
+                            <div class="edu-tag"><i class="bi bi-check-circle-fill"></i> Desarrollo Económico</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <p class="edu-galeria-label"><i class="bi bi-images"></i> Galería del programa</p>
+                        <div class="edu-galeria" id="galeria-3">
+                            <div class="edu-foto-slot"><img src="../image/Programas/Emprendemas/1.jpg" alt="Emprendemas"></div>
+                            <div class="edu-foto-slot"><img src="../image/Programas/Emprendemas/2.jpg" alt="Emprendemas"></div>
+                            <div class="edu-foto-slot"><img src="../image/Programas/Emprendemas/3.jpg" alt="Emprendemas"></div>
+                            <div class="edu-foto-slot"><img src="../image/Programas/Emprendemas/4.jpg" alt="Emprendemas"></div>
+                            <div class="edu-foto-slot"><img src="../image/Programas/Emprendemas/5.jpg" alt="Emprendemas"></div>
+                            <div class="edu-foto-slot"><img src="../image/Programas/Emprendemas/6.jpg" alt="Emprendemas"></div>
                         </div>
                     </div>
                 </div>
@@ -642,6 +680,88 @@
 
         </div>
     </section>
+
+    <!-- TU OPINIÓN -->
+    <section style="padding:90px 0;background:linear-gradient(135deg,#f0f4ff 0%,#e8f5e0 100%);">
+        <div class="container">
+
+            <p class="text-center" style="color:#4EAE33;letter-spacing:4px;text-transform:uppercase;font-size:0.85rem;font-weight:700;margin-bottom:10px;">Queremos escucharte</p>
+            <h2 class="text-center fw-bold mb-2" style="color:#033E81;font-size:2.2rem;">Tu Opinión</h2>
+            <p class="text-center text-muted mb-5" style="max-width:500px;margin-left:auto;margin-right:auto;">Tu experiencia es muy importante para nosotros. Comparte tu opinión y ayúdanos a mejorar.</p>
+
+            <div class="row justify-content-center">
+                <div class="col-lg-7">
+                    <div style="background:white;border-radius:24px;padding:44px 40px;box-shadow:0 20px 60px rgba(3,62,129,0.1);">
+
+                        <!-- Calificación con estrellas -->
+                        <div class="text-center mb-4">
+                            <p style="font-weight:700;color:#033E81;margin-bottom:12px;">¿Cómo calificarías nuestro servicio?</p>
+                            <div id="estrellas" style="display:flex;justify-content:center;gap:10px;cursor:pointer;">
+                                <i class="bi bi-star-fill" data-val="1" style="font-size:2.2rem;color:#ddd;transition:color 0.2s;"></i>
+                                <i class="bi bi-star-fill" data-val="2" style="font-size:2.2rem;color:#ddd;transition:color 0.2s;"></i>
+                                <i class="bi bi-star-fill" data-val="3" style="font-size:2.2rem;color:#ddd;transition:color 0.2s;"></i>
+                                <i class="bi bi-star-fill" data-val="4" style="font-size:2.2rem;color:#ddd;transition:color 0.2s;"></i>
+                                <i class="bi bi-star-fill" data-val="5" style="font-size:2.2rem;color:#ddd;transition:color 0.2s;"></i>
+                            </div>
+                            <input type="hidden" id="calificacion" value="0">
+                        </div>
+
+                        <form id="formOpinion" onsubmit="enviarOpinion(event)">
+
+                            <div class="mb-4">
+                                <label style="font-size:0.85rem;font-weight:600;color:#444;margin-bottom:6px;display:block;">Tu comentario</label>
+                                <textarea id="opComentario" rows="4" placeholder="Cuéntanos tu experiencia con la Cooperativa San Pedro..." required
+                                    style="width:100%;padding:14px 16px;border:2px solid #e8edf5;border-radius:12px;font-size:0.95rem;outline:none;resize:none;font-family:'Outfit',sans-serif;transition:border-color 0.3s;"
+                                    onfocus="this.style.borderColor='#033E81'" onblur="this.style.borderColor='#e8edf5'"></textarea>
+                            </div>
+
+                            <button type="submit" style="width:100%;padding:15px;background:linear-gradient(135deg,#033E81,#0554b0);color:white;border:none;border-radius:12px;font-size:1rem;font-weight:700;font-family:'Outfit',sans-serif;cursor:pointer;transition:all 0.3s;"
+                                onmouseover="this.style.opacity='0.9';this.style.transform='translateY(-2px)'"
+                                onmouseout="this.style.opacity='1';this.style.transform='translateY(0)'">
+                                <i class="bi bi-send-fill me-2"></i>Enviar mi opinión
+                            </button>
+                        </form>
+
+                        <!-- Mensaje de éxito (oculto) -->
+                        <div id="opinionExito" style="display:none;text-align:center;padding:30px 0;">
+                            <div style="font-size:3.5rem;margin-bottom:16px;">🎉</div>
+                            <h4 style="color:#033E81;font-weight:800;margin-bottom:8px;">¡Gracias por tu opinión!</h4>
+                            <p style="color:#666;">Tu comentario es muy valioso para nosotros.</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+    /* Estrellas interactivas */
+    (function(){
+        const stars = document.querySelectorAll('#estrellas i');
+        const input = document.getElementById('calificacion');
+        stars.forEach(s => {
+            s.addEventListener('mouseover', function(){
+                const val = +this.dataset.val;
+                stars.forEach(st => st.style.color = +st.dataset.val <= val ? '#f5a623' : '#ddd');
+            });
+            s.addEventListener('mouseout', function(){
+                const sel = +input.value;
+                stars.forEach(st => st.style.color = +st.dataset.val <= sel ? '#f5a623' : '#ddd');
+            });
+            s.addEventListener('click', function(){
+                input.value = this.dataset.val;
+                stars.forEach(st => st.style.color = +st.dataset.val <= +this.dataset.val ? '#f5a623' : '#ddd');
+            });
+        });
+    })();
+
+    function enviarOpinion(e){
+        e.preventDefault();
+        document.getElementById('formOpinion').style.display = 'none';
+        document.getElementById('opinionExito').style.display = 'block';
+    }
+    </script>
 
     <!-- FOOTER -->
     <footer id="contacto">

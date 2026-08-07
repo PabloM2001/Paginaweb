@@ -255,6 +255,7 @@ if (statsSection) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 document.querySelectorAll('.stat-numero').forEach(num => {
+                    if (!num.hasAttribute('data-target')) return;
                     const target = parseInt(num.getAttribute('data-target'));
                     animarContador(num, target, 2000);
                 });
@@ -327,3 +328,17 @@ document.addEventListener('DOMContentLoaded', function () {
         if (stored) img.src = stored;
     });
 });
+
+/* ===== BOTONES FLOTANTES REDES SOCIALES ===== */
+(function() {
+    var div = document.createElement('div');
+    div.className = 'social-flotante';
+    div.innerHTML = `
+        <a href="https://api.whatsapp.com/send/?phone=50230776771&text&type=phone_number&app_absent=0" class="btn-whatsapp" target="_blank" aria-label="WhatsApp">
+            <i class="bi bi-whatsapp"></i>
+        </a>
+        <a href="https://www.facebook.com/sanpedroesmicoope/?locale=es_LA" class="btn-facebook" target="_blank" aria-label="Facebook">
+            <i class="bi bi-facebook"></i>
+        </a>`;
+    document.body.appendChild(div);
+})();
