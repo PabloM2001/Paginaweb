@@ -1,6 +1,8 @@
 ﻿<!DOCTYPE html>
 <html lang="es">
 <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <link rel="icon" type="image/png" href="../image/Imagotipo Vertical Original.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -306,10 +308,15 @@
             width: 100%; height: 100%;
             object-fit: cover; border-radius: 12px; display: block;
         }
-        @media (max-width: 576px) {
+        @media (max-width: 768px) {
+            .edu-galeria { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 480px) {
             .edu-galeria { grid-template-columns: 1fr; }
-            .edu-tab { padding: 10px 18px; font-size: 0.85rem; }
-            .edu-tab img { height: 28px; }
+            .edu-tab { padding: 10px 14px; font-size: 0.82rem; }
+            .edu-tab img { height: 26px; }
+            /* Tu Opinión card: less padding on small screens */
+            .opinion-card { padding: 28px 20px !important; }
         }
     </style>
 </head>
@@ -586,12 +593,12 @@
                     <div class="col-lg-8">
                         <p class="edu-galeria-label"><i class="bi bi-images"></i> Galería del programa</p>
                         <div class="edu-galeria" id="galeria-0">
-                            <div class="edu-foto-slot"><img src="../image/Programas/Wachalal/DSC00547.jpg" alt="Wachalal"></div>
-                            <div class="edu-foto-slot"><img src="../image/Programas/Wachalal/DSC00558.jpg" alt="Wachalal"></div>
-                            <div class="edu-foto-slot"><img src="../image/Programas/Wachalal/DSC00561.jpg" alt="Wachalal"></div>
-                            <div class="edu-foto-slot"><img src="../image/Programas/Wachalal/DSC00562.jpg" alt="Wachalal"></div>
-                            <div class="edu-foto-slot"><img src="../image/Programas/Wachalal/DSC00564.jpg" alt="Wachalal"></div>
-                            <div class="edu-foto-slot"><img src="../image/Programas/Wachalal/DSC00568.jpg" alt="Wachalal"></div>
+                            <div class="edu-foto-slot"><img loading="lazy" src="../image/Programas/Wachalal/DSC00547.jpg" alt="Wachalal"></div>
+                            <div class="edu-foto-slot"><img loading="lazy" src="../image/Programas/Wachalal/DSC00558.jpg" alt="Wachalal"></div>
+                            <div class="edu-foto-slot"><img loading="lazy" src="../image/Programas/Wachalal/DSC00561.jpg" alt="Wachalal"></div>
+                            <div class="edu-foto-slot"><img loading="lazy" src="../image/Programas/Wachalal/DSC00562.jpg" alt="Wachalal"></div>
+                            <div class="edu-foto-slot"><img loading="lazy" src="../image/Programas/Wachalal/DSC00564.jpg" alt="Wachalal"></div>
+                            <div class="edu-foto-slot"><img loading="lazy" src="../image/Programas/Wachalal/DSC00568.jpg" alt="Wachalal"></div>
                         </div>
                     </div>
                 </div>
@@ -613,12 +620,12 @@
                     <div class="col-lg-8">
                         <p class="edu-galeria-label"><i class="bi bi-images"></i> Galería del programa</p>
                         <div class="edu-galeria" id="galeria-1">
-                            <div class="edu-foto-slot"><img src="../image/Programas/Huellas/DSC04745.JPG" alt="Huellas"></div>
-                            <div class="edu-foto-slot"><img src="../image/Programas/Huellas/DSC04756.JPG" alt="Huellas"></div>
-                            <div class="edu-foto-slot"><img src="../image/Programas/Huellas/DSC04765.JPG" alt="Huellas"></div>
-                            <div class="edu-foto-slot"><img src="../image/Programas/Huellas/DSC04773.JPG" alt="Huellas"></div>
-                            <div class="edu-foto-slot"><img src="../image/Programas/Huellas/DSC04787.JPG" alt="Huellas"></div>
-                            <div class="edu-foto-slot"><img src="../image/Programas/Huellas/DSC04793.JPG" alt="Huellas"></div>
+                            <div class="edu-foto-slot"><img loading="lazy" src="../image/Programas/Huellas/DSC04745.JPG" alt="Huellas"></div>
+                            <div class="edu-foto-slot"><img loading="lazy" src="../image/Programas/Huellas/DSC04756.JPG" alt="Huellas"></div>
+                            <div class="edu-foto-slot"><img loading="lazy" src="../image/Programas/Huellas/DSC04765.JPG" alt="Huellas"></div>
+                            <div class="edu-foto-slot"><img loading="lazy" src="../image/Programas/Huellas/DSC04773.JPG" alt="Huellas"></div>
+                            <div class="edu-foto-slot"><img loading="lazy" src="../image/Programas/Huellas/DSC04787.JPG" alt="Huellas"></div>
+                            <div class="edu-foto-slot"><img loading="lazy" src="../image/Programas/Huellas/DSC04793.JPG" alt="Huellas"></div>
                         </div>
                     </div>
                 </div>
@@ -640,12 +647,12 @@
                     <div class="col-lg-8">
                         <p class="edu-galeria-label"><i class="bi bi-images"></i> Galería del programa</p>
                         <div class="edu-galeria" id="galeria-2">
-                            <div class="edu-foto-slot"><img src="../image/Programas/Florece/DVPA0337.JPG" alt="Florece"></div>
-                            <div class="edu-foto-slot"><img src="../image/Programas/Florece/IMG_0603.JPG" alt="Florece"></div>
-                            <div class="edu-foto-slot"><img src="../image/Programas/Florece/IMG_3771.JPG" alt="Florece"></div>
-                            <div class="edu-foto-slot"><img src="../image/Programas/Florece/IMG_3779.JPG" alt="Florece"></div>
-                            <div class="edu-foto-slot"><img src="../image/Programas/Florece/IMG_E4017.JPG" alt="Florece"></div>
-                            <div class="edu-foto-slot"><img src="../image/Programas/Florece/IMG_E4034.JPG" alt="Florece"></div>
+                            <div class="edu-foto-slot"><img loading="lazy" src="../image/Programas/Florece/DVPA0337.JPG" alt="Florece"></div>
+                            <div class="edu-foto-slot"><img loading="lazy" src="../image/Programas/Florece/IMG_0603.JPG" alt="Florece"></div>
+                            <div class="edu-foto-slot"><img loading="lazy" src="../image/Programas/Florece/IMG_3771.JPG" alt="Florece"></div>
+                            <div class="edu-foto-slot"><img loading="lazy" src="../image/Programas/Florece/IMG_3779.JPG" alt="Florece"></div>
+                            <div class="edu-foto-slot"><img loading="lazy" src="../image/Programas/Florece/IMG_E4017.JPG" alt="Florece"></div>
+                            <div class="edu-foto-slot"><img loading="lazy" src="../image/Programas/Florece/IMG_E4034.JPG" alt="Florece"></div>
                         </div>
                     </div>
                 </div>
@@ -667,12 +674,12 @@
                     <div class="col-lg-8">
                         <p class="edu-galeria-label"><i class="bi bi-images"></i> Galería del programa</p>
                         <div class="edu-galeria" id="galeria-3">
-                            <div class="edu-foto-slot"><img src="../image/Programas/Emprendemas/1.jpg" alt="Emprendemas"></div>
-                            <div class="edu-foto-slot"><img src="../image/Programas/Emprendemas/2.jpg" alt="Emprendemas"></div>
-                            <div class="edu-foto-slot"><img src="../image/Programas/Emprendemas/3.jpg" alt="Emprendemas"></div>
-                            <div class="edu-foto-slot"><img src="../image/Programas/Emprendemas/4.jpg" alt="Emprendemas"></div>
-                            <div class="edu-foto-slot"><img src="../image/Programas/Emprendemas/5.jpg" alt="Emprendemas"></div>
-                            <div class="edu-foto-slot"><img src="../image/Programas/Emprendemas/6.jpg" alt="Emprendemas"></div>
+                            <div class="edu-foto-slot"><img loading="lazy" src="../image/Programas/Emprendemas/1.jpg" alt="Emprendemas"></div>
+                            <div class="edu-foto-slot"><img loading="lazy" src="../image/Programas/Emprendemas/2.jpg" alt="Emprendemas"></div>
+                            <div class="edu-foto-slot"><img loading="lazy" src="../image/Programas/Emprendemas/3.jpg" alt="Emprendemas"></div>
+                            <div class="edu-foto-slot"><img loading="lazy" src="../image/Programas/Emprendemas/4.jpg" alt="Emprendemas"></div>
+                            <div class="edu-foto-slot"><img loading="lazy" src="../image/Programas/Emprendemas/5.jpg" alt="Emprendemas"></div>
+                            <div class="edu-foto-slot"><img loading="lazy" src="../image/Programas/Emprendemas/6.jpg" alt="Emprendemas"></div>
                         </div>
                     </div>
                 </div>
@@ -691,7 +698,7 @@
 
             <div class="row justify-content-center">
                 <div class="col-lg-7">
-                    <div style="background:white;border-radius:24px;padding:44px 40px;box-shadow:0 20px 60px rgba(3,62,129,0.1);">
+                    <div class="opinion-card" style="background:white;border-radius:24px;padding:44px 40px;box-shadow:0 20px 60px rgba(3,62,129,0.1);">
 
                         <!-- Calificación con estrellas -->
                         <div class="text-center mb-4">

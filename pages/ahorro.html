@@ -1,6 +1,8 @@
 ﻿<!DOCTYPE html>
 <html lang="es">
 <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <link rel="icon" type="image/png" href="../image/Imagotipo Vertical Original.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,8 +26,57 @@
     <link rel="stylesheet" href="../css/estilos.css">
 
     <style>
-        /* Fuente global del proyecto */
         * { font-family: 'Outfit', sans-serif; }
+
+        /* ===== HERO SPLIT-SCREEN ===== */
+        .ahorro-hero-split {
+            min-height: 80vh;
+            display: flex;
+            overflow: hidden;
+            padding-top: 68px;
+        }
+        .ahorro-hero-left {
+            flex: 1;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 6% 60px 8%;
+            position: relative;
+            z-index: 2;
+            margin-right: -60px;
+        }
+        .ahorro-hero-right {
+            flex: 1.1;
+            position: relative;
+            min-height: 100%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @media (max-width: 900px) {
+            .ahorro-hero-split {
+                flex-direction: column;
+                min-height: auto;
+            }
+            .ahorro-hero-left {
+                margin-right: 0;
+                padding: 90px 6% 50px;
+                width: 100%;
+            }
+            .ahorro-hero-right {
+                width: 100%;
+                height: 300px;
+                flex: none;
+            }
+            .ahorro-hero-right img { object-position: center 20%; }
+        }
+        @media (max-width: 576px) {
+            .ahorro-hero-left { padding: 80px 5% 36px; }
+            .ahorro-hero-right { height: 220px; }
+        }
 
         /* ===== TARJETAS DE PRODUCTOS ===== */
         /* Contenedor con perspectiva 3D para el efecto flip */
@@ -493,10 +544,10 @@
          Fondo azul oscuro con partículas animadas
     ============================================= -->
     <!-- HERO AHORRO — Split screen -->
-    <section style="min-height:80vh;display:flex;overflow:hidden;padding-top:68px;">
+    <section class="ahorro-hero-split">
 
         <!-- COLUMNA IZQUIERDA: texto -->
-        <div style="flex:1;background:white;display:flex;align-items:center;justify-content:center;padding:60px 6% 60px 8%;position:relative;z-index:2;margin-right:-60px;">
+        <div class="ahorro-hero-left">
 
             <!-- Círculo decorativo fondo -->
             <div style="position:absolute;top:-80px;left:-80px;width:320px;height:320px;border-radius:50%;background:rgba(3,62,129,0.05);pointer-events:none;"></div>
@@ -504,9 +555,8 @@
 
             <div style="position:relative;z-index:2;max-width:540px;text-align:center;">
 
-
                 <!-- Título -->
-                <h1 style="font-size:clamp(3.5rem,6vw,6rem);font-weight:900;color:#033E81;line-height:1.0;margin-bottom:22px;letter-spacing:-2px;">
+                <h1 style="font-size:clamp(2.8rem,6vw,6rem);font-weight:900;color:#033E81;line-height:1.0;margin-bottom:22px;letter-spacing:-2px;">
                     Haz crecer<br>
                     <span style="color:#4EAE33;">tu dinero</span>
                 </h1>
@@ -516,11 +566,8 @@
                     Ahorra con nosotros y obtén las mejores tasas del mercado. Productos diseñados para cada etapa de tu vida financiera.
                 </p>
 
-            
-
                 <!-- Botones -->
                 <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center;">
-                 
                     <a href="#productos" style="display:inline-flex;align-items:center;gap:9px;background:transparent;color:#033E81;padding:15px 28px;border-radius:50px;text-decoration:none;font-weight:700;font-size:0.95rem;border:2px solid #e0e8f5;transition:all 0.3s;"
                         onmouseover="this.style.borderColor='#033E81'"
                         onmouseout="this.style.borderColor='#e0e8f5'">
@@ -532,14 +579,11 @@
         </div>
 
         <!-- COLUMNA DERECHA: imagen full height -->
-        <div style="flex:1.1;position:relative;min-height:100%;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+        <div class="ahorro-hero-right">
             <img src="../image/Ahorros-02.jpg" alt="Planes de Ahorro"
                  style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 5%;">
-            <!-- Difuminado izquierdo (entre columnas) -->
             <div style="position:absolute;inset:0;background:linear-gradient(to right, white 0%, rgba(255,255,255,0.85) 10%, rgba(255,255,255,0.2) 35%, transparent 60%);"></div>
-            <!-- Difuminado superior -->
             <div style="position:absolute;inset:0;background:linear-gradient(to bottom, white 0%, transparent 18%);"></div>
-            <!-- Difuminado inferior -->
             <div style="position:absolute;inset:0;background:linear-gradient(to top, white 0%, transparent 18%);"></div>
         </div>
 
