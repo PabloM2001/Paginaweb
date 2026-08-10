@@ -49,8 +49,8 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            padding: 30px;
+            justify-content: flex-start;
+            padding: 40px 30px 22px;
             text-align: center;
             color: white;
         }
@@ -91,7 +91,7 @@
         }
 
         .prestamo-monto {
-            font-size: 1.8rem;
+            font-size: 1.2rem;
             font-weight: 900;
         }
 
@@ -123,6 +123,16 @@
             display: flex;
             align-items: center;
             gap: 8px;
+        }
+
+        .prestamo-plazo {
+            padding: 5px 14px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: white;
+            white-space: nowrap;
+            margin-top: auto;
         }
 
         .prestamo-btn {
@@ -228,6 +238,41 @@
             .prestamos-collage img:nth-child(4) { grid-row: 3;     grid-column: 1; }
             .prestamos-collage img:nth-child(5) { grid-row: 3;     grid-column: 2; }
         }
+
+        /* ===== HERO SPLIT-SCREEN PRÉSTAMOS ===== */
+        .prestamos-hero-split {
+            min-height: 80vh;
+            display: flex;
+            overflow: hidden;
+            padding-top: 68px;
+        }
+        .prestamos-hero-left {
+            flex: 1;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 6% 60px 8%;
+            position: relative;
+            z-index: 2;
+        }
+        .prestamos-hero-right {
+            flex: 1.1;
+            position: relative;
+            min-height: 100%;
+            overflow: hidden;
+        }
+
+        @media (max-width: 900px) {
+            .prestamos-hero-split { flex-direction: column; min-height: auto; }
+            .prestamos-hero-left  { margin-right: 0; padding: 90px 6% 50px; width: 100%; }
+            .prestamos-hero-right { width: 100%; height: 300px; flex: none; }
+            .prestamos-hero-right img { object-position: center 30%; }
+        }
+        @media (max-width: 576px) {
+            .prestamos-hero-left  { padding: 80px 5% 36px; }
+            .prestamos-hero-right { height: 220px; }
+        }
     </style>
 </head>
 
@@ -307,18 +352,9 @@
                                 <div class="drop-icon"><i class="bi bi-clock-history"></i></div>
                                 <div><span class="drop-title">Historia</span><span class="drop-sub">Nuestros inicios</span></div>
                             </a>
-                            <div class="drop-link has-sub">
-                                <div class="drop-icon" style="background:rgba(3,62,129,0.1);color:#033E81;"><i class="bi bi-graph-up-arrow"></i></div>
-                                <div><span class="drop-title">Informe Financiero</span><span class="drop-sub">y de Actividades</span></div>
-                                <i class="bi bi-chevron-down sub-chevron" style="margin-left:auto;font-size:0.75rem;color:#bbb;flex-shrink:0;"></i>
-                                <div class="sub-dropdown">
-                                    <a href="./memoria-labores.html" class="sub-link"><i class="bi bi-file-earmark-text" style="color:#033E81;"></i>Memoria de Labores</a>
-                                </div>
-                            </div>
-                            <div class="drop-divider"></div>
-                            <a href="./ver-mas.html" class="drop-link">
-                                <div class="drop-icon green"><i class="bi bi-arrow-right-circle"></i></div>
-                                <div><span class="drop-title">Ver mas</span><span class="drop-sub">Todo sobre nosotros</span></div>
+                            <a href="./memoria-labores.html" class="drop-link">
+                                <div class="drop-icon" style="background:rgba(3,62,129,0.1);color:#033E81;"><i class="bi bi-file-earmark-text"></i></div>
+                                <div><span class="drop-title">Memoria de Labores</span><span class="drop-sub">Informe anual</span></div>
                             </a>
                         </div>
                     </li>
@@ -370,52 +406,45 @@
     </header>
 
 
-    <!-- HERO -->
-    <section class="hero" style="min-height:auto;display:flex;align-items:center;">
-        <div class="particula p1"></div>
-        <div class="particula p2"></div>
-        <div class="particula p3"></div>
-        <div class="particula p4"></div>
-        <div class="particula p5"></div>
+    <!-- HERO PRÉSTAMOS — Split screen -->
+    <section class="prestamos-hero-split">
 
-        <div class="container position-relative" style="z-index:2;padding-top:110px;padding-bottom:50px;">
-            <div class="row align-items-center g-5">
+        <!-- COLUMNA IZQUIERDA: texto -->
+        <div class="prestamos-hero-left">
 
-                <!-- Texto -->
-                <div class="col-lg-6">
-                    <span style="background:rgba(79,195,247,0.15);color:#4fc3f7;padding:7px 18px;border-radius:50px;font-size:0.85rem;font-weight:700;letter-spacing:1px;display:inline-block;margin-bottom:20px;border:1px solid rgba(79,195,247,0.3);">
-                        <i class="bi bi-cash-coin me-2"></i>FINANCIAMIENTO
-                    </span>
-                    <h1 class="hero-titulo" style="text-align:left;margin-bottom:18px;">
-                        <span class="linea1">Nuestros</span>
-                        <span class="linea2">Préstamos</span>
-                    </h1>
-                    <p class="hero-subtitulo" style="text-align:left;max-width:480px;margin-bottom:32px;">
-                        Financia tus proyectos con las mejores condiciones del mercado. Tu sueño, nuestra misión.
-                    </p>
-                    <div class="d-flex flex-wrap gap-3">
-                        <a href="#prestamos-lista" style="background:linear-gradient(135deg,#4EAE33,#3c9228);color:white;padding:13px 28px;border-radius:50px;text-decoration:none;font-weight:700;font-size:0.95rem;box-shadow:0 8px 25px rgba(78,174,51,0.4);transition:all 0.3s;"
-                           onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
-                            <i class="bi bi-list-check me-2"></i>Ver préstamos
-                        </a>
-                        <a href="./cotizador.html" style="background:transparent;color:white;padding:13px 28px;border-radius:50px;text-decoration:none;font-weight:700;font-size:0.95rem;border:2px solid rgba(255,255,255,0.4);transition:all 0.3s;"
-                           onmouseover="this.style.borderColor='white'" onmouseout="this.style.borderColor='rgba(255,255,255,0.4)'">
-                            <i class="bi bi-calculator me-2"></i>Cotizar ahora
-                        </a>
-                    </div>
-                </div>
+            <!-- Círculos decorativos fondo -->
+            <div style="position:absolute;top:-80px;left:-80px;width:320px;height:320px;border-radius:50%;background:rgba(3,62,129,0.05);pointer-events:none;"></div>
+            <div style="position:absolute;bottom:-60px;right:-40px;width:200px;height:200px;border-radius:50%;background:rgba(78,174,51,0.07);pointer-events:none;"></div>
 
-                <!-- Imagen -->
-                <div class="col-lg-6 d-none d-lg-block">
-                    <div style="position:relative;">
-                        <div style="position:absolute;top:-12px;right:-12px;width:100%;height:100%;border:3px solid #4EAE33;border-radius:20px;z-index:0;"></div>
-                        <img src="../image/Créditos Web-03.jpg" alt="Préstamos Cooperativa San Pedro"
-                             style="width:100%;height:390px;object-fit:cover;border-radius:20px;position:relative;z-index:1;box-shadow:0 20px 60px rgba(0,0,0,0.3);display:block;">
-                    </div>
-                </div>
+            <div style="position:relative;z-index:2;max-width:540px;text-align:center;">
+
+                
+
+                <!-- Título -->
+                <h1 style="font-size:clamp(2.8rem,6vw,6rem);font-weight:900;color:#033E81;line-height:1.0;margin-bottom:22px;letter-spacing:-2px;">
+                    Financia<br>
+                    <span style="color:#4EAE33;">tus sueños</span>
+                </h1>
+
+                <!-- Descripción -->
+                <p style="color:#666;font-size:1.05rem;line-height:1.8;margin-bottom:36px;max-width:430px;margin-left:auto;margin-right:auto;">
+                    Créditos con las mejores condiciones del mercado, diseñados para apoyar cada proyecto y etapa de tu vida.
+                </p>
+
+                
 
             </div>
         </div>
+
+        <!-- COLUMNA DERECHA: imagen full height -->
+        <div class="prestamos-hero-right">
+            <img src="../image/Créditos-03.jpg" alt="Préstamos Cooperativa San Pedro"
+                 style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;">
+            <div style="position:absolute;inset:0;background:linear-gradient(to right, white 0%, rgba(255,255,255,0.85) 10%, rgba(255,255,255,0.2) 35%, transparent 60%);"></div>
+            <div style="position:absolute;inset:0;background:linear-gradient(to bottom, white 0%, transparent 18%);"></div>
+            <div style="position:absolute;inset:0;background:linear-gradient(to top, white 0%, transparent 18%);"></div>
+        </div>
+
     </section>
 
 
@@ -426,7 +455,7 @@
         <div class="container">
             
             <h2 class="text-center fw-bold mb-2" style="color:#033E81;font-size:2rem;">Nuestros Productos</h2>
-            <p class="text-center text-muted mb-5">Hover sobre cada tarjeta para ver los requisitos básicos.</p>
+            
 
             <div class="row g-4">
 
@@ -437,26 +466,23 @@
                                 <div class="prestamo-icono"><img src="../image/iconos/Consumo.png" alt="Consumo"></div>
                                 <div class="prestamo-nombre">Consumo</div>
                                 <div class="prestamo-desc">Para cubrir tus necesidades personales y familiares</div>
-                                <div class="prestamo-monto">Q 50,000</div>
-                                <div class="prestamo-monto-label">Monto máximo</div>
-                                <div style="margin-top:12px;padding:5px 14px;background:rgba(255,255,255,0.15);border-radius:20px;font-size:0.75rem;">
-                                    Desde 15% anual · 6–48 meses
-                                </div>
+                                <div class="prestamo-monto">Q 1,000 en adelante</div>
+                                
+                                <div class="prestamo-plazo">Desde 11.50% anual - 60 meses</div>
                             </div>
                             <div class="prestamo-reverso">
                                 <div class="prestamo-reverso-titulo">
                                     <i class="bi bi-clipboard-check" style="color:#033E81;"></i> Requisitos Básicos
                                 </div>
                                 <ul class="prestamo-req">
-                                    <li><i class="bi bi-check-circle-fill" style="color:#033E81;"></i> DPI vigente</li>
-                                    <li><i class="bi bi-check-circle-fill" style="color:#033E81;"></i> Recibo de servicios públicos</li>
-                                    <li><i class="bi bi-check-circle-fill" style="color:#033E81;"></i> Constancia de ingresos</li>
-                                    <li><i class="bi bi-check-circle-fill" style="color:#033E81;"></i> 2 fotografías recientes</li>
-                                    <li><i class="bi bi-check-circle-fill" style="color:#033E81;"></i> 1 fiador con DPI</li>
+                                    <li><i class="bi bi-check-circle-fill" style="color:#033E81;;"></i> DPI</li>
+                                    <li><i class="bi bi-check-circle-fill" style="color:#033E81;;"></i> Actualización de cuenta</li>
+                                    <li><i class="bi bi-check-circle-fill" style="color:#033E81;;"></i> Factura de compra</li>
+                                    <li><i class="bi bi-check-circle-fill" style="color:#033E81;;"></i> Recibo de Luz</li>
+                                    <li><i class="bi bi-check-circle-fill" style="color:#033E81;;"></i> Constancia de Ingresos</li>
+                                    <li><i class="bi bi-check-circle-fill" style="color:#033E81;;"></i> Garantía</li>
                                 </ul>
-                                <a href="./contactanos.html" class="prestamo-btn" style="background:linear-gradient(135deg,#033E81,#033E81);">
-                                    <i class="bi bi-send-fill"></i> Solicitar
-                                </a>
+                                
                             </div>
                         </div>
                     </div>
@@ -469,26 +495,23 @@
                                 <div class="prestamo-icono"><img src="../image/iconos/Comercio.png" alt="Comercio"></div>
                                 <div class="prestamo-nombre">Comercio</div>
                                 <div class="prestamo-desc">Para negocios y emprendimientos en crecimiento</div>
-                                <div class="prestamo-monto">Q1,000 en adelante</div>
+                                <div class="prestamo-monto">Q 1,000 en adelante</div>
                             
-                                <div style="margin-top:12px;padding:5px 14px;background:rgba(255,255,255,0.15);border-radius:20px;font-size:0.75rem;">
-                                    Desde 12% anual · 60 meses
-                                </div>
+                                <div class="prestamo-plazo">Desde 11.50% anual - 36 meses</div>
                             </div>
                             <div class="prestamo-reverso">
                                 <div class="prestamo-reverso-titulo">
                                     <i class="bi bi-clipboard-check" style="color:#4EAE33;"></i> Requisitos Básicos
                                 </div>
                                 <ul class="prestamo-req">
-                                    <li><i class="bi bi-check-circle-fill" style="color:#4EAE33;"></i> DPI y patente de comercio</li>
-                                    <li><i class="bi bi-check-circle-fill" style="color:#4EAE33;"></i> Estados financieros 2 años</li>
-                                    <li><i class="bi bi-check-circle-fill" style="color:#4EAE33;"></i> Plan de negocio</li>
-                                    <li><i class="bi bi-check-circle-fill" style="color:#4EAE33;"></i> Garantía hipotecaria o prendaria</li>
-                                    <li><i class="bi bi-check-circle-fill" style="color:#4EAE33;"></i> 1 fiador con solvencia</li>
+                                    <li><i class="bi bi-check-circle-fill" style="color:#4EAE33;;"></i> DPI</li>
+                                    <li><i class="bi bi-check-circle-fill" style="color:#4EAE33;;"></i> Actualización de cuenta</li>
+                                    <li><i class="bi bi-check-circle-fill" style="color:#4EAE33;;"></i> Factura de compra</li>
+                                    <li><i class="bi bi-check-circle-fill" style="color:#4EAE33;;"></i> Recibo de Luz</li>
+                                    <li><i class="bi bi-check-circle-fill" style="color:#4EAE33;;"></i> Constancia de Ingresos</li>
+                                    <li><i class="bi bi-check-circle-fill" style="color:#4EAE33;;"></i> Garantía</li>
                                 </ul>
-                                <a href="./contactanos.html" class="prestamo-btn" style="background:linear-gradient(135deg,#033E81,#033E81);">
-                                    <i class="bi bi-send-fill"></i> Solicitar
-                                </a>
+                                
                             </div>
                         </div>
                     </div>
@@ -503,24 +526,21 @@
                                 <div class="prestamo-desc">Mejora, amplía o repara tu hogar con facilidad</div>
                                 <div class="prestamo-monto">Q 1,000 en adelante</div>
                                 
-                                <div style="margin-top:12px;padding:5px 14px;background:rgba(255,255,255,0.15);border-radius:20px;font-size:0.75rem;">
-                                    Desde 11.50% anual · hasta 180 meses
-                                </div>
+                                <div class="prestamo-plazo">Desde 11.50% anual · hasta 180 meses</div>
                             </div>
                             <div class="prestamo-reverso">
                                 <div class="prestamo-reverso-titulo">
                                     <i class="bi bi-clipboard-check" style="color:#033E81;"></i> Requisitos Básicos
                                 </div>
                                 <ul class="prestamo-req">
-                                    <li><i class="bi bi-check-circle-fill" style="color:#033E81;"></i> DPI vigente y constancia</li>
-                                    <li><i class="bi bi-check-circle-fill" style="color:#033E81;"></i> Escritura del inmueble</li>
-                                    <li><i class="bi bi-check-circle-fill" style="color:#033E81;"></i> Presupuesto de obra</li>
-                                    <li><i class="bi bi-check-circle-fill" style="color:#033E81;"></i> Avalúo bancario actualizado</li>
-                                    <li><i class="bi bi-check-circle-fill" style="color:#033E81;"></i> Ingresos demostrables</li>
+                                    <li><i class="bi bi-check-circle-fill" style="color:#033E81;;"></i> DPI</li>
+                                    <li><i class="bi bi-check-circle-fill" style="color:#033E81;;"></i> Actualización de cuenta</li>
+                                    <li><i class="bi bi-check-circle-fill" style="color:#033E81;;"></i> Factura de compra</li>
+                                    <li><i class="bi bi-check-circle-fill" style="color:#033E81;;"></i> Recibo de Luz</li>
+                                    <li><i class="bi bi-check-circle-fill" style="color:#033E81;;"></i> Constancia de Ingresos</li>
+                                    <li><i class="bi bi-check-circle-fill" style="color:#033E81;;"></i> Garantía</li>
                                 </ul>
-                                <a href="./contactanos.html" class="prestamo-btn" style="background:linear-gradient(135deg,#033E81,#033E81);">
-                                    <i class="bi bi-send-fill"></i> Solicitar
-                                </a>
+                                
                             </div>
                         </div>
                     </div>
@@ -533,26 +553,23 @@
                                 <div class="prestamo-icono"><img src="../image/iconos/Agricola.png" alt="Agrícola"></div>
                                 <div class="prestamo-nombre">Agrícola</div>
                                 <div class="prestamo-desc">Apoyo al sector agropecuario guatemalteco</div>
-                                <div class="prestamo-monto">Q 200,000</div>
-                                <div class="prestamo-monto-label">Monto máximo</div>
-                                <div style="margin-top:12px;padding:5px 14px;background:rgba(255,255,255,0.15);border-radius:20px;font-size:0.75rem;">
-                                    Desde 13% anual · Plazo según cosecha
-                                </div>
+                                <div class="prestamo-monto">Q 1,000 a Q 500,000</div>
+                              
+                                <div class="prestamo-plazo">Desde 11.50% anual · 60 meses</div>
                             </div>
                             <div class="prestamo-reverso">
                                 <div class="prestamo-reverso-titulo">
                                     <i class="bi bi-clipboard-check" style="color:#4EAE33;"></i> Requisitos Básicos
                                 </div>
                                 <ul class="prestamo-req">
-                                    <li><i class="bi bi-check-circle-fill" style="color:#4EAE33;"></i> DPI y tierras en producción</li>
-                                    <li><i class="bi bi-check-circle-fill" style="color:#4EAE33;"></i> Plan de cultivo o actividad</li>
-                                    <li><i class="bi bi-check-circle-fill" style="color:#4EAE33;"></i> Escritura o arrendamiento</li>
-                                    <li><i class="bi bi-check-circle-fill" style="color:#4EAE33;"></i> Historial de cosechas previas</li>
-                                    <li><i class="bi bi-check-circle-fill" style="color:#4EAE33;"></i> Seguro agrícola recomendado</li>
+                                    <li><i class="bi bi-check-circle-fill" style="color:#4EAE33;;"></i> DPI</li>
+                                    <li><i class="bi bi-check-circle-fill" style="color:#4EAE33;;"></i> Actualización de cuenta</li>
+                                    <li><i class="bi bi-check-circle-fill" style="color:#4EAE33;;"></i> Factura de compra</li>
+                                    <li><i class="bi bi-check-circle-fill" style="color:#4EAE33;;"></i> Recibo de Luz</li>
+                                    <li><i class="bi bi-check-circle-fill" style="color:#4EAE33;;"></i> Constancia de Ingresos</li>
+                                    <li><i class="bi bi-check-circle-fill" style="color:#4EAE33;;"></i> Garantía</li>
                                 </ul>
-                                <a href="./contactanos.html" class="prestamo-btn" style="background:linear-gradient(135deg,#033E81,#033E81);">
-                                    <i class="bi bi-send-fill"></i> Solicitar
-                                </a>
+                               
                             </div>
                         </div>
                     </div>
@@ -565,22 +582,19 @@
                                 <div class="prestamo-icono"><img src="../image/iconos/Credifast.png" alt="Credifast"></div>
                                 <div class="prestamo-nombre">Credifast</div>
                                 <div class="prestamo-desc">Crédito rápido para necesidades urgentes</div>
-                                <div class="prestamo-monto">Q 25,000</div>
-                                <div class="prestamo-monto-label">Monto máximo</div>
-                                <div style="margin-top:12px;padding:5px 14px;background:rgba(255,255,255,0.15);border-radius:20px;font-size:0.75rem;">
-                                    Desde 16% anual · 3–24 meses
-                                </div>
+                                <div class="prestamo-monto">Q 1,000 a Q 50,000</div>
+                            
+                                <div class="prestamo-plazo">Desde 19% anual</div>
                             </div>
                             <div class="prestamo-reverso">
-                                <div class="prestamo-reverso-titulo">
-                                    <i class="bi bi-clipboard-check" style="color:#033E81;"></i> Requisitos Básicos
-                                </div>
+                               
                                 <ul class="prestamo-req">
-                                    <li><i class="bi bi-check-circle-fill" style="color:#033E81;"></i> DPI vigente</li>
-                                    <li><i class="bi bi-check-circle-fill" style="color:#033E81;"></i> Ser asociado activo</li>
-                                    <li><i class="bi bi-check-circle-fill" style="color:#033E81;"></i> Constancia de ingresos</li>
-                                    <li><i class="bi bi-check-circle-fill" style="color:#033E81;"></i> Sin mora en historial</li>
-                                    <li><i class="bi bi-check-circle-fill" style="color:#033E81;"></i> Aprobación en 24 horas</li>
+                                    <li><i class="bi bi-check-circle-fill" style="color:#033E81;;"></i> DPI</li>
+                                    <li><i class="bi bi-check-circle-fill" style="color:#033E81;;"></i> Actualización de cuenta</li>
+                                    <li><i class="bi bi-check-circle-fill" style="color:#033E81;;"></i> Factura de compra</li>
+                                    <li><i class="bi bi-check-circle-fill" style="color:#033E81;;"></i> Recibo de Luz</li>
+                                    <li><i class="bi bi-check-circle-fill" style="color:#033E81;;"></i> Constancia de Ingresos</li>
+                                    <li><i class="bi bi-check-circle-fill" style="color:#033E81;;"></i> Garantía</li>
                                 </ul>
                                 <a href="./contactanos.html" class="prestamo-btn" style="background:linear-gradient(135deg,#033E81,#033E81);">
                                     <i class="bi bi-send-fill"></i> Solicitar

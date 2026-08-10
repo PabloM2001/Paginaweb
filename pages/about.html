@@ -292,22 +292,67 @@
             border-radius: 14px;
             aspect-ratio: 4/3;
             overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 2px 12px rgba(3,62,129,0.08);
+            transition: box-shadow 0.35s ease;
+            cursor: pointer;
         }
         .edu-foto-slot:hover {
-            transform: scale(1.03);
-            box-shadow: 0 10px 30px rgba(3,62,129,0.2);
+            box-shadow: 0 10px 30px rgba(3,62,129,0.22);
         }
         .edu-foto-slot i { font-size: 2rem; }
         .edu-foto-slot span { font-size: 0.8rem; font-weight: 600; }
-        .edu-foto-slot:hover {
-            border-color: #033E81; color: #033E81; background: #e8f0ff;
-        }
-        /* Cuando se reemplace con imagen real */
         .edu-foto-slot img {
             width: 100%; height: 100%;
             object-fit: cover; border-radius: 12px; display: block;
+            transition: transform 0.45s ease;
         }
+        .edu-foto-slot:hover img {
+            transform: scale(1.08);
+        }
+
+        /* LIGHTBOX */
+        #lbOverlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.88);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            cursor: zoom-out;
+            animation: lbFadeIn 0.25s ease;
+        }
+        #lbOverlay.active { display: flex; }
+        @keyframes lbFadeIn {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+        #lbImg {
+            max-width: 90vw;
+            max-height: 88vh;
+            border-radius: 16px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+            object-fit: contain;
+            animation: lbZoomIn 0.3s cubic-bezier(0.22,1,0.36,1);
+        }
+        @keyframes lbZoomIn {
+            from { transform: scale(0.82); opacity: 0; }
+            to   { transform: scale(1);    opacity: 1; }
+        }
+        #lbClose {
+            position: fixed;
+            top: 20px; right: 24px;
+            width: 40px; height: 40px;
+            background: rgba(255,255,255,0.12);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.3rem;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: background 0.2s;
+        }
+        #lbClose:hover { background: rgba(255,255,255,0.25); }
         @media (max-width: 768px) {
             .edu-galeria { grid-template-columns: repeat(2, 1fr); }
         }
@@ -398,18 +443,9 @@
                                 <div class="drop-icon"><i class="bi bi-clock-history"></i></div>
                                 <div><span class="drop-title">Historia</span><span class="drop-sub">Nuestros inicios</span></div>
                             </a>
-                            <div class="drop-link has-sub">
-                                <div class="drop-icon" style="background:rgba(3,62,129,0.1);color:#033E81;"><i class="bi bi-graph-up-arrow"></i></div>
-                                <div><span class="drop-title">Informe Financiero</span><span class="drop-sub">y de Actividades</span></div>
-                                <i class="bi bi-chevron-down sub-chevron" style="margin-left:auto;font-size:0.75rem;color:#bbb;flex-shrink:0;"></i>
-                                <div class="sub-dropdown">
-                                    <a href="./memoria-labores.html" class="sub-link"><i class="bi bi-file-earmark-text" style="color:#033E81;"></i>Memoria de Labores</a>
-                                </div>
-                            </div>
-                            <div class="drop-divider"></div>
-                            <a href="./ver-mas.html" class="drop-link">
-                                <div class="drop-icon green"><i class="bi bi-arrow-right-circle"></i></div>
-                                <div><span class="drop-title">Ver mas</span><span class="drop-sub">Todo sobre nosotros</span></div>
+                            <a href="./memoria-labores.html" class="drop-link">
+                                <div class="drop-icon" style="background:rgba(3,62,129,0.1);color:#033E81;"><i class="bi bi-file-earmark-text"></i></div>
+                                <div><span class="drop-title">Memoria de Labores</span><span class="drop-sub">Informe anual</span></div>
                             </a>
                         </div>
                     </li>
@@ -560,19 +596,19 @@
             <!-- TABS -->
             <div class="edu-tabs">
                 <button class="edu-tab active" onclick="eduTab(0, this)">
-                    <img src="../image/Programas/Wachalal.png" alt="Wachalal">
+                    <img src="../image/Programas/Wachalal.webp" alt="Wachalal">
                     
                 </button>
                 <button class="edu-tab" onclick="eduTab(1, this)">
-                    <img src="../image/Programas/Huellas.png" alt="Huellas">
+                    <img src="../image/Programas/Huellas.webp" alt="Huellas">
                     
                 </button>
                 <button class="edu-tab" onclick="eduTab(2, this)">
-                    <img src="../image/Programas/Florece.png" alt="Florece">
+                    <img src="../image/Programas/Florece.webp" alt="Florece">
                     
                 </button>
                 <button class="edu-tab" onclick="eduTab(3, this)">
-                    <img src="../image/Programas/Emprendemas.png" alt="Emprendemas">
+                    <img src="../image/Programas/Emprendemas.webp" alt="Emprendemas">
                    
                 </button>
             </div>
@@ -582,7 +618,7 @@
                 <div class="row g-5 align-items-start">
                     <div class="col-lg-4">
                         <div class="edu-info-box">
-                            <img src="../image/Programas/Wachalal.png" alt="Wachalal" class="edu-logo-grande">
+                            <img src="../image/Programas/Wachalal.webp" alt="Wachalal" class="edu-logo-grande">
                             <h3 class="edu-titulo">Wachalal</h3>
                             <p class="edu-desc">Programa educativo cooperativista orientado a fortalecer los valores de solidaridad, trabajo en equipo y educación financiera entre los asociados y sus comunidades.</p>
                             <div class="edu-tag"><i class="bi bi-check-circle-fill"></i> Educación Financiera</div>
@@ -609,7 +645,7 @@
                 <div class="row g-5 align-items-start">
                     <div class="col-lg-4">
                         <div class="edu-info-box">
-                            <img src="../image/Programas/Huellas.png" alt="Huellas" class="edu-logo-grande">
+                            <img src="../image/Programas/Huellas.webp" alt="Huellas" class="edu-logo-grande">
                             <h3 class="edu-titulo">Huellas</h3>
                             <p class="edu-desc">Iniciativa que deja huella en la vida de nuestros asociados a través de capacitaciones, talleres y actividades educativas que impulsan su crecimiento personal y profesional.</p>
                             <div class="edu-tag"><i class="bi bi-check-circle-fill"></i> Capacitaciones</div>
@@ -636,7 +672,7 @@
                 <div class="row g-5 align-items-start">
                     <div class="col-lg-4">
                         <div class="edu-info-box">
-                            <img src="../image/Programas/Florece.png" alt="Florece" class="edu-logo-grande">
+                            <img src="../image/Programas/Florece.webp" alt="Florece" class="edu-logo-grande">
                             <h3 class="edu-titulo">Florece</h3>
                             <p class="edu-desc">Programa diseñado para empoderar a los asociados con herramientas de educación cooperativista que les permitan florecer económica y socialmente dentro de su entorno familiar y comunitario.</p>
                             <div class="edu-tag"><i class="bi bi-check-circle-fill"></i> Empoderamiento</div>
@@ -663,7 +699,7 @@
                 <div class="row g-5 align-items-start">
                     <div class="col-lg-4">
                         <div class="edu-info-box">
-                            <img src="../image/Programas/Emprendemas.png" alt="Emprendemas" class="edu-logo-grande">
+                            <img src="../image/Programas/Emprendemas.webp" alt="Emprendemas" class="edu-logo-grande">
                             <h3 class="edu-titulo">Emprendemas</h3>
                             <p class="edu-desc">Programa de impulso al emprendimiento cooperativista que brinda herramientas, capacitación y acompañamiento a asociados con iniciativas de negocio propias.</p>
                             <div class="edu-tag"><i class="bi bi-check-circle-fill"></i> Emprendimiento</div>
@@ -917,6 +953,48 @@
             btn.classList.add('active');
             document.getElementById('edu-' + idx).classList.add('active');
         }
+    </script>
+
+    <!-- LIGHTBOX -->
+    <div id="lbOverlay" role="dialog" aria-modal="true">
+        <button id="lbClose" aria-label="Cerrar"><i class="bi bi-x-lg"></i></button>
+        <img id="lbImg" src="" alt="Imagen ampliada">
+    </div>
+
+    <script>
+        (function () {
+            var overlay = document.getElementById('lbOverlay');
+            var lbImg   = document.getElementById('lbImg');
+            var lbClose = document.getElementById('lbClose');
+
+            // Abrir al hacer clic en cualquier imagen de la galería
+            document.querySelectorAll('.edu-foto-slot img').forEach(function (img) {
+                img.style.cursor = 'zoom-in';
+                img.addEventListener('click', function () {
+                    lbImg.src = this.src;
+                    lbImg.alt = this.alt;
+                    overlay.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+
+            // Cerrar al hacer clic en el fondo o en el botón X
+            overlay.addEventListener('click', function (e) {
+                if (e.target !== lbImg) cerrar();
+            });
+            lbClose.addEventListener('click', cerrar);
+
+            // Cerrar con tecla Escape
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') cerrar();
+            });
+
+            function cerrar() {
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+                setTimeout(function () { lbImg.src = ''; }, 300);
+            }
+        })();
     </script>
 
 </body>
