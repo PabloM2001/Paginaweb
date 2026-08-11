@@ -518,10 +518,6 @@
                                 <div class="drop-icon" style="background:rgba(3,62,129,0.1);color:#033E81;"><i class="bi bi-credit-card-fill"></i></div>
                                 <div><span class="drop-title">Tarjetas Micoope</span><span class="drop-sub">Crédito y Débito VISA</span></div>
                             </a>
-                            <a href="./cotizador.html" class="drop-link">
-                                <div class="drop-icon" style="background:rgba(78,174,51,0.12);color:#4EAE33;"><i class="bi bi-calculator"></i></div>
-                                <div><span class="drop-title">Cotizador</span><span class="drop-sub">Simula tu crédito</span></div>
-                            </a>
                         </div>
                     </li>
 
@@ -1363,9 +1359,9 @@
                                         <i class="bi bi-send-fill me-2"></i>Envía tu solicitud
                                     </p>
                                     <form id="formSerAgente" onsubmit="enviarSolicitudAgente(event)">
-                                        <input type="hidden" name="access_key" value="45002a14-c37c-44d6-be32-b072a815469e">
-                                        <input type="hidden" name="subject" value="Nueva solicitud de Agente San Pedro">
-                                        <input type="hidden" name="from_name" value="Cooperativa San Pedro - Web">
+                                        <input type="hidden" name="_subject" value="Nueva solicitud de Agente San Pedro">
+                                        <input type="hidden" name="_captcha" value="false">
+                                        <input type="hidden" name="_template" value="table">
                                         <div class="row g-3">
                                             <div class="col-sm-6">
                                                 <label style="color:#444;font-size:0.8rem;font-weight:600;margin-bottom:6px;display:block;">Nombre completo *</label>
@@ -1542,15 +1538,25 @@
             btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status"></span>Enviando...';
             error.style.display = 'none';
 
-            var data = new FormData(form);
+            var data = new FormData();
+            data.append('Nombre_completo',    form.querySelector('[name="Nombre completo"]').value);
+            data.append('Nombre_del_negocio', form.querySelector('[name="Nombre del negocio"]').value);
+            data.append('Municipio',          form.querySelector('[name="Municipio"]').value);
+            data.append('Telefono',           form.querySelector('[name="Telefono"]').value);
+            data.append('email',              form.querySelector('[name="email"]').value);
+            data.append('message',            form.querySelector('[name="message"]').value);
+            data.append('_subject',  'Nueva solicitud de Agente San Pedro');
+            data.append('_captcha',  'false');
+            data.append('_template', 'table');
 
-            fetch('https://api.web3forms.com/submit', {
+            fetch('https://formsubmit.co/ajax/smartin@sanpedroesmicoope.com.gt', {
                 method: 'POST',
+                headers: { 'Accept': 'application/json' },
                 body: data
             })
             .then(function(res) { return res.json(); })
             .then(function(json) {
-                if (json.success) {
+                if (json.success === 'true' || json.success === true) {
                     form.style.opacity = '0';
                     form.style.transition = 'opacity 0.4s';
                     setTimeout(function() {
