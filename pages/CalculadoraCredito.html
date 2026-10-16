@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="icon" type="image/png" href="../image/Imagotipo Vertical Original.png">
+  <meta charset="UTF-8">
+  <title>Calculadora de Créditos - Cooperativa San Pedro</title>
+ 
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/estilos.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+
+
+   <style>
+    :root {
+      /* Mantenemos tus colores corporativos pero con soporte para transparencias */
+      --azul: rgba(0, 64, 128, 0.85);
+      --azul-solido: #004080;
+      --azul-oscuro: #033E81;
+      --azul-suave: rgba(233, 242, 255, 0.25);
+      --fondo: #f4f6f9;
+      --borde: rgba(255, 255, 255, 0.3); /* Borde brillante tipo cristal */
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+  font-family: 'Outfit', Arial, sans-serif;
+  
+  
+  
+
+}
+
+    .page-wrap {
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    h2 {
+      text-align: center;
+      /* Encabezado esmerilado azul */
+      background-color: var(--azul-oscuro);
+      color: #FFFFFF;
+      padding: 34px 25px;
+      font-size: 30px;
+      font-weight: 700;
+      margin: 0 0 28px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+      box-shadow: 0 10px 30px rgba(0, 64, 128, 0.15);
+      border: 1px solid rgba(84, 66, 66, 0.2);
+    }
+
+    .calc-card {
+      margin: 0 0 28px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 64, 128, 0.18);
+    }
+
+    .card-title {
+      text-align: left;
+      font-size: 25px;
+      color: #164cb7;
+      padding: 34px 25px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    /* ---------- Layout de dos columnas ---------- */
+    .calc-layout {
+      display: grid;
+      grid-template-columns: minmax(340px, 460px) 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    @media (max-width: 900px) {
+      .calc-layout { grid-template-columns: 1fr; }
+    }
+
+    .panel {
+      background: #f4f6f9; 
+      border-radius: 16px;                   
+      padding: 24px 26px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(75, 121, 179, 1);
+
+      /* From https://css.glass */
+    }
+
+    .panel-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--azul-solido);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin: 22px 0 10px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid rgba(0, 64, 128, 0.15);
+    }
+    .panel-title:first-of-type { margin-top: 0; }
+
+    .panel-subtitulo {
+      font-size: 12px;
+      color: #55687a;
+      margin: -6px 0 12px;
+    }
+
+    /* ---------- Formulario ---------- */
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px 18px;
+    }
+
+    .form-group { display: flex; flex-direction: column; }
+    .full-width { grid-column: span 2; }
+
+    label {
+      display: block;
+      margin-top: 0;
+      margin-bottom: 4px;
+      font-weight: 600;
+      font-size: 13px;
+      color: #2c3e50;
+    }
+    label span { color: #c0392b; }
+
+    /* Inputs integrados al diseño de cristal */
+    input, select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid rgb(0, 64, 128);
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: inherit;
+      background: rgba(255, 255, 255, 0.6);
+      color: #1c2b3a;
+      transition: border-color .2s, box-shadow .2s, background .2s;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--azul-solido);
+      box-shadow: 0 0 0 3px rgb(0, 64, 128);
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    /* ---------- Tarjetas de selección con cristal esmerilado ---------- */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin: 4px 0 4px;
+    }
+
+    .cuota-cards { grid-template-columns: repeat(2, 1fr); }
+
+    .card {
+      background: rgba(255, 255, 255, 0.3);
+      border: 1px solid rgb(0, 64, 128);
+      border-radius: 10px;
+      padding: 12px 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.2s;
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1.4;
+      color: #33475b;
+    }
+
+    .card:hover { 
+      border-color: var(--azul-solido); 
+      background: rgba(0, 64, 128, 0.08); 
+    }
+
+    .card.seleccionada {
+      border-color: var(--azul-solido);
+      background: var(--azul-solido);
+      color: #fff;
+      box-shadow: 0 6px 14px rgba(0, 64, 128, 0.25);
+    }
+
+    /* ---------- Botones ---------- */
+    .acciones {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    button {
+      flex: 1;
+      padding: 12px 16px;
+      background: var(--azul-solido);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background .2s, transform .2s, box-shadow .2s;
+    }
+
+    button:hover { 
+      background: var(--azul-oscuro); 
+      transform: translateY(-1px);
+      box-shadow: 0 5px 15px rgba(3, 62, 129, 0.3);
+    }
+
+    /* ---------- Panel derecho: resumen + tabla ---------- */
+    #resumen {
+      padding: 16px 18px;
+      background: rgba(88, 161, 229, 0.659);
+      border-left: 4px solid var(--azul-solido);
+      border-radius: 10px;
+      font-size: 20px;
+      backdrop-filter: blur(5px);
+      color:#f5f4f4;
+      font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      font-style:normal;
+      font-weight:100;
+
+    }
+
+    .resumen-grid {
+  columns: 2;
+}
+    #resumen p { margin: 4px 0;
+    color: #f7f7f7;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-style:normal;
+      font-weight:100;    
+    }
+
+    .tabla-wrap {
+      margin-top: 18px;
+      max-height: 480px;
+      overflow-y: auto;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(8px);
+    }
+
+
+    .resumen-fila-completa {
+    column-span: all;           /* rompe las 2 columnas y ocupa todo el ancho */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    margin: 8px 0;
+    border-top: 1px solid rgba(255,255,255,0.25);
+    border-bottom: 1px solid rgba(255,255,255,0.25);
+}
+
+.resumen-fila-completa .label {
+    font-weight: 700;
+    font-size: 25px;
+    color: #fff;
+}
+
+.resumen-fila-completa .valor {
+    font-weight: 800;
+    font-size: 25px;
+    color: #112291; 
+}
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    table th {
+      background: var(--azul-solido);
+      color: #fff;
+      padding: 10px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    table td {
+      padding: 8px;
+      border-bottom: 1px solid rgba(0, 64, 128, 0.08);
+      text-align: center;
+      color: #1c2b3a;
+    }
+
+    table tr.fila-desembolso td {
+      background: rgba(0, 64, 128, 0.12);
+      font-weight: 700;
+      color: var(--azul-oscuro);
+    }
+
+    table tr:nth-child(even) { background: rgba(255, 255, 255, 0.15); }
+    table tr:hover { background: rgba(0, 64, 128, 0.05); }
+
+    /* ---------- Animaciones existentes ---------- */
+    @keyframes pulso-seleccion {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.04); }
+      100% { transform: scale(1); }
+    }
+    .card.seleccionada { animation: pulso-seleccion 0.25s ease; }
+
+    tbody tr {
+      animation: aparecer 0.3s ease backwards;
+    }
+    tbody tr:nth-child(1) { animation-delay: 0.02s; }
+    tbody tr:nth-child(2) { animation-delay: 0.04s; }
+
+    @keyframes aparecer {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+
+</head>
+<body>
+
+<header class="jagel" id="mainHeader">
+        <div class="header-inner">
+
+
+            <a href="../index.html" class="header-logo">
+                <img src="../image/Logo Cooperativa - Blanco.png" alt="Cooperativa San Pedro">
+            </a>
+
+            <button class="nav-toggle" id="navToggle" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+
+            <nav class="main-nav" id="mainNav">
+                <ul class="nav-list">
+
+                    <li class="nav-item"><a href="../index.html" class="nav-link">Inicio</a></li>
+
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link" onclick="return false">
+                            Puntos de Servicio <i class="bi bi-chevron-down nav-arrow"></i>
+                        </a>
+                        <div class="nav-dropdown">
+                            <a href="./agencias.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-building"></i></div>
+                                <div><span class="drop-title">Agencias</span><span class="drop-sub">8 puntos en Huehuetenango</span></div>
+                            </a>
+                            <a href="./agentes.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-person-badge"></i></div>
+                                <div><span class="drop-title">Agentes Micoope</span><span class="drop-sub">Cerca de tu comunidad</span></div>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link" onclick="return false">
+                            Productos y Servicios <i class="bi bi-chevron-down nav-arrow"></i>
+                        </a>
+                        <div class="nav-dropdown">
+                            <a href="./ahorro.html" class="drop-link">
+                                <div class="drop-icon green"><i class="bi bi-piggy-bank"></i></div>
+                                <div><span class="drop-title">Ahorro</span><span class="drop-sub">Cuentas y depositos</span></div>
+                            </a>
+                            <a href="./prestamos.html" class="drop-link">
+                                <div class="drop-icon" style="background:rgba(79,195,247,0.12);color:#033E81;"><i class="bi bi-cash-coin"></i></div>
+                                <div><span class="drop-title">Prestamos</span><span class="drop-sub">Creditos accesibles</span></div>
+                            </a>
+                            <a href="./tarjeta-credito.html" class="drop-link">
+                                <div class="drop-icon" style="background:rgba(3,62,129,0.1);color:#033E81;"><i class="bi bi-credit-card-fill"></i></div>
+                                <div><span class="drop-title">Tarjetas Micoope</span><span class="drop-sub">Crédito y Débito VISA</span></div>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link" onclick="return false">
+                            Nosotros <i class="bi bi-chevron-down nav-arrow"></i>
+                        </a>
+                        <div class="nav-dropdown">
+                            <a href="./about.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-people-fill"></i></div>
+                                <div><span class="drop-title">¿Quiénes somos?</span><span class="drop-sub">Nuestra cooperativa</span></div>
+                            </a>
+                            <a href="./mision-vision.html" class="drop-link">
+                                 <div class="drop-icon"><i class="bi bi-eye-fill"></i></div>
+                                <div><span class="drop-title">Mision y Vision</span><span class="drop-sub">Nuestros valores</span></div>
+                             </a>
+                            <a href="./HistoriaCoope.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-clock-history"></i></div>
+                                <div><span class="drop-title">Historia</span><span class="drop-sub">Nuestros inicios</span></div>
+                            </a>
+                            <a href="./memoria-labores.html" class="drop-link">
+                                <div class="drop-icon" style="background:rgba(3,62,129,0.1);color:#033E81;"><i class="bi bi-file-earmark-text"></i></div>
+                                <div><span class="drop-title">Memoria de Labores</span><span class="drop-sub">Informe anual</span></div>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="./empleo.html" class="nav-link">Mi Empleo</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="./contactanos.html" class="nav-link nav-cta">
+                            <i class="bi bi-telephone-fill"></i> Contactanos
+                        </a>
+                    </li>
+                    <li class="nav-item" style="position:relative;">
+                        <a href="https://micoopeenlinea.com.gt/Retail/servletcontroller" target="_blank"
+                           style="display:inline-flex;align-items:center;justify-content:center;margin-left:6px;width:42px;height:42px;border-radius:50%;text-decoration:none;background:white;border:2px solid rgba(255,255,255,0.3);transition:all 0.3s;box-shadow:0 2px 8px rgba(0,0,0,0.15);overflow:hidden;"
+                           onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 18px rgba(0,0,0,0.25)';this.nextElementSibling.style.opacity='1';this.nextElementSibling.style.transform='translateX(-50%) translateY(0)'"
+                           onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,0.15)';this.nextElementSibling.style.opacity='0';this.nextElementSibling.style.transform='translateX(-50%) translateY(-6px)'">
+                            <img src="../image/logo-micoope-enlinea.png" alt="Micoope En Linea" height="30" style="display:block;">
+                        </a>
+                        <span style="position:absolute;bottom:-34px;left:50%;transform:translateX(-50%) translateY(-6px);background:#033E81;color:white;font-size:0.75rem;font-weight:600;padding:4px 10px;border-radius:6px;white-space:nowrap;opacity:0;transition:all 0.25s;pointer-events:none;z-index:999;">
+                            Micoope En Linea
+                        </span>
+                    </li>
+
+                    <li class="nav-item" style="position:relative;">
+                        <a href="https://soyfri.com/" target="_blank"
+                           style="display:inline-flex;align-items:center;justify-content:center;margin-left:6px;width:42px;height:42px;border-radius:50%;text-decoration:none;background:white;border:2px solid rgba(255,255,255,0.3);transition:all 0.3s;box-shadow:0 2px 8px rgba(0,0,0,0.15);overflow:hidden;"
+                           onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 18px rgba(0,0,0,0.25)';this.nextElementSibling.style.opacity='1';this.nextElementSibling.style.transform='translateX(-50%) translateY(0)'"
+                           onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,0.15)';this.nextElementSibling.style.opacity='0';this.nextElementSibling.style.transform='translateX(-50%) translateY(-6px)'">
+                            <img src="../image/logo-fri.png" alt="FRI" height="30" style="display:block;">
+                        </a>
+                        <span style="position:absolute;bottom:-34px;left:50%;transform:translateX(-50%) translateY(-6px);background:#033E81;color:white;font-size:0.75rem;font-weight:600;padding:4px 10px;border-radius:6px;white-space:nowrap;opacity:0;transition:all 0.25s;pointer-events:none;z-index:999;">
+                            Soy FRI
+                        </span>
+                    </li>
+
+                </ul>
+            </nav>
+
+            <div class="header-search">
+                <input type="text" class="search-input" id="searchInput" placeholder="Buscar...">
+                <button class="search-btn" onclick="toggleSearch()">
+                    <i class="bi bi-search" id="searchIcon"></i>
+                </button>
+            </div>
+
+        </div>
+    </header><br>
+
+
+
+  <div class="page-wrap" id="contenido">
+    <h2>Calculadora de Créditos</h2>
+
+    <img id="logoParaPDF" src="../image/Logo Cooperativa - Blanco.png" style="display:none;" alt="Logo del local">
+
+    <div class="calc-layout">
+
+      <!-- ================= COLUMNA IZQUIERDA: FORMULARIO + OPCIONES + BOTONES ================= -->
+      <div class="panel panel-izquierda">
+
+        <form class="form-grid" id="formCredito">
+
+
+          <div class="form-group">
+            <label for="destino">Destino:</label>
+            <select id="destino">
+              <option value="Vivienda">Vivienda</option>
+              <option value="Consumo">Consumo</option>
+              <option value="Comercio">Vehículo</option>
+              <option value=" Servicio">Servicio</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="fecha">Fecha primer pago:</label>
+            <input type="date" id="fecha" name="fecha" onchange="calcular()">
+          </div>
+
+          <div class="form-group">
+            <label for="fechaDesembolso">Fecha desembolso:</label>
+            <input type="date" id="fechaDesembolso" name="fechaDesembolso" onchange="calcular()">
+          </div>
+
+          <div class="form-group">
+            <label>Monto:</label>
+            <input type="number" id="monto" oninput="calcular()">
+          </div>
+
+          <div class="form-group">
+            <label>Plazo (meses):</label>
+            <input type="number" id="plazo" oninput="calcular()">
+          </div>
+
+          <div class="form-group">
+            <label for="gastosAdmin">Gastos Admin. (Q):</label>
+            <input type="number" id="gastosAdmin" min="0" value="0" oninput="calcular()">
+          </div>
+
+        </form>
+
+        <div class="panel-title">Tipo de Garantía</div>
+        <div class="cards garantia-cards">
+          <div class="card" onclick="seleccionarGarantia(this, 'escritura')">Escritura Registrada</div>
+          <div class="card" onclick="seleccionarGarantia(this, 'publica')">Pública</div>
+          <div class="card" onclick="seleccionarGarantia(this, 'fiduciario')">Fiduciario</div>
+          <div class="card" onclick="seleccionarGarantia(this, 'sinfiador')">Sin Fiador</div>
+        </div>
+        <input type="hidden" id="garantia" value="">
+
+        <div class="panel-title">Tipo de Cuota</div>
+        <div class="cards cuota-cards">
+          <div class="card" onclick="seleccionarCuota(this, 'nivelada')">Nivelada</div>
+          <div class="card" onclick="seleccionarCuota(this, 'sobrecuota')">Sobre Cuota</div>
+        </div>
+        <input type="hidden" id="tipoCuota" value="">
+        <br>
+
+                     <button id="descargarPDF" type="button">
+            <i class="bi bi-download"></i> Descargar PDF
+          </button>
+          <br>
+
+
+          <div class="calc-card">
+            <div class="card-title">Requisitos para Solicitud</div>
+            <ul class="req-list">
+              <li>Apertura de cuenta con Q.100 / Actualizar Datos (cuando aplique)</li>
+              <li>Fotocopia del DPI del solicitante</li>
+              <li>Fotocopia del DPI del cónyuge (cuando aplique)</li>
+              <li>Fotocopia del DPI del codeudor (cuando aplique)</li>
+              <li>Fotocopia del DPI del fiador (cuando aplique)</li>
+              <li>Fotocopia de Factura de Energía Eléctrica, Agua o Teléfono reciente (cancelada)</li>
+            </ul>
+          </div>
+        </div>
+
+
+      <!-- ================= COLUMNA DERECHA: RESUMEN + TABLA ================= -->
+      <div class="panel panel-derecha">
+
+        <div class="panel-title" style="margin-top:0;">Resumen</div>
+        <div id="resumen">Completa el formulario y selecciona garantía y cuota para ver el resultado.</div>
+        
+
+        <div class="panel-title">Tabla de Pagos</div>
+        <div class="tabla-wrap">
+          <table id="tablaPagos">
+            <thead>
+              <tr>
+                <th>No.</th>
+                <th>Fecha</th>
+                <th>Capital</th>
+                <th>Interés</th>
+                <th>Cuota</th>
+                <th>Saldo</th>
+
+
+              </tr>
+            </thead>
+            <tbody></tbody>
+
+          </table>
+        </div>
+
+
+      </div>
+
+    </div>
+  </div>
+
+
+  <script>
+    function seleccionarGarantia(element, valor) {
+      document.querySelectorAll(".garantia-cards .card").forEach(c => c.classList.remove("seleccionada"));
+      element.classList.add("seleccionada");
+      document.getElementById("garantia").value = valor;
+      calcular();
+    }
+
+    function seleccionarCuota(element, valor) {
+      document.querySelectorAll(".cuota-cards .card").forEach(c => c.classList.remove("seleccionada"));
+      element.classList.add("seleccionada");
+      document.getElementById("tipoCuota").value = valor;
+      calcular();
+    }
+
+    function calcular() {
+      let monto = parseFloat(document.getElementById("monto").value);
+      let plazo = parseInt(document.getElementById("plazo").value);
+      let garantia = document.getElementById("garantia").value;
+      let tipoCuota = document.getElementById("tipoCuota").value;
+      let gastosAdmin = parseFloat(document.getElementById("gastosAdmin").value) || 0;
+      let fechaDesembolsoVal = document.getElementById("fechaDesembolso").value;
+      let fechaPrimerPagoVal = document.getElementById("fecha").value;
+
+      if (!monto || !plazo || !garantia || !tipoCuota) return;
+
+      // Tasa según garantía
+      let tasaAnual;
+      if (garantia === "escritura") tasaAnual = 0.12;
+      else if (garantia === "publica") tasaAnual = 0.15;
+      else if (garantia === "fiduciario") tasaAnual = 0.17;
+      else if (garantia === "sinfiador") tasaAnual = 0.25;
+      else tasaAnual = 0.12;
+
+      let tasaMensual = tasaAnual / 12;
+      let cuota, capital, interes, saldo = monto;
+
+      // Fórmula según tipo de cuota
+      if (tipoCuota === "nivelada") {
+        cuota = (monto * tasaMensual) / (1 - Math.pow(1 + tasaMensual, -plazo));
+      } else if (tipoCuota === "sobrecuota") {
+        capital = monto / plazo;
+        cuota = capital + (saldo * tasaMensual);
+      }
+
+      let liquidoRecibir = monto - gastosAdmin;
+      let primeraCuota = cuota;
+      let totalIntereses = 0;
+      let totalCuotas = 0;
+
+
+
+      // Tabla de pagos
+      let tbody = document.querySelector("#tablaPagos tbody");
+      tbody.innerHTML = "";
+
+      // Fila de desembolso
+      let fechaDesembolsoStr = fechaDesembolsoVal
+        ? new Date(fechaDesembolsoVal + "T00:00:00").toLocaleDateString("es-ES")
+        : new Date().toLocaleDateString("es-ES");
+
+      let filaDesembolso = `<tr class="fila-desembolso">
+        <td colspan="5">${fechaDesembolsoStr} — Desembolso</td>
+        <td>Q ${monto.toLocaleString("en-US",{minimumFractionDigits:2, maximumFractionDigits:2})}</td>
+      </tr>`;
+      tbody.innerHTML += filaDesembolso;
+
+      // Fecha base de la cuota 1: usa "Fecha primer pago" si el usuario la ingresó.
+      // Si no, cae al comportamiento anterior (desembolso, u hoy, + 1 mes).
+      let fechaBasePrimeraCuota;
+      if (fechaPrimerPagoVal) {
+        fechaBasePrimeraCuota = new Date(fechaPrimerPagoVal + "T00:00:00");
+      } else {
+        fechaBasePrimeraCuota = fechaDesembolsoVal
+          ? new Date(fechaDesembolsoVal + "T00:00:00")
+          : new Date();
+        fechaBasePrimeraCuota.setMonth(fechaBasePrimeraCuota.getMonth() + 1);
+      }
+
+      for (let i = 1; i <= plazo; i++) {
+        if (tipoCuota === "nivelada") {
+          interes = saldo * tasaMensual;
+          capital = cuota - interes;
+        } else if (tipoCuota === "sobrecuota") {
+          capital = monto / plazo;
+          interes = saldo * tasaMensual;
+          cuota = capital + interes;
+        }
+
+        if (i === 1) primeraCuota = cuota;
+
+        saldo -= capital;
+        totalIntereses += interes;
+        totalCuotas += cuota;
+
+        let fecha = new Date(fechaBasePrimeraCuota);
+        fecha.setMonth(fecha.getMonth() + (i - 1));
+        let fechaStr = fecha.toLocaleDateString("es-ES");
+
+        let fila = `<tr>
+          <td>${i}</td>
+          <td>${fechaStr}</td>
+          <td>Q ${capital.toLocaleString("en-US", {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
+          <td>Q ${interes.toLocaleString("en-US", {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
+          <td>Q ${cuota.toLocaleString("en-US", {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
+          <td>Q ${Math.max(saldo,0).toLocaleString("en-US", {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
+        </tr>`;
+
+        tbody.innerHTML += fila;
+      }
+
+      // Calcular totales
+      let totalAPagar = totalCuotas + gastosAdmin;
+
+      // Fila de totales
+      let filaTotales = `<tr class="fila-totales" style="background:#f0f0f0; font-weight:bold;">
+        <td colspan="2">Totales</td>
+        <td>Q ${monto.toLocaleString("en-US",{minimumFractionDigits:2, maximumFractionDigits:2})}</td>
+        <td>Q ${totalIntereses.toLocaleString("en-US",{minimumFractionDigits:2, maximumFractionDigits:2})}</td>
+        <td>Q ${totalCuotas.toLocaleString("en-US",{minimumFractionDigits:2, maximumFractionDigits:2})}</td>
+        <td>Q ${Math.max(saldo,0).toLocaleString("en-US",{minimumFractionDigits:2, maximumFractionDigits:2})}</td>
+      </tr>`;
+
+      // Agregar la fila de totales al final
+      tbody.innerHTML += filaTotales;
+
+      let fechaPrimerPagoStr = fechaBasePrimeraCuota.toLocaleDateString("es-ES");
+
+      // Resumen
+     document.getElementById("resumen").innerHTML = `
+  <div class="resumen-grid">
+    <strong><p>Monto Solicitado:<br> Q ${monto.toLocaleString("en-US",{minimumFractionDigits:2, maximumFractionDigits:2})}</p><hr>
+    <p>Gastos Administrativos:<br> ${gastosAdmin > 0 ? "Q " + gastosAdmin.toLocaleString("en-US",{minimumFractionDigits:2, maximumFractionDigits:2}) : "No aplica - Q 0.00"}</p><hr>
+    <p>Líquido a Recibir: <br>Q ${liquidoRecibir.toLocaleString("en-US",{minimumFractionDigits:2, maximumFractionDigits:2})}</p><hr>
+    <p>Plazo:<br> ${plazo} meses</p>
+    <p>Fecha de Primer Pago:<br> ${fechaPrimerPagoStr}</p></strong><hr>
+    <strong><p>Fecha de desembolso:<br> ${fechaDesembolsoStr}</p><hr>
+    <p>Tipo de Cuota:<br> ${tipoCuota === "nivelada" ? "Nivelada" : "Sobre Cuota"}</p><hr>
+    <p>Total a Pagar:<br> Q ${totalAPagar.toLocaleString("en-US",{minimumFractionDigits:2, maximumFractionDigits:2})}</p></strong>
+  </div>
+
+  <div class="resumen-fila-completa">
+      <span class="label">Primera Cuota${tipoCuota === "sobrecuota" ? " (más alta)" : ""}</span>
+      <span class="valor">Q ${primeraCuota.toLocaleString("en-US",{minimumFractionDigits:2, maximumFractionDigits:2})}</span>
+  </div>
+  `;
+
+    // Guardamos los datos calculados en un objeto global,
+// para que el PDF los use directamente sin tener que "leer" el HTML del resumen
+window.datosResumenActual = {
+    montoSolicitado: monto,
+    gastosAdmin: gastosAdmin,
+    liquidoRecibir: liquidoRecibir,
+    plazo: plazo,
+    fechaPrimerPago: fechaPrimerPagoStr,
+    primeraCuota: primeraCuota,
+    tipoCuotaLabel: (tipoCuota === "sobrecuota" ? " (más alta)" : ""),
+    tipoCuota: (tipoCuota === "nivelada" ? "Nivelada" : "Sobre Cuota"),
+    fechaDesembolso: fechaDesembolsoStr,
+    totalIntereses: totalIntereses,
+    totalAPagar: totalAPagar
+};
+    }
+  </script>
+
+
+
+  
+
+<!--PDF-->
+<script>
+
+document.getElementById("descargarPDF").addEventListener("click", async () => {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  const azulPrincipal = [0, 75, 135];
+  const azulClaro     = [233, 242, 255];
+  const blanco        = [255, 255, 255];
+  const grisTexto     = [50, 50, 50];
+  const grisClaro     = [245, 249, 255];
+
+  const pageWidth = doc.internal.pageSize.getWidth();
+  const marginX = 5;
+  const anchoUtil = pageWidth - marginX * 2;
+
+  // ============================
+  // 1. ENCABEZADO (banner azul + logo)
+  // ============================
+  doc.setFillColor(...azulPrincipal);
+  doc.rect(0, 0, pageWidth, 28, "F");
+  
+
+ 
+  const logoImg = document.getElementById("logoParaPDF");
+  if (logoImg && logoImg.complete && logoImg.naturalWidth > 0) {
+    doc.addImage(logoImg, "PNG", marginX, 6, 87,14);
+  }
+
+  doc.setTextColor(...blanco);
+  doc.setFontSize(16);
+  doc.setFont(undefined, "bold");
+  doc.text("Resumen de Crédito", pageWidth / 2, 13, { align: "left" });
+
+  doc.setFontSize(9);
+  doc.setFont(undefined, "normal");
+  doc.text("Cooperativa San Pedro", pageWidth / 2, 20, { align: "left" });
+
+  let y = 36;
+
+  // ============================
+  // 2. DATOS DEL SOLICITANTE + RESUMEN DEL CRÉDITO (tabla compacta 2 columnas)
+  // ============================
+  let nombreEl = document.getElementById("nombreSolicitante");
+  let nombres = localStorage.getItem("nombres") || (nombreEl ? nombreEl.value : "") || "No ingresado";
+  let apellidos = localStorage.getItem("apellidos") || "";
+  let dpi = localStorage.getItem("dpi") || "No ingresado";
+  let telefono = localStorage.getItem("telefono") || "No ingresado";
+
+  const d = window.datosResumenActual || {};
+
+function fmt(n) {
+    return "Q " + (n || 0).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+let pares = [
+    { label: "Nombres", valor: nombres },
+    { label: "Apellidos", valor: apellidos },
+    { label: "DPI", valor: dpi },
+    { label: "Teléfono", valor: telefono },
+    { label: "Monto Solicitado", valor: fmt(d.montoSolicitado) },
+    { label: "Gastos Administrativos", valor: d.gastosAdmin > 0 ? fmt(d.gastosAdmin) : "No aplica - Q 0.00" },
+    { label: "Líquido a Recibir", valor: fmt(d.liquidoRecibir) },
+    { label: "Plazo", valor: (d.plazo || "-") + " meses" },
+    { label: "Fecha de Primer Pago", valor: d.fechaPrimerPago || "-" },
+    { label: "Primera Cuota" + (d.tipoCuotaLabel || ""), valor: fmt(d.primeraCuota) },
+    { label: "Fecha de desembolso", valor: d.fechaDesembolso || "-" },
+    { label: "Tipo de Cuota", valor: d.tipoCuota || "-" },
+    { label: "Total a Pagar", valor: fmt(d.totalAPagar) }
+];
+
+  // Título de sección
+  doc.setFontSize(10);
+  doc.setFont(undefined, "bold");
+  doc.setTextColor(...azulPrincipal);
+  doc.text("DATOS DEL CRÉDITO", marginX, y);
+  y += 3;
+
+  // Armar filas de 2 pares (4 columnas: etiqueta, valor, etiqueta, valor)
+  let filasResumen = [];
+  for (let i = 0; i < pares.length; i += 2) {
+    let izq = pares[i];
+    let der = pares[i + 1] || { label: "", valor: "" };
+    filasResumen.push([izq.label, izq.valor, der.label, der.valor]);
+  }
+
+  doc.autoTable({
+    body: filasResumen,
+    startY: y,
+    margin: { left: marginX, right: marginX },
+    theme: "plain",
+   
+    columnStyles: {
+      0: { fontStyle: "bold", cellWidth: anchoUtil * 0.22, textColor: azulPrincipal },
+      1: { cellWidth: anchoUtil * 0.28 },
+      2: { fontStyle: "bold", cellWidth: anchoUtil * 0.22, textColor: azulPrincipal },
+      3: { cellWidth: anchoUtil * 0.28 }
+    },
+
+  });
+
+  y = doc.lastAutoTable.finalY + 8;
+
+  if (y > 265) { doc.addPage(); y = 20; }
+
+  // ============================
+  // 3. REQUISITOS PARA SOLICITUD (tabla compacta)
+  // ============================
+  let requisitos = Array.from(document.querySelectorAll(".req-list li")).map(li => li.innerText.trim());
+
+  if (requisitos.length) {
+    doc.setFontSize(10);
+    doc.setFont(undefined, "bold");
+    doc.setTextColor(...azulPrincipal);
+    doc.text("REQUISITOS PARA SOLICITUD", marginX, y);
+    y += 3;
+
+    doc.autoTable({
+      body: requisitos.map(r => ["•", r]),
+      startY: y,
+      margin: { left: marginX, right: marginX },
+      theme: "plain",
+      styles: {
+        fontSize: 8,
+        cellPadding: { top: 1.3, bottom: 1.3, left: 2, right: 2 },
+        textColor: grisTexto
+      },
+      columnStyles: {
+        0: { cellWidth: 5, textColor: azulPrincipal, fontStyle: "bold" },
+        1: { cellWidth: anchoUtil - 5 }
+      }
+    });
+
+    y = doc.lastAutoTable.finalY + 8;
+  }
+
+  if (y > 260) { doc.addPage(); y = 20; }
+
+  // ============================
+  // 4. TABLA DE PAGOS
+  // ============================
+  doc.setFontSize(10);
+  doc.setFont(undefined, "bold");
+  doc.setTextColor(...azulPrincipal);
+  doc.text("TABLA DE PAGOS", marginX, y);
+  y += 4;
+
+  let filas = [];
+  document.querySelectorAll("#tablaPagos tbody tr").forEach(tr => {
+    let cols = tr.querySelectorAll("td");
+
+    if (tr.classList.contains("fila-desembolso")) {
+      filas.push([cols[0].innerText, "", "", "", "", cols[1] ? cols[1].innerText : ""]);
+    } else if (tr.classList.contains("fila-totales")) {
+      filas.push(["", "Totales", cols[1].innerText, cols[2].innerText, cols[3].innerText, cols[4].innerText]);
+    } else {
+      filas.push([
+        cols[0].innerText, cols[1].innerText, cols[2].innerText,
+        cols[3].innerText, cols[4].innerText, cols[5].innerText
+      ]);
+    }
+  });
+
+  doc.autoTable({
+    head: [["No.", "Fecha", "Capital", "Interés", "Cuota", "Saldo"]],
+    body: filas,
+    startY: y,
+    margin: { left: marginX, right: marginX },
+    styles: {
+      fontSize: 8,
+      halign: "center",
+      cellPadding: 2.5,
+      lineColor: [220, 220, 220],
+      lineWidth: 0.1
+    },
+    headStyles: {
+      fillColor: azulPrincipal,
+      textColor: blanco,
+      fontStyle: "bold",
+      halign: "center",
+      fontSize: 8.5
+    },
+    alternateRowStyles: { fillColor: grisClaro },
+    didParseCell: function (data) {
+      if (data.row.raw[1] === "Totales") {
+        data.cell.styles.fontStyle = "bold";
+        data.cell.styles.fillColor = [222, 233, 250];
+        data.cell.styles.textColor = azulPrincipal;
+      }
+      if (typeof data.row.raw[0] === "string" && data.row.raw[0].includes("Desembolso")) {
+        data.cell.styles.fontStyle = "bold";
+        data.cell.styles.fillColor = azulClaro;
+      }
+    },
+    didDrawPage: function () { agregarPiePagina(doc); }
+  });
+
+  function agregarPiePagina(doc) {
+    const pageHeight = doc.internal.pageSize.getHeight();
+    const pageW = doc.internal.pageSize.getWidth();
+
+    doc.setDrawColor(...azulPrincipal);
+    doc.setLineWidth(0.4);
+    doc.line(marginX, pageHeight - 15, pageW - marginX, pageHeight - 15);
+
+    doc.setFontSize(7.5);
+    doc.setTextColor(120, 120, 120);
+    doc.setFont(undefined, "normal");
+    doc.text("Cooperativa San Pedro · San Pedro Soloma, Huehuetenango", marginX, pageHeight - 9);
+    doc.text(`Generado el ${new Date().toLocaleDateString("es-GT")}`, pageW - marginX, pageHeight - 9, { align: "right" });
+
+    let paginaActual = doc.internal.getCurrentPageInfo().pageNumber;
+    doc.text(`Página ${paginaActual}`, pageW / 2, pageHeight - 9, { align: "center" });
+  }
+
+  doc.save("Resumen_Credito.pdf");
+});
+
+</script>
+
+
+
+
+
+<!--Pie de pagina -->
+
+ <footer id="contacto">
+
+        <div style="background: white; line-height: 0;">
+            
+            <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#033E81" d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z"/>
+            </svg>
+        </div>
+
+        <div style="background: #033E81; padding: 60px 0 30px;">
+            <div class="container">
+                <div style="display:flex;align-items:center;gap:40px;flex-wrap:wrap;margin-bottom:40px;padding-bottom:30px;border-bottom:1px solid rgba(255,255,255,0.1);">
+                    <span style="color:rgba(255,255,255,0.5);font-style:italic;font-size:1.15rem;font-weight:600;white-space:nowrap;">Con el respaldo de</span>
+                    <div style="display:flex;align-items:center;gap:40px;flex-wrap:wrap;">
+                        <img src="../image/iconos/Micoope-1.png" alt="Micoope" style="height:62px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.85;">
+                        <img src="../image/iconos/Fondo-1.png" alt="Fondo Garantia Micoope" style="height:54px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.85;">
+                        <img src="../image/iconos/Columna-1.png" alt="Seguros Columna" style="height:62px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.85;">
+                    </div>
+                </div>
+                <div class="row g-4 mb-5">
+
+                    <div class="col-md-4">
+                        <img src="../image/Logo Cooperativa - Blanco.png" height="45" alt="Logo" class="mb-3">
+                        <p style="color:#a8c4e0; line-height:1.8;">
+                            Tu cooperativa de confianza, comprometida con tu bienestar financiero
+                            y el desarrollo de nuestra comunidad.
+                        </p>
+                        <div class="d-flex gap-3 mt-3">
+                            <a href="https://www.facebook.com/sanpedroesmicoope/?locale=es_LA" target="_blank" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="bi bi-facebook"></i></a>
+                            <a href="#" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="bi bi-instagram"></i></a>
+                            <a href="https://api.whatsapp.com/send/?phone=50230776771&text&type=phone_number&app_absent=0" target="_blank" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="bi bi-whatsapp"></i></a>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-2 offset-md-1">
+                        <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Enlaces</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><a href="../index.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Inicio</a></li>
+                            <li class="mb-2"><a href="./agencias.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Agencias</a></li>
+                            <li class="mb-2"><a href="./about.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Nosotros</a></li>
+                            <li class="mb-2"><a href="./contactanos.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Contáctanos</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-md-2">
+                        <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Servicios</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><a href="./ahorro.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Ahorro</a></li>
+                            <li class="mb-2"><a href="./prestamos.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Préstamos</a></li>
+                            <li class="mb-2"><a href="./agentes.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Agentes</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-md-3">
+                        <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Contacto</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-3 d-flex align-items-center gap-3">
+                                <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i class="bi bi-telephone" style="color:#4fc3f7;"></i></div>
+                                <span style="color:#a8c4e0;">PBX 7963-2828</span>
+                            </li>
+                            <li class="mb-3 d-flex align-items-center gap-3">
+                                <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i class="bi bi-envelope" style="color:#4fc3f7;"></i></div>
+                                <span style="color:#a8c4e0;">info@sanpedroesmicoope.com.gt</span>
+                            </li>
+                            <li class="d-flex align-items-center gap-3">
+                                <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i class="bi bi-geo-alt" style="color:#4fc3f7;"></i></div>
+                                <span style="color:#a8c4e0;">San Pedro Soloma, Huehuetenango</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <hr style="border-color:rgba(255,255,255,0.1); margin-bottom:25px;">
+                <p style="color:#a8c4e0; margin:0; font-size:14px; text-align:center;">
+                    &copy; 2026 Cooperativa San Pedro. Todos los derechos reservados.
+                </p>
+
+            </div>
+        </div>
+    </footer>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
+    <script src="../js/script.js"></script>
+    <script>
+        /* Scroll reveal: activa animación al entrar al viewport */
+        const revealObs = new IntersectionObserver((entries) => {
+            entries.forEach((e, i) => {
+                if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 100);
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+    </script>
+
+</body>
+</html>

@@ -174,6 +174,13 @@
             background: #022a5c;
             box-shadow: 0 6px 20px rgba(3,62,129,0.3);
         }
+        .plazas-estado {
+            text-align: center;
+            padding: 40px 20px;
+            color: #999;
+            grid-column: 1 / -1;
+        }
+        .plazas-estado i { font-size: 2rem; display: block; margin-bottom: 12px; color: #c8d6f0; }
 
         /* SECCIÓN POSTULACIÓN */
         .como-postular {
@@ -420,8 +427,8 @@
                             <a href="./mision-vision.html" class="drop-link">
                                 <div class="drop-icon"><i class="bi bi-eye-fill"></i></div>
                                 <div><span class="drop-title">Mision y Vision</span><span class="drop-sub">Nuestros valores</span></div>
-                            </a>
-                            <a href="./historia.html" class="drop-link">
+                             </a>
+                             <a href="./HistoriaCoope.html" class="drop-link">
                                 <div class="drop-icon"><i class="bi bi-clock-history"></i></div>
                                 <div><span class="drop-title">Historia</span><span class="drop-sub">Nuestros inicios</span></div>
                             </a>
@@ -503,85 +510,11 @@
                 <h2>Plazas Disponibles</h2>
                 <span>Haz clic en "Ver convocatoria" para ver los detalles completos de cada plaza</span>
             </div>
-            <div class="plazas-grid">
-
-                <div class="plaza-tarjeta">
-                    <div class="plaza-tarjeta-img">
-                        <img src="../image/Mi Empleo/GerenteAdm.jpg" alt="Gerente Administrativo" onclick="lbAbrir(0)">
-                    </div>
-                    <div class="plaza-tarjeta-footer">
-                        <button class="btn-ver-conv" onclick="lbAbrir(0)">
-                            <i class="bi bi-eye-fill"></i> Ver convocatoria
-                        </button>
-                    </div>
+            <div class="plazas-grid" id="plazasGrid">
+                <div class="plazas-estado">
+                    <i class="bi bi-hourglass-split"></i>
+                    Cargando vacantes disponibles...
                 </div>
-
-                <div class="plaza-tarjeta">
-                    <div class="plaza-tarjeta-img">
-                        <img src="../image/Mi Empleo/JefAgenciaSanta.jpg" alt="Jefe de Agencia Santa" onclick="lbAbrir(1)">
-                    </div>
-                    <div class="plaza-tarjeta-footer">
-                        <button class="btn-ver-conv" onclick="lbAbrir(1)">
-                            <i class="bi bi-eye-fill"></i> Ver convocatoria
-                        </button>
-                    </div>
-                </div>
-
-                <div class="plaza-tarjeta">
-                    <div class="plaza-tarjeta-img">
-                        <img src="../image/Mi Empleo/JefAgenSanMiguel.jpg" alt="Jefe de Agencia San Miguel" onclick="lbAbrir(2)">
-                    </div>
-                    <div class="plaza-tarjeta-footer">
-                        <button class="btn-ver-conv" onclick="lbAbrir(2)">
-                            <i class="bi bi-eye-fill"></i> Ver convocatoria
-                        </button>
-                    </div>
-                </div>
-
-                <div class="plaza-tarjeta">
-                    <div class="plaza-tarjeta-img">
-                        <img src="../image/Mi Empleo/SecreCreditos.jpg" alt="Secretaria de Créditos" onclick="lbAbrir(3)">
-                    </div>
-                    <div class="plaza-tarjeta-footer">
-                        <button class="btn-ver-conv" onclick="lbAbrir(3)">
-                            <i class="bi bi-eye-fill"></i> Ver convocatoria
-                        </button>
-                    </div>
-                </div>
-
-                <div class="plaza-tarjeta">
-                    <div class="plaza-tarjeta-img">
-                        <img src="../image/Mi Empleo/AseFinanciero.jpg" alt="Asesor Financiero" onclick="lbAbrir(4)">
-                    </div>
-                    <div class="plaza-tarjeta-footer">
-                        <button class="btn-ver-conv" onclick="lbAbrir(4)">
-                            <i class="bi bi-eye-fill"></i> Ver convocatoria
-                        </button>
-                    </div>
-                </div>
-
-                <div class="plaza-tarjeta">
-                    <div class="plaza-tarjeta-img">
-                        <img src="../image/Mi Empleo/AseCreditos.jpg" alt="Asesor de Créditos" onclick="lbAbrir(5)">
-                    </div>
-                    <div class="plaza-tarjeta-footer">
-                        <button class="btn-ver-conv" onclick="lbAbrir(5)">
-                            <i class="bi bi-eye-fill"></i> Ver convocatoria
-                        </button>
-                    </div>
-                </div>
-
-                <div class="plaza-tarjeta">
-                    <div class="plaza-tarjeta-img">
-                        <img src="../image/Mi Empleo/Auxiliar Rotativo.jpg" alt="Auxiliar Rotativo" onclick="lbAbrir(6)">
-                    </div>
-                    <div class="plaza-tarjeta-footer">
-                        <button class="btn-ver-conv" onclick="lbAbrir(6)">
-                            <i class="bi bi-eye-fill"></i> Ver convocatoria
-                        </button>
-                    </div>
-                </div>
-
             </div>
         </div>
     </section>
@@ -841,18 +774,12 @@
     <script src="../js/script.js"></script>
 
     <script>
-        const LB_IMGS = [
-            '../image/Mi Empleo/GerenteAdm.jpg',
-            '../image/Mi Empleo/JefAgenciaSanta.jpg',
-            '../image/Mi Empleo/JefAgenSanMiguel.jpg',
-            '../image/Mi Empleo/SecreCreditos.jpg',
-            '../image/Mi Empleo/AseFinanciero.jpg',
-            '../image/Mi Empleo/AseCreditos.jpg',
-            '../image/Mi Empleo/Auxiliar Rotativo.jpg'
-        ];
+        // ---- Lightbox: el arreglo LB_IMGS se llena dinámicamente con las vacantes activas ----
+        let LB_IMGS = [];
         let lbActual = 0;
 
         function lbAbrir(idx) {
+            if (!LB_IMGS.length) return;
             lbActual = idx;
             document.getElementById('empLbImg').src = LB_IMGS[idx];
             document.getElementById('empLbCounter').textContent = (idx + 1) + ' / ' + LB_IMGS.length;
@@ -945,5 +872,93 @@
         }
     </script>
 
+    <!-- ============================================================
+         VACANTES EN VIVO — se cargan desde el servidor de vacantes
+         (contenedor Docker). Lo que Talento Humano publique aparece
+         aquí al recargar la página.
+
+         Las vacantes viven en el proyecto aparte "servidor-vacantes".
+         En el sitio público (sanpedroesmicoope.com.gt) está montado en
+         la ruta /vacantes del mismo dominio (app Python de cPanel);
+         en tu PC (Live Server) es el servidor local http://localhost:5001.
+         ============================================================ -->
+    <script>
+        const DOMINIOS_PUBLICOS = ['sanpedroesmicoope.com.gt', 'www.sanpedroesmicoope.com.gt'];
+        const EN_DOMINIO = DOMINIOS_PUBLICOS.includes(location.hostname);
+        // ORIGEN: dónde está el servidor. PREFIJO: ruta donde está montada la app.
+        const ORIGEN_VACANTES = EN_DOMINIO ? '' : 'http://localhost:5001';
+        const PREFIJO_VACANTES = EN_DOMINIO ? '/vacantes' : '';
+
+        const urlServidor = (ruta) => ruta && ruta.startsWith('/') ? ORIGEN_VACANTES + ruta : ruta;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const boton = document.getElementById('btnTalentoHumano');
+            if (boton) boton.href = ORIGEN_VACANTES + PREFIJO_VACANTES + '/talento-humano';
+        });
+
+        (async function cargarVacantesPublicas() {
+            const grid = document.getElementById('plazasGrid');
+            try {
+                const res = await fetch(urlServidor(PREFIJO_VACANTES + '/api/listar'));
+                if (!res.ok) throw new Error('HTTP ' + res.status);
+                const data = await res.json();
+                const vacantes = data.vacantes || [];
+
+                if (!vacantes.length) {
+                    LB_IMGS = [];
+                    grid.innerHTML = `
+                        <div class="plazas-estado">
+                            <i class="bi bi-inbox"></i>
+                            Por el momento no hay plazas disponibles. ¡Vuelve pronto!
+                        </div>`;
+                    return;
+                }
+
+                const imagenes = [];
+                grid.innerHTML = '';
+
+                vacantes.forEach((v, idx) => {
+                    if (!v.imagenUrl) return;
+                    const imagen = urlServidor(v.imagenUrl);
+                    imagenes.push(imagen);
+                    const miIdx = imagenes.length - 1;
+
+                    const tarjeta = document.createElement('div');
+                    tarjeta.className = 'plaza-tarjeta';
+                    tarjeta.innerHTML = `
+                        <div class="plaza-tarjeta-img">
+                            <img src="${imagen}" alt="${(v.titulo || 'Vacante').replace(/"/g, '&quot;')}" onclick="lbAbrir(${miIdx})">
+                        </div>
+                        <div class="plaza-tarjeta-footer">
+                            <button class="btn-ver-conv" onclick="lbAbrir(${miIdx})">
+                                <i class="bi bi-eye-fill"></i> Ver convocatoria
+                            </button>
+                        </div>`;
+                    grid.appendChild(tarjeta);
+                });
+
+                LB_IMGS = imagenes;
+                lbActual = 0;
+            } catch (err) {
+                console.error('No se pudieron cargar las vacantes:', err);
+                grid.innerHTML = `
+                    <div class="plazas-estado">
+                        <i class="bi bi-exclamation-triangle"></i>
+                        No se pudieron cargar las vacantes. Intenta más tarde.
+                    </div>`;
+            }
+        })();
+    </script>
+
+
+<a href="/vacantes/talento-humano" id="btnTalentoHumano" title="Talento Humano · Vacantes"
+   style="position:fixed;bottom:170px;right:24px;width:52px;height:52px;
+          background:#033E81;border-radius:50%;display:flex;align-items:center;
+          justify-content:center;color:white;text-decoration:none;
+          box-shadow:0 4px 14px rgba(0,0,0,0.25);z-index:1000;transition:transform .2s;"
+   onmouseover="this.style.transform='scale(1.08)'"
+   onmouseout="this.style.transform=''">
+    <i class="bi bi-shield-lock-fill" style="font-size:1.3rem;"></i>
+</a>
 </body>
 </html>

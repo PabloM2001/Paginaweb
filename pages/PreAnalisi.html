@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="icon" type="image/png" href="../image/Imagotipo Vertical Original.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Crédito - Preanálisis</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/estilos.css">
+
+    <style>
+        :root {
+            --azul: #004080;
+            --azul-oscuro: #033E81;
+            --azul-suave: #e9f2ff;
+            --fondo: #f4f6f9;
+            --borde: #dde3ec;
+            --verde: #24A148;
+            --verde-oscuro: #1c8438;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Outfit', Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--fondo);
+            color: #333;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            background: white;
+            border: 1px solid var(--borde);
+            border-radius: 8px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+            overflow: hidden;
+        }
+
+       .banner-preanalisis {
+            text-align: center;
+    background-color: var(--azul);
+    color: #FFFFFF;
+    padding: 34px 25px;
+    font-size: 30px;
+    font-weight: 700;
+    margin: 0 0 28px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+    box-shadow: 0 10px 25px rgba(0, 64, 128, 0.18);
+    
+    
+
+        }
+        .banner-preanalisis h1 {
+            font-size: 24px;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+
+        .banner-preanalisis h2 {
+            font-size: 16px;
+            font-weight: 400;
+            margin-bottom: 10px;
+            opacity: 0.95;
+        }
+
+        .banner-preanalisis p {
+            font-size: 12px;
+            color: #dcdcdc;
+        }
+
+        .alert-step {
+            background-color: var(--azul-suave);
+            color: var(--azul-oscuro);
+            padding: 12px 15px;
+            font-size: 13px;
+            margin: 20px;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px 20px;
+            padding: 0 24px 24px 24px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .full-width {
+            grid-column: span 3;
+        }
+
+        label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #33475b;
+            margin-bottom: 6px;
+        }
+
+        label span {
+            color: #c0392b;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px 12px;
+            font-size: 13px;
+            border: 1px solid #cdd6e0;
+            border-radius: 6px;
+            background-color: #fbfcfe;
+            color: #333;
+            height: 38px;
+            transition: border-color .2s, box-shadow .2s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--azul-oscuro);
+            box-shadow: 0 0 0 3px rgba(3, 62, 129, 0.12);
+            background-color: #fff;
+        }
+
+        select:invalid {
+            color: #7a7a7a;
+        }
+
+        select.campo-invalido,
+        input.campo-invalido {
+            border-color: #c0392b;
+            box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.12);
+        }
+
+        .form-footer {
+            grid-column: span 3;
+            text-align: center;
+            padding-top: 15px;
+        }
+
+        .btn-confirm {
+            background-color: var(--verde);
+            color: white;
+            border: none;
+            padding: 10px 28px;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: background .2s, transform .2s;
+        }
+
+        .btn-confirm:hover {
+            background-color: var(--verde-oscuro);
+            transform: translateY(-1px);
+        }
+
+        .btn-confirm:disabled {
+            cursor: wait;
+            transform: none;
+        }
+
+        /* Estado "cargando": mantiene el color verde con un brillo animado y un spinner */
+        .btn-confirm.cargando {
+            background: linear-gradient(90deg, var(--verde) 0%, var(--verde-oscuro) 50%, var(--verde) 100%);
+            background-size: 200% 100%;
+            animation: brillo 1.2s linear infinite;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+        }
+
+        .btn-confirm .spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: girar .7s linear infinite;
+        }
+
+        @keyframes girar { to { transform: rotate(360deg); } }
+        @keyframes brillo { from { background-position: 200% 0; } to { background-position: 0 0; } }
+
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .form-footer, .full-width {
+                grid-column: span 1;
+            }
+        }
+    </style>
+
+</head>
+<body>
+
+    <!--Encabezado-->
+
+<header class="jagel" id="mainHeader">
+    <div class="header-inner">
+
+        <a href="../index.html" class="header-logo">
+            <img src="../image/Logo Cooperativa - Blanco.png" alt="Cooperativa San Pedro">
+        </a>
+
+        <button class="nav-toggle" id="navToggle" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+
+        <nav class="main-nav" id="mainNav">
+            <ul class="nav-list">
+
+                <li class="nav-item"><a href="../index.html" class="nav-link">Inicio</a></li>
+
+                <li class="nav-item has-dropdown">
+                    <a href="#" class="nav-link" onclick="return false">
+                        Puntos de Servicio <i class="bi bi-chevron-down nav-arrow"></i>
+                    </a>
+                    <div class="nav-dropdown">
+                        <a href="./agencias.html" class="drop-link">
+                            <div class="drop-icon"><i class="bi bi-building"></i></div>
+                            <div><span class="drop-title">Agencias</span><span class="drop-sub">8 puntos en Huehuetenango</span></div>
+                        </a>
+                        <a href="./agentes.html" class="drop-link">
+                            <div class="drop-icon"><i class="bi bi-person-badge"></i></div>
+                            <div><span class="drop-title">Agentes Micoope</span><span class="drop-sub">Cerca de tu comunidad</span></div>
+                        </a>
+                    </div>
+                </li>
+
+                <li class="nav-item has-dropdown">
+                    <a href="#" class="nav-link" onclick="return false">
+                        Productos y Servicios <i class="bi bi-chevron-down nav-arrow"></i>
+                    </a>
+                    <div class="nav-dropdown">
+                        <a href="./ahorro.html" class="drop-link">
+                            <div class="drop-icon green"><i class="bi bi-piggy-bank"></i></div>
+                            <div><span class="drop-title">Ahorro</span><span class="drop-sub">Cuentas y depositos</span></div>
+                        </a>
+                        <a href="./prestamos.html" class="drop-link">
+                            <div class="drop-icon" style="background:rgba(79,195,247,0.12);color:#033E81;"><i class="bi bi-cash-coin"></i></div>
+                            <div><span class="drop-title">Prestamos</span><span class="drop-sub">Creditos accesibles</span></div>
+                        </a>
+                        <a href="./tarjeta-credito.html" class="drop-link">
+                            <div class="drop-icon" style="background:rgba(3,62,129,0.1);color:#033E81;"><i class="bi bi-credit-card-fill"></i></div>
+                            <div><span class="drop-title">Tarjetas Micoope</span><span class="drop-sub">Crédito y Débito VISA</span></div>
+                        </a>
+                    </div>
+                </li>
+
+                <li class="nav-item has-dropdown">
+                    <a href="#" class="nav-link" onclick="return false">
+                        Nosotros <i class="bi bi-chevron-down nav-arrow"></i>
+                    </a>
+                    <div class="nav-dropdown">
+                        <a href="./about.html" class="drop-link">
+                            <div class="drop-icon"><i class="bi bi-people-fill"></i></div>
+                            <div><span class="drop-title">¿Quiénes somos?</span><span class="drop-sub">Nuestra cooperativa</span></div>
+                          </a>
+                        <a href="./mision-vision.html" class="drop-link">
+                            <div class="drop-icon"><i class="bi bi-eye-fill"></i></div>
+                            <div><span class="drop-title">Mision y Vision</span><span class="drop-sub">Nuestros valores</span></div>
+                        </a>
+                        <a href="./HistoriaCoope.html" class="drop-link">
+                            <div class="drop-icon"><i class="bi bi-clock-history"></i></div>
+                            <div><span class="drop-title">Historia</span><span class="drop-sub">Nuestros inicios</span></div>
+                        </a>
+                        <a href="./memoria-labores.html" class="drop-link">
+                            <div class="drop-icon" style="background:rgba(3,62,129,0.1);color:#033E81;"><i class="bi bi-file-earmark-text"></i></div>
+                            <div><span class="drop-title">Memoria de Labores</span><span class="drop-sub">Informe anual</span></div>
+                        </a>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a href="./empleo.html" class="nav-link">Mi Empleo</a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="./contactanos.html" class="nav-link nav-cta">
+                        <i class="bi bi-telephone-fill"></i> Contactanos
+                    </a>
+                </li>
+                <li class="nav-item" style="position:relative;">
+                    <a href="https://micoopeenlinea.com.gt/Retail/servletcontroller" target="_blank"
+                       style="display:inline-flex;align-items:center;justify-content:center;margin-left:6px;width:42px;height:42px;border-radius:50%;text-decoration:none;background:white;border:2px solid rgba(255,255,255,0.3);transition:all 0.3s;box-shadow:0 2px 8px rgba(0,0,0,0.15);overflow:hidden;"
+                       onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 18px rgba(0,0,0,0.25)';this.nextElementSibling.style.opacity='1';this.nextElementSibling.style.transform='translateX(-50%) translateY(0)'"
+                       onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,0.15)';this.nextElementSibling.style.opacity='0';this.nextElementSibling.style.transform='translateX(-50%) translateY(-6px)'">
+                        <img src="../image/logo-micoope-enlinea.png" alt="Micoope En Linea" height="30" style="display:block;">
+                    </a>
+                    <span style="position:absolute;bottom:-34px;left:50%;transform:translateX(-50%) translateY(-6px);background:#033E81;color:white;font-size:0.75rem;font-weight:600;padding:4px 10px;border-radius:6px;white-space:nowrap;opacity:0;transition:all 0.25s;pointer-events:none;z-index:999;">
+                        Micoope En Linea
+                    </span>
+                </li>
+
+                <li class="nav-item" style="position:relative;">
+                    <a href="https://soyfri.com/" target="_blank"
+                       style="display:inline-flex;align-items:center;justify-content:center;margin-left:6px;width:42px;height:42px;border-radius:50%;text-decoration:none;background:white;border:2px solid rgba(255,255,255,0.3);transition:all 0.3s;box-shadow:0 2px 8px rgba(0,0,0,0.15);overflow:hidden;"
+                       onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 18px rgba(0,0,0,0.25)';this.nextElementSibling.style.opacity='1';this.nextElementSibling.style.transform='translateX(-50%) translateY(0)'"
+                       onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,0.15)';this.nextElementSibling.style.opacity='0';this.nextElementSibling.style.transform='translateX(-50%) translateY(-6px)'">
+                        <img src="../image/logo-fri.png" alt="FRI" height="30" style="display:block;">
+                    </a>
+                    <span style="position:absolute;bottom:-34px;left:50%;transform:translateX(-50%) translateY(-6px);background:#033E81;color:white;font-size:0.75rem;font-weight:600;padding:4px 10px;border-radius:6px;white-space:nowrap;opacity:0;transition:all 0.25s;pointer-events:none;z-index:999;">
+                        Soy FRI
+                    </span>
+                </li>
+
+            </ul>
+        </nav>
+
+        <div class="header-search">
+            <input type="text" class="search-input" id="searchInput" placeholder="Buscar...">
+            <button class="search-btn" onclick="toggleSearch()">
+                <i class="bi bi-search" id="searchIcon"></i>
+            </button>
+        </div>
+
+    </div>
+</header>
+<!----------------------------->
+
+
+<!-- Contenedor Principal del Formulario -->
+<div class="container"><br>
+
+    <!-- Bloque de Título Preanálisis -->
+    <div class="banner-preanalisis">
+        <h1>CALCULADORA DE CREDITO</h1>
+        <h2>PARA SOLICITAR PRODUCTOS CREDITICIOS</h2>
+        <p>Por favor ingresar los datos requeridos.</p>
+    </div>
+
+    <div class="alert-step">
+        Primer Paso: ingresa los datos y luego presiona Confirmar.
+    </div>
+
+    <!-- Formulario -->
+    <form class="form-grid" id="formPreanalisis" action="#" method="POST" novalidate>
+
+        <!-- Fila 1 -->
+        <div class="form-group">
+            <label for="nombres">Nombres:<span>*</span></label>
+            <input type="text" id="nombres" name="nombres" required>
+        </div>
+
+        <div class="form-group">
+            <label for="apellidos">Apellidos:<span>*</span></label>
+            <input type="text" id="apellidos" name="apellidos" required>
+        </div>
+
+        <div class="form-group">
+    <label for="dpi">DPI:<span>*</span></label>
+    <input type="text" id="dpi" name="dpi" inputmode="numeric" maxlength="13" required>
+</div>
+
+        <div class="form-group" style="grid-column: span 1;">
+            <label for="departamento">Departamento:<span>*</span></label>
+            <select id="departamento" name="departamento" required onchange="cargarMunicipios()">
+                <option value="" disabled selected>-- Selecciona un departamento --</option>
+                <option value="GUATEMALA">Guatemala</option>
+                <option value="ALTA VERAPAZ">Alta Verapaz</option>
+                <option value="BAJA VERAPAZ">Baja Verapaz</option>
+                <option value="CHIMALTENANGO">Chimaltenango</option>
+                <option value="CHIQUIMULA">Chiquimula</option>
+                <option value="EL PROGRESO">El Progreso</option>
+                <option value="ESCUINTLA">Escuintla</option>
+                <option value="HUEHUETENANGO">Huehuetenango</option>
+                <option value="IZABAL">Izabal</option>
+                <option value="JALAPA">Jalapa</option>
+                <option value="JUTIAPA">Jutiapa</option>
+                <option value="PETÉN">Petén</option>
+                <option value="QUETZALTENANGO">Quetzaltenango</option>
+                <option value="QUICHÉ">Quiché</option>
+                <option value="RETALHULEU">Retalhuleu</option>
+                <option value="SACATEPÉQUEZ">Sacatepéquez</option>
+                <option value="SAN MARCOS">San Marcos</option>
+                <option value="SANTA ROSA">Santa Rosa</option>
+                <option value="SOLOLÁ">Sololá</option>
+                <option value="SUCHITEPÉQUEZ">Suchitepéquez</option>
+                <option value="TOTONICAPÁN">Totonicapán</option>
+                <option value="ZACAPA">Zacapa</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="municipio">Municipio:<span>*</span></label>
+            <select id="municipio" name="municipio" required>
+                <option value="" disabled selected>-- Selecciona un municipio --</option>
+            </select>
+        </div>
+
+        <!-- Fila 3 -->
+        <div class="form-group">
+            <label for="telefono">Número de teléfono celular: +502:<span>*</span></label>
+            <input type="tel" id="telefono" name="telefono" inputmode="numeric" maxlength="8" required>
+        </div>
+
+        <div class="form-group">
+            <label for="correo">Correo electrónico:<span>*</span></label>
+            <input type="email" id="correo" name="correo" required>
+        </div>
+
+        <div class="form-footer">
+            <button type="button" class="btn-confirm" id="btnConfirmar" onclick="confirmarYContinuar()">✓ Confirmar</button>
+        </div>
+
+    </form>
+
+</div>
+
+
+
+
+<script>
+    // Diccionario de departamentos y municipios
+    const municipiosPorDepartamento = {
+        "GUATEMALA": ["Guatemala", "Mixco", "Villa Nueva", "San Miguel Petapa", "Chinautla", "Palencia", "Fraijanes", "Santa Catarina Pinula", "San José Pinula", "Amatitlán"],
+        "ALTA VERAPAZ": ["Cobán", "San Pedro Carchá", "Chisec", "Fray Bartolomé de las Casas", "Tactic", "Tucurú", "Santa Cruz Verapaz", "Senahú", "Panzós"],
+        "BAJA VERAPAZ": ["Salamá", "Cubulco", "Rabinal", "San Miguel Chicaj", "Granados", "Purulhá"],
+        "CHIMALTENANGO": ["Chimaltenango", "San Andrés Itzapa", "Parramos", "San Juan Comalapa", "San Martín Jilotepeque", "El Tejar", "Zaragoza"],
+        "CHIQUIMULA": ["Chiquimula", "Esquipulas", "Camotán", "Jocotán", "Olopa", "Quezaltepeque"],
+        "EL PROGRESO": ["Guastatoya", "Sanarate", "Morazán", "San Antonio La Paz"],
+        "ESCUINTLA": ["Escuintla", "Santa Lucía Cotzumalguapa", "La Democracia", "La Gomera", "Tiquisate", "Masagua"],
+        "HUEHUETENANGO": ["Huehuetenango", "San Pedro Soloma", "Santa Eulalia", "Barillas", "Jacaltenango", "Nentón", "San Juan Ixcoy", "San Mateo Ixtatán"],
+        "IZABAL": ["Puerto Barrios", "Morales", "Los Amates", "El Estor", "Livingston"],
+        "JALAPA": ["Jalapa", "San Pedro Pinula", "San Luis Jilotepeque", "Monjas"],
+        "JUTIAPA": ["Jutiapa", "El Progreso", "Asunción Mita", "Santa Catarina Mita", "Quesada"],
+        "PETÉN": ["Flores", "San Benito", "Santa Ana", "San Andrés", "La Libertad", "Sayaxché", "Melchor de Mencos"],
+        "QUETZALTENANGO": ["Quetzaltenango", "Almolonga", "Cantel", "Salcajá", "Zunil", "Olintepeque"],
+        "QUICHÉ": ["Santa Cruz del Quiché", "Joyabaj", "Nebaj", "Chajul", "Sacapulas", "Uspantán"],
+        "RETALHULEU": ["Retalhuleu", "San Sebastián", "San Martín Zapotitlán", "Champerico"],
+        "SACATEPÉQUEZ": ["Antigua Guatemala", "Ciudad Vieja", "San Lucas Sacatepéquez", "Santa María de Jesús"],
+        "SAN MARCOS": ["San Marcos", "San Pedro Sacatepéquez", "San Antonio Sacatepéquez", "Esquipulas Palo Gordo", "San Cristóbal Cucho"],
+        "SANTA ROSA": ["Cuilapa", "Barberena", "Santa Rosa de Lima", "Casillas", "Chiquimulilla"],
+        "SOLOLÁ": ["Sololá", "Panajachel", "San José Chacayá", "Santa Catarina Palopó", "San Marcos La Laguna"],
+        "SUCHITEPÉQUEZ": ["Mazatenango", "San José El Ídolo", "Santo Domingo Suchitepéquez", "San Lorenzo"],
+        "TOTONICAPÁN": ["Totonicapán", "San Cristóbal Totonicapán", "San Andrés Xecul", "Momostenango"],
+        "ZACAPA": ["Zacapa", "Estanzuela", "Gualán", "Teculután", "Usumatlán", "La Unión"]
+    };
+
+    // ============================================
+    // URL Script
+    // ============================================
+     // Servidor Python (servidor_correo.py) que envía el correo desde la cuenta institucional
+     // Con Live Server (puerto 5500) se apunta al servidor Python en el puerto 5000
+     const esLiveServer = ["localhost", "127.0.0.1"].includes(location.hostname) && location.port !== "5000";
+     // En cPanel la app Python está en la "Application URL" /correo
+     const URL_SCRIPT = esLiveServer ? "http://localhost:5000/api/preanalisis"
+                      : location.port === "5000" ? "/api/preanalisis"
+                      : "/correo/api/preanalisis";
+     
+
+    function cargarMunicipios() {
+        const departamento = document.getElementById("departamento").value;
+        const municipioSelect = document.getElementById("municipio");
+
+        municipioSelect.innerHTML = '<option value="" disabled selected>-- Selecciona un municipio --</option>';
+
+        if (departamento && municipiosPorDepartamento[departamento]) {
+            municipiosPorDepartamento[departamento].forEach(muni => {
+                const option = document.createElement("option");
+                option.value = muni;
+                option.textContent = muni;
+                municipioSelect.appendChild(option);
+            });
+        }
+
+        document.getElementById("departamento").classList.remove("campo-invalido");
+    }
+
+    const DOMINIOS_COMUNES = ["gmail.com", "hotmail.com", "outlook.com", "yahoo.com", "yahoo.es",
+                              "icloud.com", "live.com", "hotmail.es", "outlook.es", "sanpedroesmicoope.com.gt"];
+    let dominioRevisado = "";   // correo que el usuario ya confirmó como correcto
+
+    // Distancia entre dos textos (cuántas letras cambian)
+    function distancia(a, b) {
+        const d = Array.from({ length: a.length + 1 }, (_, i) => [i]);
+        for (let j = 1; j <= b.length; j++) d[0][j] = j;
+        for (let i = 1; i <= a.length; i++)
+            for (let j = 1; j <= b.length; j++)
+                d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1,
+                                   d[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+        return d[a.length][b.length];
+    }
+
+    function sugerirDominio(dominio) {
+        const correo = document.getElementById("correo").value.trim().toLowerCase();
+        if (!dominio || DOMINIOS_COMUNES.includes(dominio) || correo === dominioRevisado) return null;
+        const cercano = DOMINIOS_COMUNES.find(d => distancia(dominio, d) <= 2);
+        return cercano || null;
+    }
+
+   function validarFormulario() {
+    const campos = [
+        { el: document.getElementById("nombres"), tipo: "texto" },
+        { el: document.getElementById("apellidos"), tipo: "texto" },
+        { el: document.getElementById("dpi"), tipo: "texto" },
+        { el: document.getElementById("departamento"), tipo: "select" },
+        { el: document.getElementById("municipio"), tipo: "select" },
+        { el: document.getElementById("telefono"), tipo: "texto" },
+        { el: document.getElementById("correo"), tipo: "texto" }
+    ];
+
+    let valido = true;
+
+    campos.forEach(campo => {
+        const valor = campo.el.value.trim();
+        if (!valor) {
+            campo.el.classList.add("campo-invalido");
+            valido = false;
+        } else {
+            campo.el.classList.remove("campo-invalido");
+        }
+    });
+
+    // ---- Validación extra: DPI debe tener exactamente 13 dígitos ----
+    const dpiEl = document.getElementById("dpi");
+    if (dpiEl.value.trim().length !== 13) {
+        dpiEl.classList.add("campo-invalido");
+        valido = false;
+    }
+
+    // ---- Teléfono: 8 dígitos ----
+    const telEl = document.getElementById("telefono");
+    if (!/^\d{8}$/.test(telEl.value.trim())) {
+        telEl.classList.add("campo-invalido");
+        valido = false;
+    }
+
+    // ---- Correo con formato válido ----
+    const correoEl = document.getElementById("correo");
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(correoEl.value.trim())) {
+        correoEl.classList.add("campo-invalido");
+        valido = false;
+    }
+
+    // ---- Errores de escritura en dominios comunes (ej. "gmial.com" → "gmail.com") ----
+    if (valido) {
+        const [usuario, dominio] = correoEl.value.trim().toLowerCase().split("@");
+        const sugerido = sugerirDominio(dominio);
+        if (sugerido) {
+            correoEl.classList.add("campo-invalido");
+            Swal.fire({
+                icon: 'question',
+                title: '¿Tu correo está bien escrito?',
+                html: `Escribiste <b>${usuario}@${dominio}</b>.<br>¿Quisiste decir <b>${usuario}@${sugerido}</b>?`,
+                showCancelButton: true,
+                confirmButtonColor: '#004080',
+                confirmButtonText: 'Sí, corregirlo',
+                cancelButtonText: 'No, está bien'
+            }).then(r => {
+                correoEl.classList.remove("campo-invalido");
+                if (r.isConfirmed) correoEl.value = `${usuario}@${sugerido}`;
+                dominioRevisado = correoEl.value.trim().toLowerCase();
+            });
+            return false;
+        }
+    }
+
+    if (!valido) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Campos incompletos',
+            text: 'Por favor completa todos los campos correctamente. El DPI debe tener 13 números, el teléfono 8 números y el correo debe ser válido (ejemplo: nombre@correo.com).',
+            confirmButtonColor: '#004080',
+            confirmButtonText: 'Entendido'
+        });
+    }
+
+    return valido;
+}
+
+    function guardarDatos() {
+        localStorage.setItem("nombres", document.getElementById("nombres").value.trim());
+        localStorage.setItem("apellidos", document.getElementById("apellidos").value.trim());
+        localStorage.setItem("dpi", document.getElementById("dpi").value.trim());
+        localStorage.setItem("departamento", document.getElementById("departamento").value);
+        localStorage.setItem("municipio", document.getElementById("municipio").value);
+        localStorage.setItem("telefono", document.getElementById("telefono").value.trim());
+        localStorage.setItem("correo", document.getElementById("correo").value.trim());
+    }
+
+   //validacion de datos y guardado localmente 
+    function confirmarYContinuar() {
+        if (!validarFormulario()) return;
+
+        guardarDatos();
+
+        const btn = document.getElementById("btnConfirmar");
+        btn.disabled = true;
+        btn.classList.add("cargando");
+        btn.innerHTML = '<span class="spinner"></span> Enviando datos...';
+
+        const payload = {
+            nombres: document.getElementById("nombres").value.trim(),
+            apellidos: document.getElementById("apellidos").value.trim(),
+            dpi: document.getElementById("dpi").value.trim(),
+            departamento: document.getElementById("departamento").value,
+            municipio: document.getElementById("municipio").value,
+            telefono: document.getElementById("telefono").value.trim(),
+            correo: document.getElementById("correo").value.trim()
+        };
+
+        fetch(URL_SCRIPT, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+        })
+        .then(r => r.json())
+        .then(resp => {
+            // El servidor revisa que el dominio del correo exista (ej. detecta "gmial.com")
+            if (resp && resp.campo === "correo") {
+                document.getElementById("correo").classList.add("campo-invalido");
+                btn.disabled = false;
+                btn.classList.remove("cargando");
+                btn.textContent = "✓ Confirmar";
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Correo no válido',
+                    text: 'El correo ingresado no existe. Revisa que esté bien escrito (ejemplo: nombre@gmail.com).',
+                    confirmButtonColor: '#004080',
+                    confirmButtonText: 'Entendido'
+                });
+                return;
+            }
+            window.location.href = "CalculadoraCredito.html";
+        })
+        .catch(() => {
+            // Si falla la conexión, no se bloquea al usuario
+            window.location.href = "CalculadoraCredito.html";
+        });
+    }
+
+
+
+
+    // Al volver con el botón "Atrás" el navegador restaura la página tal como quedó
+    // (botón deshabilitado); aquí se reactiva para poder confirmar de nuevo.
+    window.addEventListener("pageshow", function () {
+        const btn = document.getElementById("btnConfirmar");
+        btn.disabled = false;
+        btn.classList.remove("cargando");
+        btn.textContent = "✓ Confirmar";
+    });
+
+    // Teléfono: solo números, máximo 8
+    document.getElementById("telefono").addEventListener("input", function (e) {
+        e.target.value = e.target.value.replace(/\D/g, "").slice(0, 8);
+    });
+
+    document.getElementById("dpi").addEventListener("input", function (e) {
+    // Elimina cualquier cosa que no sea número, y corta a 13 dígitos máximo
+    let valor = e.target.value.replace(/\D/g, "").slice(0, 13);
+    e.target.value = valor;
+
+    // Marca en rojo mientras no tenga exactamente 13, pero solo si ya escribió algo
+    if (valor.length > 0 && valor.length < 13) {
+        e.target.classList.add("campo-invalido");
+    } else {
+        e.target.classList.remove("campo-invalido");
+    }
+});
+
+// Al salir del campo, si quedó incompleto, refuerza el aviso visual
+document.getElementById("dpi").addEventListener("blur", function (e) {
+    const valor = e.target.value;
+    if (valor.length > 0 && valor.length !== 13) {
+        e.target.classList.add("campo-invalido");
+    }
+});
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
+<script src="../js/script.js"></script>
+<script>
+    /* Scroll reveal: activa animación al entrar al viewport */
+    const revealObs = new IntersectionObserver((entries) => {
+        entries.forEach((e, i) => {
+            if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 100);
+        });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+</script>
+
+
+
+<!--Pie de pagina-->
+<footer id="contacto">
+
+    <div style="background: white; line-height: 0;">
+        <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#033E81" d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z"/>
+        </svg>
+    </div>
+
+    <div style="background: #033E81; padding: 60px 0 30px;">
+        <div class="container" style="box-shadow:none; border:none; background:transparent;">
+            <div style="display:flex;align-items:center;gap:40px;flex-wrap:wrap;margin-bottom:40px;padding-bottom:30px;border-bottom:1px solid rgba(255,255,255,0.1);">
+                <span style="color:rgba(255,255,255,0.5);font-style:italic;font-size:1.15rem;font-weight:600;white-space:nowrap;">Con el respaldo de</span>
+                <div style="display:flex;align-items:center;gap:40px;flex-wrap:wrap;">
+                    <img src="../image/iconos/Micoope-1.png" alt="Micoope" style="height:62px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.85;">
+                    <img src="../image/iconos/Fondo-1.png" alt="Fondo Garantia Micoope" style="height:54px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.85;">
+                    <img src="../image/iconos/Columna-1.png" alt="Seguros Columna" style="height:62px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.85;">
+                </div>
+            </div>
+            <div class="row g-4 mb-5">
+
+                <div class="col-md-4">
+                    <img src="../image/Logo Cooperativa - Blanco.png" height="45" alt="Logo" class="mb-3">
+                    <p style="color:#a8c4e0; line-height:1.8;">
+                        Tu cooperativa de confianza, comprometida con tu bienestar financiero
+                        y el desarrollo de nuestra comunidad.
+                    </p>
+                    <div class="d-flex gap-3 mt-3">
+                        <a href="https://www.facebook.com/sanpedroesmicoope/?locale=es_LA" target="_blank" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="bi bi-facebook"></i></a>
+                        <a href="#" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="bi bi-instagram"></i></a>
+                        <a href="https://api.whatsapp.com/send/?phone=50230776771&text&type=phone_number&app_absent=0" target="_blank" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="bi bi-whatsapp"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-md-2 offset-md-1">
+                    <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Enlaces</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="../index.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Inicio</a></li>
+                        <li class="mb-2"><a href="./agencias.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Agencias</a></li>
+                        <li class="mb-2"><a href="./about.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Nosotros</a></li>
+                        <li class="mb-2"><a href="./contactanos.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Contáctanos</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-2">
+                    <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Servicios</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="./ahorro.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Ahorro</a></li>
+                        <li class="mb-2"><a href="./prestamos.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Préstamos</a></li>
+                        <li class="mb-2"><a href="./agentes.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Agentes</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-3">
+                    <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Contacto</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-3 d-flex align-items-center gap-3">
+                            <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i class="bi bi-telephone" style="color:#4fc3f7;"></i></div>
+                            <span style="color:#a8c4e0;">PBX 7963-2828</span>
+                        </li>
+                        <li class="mb-3 d-flex align-items-center gap-3">
+                            <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i class="bi bi-envelope" style="color:#4fc3f7;"></i></div>
+                            <span style="color:#a8c4e0;">info@sanpedroesmicoope.com.gt</span>
+                        </li>
+                        <li class="d-flex align-items-center gap-3">
+                            <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i class="bi bi-geo-alt" style="color:#4fc3f7;"></i></div>
+                            <span style="color:#a8c4e0;">San Pedro Soloma, Huehuetenango</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <hr style="border-color:rgba(255,255,255,0.1); margin-bottom:25px;">
+            <p style="color:#a8c4e0; margin:0; font-size:14px; text-align:center;">
+                &copy; 2026 Cooperativa San Pedro. Todos los derechos reservados.
+            </p>
+
+        </div>
+    </div>
+</footer>
+<!---------------------------------------->
+
+
+</body>
+</html>

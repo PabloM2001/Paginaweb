@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="icon" type="image/png" href="../image/Imagotipo Vertical Original.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cotizador de Plazo Fijo - Cooperativa San Pedro</title>
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/estilos.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+
+<style>
+
+  :root {
+    --azul: #004080;
+    --azul-oscuro: #033E81;
+    --azul-suave: #e9f2ff;
+    --fondo: #f4f6f9;
+    --borde: #dde3ec;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    font-family: 'Outfit', Arial, sans-serif;
+    background: var(--fondo);
+    padding: 30px 20px 60px;
+    color: #1c2b3a;
+  }
+
+  .page-wrap {
+    max-width: 1180px;
+    margin: auto;
+  }
+
+  h2 {
+    text-align: center;
+    background-color: var(--azul);
+    color: #FFFFFF;
+    padding: 34px 25px;
+    font-size: 30px;
+    font-weight: 700;
+    margin: 0 0 28px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+    box-shadow: 0 10px 25px rgba(0, 64, 128, 0.18);
+  }
+
+  .calc-card {
+    margin: 0 0 28px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 64, 128, 0.18);
+  }
+  .card-title {
+    text-align: left;
+    font-size: 25px;
+    color: #164cb7;
+    padding: 34px 25px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+
+  /* ---------- Layout de dos columnas  ---------- */
+  .calc-layout {
+    display: grid;
+    grid-template-columns: minmax(340px, 460px) 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+
+  @media (max-width: 900px) {
+    .calc-layout { grid-template-columns: 1fr; }
+  }
+
+  .panel {
+    background: #fff;
+    border-radius: 16px;
+    padding: 24px 26px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    border: 1px solid var(--borde);
+  }
+
+  .panel-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--azul);
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    margin: 22px 0 10px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--azul-suave);
+  }
+  .panel-title:first-of-type { margin-top: 0; }
+
+  label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    font-size: 13px;
+    color: #33475b;
+  }
+
+  /* ---------- Campo de monto ---------- */
+  .amount-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: #fbfcfe;
+    border: 1px solid #cdd6e0;
+    border-radius: 10px;
+    padding: 4px 16px;
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .amount-wrap:focus-within {
+    border-color: var(--azul);
+    box-shadow: 0 0 0 3px rgba(0, 64, 128, 0.12);
+    background: #fff;
+  }
+  .amount-wrap span {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--azul);
+    margin-right: 6px;
+  }
+  #amount {
+    background: none;
+    border: none;
+    outline: none;
+    color: #1c2b3a;
+    font-size: 22px;
+    font-weight: 700;
+    width: 100%;
+    padding: 10px 0;
+    font-family: inherit;
+  }
+  #amount::placeholder { color: #b7c2cf; }
+
+  .field { margin-bottom: 6px; }
+
+  /* Nota del tramo aplicable, debajo del monto */
+  .tier-note {
+    margin-top: 10px;
+    font-size: 12px;
+    color: #6b7c8f;
+  }
+  .tier-note b { color: var(--azul); font-weight: 700; }
+
+  /* ---------- Tarjetas de plazo ---------- */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin: 4px 0 4px;
+  }
+
+  .card {
+    background: #f7f9fc;
+    border: 2px solid var(--borde);
+    border-radius: 10px;
+    padding: 12px 6px 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.2s;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.4;
+    color: #33475b;
+  }
+  .card .meses {
+    display: block;
+    font-size: 18px;
+    font-weight: 700;
+  }
+  .card .lbl {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #8391a1;
+  }
+
+  .card:hover { border-color: var(--azul); background: var(--azul-suave); }
+
+  .card.seleccionada {
+    border-color: var(--azul);
+    background: var(--azul);
+    color: #fff;
+    box-shadow: 0 6px 14px rgba(0, 64, 128, 0.25);
+  }
+  .card.seleccionada .lbl { color: rgba(255,255,255,0.75); }
+
+  /* ---------- Botones Imprimir / Descargar PDF ---------- */
+  .acciones {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+  }
+
+  button.btn-accion {
+    flex: 1;
+    padding: 12px 16px;
+    background: var(--azul);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background .2s, transform .2s;
+    font-family: inherit;
+  }
+  button.btn-accion:hover { background: var(--azul-oscuro); transform: translateY(-1px); }
+
+  /* ---------- Lista de requisitos ---------- */
+  .req-list {
+    margin: 0;
+    padding-left: 18px;
+    font-size: 13.5px;
+    color: #33475b;
+    line-height: 1.9;
+  }
+  /* ---------- Bloque "Recibís al vencimiento" ---------- */
+  .headline {
+    background: var(--azul);
+    border-radius: 14px;
+    padding: 22px 22px 20px;
+    box-shadow: 0 10px 25px rgba(0, 64, 128, 0.18);
+  }
+  .headline .k {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.65);
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .headline .v {
+    font-size: 34px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.1;
+  }
+  .headline .sub {
+    font-size: 12px;
+    color: rgba(255,255,255,0.6);
+    margin-top: 6px;
+  }
+
+  .rate-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: #a9e6c4;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 999px;
+    margin-top: 12px;
+  }
+
+  /* ---------- Tabla de tasas ---------- */
+  .tabla-wrap {
+    margin-top: 18px;
+    border-radius: 10px;
+    border: 1px solid var(--borde);
+    overflow: hidden;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  table th {
+    background: var(--azul);
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+  }
+
+  table td {
+    padding: 8px;
+    border-bottom: 1px solid var(--borde);
+    text-align: center;
+  }
+
+  table tr:nth-child(even) { background: #f9fafc; }
+  table tr:hover { background: var(--azul-suave); }
+
+  table tr.tramo-actual td {
+    background: var(--azul-suave);
+    font-weight: 700;
+    color: var(--azul-oscuro);
+  }
+
+  .footnote {
+    margin-top: 18px;
+    font-size: 11.5px;
+    line-height: 1.5;
+    color: #6b7c8f;
+  }
+
+
+.tier-warning {
+  background: #fff4e5;
+  border: 1px solid #f5a623;
+  color: #8a5a00;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 12.5px;
+  line-height: 1.5;
+  margin-top: 4px;
+}
+.tier-warning a { color: #033E81; font-weight: 700; }
+</style>
+</head>
+<body>
+<!--ENCABEZADO-->
+<header class="jagel" id="mainHeader">
+        <div class="header-inner">
+
+            <a href="../index.html" class="header-logo">
+                <img src="../image/Logo Cooperativa - Blanco.png" alt="Cooperativa San Pedro">
+            </a>
+
+            <button class="nav-toggle" id="navToggle" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+
+            <nav class="main-nav" id="mainNav">
+                <ul class="nav-list">
+
+                    <li class="nav-item"><a href="../index.html" class="nav-link">Inicio</a></li>
+
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link" onclick="return false">
+                            Puntos de Servicio <i class="bi bi-chevron-down nav-arrow"></i>
+                        </a>
+                        <div class="nav-dropdown">
+                            <a href="./agencias.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-building"></i></div>
+                                <div><span class="drop-title">Agencias</span><span class="drop-sub">8 puntos en Huehuetenango</span></div>
+                            </a>
+                            <a href="./agentes.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-person-badge"></i></div>
+                                <div><span class="drop-title">Agentes Micoope</span><span class="drop-sub">Cerca de tu comunidad</span></div>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link" onclick="return false">
+                            Productos y Servicios <i class="bi bi-chevron-down nav-arrow"></i>
+                        </a>
+                        <div class="nav-dropdown">
+                            <a href="./ahorro.html" class="drop-link">
+                                <div class="drop-icon green"><i class="bi bi-piggy-bank"></i></div>
+                                <div><span class="drop-title">Ahorro</span><span class="drop-sub">Cuentas y depositos</span></div>
+                            </a>
+                            <a href="./prestamos.html" class="drop-link">
+                                <div class="drop-icon" style="background:rgba(79,195,247,0.12);color:#033E81;"><i class="bi bi-cash-coin"></i></div>
+                                <div><span class="drop-title">Prestamos</span><span class="drop-sub">Creditos accesibles</span></div>
+                            </a>
+                            <a href="./tarjeta-credito.html" class="drop-link">
+                                <div class="drop-icon" style="background:rgba(3,62,129,0.1);color:#033E81;"><i class="bi bi-credit-card-fill"></i></div>
+                                <div><span class="drop-title">Tarjetas Micoope</span><span class="drop-sub">Crédito y Débito VISA</span></div>
+                            </a>
+                        </div>
+                    </li>
+ 
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link" onclick="return false">
+                            Nosotros <i class="bi bi-chevron-down nav-arrow"></i>
+                        </a>
+                         <div class="nav-dropdown">
+                            <a href="./about.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-people-fill"></i></div>
+                                <div><span class="drop-title">¿Quiénes somos?</span><span class="drop-sub">Nuestra cooperativa</span></div>
+                            </a>
+                            <a href="./mision-vision.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-eye-fill"></i></div>
+                                <div><span class="drop-title">Mision y Vision</span><span class="drop-sub">Nuestros valores</span></div>
+                            </a>
+                            <a href="./HistoriaCoope.html" class="drop-link">
+                                <div class="drop-icon"><i class="bi bi-clock-history"></i></div>
+                                <div><span class="drop-title">Historia</span><span class="drop-sub">Nuestros inicios</span></div>
+                            </a>
+                            <a href="./memoria-labores.html" class="drop-link">
+                                <div class="drop-icon" style="background:rgba(3,62,129,0.1);color:#033E81;"><i class="bi bi-file-earmark-text"></i></div>
+                                <div><span class="drop-title">Memoria de Labores</span><span class="drop-sub">Informe anual</span></div>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="./empleo.html" class="nav-link">Mi Empleo</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="./contactanos.html" class="nav-link nav-cta">
+                            <i class="bi bi-telephone-fill"></i> Contactanos
+                        </a>
+                    </li>
+                    <li class="nav-item" style="position:relative;">
+                        <a href="https://micoopeenlinea.com.gt/Retail/servletcontroller" target="_blank"
+                           style="display:inline-flex;align-items:center;justify-content:center;margin-left:6px;width:42px;height:42px;border-radius:50%;text-decoration:none;background:white;border:2px solid rgba(255,255,255,0.3);transition:all 0.3s;box-shadow:0 2px 8px rgba(0,0,0,0.15);overflow:hidden;"
+                           onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 18px rgba(0,0,0,0.25)';this.nextElementSibling.style.opacity='1';this.nextElementSibling.style.transform='translateX(-50%) translateY(0)'"
+                           onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,0.15)';this.nextElementSibling.style.opacity='0';this.nextElementSibling.style.transform='translateX(-50%) translateY(-6px)'">
+                            <img src="../image/logo-micoope-enlinea.png" alt="Micoope En Linea" height="30" style="display:block;">
+                        </a>
+                        <span style="position:absolute;bottom:-34px;left:50%;transform:translateX(-50%) translateY(-6px);background:#033E81;color:white;font-size:0.75rem;font-weight:600;padding:4px 10px;border-radius:6px;white-space:nowrap;opacity:0;transition:all 0.25s;pointer-events:none;z-index:999;">
+                            Micoope En Linea
+                        </span>
+                    </li>
+
+                    <li class="nav-item" style="position:relative;">
+                        <a href="https://soyfri.com/" target="_blank"
+                           style="display:inline-flex;align-items:center;justify-content:center;margin-left:6px;width:42px;height:42px;border-radius:50%;text-decoration:none;background:white;border:2px solid rgba(255,255,255,0.3);transition:all 0.3s;box-shadow:0 2px 8px rgba(0,0,0,0.15);overflow:hidden;"
+                           onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 18px rgba(0,0,0,0.25)';this.nextElementSibling.style.opacity='1';this.nextElementSibling.style.transform='translateX(-50%) translateY(0)'"
+                           onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,0.15)';this.nextElementSibling.style.opacity='0';this.nextElementSibling.style.transform='translateX(-50%) translateY(-6px)'">
+                            <img src="../image/logo-fri.png" alt="FRI" height="30" style="display:block;">
+                        </a>
+                        <span style="position:absolute;bottom:-34px;left:50%;transform:translateX(-50%) translateY(-6px);background:#033E81;color:white;font-size:0.75rem;font-weight:600;padding:4px 10px;border-radius:6px;white-space:nowrap;opacity:0;transition:all 0.25s;pointer-events:none;z-index:999;">
+                            Soy FRI
+                        </span>
+                    </li>
+
+                </ul>
+            </nav>
+
+            <div class="header-search">
+                <input type="text" class="search-input" id="searchInput" placeholder="Buscar...">
+                <button class="search-btn" onclick="toggleSearch()">
+                    <i class="bi bi-search" id="searchIcon"></i>
+                </button>
+            </div>
+
+        </div>
+    </header><br>
+    <!----------------------------------->
+
+
+<div class="page-wrap" id="contenido">
+  <h2>Cotizador de Plazo Fijo</h2>
+
+  <img id="logoParaPDF" src="../image/Logo Cooperativa - Blanco.png" style="display:none;" alt="Logo del local">
+
+  <div class="calc-layout">
+
+    <!-- =====================================================
+         COLUMNA IZQUIERDA: monto, tramo, plazo, botones, requisitos
+         ===================================================== -->
+    <div class="panel panel-izquierda">
+
+      <!-- Monto a depositar -->
+      <div class="field">
+        <label for="amount">Monto a depositar</label>
+        <div class="amount-wrap">
+          <span>Q</span>
+          <input id="amount" type="text" inputmode="numeric" placeholder="10,000" value="10,000">
+        </div>
+        <div class="tier-note" id="tierNote"></div>
+      </div>
+
+      <!-- Bloque: Plazo  -->
+      <div class="panel-title">Plazo</div>
+      <div class="cards" id="termGrid">
+        <div class="card" data-months="3"><span class="meses">3</span><span class="lbl">meses</span></div>
+        <div class="card seleccionada" data-months="6"><span class="meses">6</span><span class="lbl">meses</span></div>
+        <div class="card" data-months="12"><span class="meses">12</span><span class="lbl">meses</span></div>
+        <div class="card" data-months="24"><span class="meses">24</span><span class="lbl">meses</span></div>
+      </div>
+<br>
+      <!-- Bloque: Botones Imprimir / Descargar PDF -->
+      <div class="acciones">
+        
+        <button class="btn-accion" id="descargarPDF" type="button">
+          <i class="bi bi-download"></i> Descargar PDF
+        </button>
+      </div>
+
+<!--Requisitos-->
+      <div class="calc-card" style="margin-top:28px;">
+        <div class="card-title" style="padding:24px 0 10px;">Requisitos</div>
+        <ul class="req-list">
+          <li>Ser asociado de la cooperativa</li>
+          <li>DPI vigente</li>
+          <li>Monto mínimo de apertura: Q 1,000</li>
+          <li>Recibo de luz</li><br>
+        
+          
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- =====================================================
+         COLUMNA DERECHA: recibís al vencimiento + tabla de tasas
+         ===================================================== -->
+    <div class="panel panel-derecha">
+
+      <!-- Capital e intereses al vencimiento -->
+      <div class="panel-title" style="margin-top:0;">Capital e intereses al vencimiento</div>
+      <div class="headline">
+        <div class="k">Total al finalizar el plazo</div>
+        <div class="v" id="totalOut">Q 0.00</div>
+        <span class="rate-pill" id="pill">● Tasa fija durante todo el plazo</span>
+      </div>
+
+      <!-- Bloque: Tabla de tasas -->
+        <table id="ratesTable">
+          <thead>
+          </thead>
+          <tbody id="ratesBody"></tbody>
+        </table>
+     
+
+      <div class="footnote">
+        Cálculo estimado con interés simple sobre la tasa nominal anual (TNA) prorrateada por el plazo. La tasa final puede variar según condiciones vigentes al momento de constituir el depósito.
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+
+<script>
+  // Ajusta estos valores según las tasas reales de la cooperativa.
+  const TIERS = [
+    { min: 1000,   max: 49999,     label: "Q 1,000 – Q 49,999",    rates: {3:5.00, 6:5.25, 12:5.75, 24:6.00} },
+    { min: 50000,  max: 99999,     label: "Q 50,000 – Q 99,999",   rates: {3:5.25, 6:5.50, 12:6.00, 24:6.25} },
+    { min: 100000, max: 149999,    label: "Q 100,000 – Q 149,999", rates: {3:5.50, 6:5.75, 12:6.25, 24:6.50} },
+    { min: 150000, max: 199999,    label: "Q 150,000 – Q199,999", rates: {3:5.75, 6:6.00, 12:6.50, 24:6.75} },
+    { min: 200000, max: 249999,    label: "Q 200,000 – Q249,999", rates: {3:6.00, 6:6.25, 12:6.75, 24:7.00} },
+    { min: 250000, max: 299999,    label: "Q 250,000 – Q299,999", rates: {3:6.25, 6:6.50, 12:7.00, 24:7.25} },
+    { min: 300000, max: 349999,    label: "Q 300,000 – Q349,999", rates: {3:6.50, 6:6.75, 12:7.25, 24:7.50} },
+    { min: 350000, max: 399999,    label: "Q 350,000 – Q399,999", rates: {3:6.75, 6:7.00, 12:7.50, 24:7.75} },
+    { min: 400000, max: 449999,    label: "Q 400,000 – Q449,999", rates: {3:7.00, 6:7.25, 12:7.75, 24:8.00} },
+    { min: 450000, max: 499999,    label: "Q 450,000 – Q499,999", rates: {3:7.25, 6:7.50, 12:8.00, 24:8.25} },
+    { min: 500000, max: 549999,    label: "Q 500,000 – Q549,999", rates: {3:7.50, 6:7.75, 12:8.25, 24:8.50} },
+    { min: 550000, max: 599999,    label: "Q 550,000 – Q599,999", rates: {3:7.75, 6:8.00, 12:8.50, 24:8.75} },
+    { min: 600000, max: 699999,    label: "Q 600,000 – Q699,999 ", rates: {3:8.00, 6:8.25, 12:8.75, 24:9.00} },
+    
+
+  ];   
+
+  const amountInput = document.getElementById('amount');
+  const termGrid    = document.getElementById('termGrid');
+  const tierNote    = document.getElementById('tierNote');
+  const totalOut    = document.getElementById('totalOut');
+  const periodOut   = document.getElementById('periodOut');
+  const ratesBody   = document.getElementById('ratesBody');
+
+  let selectedMonths = 6; 
+
+  // Convierte el texto del input (con comas) a número
+  function parseAmount(raw) {
+    const n = parseFloat(String(raw).replace(/[^0-9.]/g, ''));
+    return isNaN(n) ? 0 : n;
+  }
+
+  // Formatea un número como moneda en quetzales
+  function fmtMoney(n) {
+    return 'Q ' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+
+  // Encuentra el tramo de tasa que corresponde al monto ingresado
+  function findTier(amount) {
+    return TIERS.find(t => amount >= t.min && amount <= t.max) || null;
+  }
+
+  // Dibuja la tabla de tasas, resaltando el tramo aplicable al monto actual
+  function buildRatesTable(activeTier) {
+    ratesBody.innerHTML = '';
+    TIERS.forEach(t => {
+      
+    });
+  }
+
+  // recalcula todo cada vez que cambia el monto o el plazo
+  function render() {
+    const amount = parseAmount(amountInput.value);
+    const tier = findTier(amount);
+
+    buildRatesTable(tier);
+
+    if (!tier) {
+      // Monto fuera de rango o vacío
+      tierNote.innerHTML = amount > 0 && amount < 1000
+        ? 'El monto mínimo para constituir un plazo fijo es <b>Q 1,000</b>.'
+        : 'Ingresá un monto para ver tu tasa.';
+      totalOut.textContent = 'Q 0.00';
+      periodOut.textContent = '';
+      return;
+    }
+
+    // Nota del tramo aplicable (bloque solicitado)
+    tierNote.innerHTML = `Tramo aplicable: <b>${tier.label}</b>`;
+
+    const rate = tier.rates[selectedMonths];
+    const interes = amount * (rate / 100) * (selectedMonths / 12);
+    const total = amount + interes;
+
+    totalOut.textContent = fmtMoney(total);
+    periodOut.textContent = `Sobre ${fmtMoney(amount)} a ${selectedMonths} meses (${rate.toFixed(2)}% TNA)`;
+  }
+
+  // formatea con comas y recalcula
+  amountInput.addEventListener('input', (e) => {
+    const raw = parseAmount(e.target.value);
+    e.target.value = raw ? raw.toLocaleString('en-US') : '';
+    render();
+  });
+
+  // el usuario selecciona un plazo 
+  termGrid.addEventListener('click', (e) => {
+    const btn = e.target.closest('.card');
+    if (!btn) return;
+    document.querySelectorAll('#termGrid .card').forEach(b => b.classList.remove('seleccionada'));
+    btn.classList.add('seleccionada');
+    selectedMonths = parseInt(btn.dataset.months, 10);
+    render();
+  });
+
+  // Primer cálculo al cargar la página
+  render();
+</script>
+
+
+
+<!-- ============================================================
+     GENERACIÓN DEL PDF: encabezado con logo, resumen, requisitos,
+     tabla de tasas y pie de página
+     ============================================================ -->
+<script>
+    
+
+document.getElementById("descargarPDF").addEventListener("click", async () => {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  const azulPrincipal = [0, 75, 135];
+  const azulClaro     = [233, 242, 255];
+  const blanco        = [255, 255, 255];
+  const grisTexto     = [50, 50, 50];
+  const grisClaro     = [245, 249, 255];
+
+  const pageWidth = doc.internal.pageSize.getWidth();
+  const marginX = 5;
+  const anchoUtil = pageWidth - marginX * 2;
+
+
+    
+
+  // ------------------------------------------------------------
+  // 1. Encabezado: banner azul + logo del local + título
+  // ------------------------------------------------------------
+  doc.setFillColor(...azulPrincipal);
+  doc.rect(0, 0, pageWidth, 28, "F");
+
+   const logoImg = document.getElementById("logoParaPDF");
+  if (logoImg && logoImg.complete && logoImg.naturalWidth > 0) {
+    doc.addImage(logoImg, "PNG", marginX, 6, 87,14);
+  }
+
+  doc.setTextColor(...blanco);
+  doc.setFontSize(16);
+  doc.setFont(undefined, "bold");
+  doc.text("Cotización de Plazo Fijo", pageWidth / 2, 13, { align: "left" });
+
+  doc.setFontSize(9);
+  doc.setFont(undefined, "normal");
+  doc.text("Cooperativa San Pedro", pageWidth / 2, 20, { align: "left" });
+
+  let y = 36;
+
+  // ------------------------------------------------------------
+  // 2. Resumen: monto, tramo, plazo y total a recibir
+  // ------------------------------------------------------------
+  let pares = [
+    { label: "Monto depositado", valor: "Q " + document.getElementById("amount").value },
+    { label: "Tramo aplicable", valor: tierNote.innerText.replace("Tramo aplicable: ", "") || "—" },
+    { label: "Plazo", valor: selectedMonths + " meses" },
+    { label: "Recibís al vencimiento", valor: totalOut.textContent }
+  ];
+
+  doc.setFontSize(10);
+  doc.setFont(undefined, "bold");
+  doc.setTextColor(...azulPrincipal);
+  doc.text("RESUMEN DE LA COTIZACIÓN", marginX, y);
+  y += 3;
+
+  // Se arman en pares (2 columnas: etiqueta-valor, etiqueta-valor) para que sea compacto
+  let filasResumen = [];
+  for (let i = 0; i < pares.length; i += 2) {
+    let izq = pares[i];
+    let der = pares[i + 1] || { label: "", valor: "" };
+    filasResumen.push([izq.label, izq.valor, der.label, der.valor]);
+  }
+
+  doc.autoTable({
+    body: filasResumen,
+    startY: y,
+    margin: { left: marginX, right: marginX },
+    theme: "plain",
+    styles: {
+      fontSize: 8.5,
+      cellPadding: { top: 1.8, bottom: 1.8, left: 2, right: 2 },
+      textColor: grisTexto,
+      lineColor: [225, 232, 240],
+      lineWidth: 0.1
+    },
+    columnStyles: {
+      0: { fontStyle: "bold", cellWidth: anchoUtil * 0.24, textColor: azulPrincipal },
+      1: { cellWidth: anchoUtil * 0.26 },
+      2: { fontStyle: "bold", cellWidth: anchoUtil * 0.24, textColor: azulPrincipal },
+      3: { cellWidth: anchoUtil * 0.26 }
+    },
+    alternateRowStyles: { fillColor: grisClaro }
+  });
+
+  y = doc.lastAutoTable.finalY + 8;
+
+  if (y > 255) { doc.addPage(); y = 20; }
+
+  // ------------------------------------------------------------
+  // 3. Requisitos
+  // ------------------------------------------------------------
+  let requisitos = Array.from(document.querySelectorAll(".req-list li")).map(li => li.innerText.trim());
+
+  if (requisitos.length) {
+    doc.setFontSize(10);
+    doc.setFont(undefined, "bold");
+    doc.setTextColor(...azulPrincipal);
+    doc.text("REQUISITOS", marginX, y);
+    y += 3;
+
+    doc.autoTable({
+      body: requisitos.map(r => ["•", r]),
+      startY: y,
+      margin: { left: marginX, right: marginX },
+      theme: "plain",
+      styles: { fontSize: 8, cellPadding: { top: 1.3, bottom: 1.3, left: 2, right: 2 }, textColor: grisTexto },
+      columnStyles: { 0: { cellWidth: 5, textColor: azulPrincipal, fontStyle: "bold" }, 1: { cellWidth: anchoUtil - 5 } }
+    });
+
+    y = doc.lastAutoTable.finalY + 8;
+  }
+
+  if (y > 255) { doc.addPage(); y = 20; }
+
+  
+  
+
+  // ------------------------------------------------------------
+  // 4. Tabla de tasas (se lee directamente de la tabla del HTML)
+  // ------------------------------------------------------------
+  doc.setFontSize(10);
+  doc.setFont(undefined, "bold");
+  doc.setTextColor(...azulPrincipal);
+  y += 4;
+
+  let filasTasas = [];
+  document.querySelectorAll("#ratesTable tbody tr").forEach(tr => {
+    let cols = tr.querySelectorAll("td");
+    filasTasas.push([cols[0].innerText, cols[1].innerText, cols[2].innerText, cols[3].innerText, cols[4].innerText]);
+  });
+
+  doc.autoTable({
+    body: filasTasas,
+    startY: y,
+    margin: { left: marginX, right: marginX },
+    styles: { fontSize: 8.5, halign: "center", cellPadding: 3, lineColor: [220,220,220], lineWidth: 0.1 },
+    headStyles: { fillColor: azulPrincipal, textColor: blanco, fontStyle: "bold" },
+    alternateRowStyles: { fillColor: grisClaro },
+    columnStyles: { 0: { halign: "left" } },
+    didParseCell: function (data) {
+      // Resalta la misma fila que aparece marcada como "tramo-actual" en el HTML
+      let filaHTML = document.querySelectorAll("#ratesTable tbody tr")[data.row.index];
+      if (filaHTML && filaHTML.classList.contains("tramo-actual")) {
+        data.cell.styles.fillColor = azulClaro;
+        data.cell.styles.fontStyle = "bold";
+        data.cell.styles.textColor = azulPrincipal;
+      }
+    },
+    didDrawPage: function () { agregarPiePagina(doc); }
+  });
+
+  // ------------------------------------------------------------
+  // 5. Pie de página en todas las páginas generadas
+  // ------------------------------------------------------------
+  function agregarPiePagina(doc) {
+    const pageHeight = doc.internal.pageSize.getHeight();
+    const pageW = doc.internal.pageSize.getWidth();
+
+    doc.setDrawColor(...azulPrincipal);
+    doc.setLineWidth(0.4);
+    doc.line(marginX, pageHeight - 15, pageW - marginX, pageHeight - 15);
+
+    doc.setFontSize(7.5);
+    doc.setTextColor(120, 120, 120);
+    doc.setFont(undefined, "normal");
+    doc.text("Cooperativa San Pedro · San Pedro Soloma, Huehuetenango", marginX, pageHeight - 9);
+    doc.text(`Generado el ${new Date().toLocaleDateString("es-GT")}`, pageW - marginX, pageHeight - 9, { align: "right" });
+
+    let paginaActual = doc.internal.getCurrentPageInfo().pageNumber;
+    doc.text(`Página ${paginaActual}`, pageW / 2, pageHeight - 9, { align: "center" });
+  }
+
+  doc.save("Cotizacion_Plazo_Fijo.pdf");
+  
+});
+
+function render() {
+  const amount = parseAmount(amountInput.value);
+
+  // NUEVO: monto igual o mayor al límite de la tabla de tasas
+  if (amount >= 700000) {
+    buildRatesTable(null);
+    tierNote.innerHTML = `
+      <div class="tier-warning">
+        ⚠️ Para montos de <b>Q 700,000</b> en adelante necesitamos armarte una cotización
+        personalizada. Escribinos por
+        <a href="https://api.whatsapp.com/send/?phone=50230776771&text&type=phone_number&app_absent=0" target="_blank">WhatsApp</a>
+        o llamá al <b>PBX 7963-2828</b>.
+      </div>`;
+    totalOut.textContent = '—';
+    return;
+  }
+
+  const tier = findTier(amount);
+  buildRatesTable(tier);
+
+  if (!tier) {
+    tierNote.innerHTML = amount > 0 && amount < 1000
+      ? 'El monto mínimo para constituir un plazo fijo es <b>Q 1,000</b>.'
+      : 'Ingresá un monto para ver tu tasa.';
+    totalOut.textContent = 'Q 0.00';
+    return;
+  }
+
+  tierNote.innerHTML = `Tramo aplicable: <b>${tier.label}</b>`;
+  const rate = tier.rates[selectedMonths];
+  const interes = amount * (rate / 100) * (selectedMonths / 12);
+  const total = amount + interes;
+  totalOut.textContent = fmtMoney(total);
+}
+
+</script>
+
+
+<!-- ============================================================
+     PIE DE PÁGINA DEL SITIO (idéntico al de las demás páginas)
+     ============================================================ -->
+ <footer id="contacto">
+
+        <div style="background: white; line-height: 0;">
+            <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#033E81" d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z"/>
+            </svg>
+        </div>
+
+        <div style="background: #033E81; padding: 60px 0 30px;">
+            <div class="container">
+                <div style="display:flex;align-items:center;gap:40px;flex-wrap:wrap;margin-bottom:40px;padding-bottom:30px;border-bottom:1px solid rgba(255,255,255,0.1);">
+                    <span style="color:rgba(255,255,255,0.5);font-style:italic;font-size:1.15rem;font-weight:600;white-space:nowrap;">Con el respaldo de</span>
+                    <div style="display:flex;align-items:center;gap:40px;flex-wrap:wrap;">
+                        <img src="../image/iconos/Micoope-1.png" alt="Micoope" style="height:62px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.85;">
+                        <img src="../image/iconos/Fondo-1.png" alt="Fondo Garantia Micoope" style="height:54px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.85;">
+                        <img src="../image/iconos/Columna-1.png" alt="Seguros Columna" style="height:62px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.85;">
+                    </div>
+                </div>
+                <div class="row g-4 mb-5">
+
+                    <div class="col-md-4">
+                        <img src="../image/Logo Cooperativa - Blanco.png" height="45" alt="Logo" class="mb-3">
+                        <p style="color:#a8c4e0; line-height:1.8;">
+                            Tu cooperativa de confianza, comprometida con tu bienestar financiero
+                            y el desarrollo de nuestra comunidad.
+                        </p>
+                        <div class="d-flex gap-3 mt-3">
+                            <a href="https://www.facebook.com/sanpedroesmicoope/?locale=es_LA" target="_blank" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="bi bi-facebook"></i></a>
+                            <a href="#" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="bi bi-instagram"></i></a>
+                            <a href="https://api.whatsapp.com/send/?phone=50230776771&text&type=phone_number&app_absent=0" target="_blank" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="bi bi-whatsapp"></i></a>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-2 offset-md-1">
+                        <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Enlaces</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><a href="../index.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Inicio</a></li>
+                            <li class="mb-2"><a href="./agencias.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Agencias</a></li>
+                            <li class="mb-2"><a href="./about.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Nosotros</a></li>
+                            <li class="mb-2"><a href="./contactanos.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Contáctanos</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-md-2">
+                        <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Servicios</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><a href="./ahorro.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Ahorro</a></li>
+                            <li class="mb-2"><a href="./prestamos.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Préstamos</a></li>
+                            <li class="mb-2"><a href="./agentes.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Agentes</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-md-3">
+                        <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Contacto</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-3 d-flex align-items-center gap-3">
+                                <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i class="bi bi-telephone" style="color:#4fc3f7;"></i></div>
+                                <span style="color:#a8c4e0;">PBX 7963-2828</span>
+                            </li>
+                            <li class="mb-3 d-flex align-items-center gap-3">
+                                <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i class="bi bi-envelope" style="color:#4fc3f7;"></i></div>
+                                <span style="color:#a8c4e0;">info@sanpedroesmicoope.com.gt</span>
+                            </li>
+                            <li class="d-flex align-items-center gap-3">
+                                <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i class="bi bi-geo-alt" style="color:#4fc3f7;"></i></div>
+                                <span style="color:#a8c4e0;">San Pedro Soloma, Huehuetenango</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <hr style="border-color:rgba(255,255,255,0.1); margin-bottom:25px;">
+                <p style="color:#a8c4e0; margin:0; font-size:14px; text-align:center;">
+                    &copy; 2026 Cooperativa San Pedro. Todos los derechos reservados.
+                </p>
+
+            </div>
+        </div>
+    </footer>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
+    <script src="../js/script.js"></script>
+    <script>
+        /* Scroll reveal: activa animación al entrar al viewport */
+        const revealObs = new IntersectionObserver((entries) => {
+            entries.forEach((e, i) => {
+                if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 100);
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+    </script>
+
+</body>
+</html>
