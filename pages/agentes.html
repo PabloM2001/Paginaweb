@@ -192,13 +192,17 @@
         .stepper-wrap {
             display: flex;
             align-items: flex-start;
-            justify-content: center;
+            justify-content: flex-start;
             gap: 0;
             overflow-x: auto;
-            padding-bottom: 8px;
+            padding: 12px 4px 8px;
             scrollbar-width: none;
+            scroll-behavior: smooth;
         }
         .stepper-wrap::-webkit-scrollbar { display: none; }
+        /* Centrado que no corta los primeros pasos cuando no caben en pantalla */
+        .stepper-wrap > .st-paso:first-child { margin-left: auto; }
+        .stepper-wrap > .st-paso:last-child { margin-right: auto; }
 
         .st-paso {
             display: flex;
@@ -242,7 +246,7 @@
             transition: all 0.3s ease;
         }
         .st-paso:hover .st-burbuja { border-color: #9ab4de; color: #9ab4de; }
-        .st-paso.visitado .st-burbuja { background: rgba(3,62,129,0.1); border-color: #033E81; color: #033E81; }
+        .st-paso.visitado .st-burbuja { background: #e6ecf3; border-color: #033E81; color: #033E81; }
         .st-paso.activo .st-burbuja {
             background: #033E81;
             border-color: #033E81;
@@ -360,6 +364,18 @@
         .proceso-btn-next:hover { background: #0a5eb5; }
         .proceso-btn-next.final { background: #4EAE33; }
         .proceso-btn-next.final:hover { background: #3c9228; }
+        .proceso-panel-body { min-width: 0; }
+
+        @media (max-width: 768px) {
+            .proceso-panel { padding: 28px 20px; margin-top: 24px; border-radius: 20px; }
+            .proceso-panel-inner { flex-direction: column; align-items: flex-start; gap: 18px; }
+            .proceso-panel-icono { width: 68px; height: 68px; min-width: 68px; font-size: 2rem; border-radius: 16px; }
+            .proceso-panel-body { width: 100%; }
+            .proceso-panel-titulo { font-size: 1.25rem; }
+            .proceso-panel-desc { font-size: 0.92rem; line-height: 1.7; }
+            .proceso-nav-row { gap: 10px; margin-top: 22px; }
+            .proceso-btn { padding: 10px 16px; white-space: nowrap; }
+        }
 
         .reveal {
             opacity: 0;
@@ -1644,6 +1660,13 @@
                 if (i < idx) el.classList.add('visitado');
                 if (i === idx) el.classList.add('activo', 'visitado');
             });
+
+            // En pantallas chicas, deslizar la fila para que el paso activo quede a la vista
+            const wrap = document.getElementById('stepperWrap');
+            const activo = wrap.children[idx];
+            if (activo && wrap.scrollWidth > wrap.clientWidth) {
+                wrap.scrollLeft = activo.offsetLeft - wrap.offsetLeft - (wrap.clientWidth - activo.offsetWidth) / 2;
+            }
 
             // Animar salida del panel
             const inner = document.getElementById('procesoPanelInner');
