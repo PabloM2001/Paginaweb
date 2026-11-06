@@ -6,13 +6,59 @@
     <link rel="icon" type="image/png" href="image/Imagotipo Vertical Original.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cooperativa San Pedro</title>
+    <title>Cooperativa San Pedro | Ahorro y Crédito en Huehuetenango</title>
+    <meta name="description" content="Cooperativa San Pedro: 71 años brindando ahorro, préstamos y tarjetas de crédito en Huehuetenango. Más de 43,000 asociados y 9 agencias para servirte.">
+    <link rel="canonical" href="https://sanpedroesmicoope.com.gt/">
+    <!-- Vista previa al compartir en redes (WhatsApp, Facebook) -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Cooperativa San Pedro">
+    <meta property="og:locale" content="es_GT">
+    <meta property="og:title" content="Cooperativa San Pedro | Ahorro y Crédito en Huehuetenango">
+    <meta property="og:description" content="Cooperativa San Pedro: 71 años brindando ahorro, préstamos y tarjetas de crédito en Huehuetenango. Más de 43,000 asociados y 9 agencias para servirte.">
+    <meta property="og:url" content="https://sanpedroesmicoope.com.gt/">
+    <meta property="og:image" content="https://sanpedroesmicoope.com.gt/image/og-cooperativa.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
 
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;700;800;900&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="css/estilos.css">
+
+    <!-- Datos estructurados: le dicen a Google qué es la cooperativa (búsquedas locales y Maps) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BankOrCreditUnion",
+        "name": "Cooperativa San Pedro R.L.",
+        "alternateName": "Cooperativa San Pedro",
+        "url": "https://sanpedroesmicoope.com.gt/",
+        "logo": "https://sanpedroesmicoope.com.gt/image/Imagotipo%20Vertical%20Original.png",
+        "image": "https://sanpedroesmicoope.com.gt/image/og-cooperativa.jpg",
+        "description": "Cooperativa de ahorro y crédito fundada en 1954 en San Pedro Soloma, Huehuetenango, con 9 agencias y más de 43,000 asociados.",
+        "foundingDate": "1954",
+        "telephone": "+502 7963-2828",
+        "email": "info@sanpedroesmicoope.com.gt",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "4ta. Avenida 7-99 Zona 1, Barrio el Centro",
+            "addressLocality": "San Pedro Soloma",
+            "addressRegion": "Huehuetenango",
+            "addressCountry": "GT"
+        },
+        "openingHoursSpecification": [
+            { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "08:00", "closes": "17:00" },
+            { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "09:00", "closes": "13:00" }
+        ],
+        "areaServed": ["Huehuetenango", "Quiché"],
+        "sameAs": [
+            "https://www.facebook.com/sanpedroesmicoope/",
+            "https://www.instagram.com/cooperativasanpedro/"
+        ]
+    }
+    </script>
 
 </head>
 
@@ -26,7 +72,7 @@
                 <img src="image/Logo Cooperativa - Blanco.png" alt="Cooperativa San Pedro">
             </a>
 
-            <button class="nav-toggle" id="navToggle" aria-label="Menú">
+            <button type="button" class="nav-toggle" id="navToggle" aria-label="Menú" aria-expanded="false" aria-controls="mainNav">
                 <span></span><span></span><span></span>
             </button>
 
@@ -38,19 +84,19 @@
                     </li>
 
                     <li class="nav-item has-dropdown">
-                        <a href="#" class="nav-link" onclick="return false">
-                            Puntos de Servicio <i class="bi bi-chevron-down nav-arrow"></i>
-                        </a>
+                        <button type="button" class="nav-link" aria-expanded="false">
+                            Puntos de Servicio <i aria-hidden="true" class="bi bi-chevron-down nav-arrow"></i>
+                        </button>
                         <div class="nav-dropdown">
                             <a href="pages/agencias.html" class="drop-link">
-                                <div class="drop-icon"><i class="bi bi-building"></i></div>
+                                <div class="drop-icon"><i aria-hidden="true" class="bi bi-building"></i></div>
                                 <div>
                                     <span class="drop-title">Agencias</span>
                                     <span class="drop-sub">9 puntos en Huehuetenango</span>
                                 </div>
                             </a>
                             <a href="pages/agentes.html" class="drop-link">
-                                <div class="drop-icon"><i class="bi bi-person-badge"></i></div>
+                                <div class="drop-icon"><i aria-hidden="true" class="bi bi-person-badge"></i></div>
                                 <div>
                                     <span class="drop-title">Agentes Micoope</span>
                                     <span class="drop-sub">Cerca de tu comunidad</span>
@@ -60,59 +106,59 @@
                     </li>
 
                     <li class="nav-item has-dropdown">
-                        <a href="#" class="nav-link" onclick="return false">
-                            Productos y Servicios <i class="bi bi-chevron-down nav-arrow"></i>
-                        </a>
+                        <button type="button" class="nav-link" aria-expanded="false">
+                            Productos y Servicios <i aria-hidden="true" class="bi bi-chevron-down nav-arrow"></i>
+                        </button>
                         <div class="nav-dropdown">
                             <a href="pages/ahorro.html" class="drop-link">
-                                <div class="drop-icon green"><i class="bi bi-piggy-bank"></i></div>
+                                <div class="drop-icon green"><i aria-hidden="true" class="bi bi-piggy-bank"></i></div>
                                 <div>
                                     <span class="drop-title">Ahorro</span>
                                     <span class="drop-sub">Cuentas y depósitos</span>
                                 </div>
                             </a>
                             <a href="pages/prestamos.html" class="drop-link">
-                                <div class="drop-icon" style="background:rgba(79,195,247,0.12);color:#033E81;"><i class="bi bi-cash-coin"></i></div>
+                                <div class="drop-icon" style="background:rgba(79,195,247,0.12);color:#033E81;"><i aria-hidden="true" class="bi bi-cash-coin"></i></div>
                                 <div>
                                     <span class="drop-title">Préstamos</span>
                                     <span class="drop-sub">Créditos accesibles</span>
                                 </div>
                             </a>
                             <a href="pages/tarjeta-credito.html" class="drop-link">
-                                <div class="drop-icon" style="background:rgba(3,62,129,0.1);color:#033E81;"><i class="bi bi-credit-card-fill"></i></div>
+                                <div class="drop-icon" style="background:rgba(3,62,129,0.1);color:#033E81;"><i aria-hidden="true" class="bi bi-credit-card-fill"></i></div>
                                 <div><span class="drop-title">Tarjetas Micoope</span><span class="drop-sub">Crédito y Débito VISA</span></div>
                             </a>
                         </div>
                     </li>
 
                     <li class="nav-item has-dropdown">
-                        <a href="#" class="nav-link" onclick="return false">
-                            Nosotros <i class="bi bi-chevron-down nav-arrow"></i>
-                        </a>
+                        <button type="button" class="nav-link" aria-expanded="false">
+                            Nosotros <i aria-hidden="true" class="bi bi-chevron-down nav-arrow"></i>
+                        </button>
                         <div class="nav-dropdown">
                             <a href="pages/about.html" class="drop-link">
-                                <div class="drop-icon"><i class="bi bi-people-fill"></i></div>
+                                <div class="drop-icon"><i aria-hidden="true" class="bi bi-people-fill"></i></div>
                                 <div>
                                     <span class="drop-title">¿Quiénes somos?</span>
                                     <span class="drop-sub">Nuestra cooperativa</span>
                                 </div>
                             </a>
                             <a href="pages/mision-vision.html" class="drop-link">
-                                <div class="drop-icon"><i class="bi bi-eye-fill"></i></div>
+                                <div class="drop-icon"><i aria-hidden="true" class="bi bi-eye-fill"></i></div>
                                 <div>
                                     <span class="drop-title">Misión y Visión</span>
                                     <span class="drop-sub">Nuestros valores</span>
                                 </div>
                             </a>
                             <a href="pages/HistoriaCoope.html" class="drop-link">
-                                <div class="drop-icon"><i class="bi bi-clock-history"></i></div>
+                                <div class="drop-icon"><i aria-hidden="true" class="bi bi-clock-history"></i></div>
                                 <div>
                                     <span class="drop-title">Historia</span>
                                     <span class="drop-sub">Nuestros inicios</span>
                                 </div>
                             </a>
                             <a href="pages/memoria-labores.html" class="drop-link">
-                                <div class="drop-icon"><i class="bi bi-file-earmark-text"></i></div>
+                                <div class="drop-icon"><i aria-hidden="true" class="bi bi-file-earmark-text"></i></div>
                                 <div>
                                     <span class="drop-title">Memoria de Labores</span>
                                     <span class="drop-sub">Informes anuales</span>
@@ -127,23 +173,23 @@
 
                     <li class="nav-item">
                         <a href="pages/contactanos.html" class="nav-link nav-cta">
-                            <i class="bi bi-telephone-fill"></i> Contáctanos
+                            <i aria-hidden="true" class="bi bi-telephone-fill"></i> Contáctanos
                         </a>
                     </li>
 
-                    <li class="nav-item" style="position:relative;">
+                    <li class="nav-item nav-app" style="position:relative;">
                         <a href="https://micoopeenlinea.com.gt/Retail/servletcontroller" target="_blank"
                            style="display:inline-flex;align-items:center;justify-content:center;margin-left:6px;width:42px;height:42px;border-radius:50%;text-decoration:none;background:white;border:2px solid rgba(255,255,255,0.3);transition:all 0.3s;box-shadow:0 2px 8px rgba(0,0,0,0.15);overflow:hidden;"
                            onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 18px rgba(0,0,0,0.25)';this.nextElementSibling.style.opacity='1';this.nextElementSibling.style.transform='translateX(-50%) translateY(0)'"
                            onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,0.15)';this.nextElementSibling.style.opacity='0';this.nextElementSibling.style.transform='translateX(-50%) translateY(-6px)'">
-                            <img src="image/logo-micoope-enlinea.png" alt="Micoope En Linea" height="30" style="display:block;">
+                            <img src="image/logo-micoope-enlinea.png" alt="Micoope En Línea" height="30" style="display:block;">
                         </a>
                         <span style="position:absolute;bottom:-34px;left:50%;transform:translateX(-50%) translateY(-6px);background:#033E81;color:white;font-size:0.75rem;font-weight:600;padding:4px 10px;border-radius:6px;white-space:nowrap;opacity:0;transition:all 0.25s;pointer-events:none;z-index:999;">
-                            Micoope En Linea
+                            Micoope En Línea
                         </span>
                     </li>
 
-                    <li class="nav-item" style="position:relative;">
+                    <li class="nav-item nav-app" style="position:relative;">
                         <a href="https://soyfri.com/" target="_blank"
                            style="display:inline-flex;align-items:center;justify-content:center;margin-left:6px;width:42px;height:42px;border-radius:50%;text-decoration:none;background:white;border:2px solid rgba(255,255,255,0.3);transition:all 0.3s;box-shadow:0 2px 8px rgba(0,0,0,0.15);overflow:hidden;"
                            onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 18px rgba(0,0,0,0.25)';this.nextElementSibling.style.opacity='1';this.nextElementSibling.style.transform='translateX(-50%) translateY(0)'"
@@ -158,15 +204,17 @@
                 </ul>
             </nav>
 
-            <div class="header-search">
-                <input type="text" class="search-input" id="searchInput" placeholder="Buscar...">
-                <button class="search-btn" onclick="toggleSearch()">
-                    <i class="bi bi-search" id="searchIcon"></i>
+            <div class="header-search" role="search">
+                <input type="text" class="search-input" id="searchInput" placeholder="Buscar..." aria-label="Buscar en el sitio">
+                <button type="button" class="search-btn" onclick="toggleSearch()" aria-label="Buscar">
+                    <i aria-hidden="true" class="bi bi-search" id="searchIcon"></i>
                 </button>
             </div>
 
         </div>
     </header>
+
+    <main>
 
 
        <!-- FRASE IMPACTO -->
@@ -181,7 +229,7 @@
             justify-content: center;">
 
             <!-- Video de fondo -->
-            <video id="videoFondo" muted playsinline preload="none" style="
+            <video id="videoFondo" muted playsinline preload="none" aria-hidden="true" style="
                 position: absolute;
                 inset: 0;
                 width: 100%;
@@ -202,37 +250,57 @@
 
             <div style="position: relative; z-index: 2;">
                 <p class="frase-subtitulo">Cooperativa San Pedro</p>
-                <h1 class="frase-principal" id="fraseTexto"></h1>
+                <h1 class="frase-principal" id="fraseTexto">Tu cooperativa de confianza, comprometida con tu bienestar financiero y el desarrollo de nuestra comunidad.</h1>
+                <script>
+                    // Separa la frase en letras ocultas antes de que se pinte; script.js las va mostrando.
+                    // El texto completo sigue dentro del <h1>, así Google lo lee entero.
+                    (function (h) {
+                        var texto = h.textContent.trim();
+                        h.setAttribute('aria-label', texto);
+                        h.textContent = '';
+                        var cursor = document.createElement('span');
+                        cursor.className = 'cursor-escritura';
+                        cursor.setAttribute('aria-hidden', 'true');
+                        h.appendChild(cursor);
+                        for (var i = 0; i < texto.length; i++) {
+                            var s = document.createElement('span');
+                            s.className = 'letra';
+                            s.textContent = texto[i];
+                            h.appendChild(s);
+                        }
+                        h.classList.add('escribiendo');
+                    })(document.getElementById('fraseTexto'));
+                </script>
             </div>
 
         </section>
 
 
     <!-- CARRUSEL PRINCIPAL -->
-    <section class="carrusel-seccion">
+    <section class="carrusel-seccion" aria-label="Galería de fotos de la cooperativa">
 
         <!-- Carrusel 100% ancho -->
         <div class="carrusel-wrap">
         <div class="carousel-3d-wrapper">
             <div class="carousel-3d" id="carousel3d">
-                <div class="card-3d active"><img src="image/carrusel/carrusel1.jpg" alt="Slide 1"></div>
-                <div class="card-3d next"><img src="image/carrusel/carrusel2.jpg" alt="Slide 2" loading="lazy"></div>
-                <div class="card-3d prev"><img src="image/carrusel/carrusel3.jpg" alt="Slide 3" loading="lazy"></div>
-                <div class="card-3d"><img src="image/carrusel/carrusel4.jpg" alt="Slide 4" loading="lazy"></div>
-                <div class="card-3d"><img src="image/carrusel/carrusel5.jpg" alt="Slide 5" loading="lazy"></div>
-                <div class="card-3d"><img src="image/carrusel/carrusel6.jpg" alt="Slide 6" loading="lazy"></div>
-                <div class="card-3d"><img src="image/carrusel/carrusel7.jpg" alt="Slide 7" loading="lazy"></div>
+                <div class="card-3d active"><img src="image/carrusel/carrusel1.webp" alt="Sacerdote celebrando misa en el altar de la iglesia de San Pedro Soloma"></div>
+                <div class="card-3d next"><img src="image/carrusel/carrusel2.webp" alt="Coronación de la Princesa Maya Xumakil con traje típico" loading="lazy"></div>
+                <div class="card-3d prev"><img src="image/carrusel/carrusel3.webp" alt="Colaborador de Cooperativa San Pedro durante una misa en la iglesia" loading="lazy"></div>
+                <div class="card-3d"><img src="image/carrusel/carrusel4.jpg" alt="Corte de listón en la apertura de la Agencia Playa Grande" loading="lazy"></div>
+                <div class="card-3d"><img src="image/carrusel/carrusel5.jpg" alt="Iglesia iluminada de noche: Pueblo de Fe, Tierra de tradiciones" loading="lazy"></div>
+                <div class="card-3d"><img src="image/carrusel/carrusel6.webp" alt="Niña con traje típico cruzando la meta de una carrera patrocinada por la cooperativa" loading="lazy"></div>
+                <div class="card-3d"><img src="image/carrusel/carrusel7.webp" alt="Equipo de colaboradores de Cooperativa San Pedro frente a la iglesia" loading="lazy"></div>
             </div>
-            <button class="btn-3d-prev">&#10094;</button>
-            <button class="btn-3d-next">&#10095;</button>
+            <button type="button" class="btn-3d-prev" aria-label="Imagen anterior">&#10094;</button>
+            <button type="button" class="btn-3d-next" aria-label="Imagen siguiente">&#10095;</button>
             <div class="dots-3d">
-                <span class="dot-3d active"></span>
-                <span class="dot-3d"></span>
-                <span class="dot-3d"></span>
-                <span class="dot-3d"></span>
-                <span class="dot-3d"></span>
-                <span class="dot-3d"></span>
-                <span class="dot-3d"></span>
+                <button type="button" class="dot-3d active" aria-label="Ver imagen 1"></button>
+                <button type="button" class="dot-3d" aria-label="Ver imagen 2"></button>
+                <button type="button" class="dot-3d" aria-label="Ver imagen 3"></button>
+                <button type="button" class="dot-3d" aria-label="Ver imagen 4"></button>
+                <button type="button" class="dot-3d" aria-label="Ver imagen 5"></button>
+                <button type="button" class="dot-3d" aria-label="Ver imagen 6"></button>
+                <button type="button" class="dot-3d" aria-label="Ver imagen 7"></button>
             </div>
         </div>
         </div>
@@ -259,28 +327,28 @@
 
                         <div class="col-6 col-md-3">
                             <div class="stat-card">
-                                <h3 class="stat-numero" data-target="43671" data-prefix="+ ">+ 0</h3>
+                                <p class="stat-numero" data-target="43671" data-prefix="+ ">+ 43,671</p>
                                 <p class="stat-label">Asociados</p>
                             </div>
                         </div>
 
                         <div class="col-6 col-md-3">
                             <div class="stat-card">
-                                <h3 class="stat-numero" data-target="9">0</h3>
+                                <p class="stat-numero" data-target="9">9</p>
                                 <p class="stat-label">Agencias</p>
                             </div>
                         </div>
 
                         <div class="col-6 col-md-3">
                             <div class="stat-card">
-                                <h3 class="stat-numero" data-target="71">0</h3>
+                                <p class="stat-numero" data-target="71">71</p>
                                 <p class="stat-label">Años de experiencia</p>
                             </div>
                         </div>
 
                         <div class="col-6 col-md-3">
                             <div class="stat-card">
-                                <h3 class="stat-numero" data-target="962" data-prefix="+ Q" data-suffix=" Millones" style="font-size:clamp(1.1rem,1.8vw,1.8rem);">+ Q0</h3>
+                                <p class="stat-numero" data-target="962" data-prefix="+ Q" data-suffix=" Millones" style="font-size:clamp(1.1rem,1.8vw,1.8rem);">+ Q962 Millones</p>
                                 <p class="stat-label">Total de Activos</p>
                             </div>
                         </div>
@@ -298,9 +366,72 @@
         </section>
 
 
+    <!-- PRODUCTOS Y SERVICIOS: texto para visitantes y para Google -->
+    <section class="servicios-inicio" aria-labelledby="serviciosTitulo">
+        <div class="container">
 
+            <div class="servicios-encabezado reveal">
+                <p class="servicios-kicker">Productos y servicios</p>
+                <h2 id="serviciosTitulo">Ahorro y crédito para tu familia y tu negocio</h2>
+                <p class="servicios-intro">
+                    Desde 1954, Cooperativa San Pedro acompaña a más de 43,000 asociados en Huehuetenango y Quiché
+                    con cuentas de ahorro, préstamos y tarjetas MICOOPE-VISA. Encuentra el producto que necesitas
+                    y visítanos en cualquiera de nuestras 9 agencias.
+                </p>
+            </div>
 
+            <div class="row g-4">
 
+                <div class="col-sm-6 col-lg-3 reveal">
+                    <article class="servicio-card">
+                        <div class="servicio-icono verde"><i aria-hidden="true" class="bi bi-piggy-bank"></i></div>
+                        <h3>Cuentas de ahorro</h3>
+                        <p>Ahorro disponible, programado, infanto juvenil y depósitos a plazo fijo para que tu dinero crezca con seguridad.</p>
+                        <a href="pages/ahorro.html" class="servicio-link">Ver cuentas de ahorro <i aria-hidden="true" class="bi bi-arrow-right"></i></a>
+                    </article>
+                </div>
+
+                <div class="col-sm-6 col-lg-3 reveal">
+                    <article class="servicio-card">
+                        <div class="servicio-icono"><i aria-hidden="true" class="bi bi-cash-coin"></i></div>
+                        <h3>Préstamos</h3>
+                        <p>Créditos para consumo, comercio, vivienda y el sector agrícola, además de Credifast, con plazos flexibles y asesoría personalizada.</p>
+                        <a href="pages/prestamos.html" class="servicio-link">Ver préstamos <i aria-hidden="true" class="bi bi-arrow-right"></i></a>
+                    </article>
+                </div>
+
+                <div class="col-sm-6 col-lg-3 reveal">
+                    <article class="servicio-card">
+                        <div class="servicio-icono"><i aria-hidden="true" class="bi bi-credit-card-fill"></i></div>
+                        <h3>Tarjetas Micoope VISA</h3>
+                        <p>Tarjetas de crédito y débito para comprar en Guatemala y en el extranjero, pagar en cuotas y controlar tus gastos desde el celular.</p>
+                        <a href="pages/tarjeta-credito.html" class="servicio-link">Ver tarjetas <i aria-hidden="true" class="bi bi-arrow-right"></i></a>
+                    </article>
+                </div>
+
+                <div class="col-sm-6 col-lg-3 reveal">
+                    <article class="servicio-card">
+                        <div class="servicio-icono verde"><i aria-hidden="true" class="bi bi-geo-alt-fill"></i></div>
+                        <h3>Agencias y agentes</h3>
+                        <p>9 agencias en Huehuetenango y Quiché, y Agentes Micoope en tu comunidad para depositar, pagar tus créditos y retirar efectivo.</p>
+                        <a href="pages/agencias.html" class="servicio-link">Ver agencias <i aria-hidden="true" class="bi bi-arrow-right"></i></a>
+                    </article>
+                </div>
+
+            </div>
+
+            <nav class="servicios-herramientas reveal" aria-label="Herramientas en línea">
+                <span class="herramientas-label">Calcula antes de venir:</span>
+                <a href="pages/CalculadoraCredito.html"><i aria-hidden="true" class="bi bi-calculator"></i> Calculadora de crédito</a>
+                <a href="pages/CotizadorPlazoFijo.html"><i aria-hidden="true" class="bi bi-graph-up-arrow"></i> Cotizador de plazo fijo</a>
+                <a href="pages/PreAnalisi.html"><i aria-hidden="true" class="bi bi-clipboard-check"></i> Preanálisis de crédito</a>
+                <a href="pages/agentes.html"><i aria-hidden="true" class="bi bi-shop"></i> Agentes Micoope</a>
+            </nav>
+
+        </div>
+    </section>
+
+    </main>
 
     <!-- FOOTER -->
             <footer id="contacto">
@@ -326,55 +457,57 @@
                 <div class="row g-4 mb-5">
 
                     <div class="col-md-4">
-                        <img src="image/Logo Cooperativa - Blanco.png" height="45" alt="Logo" class="mb-3">
+                        <img src="image/Logo Cooperativa - Blanco.png" height="45" alt="Cooperativa San Pedro" class="mb-3">
                         <p style="color:#a8c4e0; line-height:1.8;">
                             Tu cooperativa de confianza, comprometida con tu bienestar financiero
                             y el desarrollo de nuestra comunidad.
                         </p>
                         <div class="d-flex gap-3 mt-3">
-                            <a href="https://www.facebook.com/sanpedroesmicoope/?locale=es_LA" target="_blank" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="bi bi-facebook"></i></a>
-                            <a href="#" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="bi bi-instagram"></i></a>
-                            <a href="https://api.whatsapp.com/send/?phone=50230776771&text&type=phone_number&app_absent=0" target="_blank" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="bi bi-whatsapp"></i></a>
+                            <a aria-label="Facebook" href="https://www.facebook.com/sanpedroesmicoope/?locale=es_LA" target="_blank" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i aria-hidden="true" class="bi bi-facebook"></i></a>
+                            <a aria-label="Instagram" href="https://www.instagram.com/cooperativasanpedro/" target="_blank" rel="noopener" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i aria-hidden="true" class="bi bi-instagram"></i></a>
+                            <a aria-label="WhatsApp" href="https://api.whatsapp.com/send/?phone=50230776771&text&type=phone_number&app_absent=0" target="_blank" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i aria-hidden="true" class="bi bi-whatsapp"></i></a>
                         </div>
                     </div>
 
 
 
-                    <div class="col-md-2 offset-md-1">
-                        <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Enlaces</h6>
+                    <nav class="col-md-2 offset-md-1" aria-label="Enlaces">
+                        <h2 class="footer-titulo" style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Enlaces</h2>
                         <ul class="list-unstyled">
-                            <li class="mb-2"><a href="./index.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Inicio</a></li>
-                            <li class="mb-2"><a href="./pages/agencias.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Agencias</a></li>
-                            <li class="mb-2"><a href="./pages/about.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Nosotros</a></li>
-                            <li class="mb-2"><a href="./pages/contactanos.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Contáctanos</a></li>
+                            <li class="mb-2"><a href="./index.html" style="color:#a8c4e0;text-decoration:none;"><i aria-hidden="true" class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Inicio</a></li>
+                            <li class="mb-2"><a href="./pages/agencias.html" style="color:#a8c4e0;text-decoration:none;"><i aria-hidden="true" class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Agencias</a></li>
+                            <li class="mb-2"><a href="./pages/about.html" style="color:#a8c4e0;text-decoration:none;"><i aria-hidden="true" class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Nosotros</a></li>
+                            <li class="mb-2"><a href="./pages/contactanos.html" style="color:#a8c4e0;text-decoration:none;"><i aria-hidden="true" class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Contáctanos</a></li>
                         </ul>
-                    </div>
+                    </nav>
 
-                    <div class="col-md-2">
-                        <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Servicios</h6>
+                    <nav class="col-md-2" aria-label="Servicios">
+                        <h2 class="footer-titulo" style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Servicios</h2>
                         <ul class="list-unstyled">
-                            <li class="mb-2"><a href="./pages/ahorro.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Ahorro</a></li>
-                            <li class="mb-2"><a href="./pages/prestamos.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Préstamos</a></li>
-                            <li class="mb-2"><a href="./pages/agentes.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Agentes</a></li>
+                            <li class="mb-2"><a href="./pages/ahorro.html" style="color:#a8c4e0;text-decoration:none;"><i aria-hidden="true" class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Ahorro</a></li>
+                            <li class="mb-2"><a href="./pages/prestamos.html" style="color:#a8c4e0;text-decoration:none;"><i aria-hidden="true" class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Préstamos</a></li>
+                            <li class="mb-2"><a href="./pages/agentes.html" style="color:#a8c4e0;text-decoration:none;"><i aria-hidden="true" class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Agentes</a></li>
                         </ul>
-                    </div>
+                    </nav>
 
                     <div class="col-md-3">
-                        <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Contacto</h6>
-                        <ul class="list-unstyled">
+                        <h2 class="footer-titulo" style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Contacto</h2>
+                        <address class="mb-0">
+                            <ul class="list-unstyled">
                             <li class="mb-3 d-flex align-items-center gap-3">
-                                <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i class="bi bi-telephone" style="color:#4fc3f7;"></i></div>
-                                <span style="color:#a8c4e0;">PBX 7963-2828</span>
+                                <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i aria-hidden="true" class="bi bi-telephone" style="color:#4fc3f7;"></i></div>
+                                <a href="tel:+50279632828" style="color:#a8c4e0;text-decoration:none;">PBX 7963-2828</a>
                             </li>
                             <li class="mb-3 d-flex align-items-center gap-3">
-                                <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i class="bi bi-envelope" style="color:#4fc3f7;"></i></div>
-                                <span style="color:#a8c4e0;">info@sanpedroesmicoope.com.gt</span>
+                                <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i aria-hidden="true" class="bi bi-envelope" style="color:#4fc3f7;"></i></div>
+                                <a href="mailto:info@sanpedroesmicoope.com.gt" style="color:#a8c4e0;text-decoration:none;">info@sanpedroesmicoope.com.gt</a>
                             </li>
                             <li class="d-flex align-items-center gap-3">
-                                <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i class="bi bi-geo-alt" style="color:#4fc3f7;"></i></div>
+                                <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i aria-hidden="true" class="bi bi-geo-alt" style="color:#4fc3f7;"></i></div>
                                 <span style="color:#a8c4e0;">San Pedro Soloma, Huehuetenango</span>
                             </li>
                         </ul>
+                        </address>
                     </div>
 
                 </div>
@@ -389,8 +522,6 @@
     </footer>
 
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
     <script src="js/script.js"></script>
 
 </body>

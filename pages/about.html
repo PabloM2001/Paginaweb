@@ -6,10 +6,23 @@
     <link rel="icon" type="image/png" href="../image/Imagotipo Vertical Original.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>¿Quiénes somos? - Cooperativa San Pedro</title>
+    <title>Quiénes Somos | Cooperativa San Pedro, Huehuetenango</title>
+    <meta name="description" content="Conoce Cooperativa San Pedro, fundada en 1954 en San Pedro Soloma, Huehuetenango: 71 años de soluciones financieras solidarias para tu comunidad.">
+    <link rel="canonical" href="https://sanpedroesmicoope.com.gt/pages/about.html">
+    <!-- Vista previa al compartir en redes (WhatsApp, Facebook) -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Cooperativa San Pedro">
+    <meta property="og:locale" content="es_GT">
+    <meta property="og:title" content="Quiénes Somos | Cooperativa San Pedro, Huehuetenango">
+    <meta property="og:description" content="Conoce Cooperativa San Pedro, fundada en 1954 en San Pedro Soloma, Huehuetenango: 71 años de soluciones financieras solidarias para tu comunidad.">
+    <meta property="og:url" content="https://sanpedroesmicoope.com.gt/pages/about.html">
+    <meta property="og:image" content="https://sanpedroesmicoope.com.gt/image/og-cooperativa.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/estilos.css">
@@ -119,7 +132,16 @@
             text-align: center;
         }
         @media (max-width: 768px) {
-            .hero-about { padding-bottom: 50px; }
+            /* Celular: más bajo para que el título no quede oculto tras la barra
+               del navegador, y la foto centrada en las velas "71" */
+            .hero-about {
+                height: 72vh;
+                height: 72svh;
+                min-height: 440px;
+                max-height: 640px;
+                padding-bottom: 44px !important;
+            }
+            .ha-bg-img { object-position: 64% center; }
             .ha-watermark { font-size: 180px; }
         }
 
@@ -357,7 +379,14 @@
             .edu-galeria { grid-template-columns: repeat(2, 1fr); }
         }
         @media (max-width: 480px) {
-            .edu-galeria { grid-template-columns: 1fr; }
+            /* Galería en 2 columnas: se ven más fotos sin tanto scroll (al tocar se amplían) */
+            .edu-galeria { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .edu-info-box { padding: 26px 22px; }
+            .edu-logo-grande { max-height: 110px; }
+            /* Tarjetas de "Nuestro Respaldo" más compactas */
+            .respaldo-card { padding: 26px 22px !important; }
+            .respaldo-card > div:first-child { height: 80px !important; margin-bottom: 14px !important; }
+            .respaldo-card img { max-height: 76px !important; }
             .edu-tab { padding: 10px 14px; font-size: 0.82rem; }
             .edu-tab img { height: 26px; }
             /* Tu Opinión card: less padding on small screens */
@@ -377,7 +406,7 @@
                 <img src="../image/Logo Cooperativa - Blanco.png" alt="Cooperativa San Pedro">
             </a>
 
-            <button class="nav-toggle" id="navToggle" aria-label="Menu">
+            <button type="button" class="nav-toggle" id="navToggle" aria-label="Menú" aria-expanded="false" aria-controls="mainNav">
                 <span></span><span></span><span></span>
             </button>
 
@@ -387,60 +416,60 @@
                     <li class="nav-item"><a href="../index.html" class="nav-link">Inicio</a></li>
 
                     <li class="nav-item has-dropdown">
-                        <a href="#" class="nav-link" onclick="return false">
-                            Puntos de Servicio <i class="bi bi-chevron-down nav-arrow"></i>
-                        </a>
+                        <button type="button" class="nav-link" aria-expanded="false">
+                            Puntos de Servicio <i aria-hidden="true" class="bi bi-chevron-down nav-arrow"></i>
+                        </button>
                         <div class="nav-dropdown">
                             <a href="./agencias.html" class="drop-link">
-                                <div class="drop-icon"><i class="bi bi-building"></i></div>
-                                <div><span class="drop-title">Agencias</span><span class="drop-sub">8 puntos en Huehuetenango</span></div>
+                                <div class="drop-icon"><i aria-hidden="true" class="bi bi-building"></i></div>
+                                <div><span class="drop-title">Agencias</span><span class="drop-sub">9 puntos en Huehuetenango</span></div>
                             </a>
                             <a href="./agentes.html" class="drop-link">
-                                <div class="drop-icon"><i class="bi bi-person-badge"></i></div>
+                                <div class="drop-icon"><i aria-hidden="true" class="bi bi-person-badge"></i></div>
                                 <div><span class="drop-title">Agentes Micoope</span><span class="drop-sub">Cerca de tu comunidad</span></div>
                             </a>
                         </div>
                     </li>
 
                     <li class="nav-item has-dropdown">
-                        <a href="#" class="nav-link" onclick="return false">
-                            Productos y Servicios <i class="bi bi-chevron-down nav-arrow"></i>
-                        </a>
+                        <button type="button" class="nav-link" aria-expanded="false">
+                            Productos y Servicios <i aria-hidden="true" class="bi bi-chevron-down nav-arrow"></i>
+                        </button>
                         <div class="nav-dropdown">
                             <a href="./ahorro.html" class="drop-link">
-                                <div class="drop-icon green"><i class="bi bi-piggy-bank"></i></div>
-                                <div><span class="drop-title">Ahorro</span><span class="drop-sub">Cuentas y depositos</span></div>
+                                <div class="drop-icon green"><i aria-hidden="true" class="bi bi-piggy-bank"></i></div>
+                                <div><span class="drop-title">Ahorro</span><span class="drop-sub">Cuentas y depósitos</span></div>
                             </a>
                             <a href="./prestamos.html" class="drop-link">
-                                <div class="drop-icon" style="background:rgba(79,195,247,0.12);color:#033E81;"><i class="bi bi-cash-coin"></i></div>
-                                <div><span class="drop-title">Prestamos</span><span class="drop-sub">Creditos accesibles</span></div>
+                                <div class="drop-icon" style="background:rgba(79,195,247,0.12);color:#033E81;"><i aria-hidden="true" class="bi bi-cash-coin"></i></div>
+                                <div><span class="drop-title">Préstamos</span><span class="drop-sub">Créditos accesibles</span></div>
                             </a>
                             <a href="./tarjeta-credito.html" class="drop-link">
-                                <div class="drop-icon" style="background:rgba(3,62,129,0.1);color:#033E81;"><i class="bi bi-credit-card-fill"></i></div>
+                                <div class="drop-icon" style="background:rgba(3,62,129,0.1);color:#033E81;"><i aria-hidden="true" class="bi bi-credit-card-fill"></i></div>
                                 <div><span class="drop-title">Tarjetas Micoope</span><span class="drop-sub">Crédito y Débito VISA</span></div>
                             </a>
                         </div>
                     </li>
 
                     <li class="nav-item has-dropdown">
-                        <a href="#" class="nav-link" onclick="return false">
-                            Nosotros <i class="bi bi-chevron-down nav-arrow"></i>
-                        </a>
+                        <button type="button" class="nav-link" aria-expanded="false">
+                            Nosotros <i aria-hidden="true" class="bi bi-chevron-down nav-arrow"></i>
+                        </button>
                         <div class="nav-dropdown">
                             <a href="./about.html" class="drop-link">
-                                <div class="drop-icon"><i class="bi bi-people-fill"></i></div>
+                                <div class="drop-icon"><i aria-hidden="true" class="bi bi-people-fill"></i></div>
                                 <div><span class="drop-title">¿Quiénes somos?</span><span class="drop-sub">Nuestra cooperativa</span></div>
                             </a>
                             <a href="./mision-vision.html" class="drop-link">
-                                <div class="drop-icon"><i class="bi bi-eye-fill"></i></div>
-                                <div><span class="drop-title">Mision y Vision</span><span class="drop-sub">Nuestros valores</span></div>
+                                <div class="drop-icon"><i aria-hidden="true" class="bi bi-eye-fill"></i></div>
+                                <div><span class="drop-title">Misión y Visión</span><span class="drop-sub">Nuestros valores</span></div>
                             </a>
                             <a href="./HistoriaCoope.html" class="drop-link">
-                                <div class="drop-icon"><i class="bi bi-clock-history"></i></div>
+                                <div class="drop-icon"><i aria-hidden="true" class="bi bi-clock-history"></i></div>
                                 <div><span class="drop-title">Historia</span><span class="drop-sub">Nuestros inicios</span></div>
                             </a>
                             <a href="./memoria-labores.html" class="drop-link">
-                                <div class="drop-icon" style="background:rgba(3,62,129,0.1);color:#033E81;"><i class="bi bi-file-earmark-text"></i></div>
+                                <div class="drop-icon" style="background:rgba(3,62,129,0.1);color:#033E81;"><i aria-hidden="true" class="bi bi-file-earmark-text"></i></div>
                                 <div><span class="drop-title">Memoria de Labores</span><span class="drop-sub">Informe anual</span></div>
                             </a>
                         </div>
@@ -452,22 +481,22 @@
 
                     <li class="nav-item">
                         <a href="./contactanos.html" class="nav-link nav-cta">
-                            <i class="bi bi-telephone-fill"></i> Contactanos
+                            <i aria-hidden="true" class="bi bi-telephone-fill"></i> Contáctanos
                         </a>
                     </li>
-                    <li class="nav-item" style="position:relative;">
+                    <li class="nav-item nav-app" style="position:relative;">
                         <a href="https://micoopeenlinea.com.gt/Retail/servletcontroller" target="_blank"
                            style="display:inline-flex;align-items:center;justify-content:center;margin-left:6px;width:42px;height:42px;border-radius:50%;text-decoration:none;background:white;border:2px solid rgba(255,255,255,0.3);transition:all 0.3s;box-shadow:0 2px 8px rgba(0,0,0,0.15);overflow:hidden;"
                            onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 18px rgba(0,0,0,0.25)';this.nextElementSibling.style.opacity='1';this.nextElementSibling.style.transform='translateX(-50%) translateY(0)'"
                            onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,0.15)';this.nextElementSibling.style.opacity='0';this.nextElementSibling.style.transform='translateX(-50%) translateY(-6px)'">
-                            <img src="../image/logo-micoope-enlinea.png" alt="Micoope En Linea" height="30" style="display:block;">
+                            <img src="../image/logo-micoope-enlinea.png" alt="Micoope En Línea" height="30" style="display:block;">
                         </a>
                         <span style="position:absolute;bottom:-34px;left:50%;transform:translateX(-50%) translateY(-6px);background:#033E81;color:white;font-size:0.75rem;font-weight:600;padding:4px 10px;border-radius:6px;white-space:nowrap;opacity:0;transition:all 0.25s;pointer-events:none;z-index:999;">
-                            Micoope En Linea
+                            Micoope En Línea
                         </span>
                     </li>
 
-                    <li class="nav-item" style="position:relative;">
+                    <li class="nav-item nav-app" style="position:relative;">
                         <a href="https://soyfri.com/" target="_blank"
                            style="display:inline-flex;align-items:center;justify-content:center;margin-left:6px;width:42px;height:42px;border-radius:50%;text-decoration:none;background:white;border:2px solid rgba(255,255,255,0.3);transition:all 0.3s;box-shadow:0 2px 8px rgba(0,0,0,0.15);overflow:hidden;"
                            onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 18px rgba(0,0,0,0.25)';this.nextElementSibling.style.opacity='1';this.nextElementSibling.style.transform='translateX(-50%) translateY(0)'"
@@ -482,15 +511,17 @@
                 </ul>
             </nav> 
             
-            <div class="header-search">
-                <input type="text" class="search-input" id="searchInput" placeholder="Buscar...">
-                <button class="search-btn" onclick="toggleSearch()">
-                    <i class="bi bi-search" id="searchIcon"></i>
+            <div class="header-search" role="search">
+                <input type="text" class="search-input" id="searchInput" placeholder="Buscar..." aria-label="Buscar en el sitio">
+                <button type="button" class="search-btn" onclick="toggleSearch()" aria-label="Buscar">
+                    <i aria-hidden="true" class="bi bi-search" id="searchIcon"></i>
                 </button>
             </div>
 
         </div>
     </header>
+
+    <main>
 
     <!-- HERO -->
     <section class="hero-about">
@@ -545,7 +576,7 @@
             <div style="display:flex;gap:28px;flex-wrap:wrap;justify-content:center;">
 
                 <!-- Micoope -->
-                <div style="flex:1 1 260px;max-width:320px;background:white;border-radius:20px;padding:40px 32px;text-align:center;box-shadow:0 4px 24px rgba(3,62,129,0.08);border:1px solid rgba(3,62,129,0.06);transition:transform 0.3s,box-shadow 0.3s;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 16px 40px rgba(3,62,129,0.14)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 24px rgba(3,62,129,0.08)'">
+                <div class="respaldo-card" style="flex:1 1 260px;max-width:320px;background:white;border-radius:20px;padding:40px 32px;text-align:center;box-shadow:0 4px 24px rgba(3,62,129,0.08);border:1px solid rgba(3,62,129,0.06);transition:transform 0.3s,box-shadow 0.3s;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 16px 40px rgba(3,62,129,0.14)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 24px rgba(3,62,129,0.08)'">
                     <div style="height:120px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;">
                         <img src="../image/iconos/Micoope.png" alt="Micoope" style="max-height:110px;max-width:220px;object-fit:contain;">
                     </div>
@@ -555,7 +586,7 @@
                 </div>
 
                 <!-- Fondo de Garantía -->
-                <div style="flex:1 1 260px;max-width:320px;background:white;border-radius:20px;padding:40px 32px;text-align:center;box-shadow:0 4px 24px rgba(3,62,129,0.08);border:1px solid rgba(3,62,129,0.06);transition:transform 0.3s,box-shadow 0.3s;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 16px 40px rgba(3,62,129,0.14)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 24px rgba(3,62,129,0.08)'">
+                <div class="respaldo-card" style="flex:1 1 260px;max-width:320px;background:white;border-radius:20px;padding:40px 32px;text-align:center;box-shadow:0 4px 24px rgba(3,62,129,0.08);border:1px solid rgba(3,62,129,0.06);transition:transform 0.3s,box-shadow 0.3s;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 16px 40px rgba(3,62,129,0.14)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 24px rgba(3,62,129,0.08)'">
                     <div style="height:120px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;">
                         <img src="../image/iconos/Fondo.png" alt="Fondo de Garantía" style="max-height:110px;max-width:220px;object-fit:contain;">
                     </div>
@@ -565,7 +596,7 @@
                 </div>
 
                 <!-- Seguros Columna -->
-                <div style="flex:1 1 260px;max-width:320px;background:white;border-radius:20px;padding:40px 32px;text-align:center;box-shadow:0 4px 24px rgba(3,62,129,0.08);border:1px solid rgba(3,62,129,0.06);transition:transform 0.3s,box-shadow 0.3s;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 16px 40px rgba(3,62,129,0.14)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 24px rgba(3,62,129,0.08)'">
+                <div class="respaldo-card" style="flex:1 1 260px;max-width:320px;background:white;border-radius:20px;padding:40px 32px;text-align:center;box-shadow:0 4px 24px rgba(3,62,129,0.08);border:1px solid rgba(3,62,129,0.06);transition:transform 0.3s,box-shadow 0.3s;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 16px 40px rgba(3,62,129,0.14)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 24px rgba(3,62,129,0.08)'">
                     <div style="height:120px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;">
                         <img src="../image/iconos/Columna.png" alt="Seguros Columna" style="max-height:110px;max-width:220px;object-fit:contain;">
                     </div>
@@ -584,7 +615,7 @@
         <div class="container">
 
             <div class="text-center edu-header">
-                <span class="edu-badge"><i class="bi bi-mortarboard-fill"></i> Educación Cooperativista</span>
+                <span class="edu-badge"><i aria-hidden="true" class="bi bi-mortarboard-fill"></i> Educación Cooperativista</span>
                 <h2>Alianzas de Educación Cooperativista</h2>
                 <p>Programas educativos que fortalecen el desarrollo integral de nuestros asociados, familias y comunidades.</p>
             </div>
@@ -617,20 +648,20 @@
                             <img src="../image/Programas/Wachalal.webp" alt="Wachalal" class="edu-logo-grande">
                             <h3 class="edu-titulo">Wachalal</h3>
                             <p class="edu-desc">Programa educativo cooperativista orientado a fortalecer los valores de solidaridad, trabajo en equipo y educación financiera entre los asociados y sus comunidades.</p>
-                            <div class="edu-tag"><i class="bi bi-check-circle-fill"></i> Educación Financiera</div>
-                            <div class="edu-tag"><i class="bi bi-check-circle-fill"></i> Valores Cooperativos</div>
-                            <div class="edu-tag"><i class="bi bi-check-circle-fill"></i> Desarrollo Comunitario</div>
+                            <div class="edu-tag"><i aria-hidden="true" class="bi bi-check-circle-fill"></i> Educación Financiera</div>
+                            <div class="edu-tag"><i aria-hidden="true" class="bi bi-check-circle-fill"></i> Valores Cooperativos</div>
+                            <div class="edu-tag"><i aria-hidden="true" class="bi bi-check-circle-fill"></i> Desarrollo Comunitario</div>
                         </div>
                     </div>
                     <div class="col-lg-8">
-                        <p class="edu-galeria-label"><i class="bi bi-images"></i> Galería del programa</p>
+                        <p class="edu-galeria-label"><i aria-hidden="true" class="bi bi-images"></i> Galería del programa</p>
                         <div class="edu-galeria" id="galeria-0">
                             <div class="edu-foto-slot"><img loading="lazy" src="../image/Programas/Wachalal/DSC00547.jpg" alt="Wachalal"></div>
                             <div class="edu-foto-slot"><img loading="lazy" src="../image/Programas/Wachalal/DSC00558.jpg" alt="Wachalal"></div>
                             <div class="edu-foto-slot"><img loading="lazy" src="../image/Programas/Wachalal/DSC00561.jpg" alt="Wachalal"></div>
                             <div class="edu-foto-slot"><img loading="lazy" src="../image/Programas/Wachalal/DSC00562.jpg" alt="Wachalal"></div>
-                            <div class="edu-foto-slot"><img loading="lazy" src="../image/Programas/Wachalal/DSC00564.jpg" alt="Wachalal"></div>
-                            <div class="edu-foto-slot"><img loading="lazy" src="../image/Programas/Wachalal/DSC00568.jpg" alt="Wachalal"></div>
+                            <div class="edu-foto-slot"><img loading="lazy" src="../image/Programas/Wachalal/DSC00564.webp" alt="Wachalal"></div>
+                            <div class="edu-foto-slot"><img loading="lazy" src="../image/Programas/Wachalal/DSC00568.webp" alt="Wachalal"></div>
                         </div>
                     </div>
                 </div>
@@ -644,13 +675,13 @@
                             <img src="../image/Programas/Huellas.webp" alt="Huellas" class="edu-logo-grande">
                             <h3 class="edu-titulo">Huellas</h3>
                             <p class="edu-desc">Iniciativa que deja huella en la vida de nuestros asociados a través de capacitaciones, talleres y actividades educativas que impulsan su crecimiento personal y profesional.</p>
-                            <div class="edu-tag"><i class="bi bi-check-circle-fill"></i> Capacitaciones</div>
-                            <div class="edu-tag"><i class="bi bi-check-circle-fill"></i> Talleres Prácticos</div>
-                            <div class="edu-tag"><i class="bi bi-check-circle-fill"></i> Crecimiento Personal</div>
+                            <div class="edu-tag"><i aria-hidden="true" class="bi bi-check-circle-fill"></i> Capacitaciones</div>
+                            <div class="edu-tag"><i aria-hidden="true" class="bi bi-check-circle-fill"></i> Talleres Prácticos</div>
+                            <div class="edu-tag"><i aria-hidden="true" class="bi bi-check-circle-fill"></i> Crecimiento Personal</div>
                         </div>
                     </div>
                     <div class="col-lg-8">
-                        <p class="edu-galeria-label"><i class="bi bi-images"></i> Galería del programa</p>
+                        <p class="edu-galeria-label"><i aria-hidden="true" class="bi bi-images"></i> Galería del programa</p>
                         <div class="edu-galeria" id="galeria-1">
                             <div class="edu-foto-slot"><img loading="lazy" src="../image/Programas/Huellas/DSC04745.JPG" alt="Huellas"></div>
                             <div class="edu-foto-slot"><img loading="lazy" src="../image/Programas/Huellas/DSC04756.JPG" alt="Huellas"></div>
@@ -671,16 +702,16 @@
                             <img src="../image/Programas/Florece.webp" alt="Florece" class="edu-logo-grande">
                             <h3 class="edu-titulo">Florece</h3>
                             <p class="edu-desc">Programa diseñado para empoderar a los asociados con herramientas de educación cooperativista que les permitan florecer económica y socialmente dentro de su entorno familiar y comunitario.</p>
-                            <div class="edu-tag"><i class="bi bi-check-circle-fill"></i> Empoderamiento</div>
-                            <div class="edu-tag"><i class="bi bi-check-circle-fill"></i> Educación Cooperativa</div>
-                            <div class="edu-tag"><i class="bi bi-check-circle-fill"></i> Bienestar Familiar</div>
+                            <div class="edu-tag"><i aria-hidden="true" class="bi bi-check-circle-fill"></i> Empoderamiento</div>
+                            <div class="edu-tag"><i aria-hidden="true" class="bi bi-check-circle-fill"></i> Educación Cooperativa</div>
+                            <div class="edu-tag"><i aria-hidden="true" class="bi bi-check-circle-fill"></i> Bienestar Familiar</div>
                         </div>
                     </div>
                     <div class="col-lg-8">
-                        <p class="edu-galeria-label"><i class="bi bi-images"></i> Galería del programa</p>
+                        <p class="edu-galeria-label"><i aria-hidden="true" class="bi bi-images"></i> Galería del programa</p>
                         <div class="edu-galeria" id="galeria-2">
                             <div class="edu-foto-slot"><img loading="lazy" src="../image/Programas/Florece/DVPA0337.JPG" alt="Florece"></div>
-                            <div class="edu-foto-slot"><img loading="lazy" src="../image/Programas/Florece/IMG_0603.JPG" alt="Florece"></div>
+                            <div class="edu-foto-slot"><img loading="lazy" src="../image/Programas/Florece/IMG_0603.webp" alt="Florece"></div>
                             <div class="edu-foto-slot"><img loading="lazy" src="../image/Programas/Florece/IMG_3771.JPG" alt="Florece"></div>
                             <div class="edu-foto-slot"><img loading="lazy" src="../image/Programas/Florece/IMG_3779.JPG" alt="Florece"></div>
                             <div class="edu-foto-slot"><img loading="lazy" src="../image/Programas/Florece/IMG_E4017.JPG" alt="Florece"></div>
@@ -698,13 +729,13 @@
                             <img src="../image/Programas/Emprendemas.webp" alt="Emprendemas" class="edu-logo-grande">
                             <h3 class="edu-titulo">Emprendemas</h3>
                             <p class="edu-desc">Programa de impulso al emprendimiento cooperativista que brinda herramientas, capacitación y acompañamiento a asociados con iniciativas de negocio propias.</p>
-                            <div class="edu-tag"><i class="bi bi-check-circle-fill"></i> Emprendimiento</div>
-                            <div class="edu-tag"><i class="bi bi-check-circle-fill"></i> Acompañamiento</div>
-                            <div class="edu-tag"><i class="bi bi-check-circle-fill"></i> Desarrollo Económico</div>
+                            <div class="edu-tag"><i aria-hidden="true" class="bi bi-check-circle-fill"></i> Emprendimiento</div>
+                            <div class="edu-tag"><i aria-hidden="true" class="bi bi-check-circle-fill"></i> Acompañamiento</div>
+                            <div class="edu-tag"><i aria-hidden="true" class="bi bi-check-circle-fill"></i> Desarrollo Económico</div>
                         </div>
                     </div>
                     <div class="col-lg-8">
-                        <p class="edu-galeria-label"><i class="bi bi-images"></i> Galería del programa</p>
+                        <p class="edu-galeria-label"><i aria-hidden="true" class="bi bi-images"></i> Galería del programa</p>
                         <div class="edu-galeria" id="galeria-3">
                             <div class="edu-foto-slot"><img loading="lazy" src="../image/Programas/Emprendemas/1.jpg" alt="Emprendemas"></div>
                             <div class="edu-foto-slot"><img loading="lazy" src="../image/Programas/Emprendemas/2.jpg" alt="Emprendemas"></div>
@@ -736,11 +767,11 @@
                         <div class="text-center mb-4">
                             <p style="font-weight:700;color:#033E81;margin-bottom:12px;">¿Cómo calificarías nuestro servicio?</p>
                             <div id="estrellas" style="display:flex;justify-content:center;gap:10px;cursor:pointer;">
-                                <i class="bi bi-star-fill" data-val="1" style="font-size:2.2rem;color:#ddd;transition:color 0.2s;"></i>
-                                <i class="bi bi-star-fill" data-val="2" style="font-size:2.2rem;color:#ddd;transition:color 0.2s;"></i>
-                                <i class="bi bi-star-fill" data-val="3" style="font-size:2.2rem;color:#ddd;transition:color 0.2s;"></i>
-                                <i class="bi bi-star-fill" data-val="4" style="font-size:2.2rem;color:#ddd;transition:color 0.2s;"></i>
-                                <i class="bi bi-star-fill" data-val="5" style="font-size:2.2rem;color:#ddd;transition:color 0.2s;"></i>
+                                <i aria-hidden="true" class="bi bi-star-fill" data-val="1" style="font-size:2.2rem;color:#ddd;transition:color 0.2s;"></i>
+                                <i aria-hidden="true" class="bi bi-star-fill" data-val="2" style="font-size:2.2rem;color:#ddd;transition:color 0.2s;"></i>
+                                <i aria-hidden="true" class="bi bi-star-fill" data-val="3" style="font-size:2.2rem;color:#ddd;transition:color 0.2s;"></i>
+                                <i aria-hidden="true" class="bi bi-star-fill" data-val="4" style="font-size:2.2rem;color:#ddd;transition:color 0.2s;"></i>
+                                <i aria-hidden="true" class="bi bi-star-fill" data-val="5" style="font-size:2.2rem;color:#ddd;transition:color 0.2s;"></i>
                             </div>
                             <input type="hidden" id="calificacion" value="0">
                         </div>
@@ -757,7 +788,7 @@
                             <button type="submit" style="width:100%;padding:15px;background:linear-gradient(135deg,#033E81,#0554b0);color:white;border:none;border-radius:12px;font-size:1rem;font-weight:700;font-family:'Outfit',sans-serif;cursor:pointer;transition:all 0.3s;"
                                 onmouseover="this.style.opacity='0.9';this.style.transform='translateY(-2px)'"
                                 onmouseout="this.style.opacity='1';this.style.transform='translateY(0)'">
-                                <i class="bi bi-send-fill me-2"></i>Enviar mi opinión
+                                <i aria-hidden="true" class="bi bi-send-fill me-2"></i>Enviar mi opinión
                             </button>
                         </form>
 
@@ -848,6 +879,8 @@
     }
     </script>
 
+    </main>
+
     <!-- FOOTER -->
             <footer id="contacto">
 
@@ -870,53 +903,55 @@
                 <div class="row g-4 mb-5">
 
                     <div class="col-md-4">
-                        <img src="../image/Logo Cooperativa - Blanco.png" height="45" alt="Logo" class="mb-3">
+                        <img src="../image/Logo Cooperativa - Blanco.png" height="45" alt="Cooperativa San Pedro" class="mb-3">
                         <p style="color:#a8c4e0; line-height:1.8;">
                             Tu cooperativa de confianza, comprometida con tu bienestar financiero
                             y el desarrollo de nuestra comunidad.
                         </p>
                         <div class="d-flex gap-3 mt-3">
-                            <a href="https://www.facebook.com/sanpedroesmicoope/?locale=es_LA" target="_blank" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="bi bi-facebook"></i></a>
-                            <a href="#" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="bi bi-instagram"></i></a>
-                            <a href="https://api.whatsapp.com/send/?phone=50230776771&text&type=phone_number&app_absent=0" target="_blank" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="bi bi-whatsapp"></i></a>
+                            <a aria-label="Facebook" href="https://www.facebook.com/sanpedroesmicoope/?locale=es_LA" target="_blank" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i aria-hidden="true" class="bi bi-facebook"></i></a>
+                            <a aria-label="Instagram" href="https://www.instagram.com/cooperativasanpedro/" target="_blank" rel="noopener" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i aria-hidden="true" class="bi bi-instagram"></i></a>
+                            <a aria-label="WhatsApp" href="https://api.whatsapp.com/send/?phone=50230776771&text&type=phone_number&app_absent=0" target="_blank" style="width:38px;height:38px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i aria-hidden="true" class="bi bi-whatsapp"></i></a>
                         </div>
                     </div>
 
-                    <div class="col-md-2 offset-md-1">
-                        <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Enlaces</h6>
+                    <nav class="col-md-2 offset-md-1" aria-label="Enlaces">
+                        <h2 class="footer-titulo" style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Enlaces</h2>
                         <ul class="list-unstyled">
-                            <li class="mb-2"><a href="../index.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Inicio</a></li>
-                            <li class="mb-2"><a href="./agencias.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Agencias</a></li>
-                            <li class="mb-2"><a href="./about.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Nosotros</a></li>
-                            <li class="mb-2"><a href="./contactanos.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Contáctanos</a></li>
+                            <li class="mb-2"><a href="../index.html" style="color:#a8c4e0;text-decoration:none;"><i aria-hidden="true" class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Inicio</a></li>
+                            <li class="mb-2"><a href="./agencias.html" style="color:#a8c4e0;text-decoration:none;"><i aria-hidden="true" class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Agencias</a></li>
+                            <li class="mb-2"><a href="./about.html" style="color:#a8c4e0;text-decoration:none;"><i aria-hidden="true" class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Nosotros</a></li>
+                            <li class="mb-2"><a href="./contactanos.html" style="color:#a8c4e0;text-decoration:none;"><i aria-hidden="true" class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Contáctanos</a></li>
                         </ul>
-                    </div>
+                    </nav>
 
-                    <div class="col-md-2">
-                        <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Servicios</h6>
+                    <nav class="col-md-2" aria-label="Servicios">
+                        <h2 class="footer-titulo" style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Servicios</h2>
                         <ul class="list-unstyled">
-                            <li class="mb-2"><a href="./ahorro.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Ahorro</a></li>
-                            <li class="mb-2"><a href="./prestamos.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Préstamos</a></li>
-                            <li class="mb-2"><a href="./agentes.html" style="color:#a8c4e0;text-decoration:none;"><i class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Agentes</a></li>
+                            <li class="mb-2"><a href="./ahorro.html" style="color:#a8c4e0;text-decoration:none;"><i aria-hidden="true" class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Ahorro</a></li>
+                            <li class="mb-2"><a href="./prestamos.html" style="color:#a8c4e0;text-decoration:none;"><i aria-hidden="true" class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Préstamos</a></li>
+                            <li class="mb-2"><a href="./agentes.html" style="color:#a8c4e0;text-decoration:none;"><i aria-hidden="true" class="bi bi-chevron-right me-1" style="font-size:12px;"></i>Agentes</a></li>
                         </ul>
-                    </div>
+                    </nav>
 
                     <div class="col-md-3">
-                        <h6 style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Contacto</h6>
-                        <ul class="list-unstyled">
+                        <h2 class="footer-titulo" style="color:#4fc3f7;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">Contacto</h2>
+                        <address class="mb-0">
+                            <ul class="list-unstyled">
                             <li class="mb-3 d-flex align-items-center gap-3">
-                                <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i class="bi bi-telephone" style="color:#4fc3f7;"></i></div>
-                                <span style="color:#a8c4e0;">PBX 7963-2828</span>
+                                <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i aria-hidden="true" class="bi bi-telephone" style="color:#4fc3f7;"></i></div>
+                                <a href="tel:+50279632828" style="color:#a8c4e0;text-decoration:none;">PBX 7963-2828</a>
                             </li>
                             <li class="mb-3 d-flex align-items-center gap-3">
-                                <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i class="bi bi-envelope" style="color:#4fc3f7;"></i></div>
-                                <span style="color:#a8c4e0;">info@sanpedroesmicoope.com.gt</span>
+                                <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i aria-hidden="true" class="bi bi-envelope" style="color:#4fc3f7;"></i></div>
+                                <a href="mailto:info@sanpedroesmicoope.com.gt" style="color:#a8c4e0;text-decoration:none;">info@sanpedroesmicoope.com.gt</a>
                             </li>
                             <li class="d-flex align-items-center gap-3">
-                                <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i class="bi bi-geo-alt" style="color:#4fc3f7;"></i></div>
+                                <div style="width:38px;height:38px;min-width:38px;background:rgba(79,195,247,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i aria-hidden="true" class="bi bi-geo-alt" style="color:#4fc3f7;"></i></div>
                                 <span style="color:#a8c4e0;">San Pedro Soloma, Huehuetenango</span>
                             </li>
                         </ul>
+                        </address>
                     </div>
 
                 </div>
@@ -930,8 +965,6 @@
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
     <script src="../js/script.js"></script>
 
     <script>
@@ -953,7 +986,7 @@
 
     <!-- LIGHTBOX -->
     <div id="lbOverlay" role="dialog" aria-modal="true">
-        <button id="lbClose" aria-label="Cerrar"><i class="bi bi-x-lg"></i></button>
+        <button id="lbClose" aria-label="Cerrar"><i aria-hidden="true" class="bi bi-x-lg"></i></button>
         <img id="lbImg" src="" alt="Imagen ampliada">
     </div>
 

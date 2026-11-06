@@ -4,7 +4,7 @@ const jagel = window.location.pathname.includes('/pages/') ? '../' : '';
 const SEARCH_INDEX = [
     { label: 'Inicio',              url: jagel + 'index.html',                   keywords: ['inicio', 'home', 'principal', 'bienvenido'] },
     { label: 'Quiénes Somos',       url: jagel + 'pages/about.html',              keywords: ['quienes somos', 'quiénes somos', 'nosotros', 'cooperativa', 'sobre'] },
-    { label: 'Historia',            url: jagel + 'pages/historia.html',           keywords: ['historia', 'fundacion', 'fundación', 'origen', 'años'] },
+    { label: 'Historia',            url: jagel + 'pages/HistoriaCoope.html',          keywords: ['historia', 'fundacion', 'fundación', 'origen', 'años'] },
     { label: 'Misión y Visión',     url: jagel + 'pages/mision-vision.html',      keywords: ['mision', 'misión', 'vision', 'visión', 'valores', 'objetivos'] },
     { label: 'Ahorro',              url: jagel + 'pages/ahorro.html',             keywords: ['ahorro', 'ahorros', 'cuenta', 'deposito', 'depósito', 'ahorrar'] },
     { label: 'Préstamos',           url: jagel + 'pages/prestamos.html',          keywords: ['prestamo', 'préstamo', 'prestamos', 'préstamos', 'credito', 'crédito', 'financiamiento', 'fianza'] },
@@ -111,13 +111,16 @@ if (navToggle && mainNav) {
     navToggle.addEventListener('click', function () {
         navToggle.classList.toggle('open');
         mainNav.classList.toggle('open');
+        navToggle.setAttribute('aria-expanded', mainNav.classList.contains('open'));
     });
 
     mainNav.querySelectorAll('.has-dropdown > .nav-link').forEach(link => {
         link.addEventListener('click', function (e) {
             if (window.innerWidth <= 992) {
                 e.preventDefault();
-                this.closest('.has-dropdown').classList.toggle('mob-open');
+                const item = this.closest('.has-dropdown');
+                item.classList.toggle('mob-open');
+                this.setAttribute('aria-expanded', item.classList.contains('mob-open'));
             }
         });
     });
@@ -127,6 +130,7 @@ if (navToggle && mainNav) {
             if (window.innerWidth <= 992) {
                 navToggle.classList.remove('open');
                 mainNav.classList.remove('open');
+                navToggle.setAttribute('aria-expanded', 'false');
             }
         });
     });
@@ -193,12 +197,16 @@ document.addEventListener('DOMContentLoaded', function () {
 const fraseEl = document.getElementById('fraseTexto');
 
 if (fraseEl) {
-    const texto = "Tu cooperativa de confianza, comprometida con tu bienestar financiero y el desarrollo de nuestra comunidad.";
+    // La frase completa está en el HTML (para Google y lectores de pantalla).
+    // Un script junto al <h1> la separa en letras ocultas; aquí se muestran una por una.
+    const letras = fraseEl.querySelectorAll('.letra');
+    const cursor = fraseEl.querySelector('.cursor-escritura');
     let i = 0;
 
     function escribir() {
-        if (i < texto.length) {
-            fraseEl.innerHTML = texto.substring(0, i + 1);
+        if (i < letras.length) {
+            letras[i].classList.add('vista');
+            if (cursor) letras[i].after(cursor);
             i++;
             setTimeout(escribir, 45);
         }
@@ -212,11 +220,11 @@ if (fraseEl) {
         const overlay = document.getElementById('fraseOverlay');
         const video = document.getElementById('videoFondo');
 
-        // Desvanecer texto
+        // Desvanecer texto (sin display:none, para que el <h1> siga existiendo para Google)
         if (contenedor) {
             contenedor.style.transition = 'opacity 1.2s ease';
             contenedor.style.opacity = '0';
-            setTimeout(() => contenedor.style.display = 'none', 1200);
+            contenedor.style.pointerEvents = 'none';
         }
 
         // Iniciar video y desvanecer overlay con blur
@@ -251,6 +259,11 @@ function animarContador(el, target, duracion) {
 const statsSection = document.querySelector('.stats-section');
 
 if (statsSection) {
+    // El HTML trae el valor real (para Google); se pone en 0 para la animación.
+    document.querySelectorAll('.stat-numero[data-target]').forEach(num => {
+        num.textContent = (num.getAttribute('data-prefix') || '') + '0';
+    });
+
     const statsObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
